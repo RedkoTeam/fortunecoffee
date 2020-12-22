@@ -1444,24 +1444,6 @@ function Onboarding({}){
     </ViewPager>
   )}
 
-
-
-    function Onboarding3({}){
-      const navigation = useNavigation();
-      return (
-        <View style={styles.virtualContainer}>
-          <ImageBackground source={OnboardingBg1} style={styles.virtualOne}>
-            <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-between', padding: 25, marginTop: 18}}>
-            </View>
-            <View style={{flexDirection: 'row',  width: '100%', justifyContent: 'center',marginTop: 600}}>
-           <TouchableOpacity onPress={() => navigation.navigate('Home')}>
-                <Image source={getStarted} />
-              </TouchableOpacity>
-           </View>
-             </ImageBackground>
-        </View>
-      )}
-
 //HOROSCOPE MAIN
 function Horoscopemain({}) {
   const navigation = useNavigation();
@@ -1675,9 +1657,6 @@ function App() {
         <Stack.Screen name="Subscription" component={SubscriptionScreen} />
         <Stack.Screen name="Fortune" component={FortuneModal} />
         <Stack.Screen name="Profile" component={Profile} />
-        <Stack.Screen name="Onboarding" component={Onboarding}/> 
-        <Stack.Screen name="Onboarding2" component={Onboarding2} />
-        <Stack.Screen name="Onboarding3" component={Onboarding3} />
         <Stack.Screen name="Horoscopeunique" component={Horoscopeunique} />
         <Stack.Screen name="Horoscopemain" component={Horoscopemain} />
       </Stack.Navigator>
