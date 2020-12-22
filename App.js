@@ -613,6 +613,7 @@ function HomeScreen({ navigation }) {
             <Image source={TakePhoto} />
           </TouchableOpacity>
         </View>
+        
         {/* <Button title="Subscription" onPress={ () => navigation.navigate('Subscription')} /> */}
         <Image source={PickCard} style={{ margin: 8 }} />
           {/* Pick a card  */}
@@ -626,12 +627,12 @@ function HomeScreen({ navigation }) {
                 <FlipCard
                   flipHorizontal={true}
                   flipVertical={false}>
-                  {/*<View>
+                <View>
                    <Image source={front} style={styles.cardStyle} />
                   </View>
                   <View>
                     <Image source={meaning} style={styles.cardStyle} />
-                  </View>*/}
+                  </View>
                 </FlipCard>
               </View>
             </View>
@@ -702,9 +703,6 @@ function HomeScreenLoggedIn({ navigation }) {
             <Image source={VirtualCoffee} />
           </TouchableOpacity>
           <TouchableOpacity onPress={() => navigation.navigate('Virtual')}>
-            <Image source={TakePhoto} />
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => navigation.navigate('Horoscopemain')}>
             <Image source={TakePhoto} />
           </TouchableOpacity>
         </View>
