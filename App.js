@@ -704,6 +704,9 @@ function HomeScreenLoggedIn({ navigation }) {
           <TouchableOpacity onPress={() => navigation.navigate('Virtual')}>
             <Image source={TakePhoto} />
           </TouchableOpacity>
+          <TouchableOpacity onPress={() => navigation.navigate('Horoscopemain')}>
+            <Image source={TakePhoto} />
+          </TouchableOpacity>
         </View>
         <Image source={PickCard} style={{ margin: 8 }} />
         <TouchableOpacity onPress={toggleModal2} style={styles.cards}>
