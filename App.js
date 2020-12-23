@@ -1964,11 +1964,6 @@ const [randWord3, setRandomWord3] = useState('');
 const [randWord4, setRandomWord4] = useState('');
 const [randAdvice, setRandomAdvice] = useState('');
 
- // MAKE TEXT ONLY //  
-
-// componentDidMount(){
-//   this.timer = setInterval(()=> this.setRandomFortune(), 43200)
-//  }
 
 
 useEffect(() => {
@@ -2156,7 +2151,7 @@ useEffect(() => {
   function getRandomNumber() {
     let random = Math.floor((Math.random() * numbersArray.length))
     console.log(random);
-    let fortune = numbersArray[random];
+    let randNumber = numbersArray[random];
     console.log(randNumber);
     return randNumber;
   
@@ -2165,7 +2160,7 @@ useEffect(() => {
   function getRandomLetter() {
     let random = Math.floor((Math.random() * lettersArray.length))
     console.log(random);
-    let fortune = lettersArray[random];
+    let randLetter = lettersArray[random];
     console.log(randLetter);
     return randLetter;
   
