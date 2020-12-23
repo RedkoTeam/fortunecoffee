@@ -1958,21 +1958,31 @@ const [randomFortune, setRandomFortune] = useState('');
 const [buttonClicked, setButtonClicked] = useState(false);
 const [randNumber, setRandomNumber] = useState('');
 const [randLetter, setRandomLetter] = useState('');
-const [randWord, setRandomWord] = useState('');
+const [randThanks, setRandomThanks] = useState('');
 const [randWord2, setRandomWord2] = useState('');
 const [randWord3, setRandomWord3] = useState('');
 const [randWord4, setRandomWord4] = useState('');
 const [randAdvice, setRandomAdvice] = useState('');
 
-{/*  // MAKE TEXT ONLY //  
+ // MAKE TEXT ONLY //  
 
-componentDidMount(){
-  this.timer = setInterval(()=> this.setRandomFortune(), 43200)
- }
+// componentDidMount(){
+//   this.timer = setInterval(()=> this.setRandomFortune(), 43200)
+//  }
 
 
-useEffect(() => {setRandomFortune(getRandomFortune)()
-              }, []);*/}
+useEffect(() => {
+  setRandomFortune(getRandomFortune)
+  setRandomNumber(getRandomNumber)
+  setRandomLetter(getRandomLetter)
+  setRandomThanks(getRandomThanks)
+  setRandomWord2(getRandomWord2)
+  setRandomWord3(getRandomWord3)
+  setRandomWord4(getRandomWord4)
+  setRandomAdvice(getRandomAdvice)
+  
+
+ }, [])
 
 
   return (
@@ -1993,7 +2003,7 @@ useEffect(() => {setRandomFortune(getRandomFortune)()
         <Image source={number} style={{ marginTop: 10 }} />
         <Text style={{fontSize:14, color:'white', marginTop:5}}> {randNumber}  </Text>
           
-            {!buttonClicked ? (
+            {/* {!buttonClicked ? (
               <Button
                 onPress={() => {
                   setRandomNumber(getRandomNumber)
@@ -2002,12 +2012,12 @@ useEffect(() => {setRandomFortune(getRandomFortune)()
                 title='Number'
               >
               </Button>
-            ) : null}
+            ) : null} */}
         
         <Image source={letter} style={{ marginTop: 10 }} />
         <Text style={{fontSize:14, color:'white', marginTop:5}}> {randLetter}  </Text>
           
-          {!buttonClicked ? (
+          {/* {!buttonClicked ? (
             <Button
               onPress={() => {
                 setRandomLetter(getRandomLetter)
@@ -2016,11 +2026,11 @@ useEffect(() => {setRandomFortune(getRandomFortune)()
               title='Letter'
             >
             </Button>
-          ) : null}
+          ) : null} */}
         <Image source={appre} style={{ marginTop: 10 }} />
         <Text style={{fontSize:14, color:'white', marginTop:5}}> {randThanks}  </Text>
           
-          {!buttonClicked ? (
+          {/* {!buttonClicked ? (
             <Button
               onPress={() => {
                 setRandomThanks(getRandomThanks)
@@ -2029,7 +2039,7 @@ useEffect(() => {setRandomFortune(getRandomFortune)()
               title='Appreciate'
             >
             </Button>
-          ) : null}
+          ) : null} */}
         </View>
         <Image source={PiscesCard} style={{ justifyContent: 'space-evenly', marginRight:70 }} />
 
@@ -2037,7 +2047,7 @@ useEffect(() => {setRandomFortune(getRandomFortune)()
         <Image source={love} style={{ marginTop: 10, marginLeft:12}} />
         <Text style={{fontSize:14, color:'white', marginTop:5}}> {randWord2}  </Text>
           
-          {!buttonClicked ? (
+          {/* {!buttonClicked ? (
             <Button
               onPress={() => {
                 setRandomWord2(getRandomWord2)
@@ -2046,11 +2056,11 @@ useEffect(() => {setRandomFortune(getRandomFortune)()
               title='Word'
             >
             </Button>
-          ) : null}
+          ) : null} */}
         <Image source={career} style={{ marginTop: 10}} />
         <Text style={{fontSize:14, color:'white', marginTop:5}}> {randWord3}  </Text>
           
-          {!buttonClicked ? (
+          {/* {!buttonClicked ? (
             <Button
               onPress={() => {
                 setRandomWord3(getRandomWord3)
@@ -2059,11 +2069,11 @@ useEffect(() => {setRandomFortune(getRandomFortune)()
               title='Word'
             >
             </Button>
-          ) : null}
+          ) : null} */}
         <Image source={luck} style={{ marginTop: 0 , marginLeft:12}} />
         <Text style={{fontSize:14, color:'white', marginTop:5}}> {randWord4}  </Text>
           
-          {!buttonClicked ? (
+          {/* {!buttonClicked ? (
             <Button
               onPress={() => {
                 setRandomWord4(getRandomWord4)
@@ -2072,7 +2082,7 @@ useEffect(() => {setRandomFortune(getRandomFortune)()
               title='Word'
             >
             </Button>
-          ) : null}
+          ) : null} */}
         </View>
         </View>
         
@@ -2088,7 +2098,7 @@ useEffect(() => {setRandomFortune(getRandomFortune)()
 
 
             
-            {!buttonClicked ? (
+            {/* {!buttonClicked ? (
               <Button
                 onPress={() => {
                   setRandomFortune(getRandomFortune)
@@ -2097,7 +2107,7 @@ useEffect(() => {setRandomFortune(getRandomFortune)()
                 title='View Horoscope of Today'
               >
               </Button>
-            ) : null}
+            ) : null} */}
 
 
             </View>
@@ -2110,7 +2120,7 @@ useEffect(() => {setRandomFortune(getRandomFortune)()
             <View>
             <Text style={{fontSize:17, color:'white'}}> {randAdvice}  </Text>
           
-            {!buttonClicked ? (
+            {/* {!buttonClicked ? (
               <Button
                 onPress={() => {
                   setRandomAdvice(getRandomAdvice)
@@ -2119,7 +2129,7 @@ useEffect(() => {setRandomFortune(getRandomFortune)()
                 title='View Advice of Today'
               >
               </Button>
-            ) : null}
+            ) : null} */}
             
             </View>
        
