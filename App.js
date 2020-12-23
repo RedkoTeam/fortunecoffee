@@ -1957,7 +1957,7 @@ const [randomFortune, setRandomFortune] = useState('');
 const [buttonClicked, setButtonClicked] = useState(false);
 const [randNumber, setRandomNumber] = useState('');
 const [randLetter, setRandomLetter] = useState('');
-const [randWord, setRandomWord] = useState('');
+const [randThanks, setRandomThanks] = useState('');
 const [randWord2, setRandomWord2] = useState('');
 const [randWord3, setRandomWord3] = useState('');
 const [randWord4, setRandomWord4] = useState('');
@@ -2212,10 +2212,6 @@ function getRandomAdvice() {
   }
 
 }
-
-
-
-
 
 
 
