@@ -3,6 +3,11 @@ import React, { useRef, useEffect, useState, useCallback, Componenet, useFocusEf
 
 import './fixtimerbug';
 import {fortunesArray} from './fortunesArray';
+import {numbersArray} from './numbersArray';
+import {lettersArray} from './lettersArray';
+import {wordsArray} from './wordsArray';
+import {adviceArray} from './adviceArray';
+
 
 import { Button, 
   View, 
@@ -23,6 +28,7 @@ import { Button,
   } from 'react-native';
 import { NavigationContainer, useNavigation } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
+
 
 import ViewPager from '@react-native-community/viewpager';
 
@@ -73,21 +79,49 @@ import PiscesTxt from './assets/FortuneCoffeePNGassets/horoscopes/PISCES.png'
 import linehors from './assets/FortuneCoffeePNGassets/horoscopes/Line_57.png'
 import hottxt from './assets/FortuneCoffeePNGassets/horoscopes/hottxt.png'
 import advicetxt from './assets/FortuneCoffeePNGassets/horoscopes/ADVICE.png'
-import leftword from './assets/FortuneCoffeePNGassets/horoscopes/leftword.png'
-import rightword from './assets/FortuneCoffeePNGassets/horoscopes/rightword.png'
+import appre from './assets/FortuneCoffeePNGassets/horoscopes/Appreciate.png'
+import career from './assets/FortuneCoffeePNGassets/horoscopes/Career.png'
+import love from './assets/FortuneCoffeePNGassets/horoscopes/Love.png'
+import luck from './assets/FortuneCoffeePNGassets/horoscopes/Luck.png'
+import number from './assets/FortuneCoffeePNGassets/horoscopes/Number.png'
+import letter from './assets/FortuneCoffeePNGassets/horoscopes/Letter.png'
+
 
 //HOROSCOPE MAIN//
 import Horoscopetxt from './assets/FortuneCoffeePNGassets/horoscopes/Horoscopes.png'
+import Aquariusbttn from './assets/FortuneCoffeePNGassets/horoscopes/horoscopebtns/Aquarius-bttn.png'
+import Piscesbttn from './assets/FortuneCoffeePNGassets/horoscopes/horoscopebtns/Pisces-bttn.png'
+import Ariesbttn from './assets/FortuneCoffeePNGassets/horoscopes/horoscopebtns/Aries-bttn.png'
+import Cancerbttn from './assets/FortuneCoffeePNGassets/horoscopes/horoscopebtns/Cancer-bttn.png'
+import Capribttn from './assets/FortuneCoffeePNGassets/horoscopes/horoscopebtns/Capricorn-bttn.png'
+import Geminibttn from './assets/FortuneCoffeePNGassets/horoscopes/horoscopebtns/Gemini-bttn.png'
+import Leobttn from './assets/FortuneCoffeePNGassets/horoscopes/horoscopebtns/Leo-bttn.png'
+import Librabttn from './assets/FortuneCoffeePNGassets/horoscopes/horoscopebtns/Libra-bttn.png'
+import Sagittariusbttn from './assets/FortuneCoffeePNGassets/horoscopes/horoscopebtns/Sagittarius-bttn.png'
+import Scorpiobttn from './assets/FortuneCoffeePNGassets/horoscopes/horoscopebtns/Scorpio-bttn.png'
+import Taurusbttn from './assets/FortuneCoffeePNGassets/horoscopes/horoscopebtns/Taurus-bttn.png'
+import Virgobttn from './assets/FortuneCoffeePNGassets/horoscopes/horoscopebtns/Virgo-bttn.png'
+
+
 
 
 //NAVBAR//
 import Ellipse1 from './assets/FortuneCoffeePNGassets/HomePage/ellipse.png';
 import Home from './assets/FortuneCoffeePNGassets/HomePage/Home.png';
+import HomeB from './assets/FortuneCoffeePNGassets/HomePage/homeb.png';
 import Shop from './assets/FortuneCoffeePNGassets/HomePage/Shop.png';
 import Favorites from './assets/FortuneCoffeePNGassets/HomePage/Favorites.png';
+import FavoritesW from './assets/FortuneCoffeePNGassets/HomePage/favw.png';
 import homeSelected from './assets/FortuneCoffeePNGassets/HomePage/homeSelected.png';
 import favSelected from './assets/FortuneCoffeePNGassets/HomePage/favSelected.png';
 import shopSelected from './assets/FortuneCoffeePNGassets/HomePage/shopSelected.png';
+import Psychicbtn from './assets/FortuneCoffeePNGassets/HomePage/psyhbtn.png';
+import PsychicbtnW from './assets/FortuneCoffeePNGassets/HomePage/psW.png';
+import Horosbtn from './assets/FortuneCoffeePNGassets/HomePage/horosbtn.png';
+import HorosbtnW from './assets/FortuneCoffeePNGassets/HomePage/horW.png';
+import Profilebtn from './assets/FortuneCoffeePNGassets/HomePage/Profile.png';
+import ProfilebtnW from './assets/FortuneCoffeePNGassets/HomePage/proW.png';
+
 //HOMEPAGE//
 import TakePhoto from './assets/FortuneCoffeePNGassets/HomePage/TakePhoto.png';
 import VirtualCoffee from './assets/FortuneCoffeePNGassets/HomePage/VirtualCoffee.png';
@@ -96,6 +130,8 @@ import SignUpButton from './assets/FortuneCoffeePNGassets/HomePage/SignUpButton.
 import LargeTitleApp from './assets/FortuneCoffeePNGassets/HomePage/FortuneCoffeeTitle.png';
 import PickCard from './assets/FortuneCoffeePNGassets/HomePage/PickCard.png';
 import Cards from './assets/FortuneCoffeePNGassets/HomePage/allCards.png';
+import bgstars from './assets/Bgstar.png';
+import bgcoming from './assets/bgcoming.png';
 
 //SHOP PAGE// 
 import shop from './assets/FortuneCoffeePNGassets/shopPage/Shop.png';
@@ -195,6 +231,9 @@ import photoGallery from './assets/photoGallery.png';
 
 //Saved Fortunes //
 
+//Psyhic//
+
+
 //Profile //
 import profileImage from './assets/FortuneCoffeePNGassets/Profile.png';
 import skipImage from './assets/FortuneCoffeePNGassets/Skip.png';
@@ -213,8 +252,11 @@ import { Alert } from 'react-native';
 
 // Card utils
 import CheckLoginToken from './util/CheckLoginToken'
-import RegularCardCounter from './util/cardCounters/RegularCardCounter'
+import RegularCardCounter from './util/cardCounters/RegularCardCounter.js'
+import FortuneCardCounter from './util/cardCounters/FortuneCardCounter.js'
 
+// Protypes
+import prototype from './util/prototypes/ProtoTypes'
 
 ////////////////////
 // Styling  //
@@ -358,6 +400,25 @@ const styles = StyleSheet.create({
     width:'100%',
     opacity: 0.7,
   },
+
+  bgfull: {
+    flex: 1,
+    resizeMode:'cover',
+    justifyContent: 'center',
+    alignItems: 'center',
+    width:'100%',
+    opacity: 1,
+  },
+
+  bgfull2: {
+    flex: 1,
+    resizeMode:'cover',
+    justifyContent: 'center',
+    alignItems: 'center',
+    width:'100%',
+    opacity: 0.3,
+  },
+
   flexInRows: {
     position:'absolute',
     top: 0, 
@@ -380,6 +441,15 @@ const styles = StyleSheet.create({
     alignContent:'stretch',
     padding: 15,
   },
+
+  readingTableContainer2: {
+    width:'90%',
+    alignContent:'stretch',
+    padding:10,
+    
+  },
+
+
   helloUserTextContainer: {
     fontSize:35,
     fontStyle:'normal',
@@ -441,7 +511,7 @@ const styles = StyleSheet.create({
     margin: 40,
   },
   savedFortuneTextBox: {
-    height: "7%",
+    height: "4%",
     width: "90%",
     borderWidth: 1,
     borderRadius: 10,
@@ -486,193 +556,222 @@ const styles = StyleSheet.create({
 //ReadingAnimation back to PhotoReading 
 function HomeScreen({ navigation }) {
   const [isModalVisible, setModalVisible] = useState(false);
+  const [isFortuneModalVisible, setFortuneModalVisible] = useState(false);
   const [front, setFront] = useState(dummyPath);
   const [meaning, setMeaning] = useState(dummyPath);
   const toggleModal = () => {
     setModalVisible(!isModalVisible);
   };
 
-  /// Modal Viewer based on date. 
-  const [userCanViewCard, setUserCanViewCard] = useState(false);
+    // Fortune Modal
 
-  // UseEffect for checking the card before each trigger
-  // Rather than putting it inside the function, we put it on the useeffect for checking
-  useEffect(()=>{
-    let mounted = true;
-
-    // If mounted . Check the state then storage.
-    if(mounted){
-      if(isModalVisible === true){
-        console.log("Modal is visible")
-        // Check the counter based on async storage, not fire ..
-        RegularCardCounter().then((result)=>{
-          console.log("User can view card : " , result)
-
-          // CHANGE THIS TO FALSE AND TRUE IF YOU WAANT TO CHECK.
-          // TODO : DATE FILTER AND CHECKING
-          setUserCanViewCard(false)
+    const toggleFortuneModal = () =>{
+      setFortuneModalVisible(!isFortuneModalVisible)
+    }
+  
+  
+    /// Modal Viewer based on date. 
+    const [userCanViewCard, setUserCanViewCard] = useState(false);
+    const [cardCheckTimeRemaining, setCardCheckTimeRemaining] = useState("00:00:00")
+  
+    // UseEffect for checking the card before each trigger
+    // Rather than putting it inside the function, we put it on the useeffect for checking
+    useEffect(()=>{
+      let mounted = true;
+  
+      // If mounted . Check the state then storage.
+      if(mounted){
+        if(isModalVisible === true){
+          console.log("Modal is visible")
+          // Check the counter based on async storage, not fire ..
+          RegularCardCounter().then((result)=>{
+            if(mounted){
+            console.log("User can view card : " , result)
+            setUserCanViewCard(result.userCanView)
+            console.log("Time Remaining in seconds : ", result.timeRemaining)
+            // update time remaining onto modal, must pass seconds ! .toHHMMSS = custom prototype
+              setCardCheckTimeRemaining(result.timeRemaining.toString().toHHMMSS());
+            }
+          });
+        }
+      }
+      return () =>{
+        mounted = false;
+      }
+    },[isModalVisible])
+  
+    // This use Effect is only called when the navigation lands here, This will reduce the amount of times
+    // it will run on this page.
+    useEffect(()=>{
+      let mounted = true;
+      if(mounted)
+      {
+        // Checks the login upon opening App
+      CheckLoginToken().then(async (result)=>{
+          console.log("User TYPE  : " , result)
+          // Navigate the user's based off of results
+          // TODO, log the user in via firestore
+          if(result === "User"){
+            navigation.navigate("HomeLoggedIn")
+          }
         });
       }
+      return ()=>{
+        mounted = false;
+      }
+    },[navigation])
+  
+    const toggleModal2 = () => {
+      setModalVisible(!isModalVisible);
+      let random = Math.floor((Math.random() * cardsAndMeaning.length));
+      setFront(cardsAndMeaning[random][0]);
+      setMeaning(cardsAndMeaning[random][1]);
     }
-    return () =>{
-      mounted = false;
+  
+    state = {
+      open: true,
+    };
+    toggleImage = () => {
+      this.setState(state => ({ open: !state.open }));
     }
-  },[isModalVisible])
-  // This use Effect is only called when the navigation lands here, This will reduce the amount of times
-  // it will run on this page.
-  useEffect(()=>{
-    let mounted = true;
-    if(mounted)
-    {
-      // Checks the login upon opening App
-    CheckLoginToken().then(async (result)=>{
-        console.log("User TYPE  : " , result)
-        // Navigate the user's based off of results
-        // TODO, log the user in via firestore
-        if(result === "User"){
-          navigation.navigate("HomeLoggedIn")
-        }
-      });
-    }
-    return ()=>{
-      mounted = false;
-    }
-  },[navigation])
-
-  const toggleModal2 = () => {
-    setModalVisible(!isModalVisible);
-    let random = Math.floor((Math.random() * cardsAndMeaning.length));
-    setFront(cardsAndMeaning[random][0]);
-    setMeaning(cardsAndMeaning[random][1]);
-  }
-
-  state = {
-    open: true,
-  };
-  toggleImage = () => {
-    this.setState(state => ({ open: !state.open }));
-  }
-
-  const Render_CardModule = () =>{
-
-    // TODO, give the real estamate time.
-    const counter = 2;
-
-    return userCanViewCard ? (
-      <> 
-    {/* Show module if user can view*/}
-          <Modal isVisible={isModalVisible} style={{ alignItems: "center", flex: 1 }}>
-            <View>
-              <Text style={styles.tapCard}>Tap card to flip</Text>
-              <Button title="Hide " onPress={toggleModal} />
-              <View style={{ marginBottom: 500 }}>
-                <FlipCard
-                  flipHorizontal={true}
-                  flipVertical={false}>
-                  <View style={styles.face}>
-                    {/* <Text>The Face</Text> */}
-                    <Image source={front} style={styles.cardStyle} />
-                  </View>
-                  <View>
-                    {/* <Text>The Back</Text> */}
-                    <Image source={meaning} style={styles.cardStyle} />
-                  </View>
-                </FlipCard>
+  
+    const Render_CardModule = () =>{
+  
+      // TODO, give the real estamate time.
+      // Result Returns, an object, i sent back the calculatorions. 
+  
+      // Just needs to show the time in 00:00 format. It's back in seconds. 
+      return userCanViewCard ? (
+        <> 
+      {/* Show module if user can view*/}
+            <Modal isVisible={isModalVisible} style={{ alignItems: "center", flex: 1 }}>
+              <View>
+                <Text style={styles.tapCard}>Tap card to flip</Text>
+                <Button title="Hide " onPress={toggleModal} />
+                <View style={{ marginBottom: 500 }}>
+                  <FlipCard
+                    flipHorizontal={true}
+                    flipVertical={false}>
+                    <View style={styles.face}>
+                      {/* <Text>The Face</Text> */}
+                      <Image source={front} style={styles.cardStyle} />
+                    </View>
+                    <View>
+                      {/* <Text>The Back</Text> */}
+                      <Image source={meaning} style={styles.cardStyle} />
+                    </View>
+                  </FlipCard>
+                </View>
               </View>
+            </Modal>
+        </>
+      ) : <>
+      {/* What to show iff the user is over the max setting.*/}
+      <Modal isVisible={isModalVisible} style={{ alignItems: "center", flex: 1 }}>
+          <View>
+            <Text style={styles.tapCard}>Already checked!{cardCheckTimeRemaining} remaining</Text>
+            <Button title="Hide " onPress={toggleModal} />
+            <View style={{ marginBottom: 500 }}>
             </View>
-          </Modal>
-      </>
-    ) : <>
-    {/* What to show iff the user is over the max setting.*/}
-    <Modal isVisible={isModalVisible} style={{ alignItems: "center", flex: 1 }}>
-        <View>
-          <Text style={styles.tapCard}>You already checked! Please check agian in {counter} hours.</Text>
-          <Button title="Hide " onPress={toggleModal} />
-          <View style={{ marginBottom: 500 }}>
           </View>
-        </View>
-      </Modal>
-    </>;
-  }
- 
-
-  return (
-    <View style={styles.mainContainer}>
-      {/* <Button text="Clear Storeage" onPress={ () => {AsyncStorage.clear()} } />*/ }
-      <View style={{ flex: 1, alignItems: 'center' }}>
-        <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-between', padding: 25, marginTop: 18 }}>
-          <TouchableOpacity onPress={() => navigation.navigate('SignUp')}>
-            <Image source={SignUpButton} />
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => navigation.navigate('SignIn')}>
-            <Image source={SignInButton} />
-          </TouchableOpacity>
-        </View>
-        <Image source={LargeTitleApp} style={{ width: '100%' }} />
-        <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-evenly' }}>
-          <TouchableOpacity onPress={() => navigation.navigate('VirtualOne')}>
-          {/* Virtual Coffe Reading */}
-            <Image source={VirtualCoffee} />
-          </TouchableOpacity>
-          {/* Take a photo for reading */}
-          <TouchableOpacity onPress={() => navigation.navigate('Virtual')}>
-            <Image source={TakePhoto} />
-          </TouchableOpacity>
-        </View>
-        {/* <Button title="Subscription" onPress={ () => navigation.navigate('Subscription')} /> */}
-        <Image source={PickCard} style={{ margin: 8 }} />
-          {/* Pick a card  */}
-        <TouchableOpacity onPress={toggleModal2} style={styles.cards}>
-          <Image source={Cards} />
-          <Modal isVisible={isModalVisible} style={{ alignItems: "center", flex: 1 }}>
-            <View>
-              <Text style={styles.tapCard}>Tap card to flip</Text>
-              <Button title="Hide Card" onPress={toggleModal} />
-              <View style={{ marginBottom: 500 }}>
-                <FlipCard
-                  flipHorizontal={true}
-                  flipVertical={false}>
-                  {/*<View>
-                   <Image source={front} style={styles.cardStyle} />
-                  </View>
-                  <View>
-                    <Image source={meaning} style={styles.cardStyle} />
-                  </View>*/}
-                </FlipCard>
-              </View>
+        </Modal>
+      </>;
+    }
+  
+    const CheckFortuneCountCoffeeReading = () =>{
+       // navigation.navigate('VirtualOne')
+       FortuneCardCounter().then((result)=>{
+        console.log("THe user can go to next screen : ", result)
+        if(result){
+        // Continue to Virtual Coffee Reading.
+          navigation.navigate('VirtualOne')
+        }else{
+          // dont navigate
+         console.log("User, maxed out the time, not navigating")
+         toggleFortuneModal();
+  
+        }
+       });
+  
+    }
+    
+    const CheckFortuneCountPhoto = () =>{
+      // navigation.navigate('VirtualOne')
+      FortuneCardCounter().then((result)=>{
+       console.log("THe user can go to next screen : ", result)
+       if(result){
+        // Continue to photo navigation page.
+         navigation.navigate('Virtual')
+       }else{
+         // dont navigate
+         console.log("User, maxed out the time, not navigating")
+         toggleFortuneModal();
+       }
+      });
+  
+   }
+  
+    const RenderTheFortuneButtons = () =>{
+      return (
+        <> 
+         <Modal isVisible={isFortuneModalVisible} style={{ alignItems: "center", flex: 1 }}>
+          <View>
+            <Text style={styles.tapCard}>Sorry, you ran out of weekly fortune. Check next week!</Text>
+            <Button title="Hide " onPress={toggleFortuneModal} />
+            <View style={{ marginBottom: 500 }}>
             </View>
-          </Modal>
-        </TouchableOpacity>
-        {/*<View>
-        <TouchableOpacity onPress={toggleModal} style={styles.cards}>
-          <Image source={Cards} />
-           <Modal isVisible={isModalVisible} style = {{alignItems: "center"}}>
-            <View>
-              <Text style = {styles.tapCard}>Tap card to flip</Text>
-              <Button title="Hide modal" onPress={toggleModal} />
-              <View style={{marginBottom:500}}>
-                <FlipCard
-                  flipHorizontal={true}
-                  flipVertical={false}>
-                  <View style={styles.face}>
-                    <Text>The Face</Text>
-                    <Image source={arr[0]} style={styles.cardStyle} />
-                  </View>
-                  <View>
-                    <Text>The Back</Text>
-                    <Image source={arr[2]} style={styles.cardStyle} />
-                  </View>
-                </FlipCard>
+          </View>
+        </Modal>
+  
+         <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-evenly' }}>
+            <TouchableOpacity onPress={() => {
+               CheckFortuneCountCoffeeReading()
+              }}>
+            {/* Virtual Coffe Reading */}
+              <Image source={VirtualCoffee} />
+            </TouchableOpacity>
+            {/* Take a photo for reading */}
+            <TouchableOpacity onPress={() => {
+              CheckFortuneCountPhoto()
+            }}>
+              <Image source={TakePhoto} />
+            </TouchableOpacity>
+          </View>
+        </>
+      )
+    }
+  
+    return (
+      <View style={styles.mainContainer}>
+        <View style={{ flex: 1, alignItems: 'center' }}>
+          <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-between', padding: 25, marginTop: 18 }}>
+            <TouchableOpacity onPress={() => navigation.navigate('SignUp')}>
+              <Image source={SignUpButton} />
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => navigation.navigate('SignIn')}>
+              <Image source={SignInButton} />
+            </TouchableOpacity>
+          </View>
+          <Image source={LargeTitleApp} style={{ width: '100%' }} />
+          {RenderTheFortuneButtons()}
+          {/* <Button title="Subscription" onPress={ () => navigation.navigate('Subscription')} /> */}
+          <Image source={PickCard} style={{ margin: 8 }} />
+            {/* Pick a card  */}
+          <TouchableOpacity onPress={toggleModal2} style={styles.cards}>
+            <Image source={Cards} />
+            <Modal isVisible={isModalVisible} style={{ alignItems: "center", flex: 1 }}>
+              <View>
+                <View style={{ marginBottom: 500 }}>
+                  {Render_CardModule()}
+                </View>
               </View>
-            </View>
-          </Modal> 
-        </TouchableOpacity>
-        { /* Checker if the cards are */}
-        <NavBar />
+            </Modal>
+          </TouchableOpacity>
+          <NavBar />
+        </View>
       </View>
-    </View>
-  );
-}
+    );
+  }
 
 function HomeScreenLoggedIn({ navigation }) {
   const [isModalVisible, setModalVisible] = useState(false);
@@ -773,19 +872,133 @@ function NavBar(){
     <View style={{flex:1, backgroundColor:'#070631', height:'30%', alignItems:'center', alignContent:'center'}}>
       <Image source={Ellipse1} style={styles.ellipse} />
       <View style={{flexDirection:'row', width:'80%', justifyContent: 'space-between', position:'absolute', bottom: 0, paddingBottom:10}}>
-        <TouchableOpacity onPress={() => navigation.navigate('Favorites')}>
-            <Image source={Favorites}/>
+        <TouchableOpacity onPress={() => navigation.navigate('Horoscopemain')}>
+        <Image source={Horosbtn}  />
           </TouchableOpacity>
+          <TouchableOpacity onPress={() => navigation.navigate('Psychic')}>
+           <Image source={Psychicbtn} style={{ marginRight:30, bottom:'80%'}}  />
+        </TouchableOpacity>
         <TouchableOpacity onPress={() => navigation.navigate('Home')}>
-            <Image source={Home} style={{bottom:'80%'}}/>
+            <Image source={Home} style={{ bottom:'100%'}}/>
           </TouchableOpacity>
-        <TouchableOpacity onPress={() => navigation.navigate('Shop')}>
-            <Image source={Shop} />
+          <TouchableOpacity onPress={() => navigation.navigate('Profile')}>
+            <Image source={Profilebtn} style={{ marginLeft:30, bottom:'80%'}} />
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate('Favorites')}>
+            <Image source={Favorites} style={{ bottom:'-20%'}} />
         </TouchableOpacity>
       </View>
     </View>
   )
 }
+
+function NavBar_psyc(){
+  const navigation = useNavigation();
+  return(
+    <View style={{flex:1, backgroundColor:'#070631', height:'30%', alignItems:'center', alignContent:'center'}}>
+      <Image source={Ellipse1} style={styles.ellipse} />
+      <View style={{flexDirection:'row', width:'80%', justifyContent: 'space-between', position:'absolute', bottom: 0, paddingBottom:10}}>
+        <TouchableOpacity onPress={() => navigation.navigate('Horoscopemain')}>
+        <Image source={Horosbtn}  />
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => navigation.navigate('Psychic')}>
+           <Image source={PsychicbtnW} style={{ marginRight:30, bottom:'80%'}}  />
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate('Home')}>
+            <Image source={HomeB} style={{ bottom:'100%'}}/>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => navigation.navigate('Profile')}>
+            <Image source={Profilebtn} style={{ marginLeft:30, bottom:'80%'}} />
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate('Favorites')}>
+            <Image source={Favorites} style={{ bottom:'-20%'}} />
+        </TouchableOpacity>
+      </View>
+    </View>
+  )
+}
+
+function NavBar_hor(){
+  const navigation = useNavigation();
+  return(
+    <View style={{flex:1, backgroundColor:'#070631', height:'30%', alignItems:'center', alignContent:'center'}}>
+      <Image source={Ellipse1} style={styles.ellipse} />
+      <View style={{flexDirection:'row', width:'80%', justifyContent: 'space-between', position:'absolute', bottom: 0, paddingBottom:10}}>
+        <TouchableOpacity onPress={() => navigation.navigate('Horoscopemain')}>
+        <Image source={HorosbtnW}  />
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => navigation.navigate('Psychic')}>
+           <Image source={Psychicbtn} style={{ marginRight:30, bottom:'80%'}}  />
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate('Home')}>
+            <Image source={HomeB} style={{ bottom:'100%'}}/>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => navigation.navigate('Profile')}>
+            <Image source={Profilebtn} style={{ marginLeft:30, bottom:'80%'}} />
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate('Favorites')}>
+            <Image source={Favorites} style={{ bottom:'-20%'}} />
+        </TouchableOpacity>
+      </View>
+    </View>
+  )
+}
+
+
+
+function NavBar_pro(){
+const navigation = useNavigation();
+return(
+  <View style={{flex:1, backgroundColor:'#070631', height:'30%', alignItems:'center', alignContent:'center'}}>
+    <Image source={Ellipse1} style={styles.ellipse} />
+    <View style={{flexDirection:'row', width:'80%', justifyContent: 'space-between', position:'absolute', bottom: 0, paddingBottom:10}}>
+      <TouchableOpacity onPress={() => navigation.navigate('Horoscopemain')}>
+      <Image source={Horosbtn}  />
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate('Psychic')}>
+         <Image source={Psychicbtn} style={{ marginRight:30, bottom:'80%'}}  />
+      </TouchableOpacity>
+      <TouchableOpacity onPress={() => navigation.navigate('Home')}>
+          <Image source={HomeB} style={{ bottom:'100%'}}/>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate('Profile')}>
+          <Image source={ProfilebtnW} style={{ marginLeft:30, bottom:'80%'}} />
+      </TouchableOpacity>
+      <TouchableOpacity onPress={() => navigation.navigate('Favorites')}>
+          <Image source={Favorites} style={{ bottom:'-20%'}} />
+      </TouchableOpacity>
+    </View>
+  </View>
+)
+}
+
+function NavBar_fav(){
+  const navigation = useNavigation();
+  return(
+    <View style={{flex:1, backgroundColor:'#070631', height:'30%', alignItems:'center', alignContent:'center'}}>
+      <Image source={Ellipse1} style={styles.ellipse} />
+      <View style={{flexDirection:'row', width:'80%', justifyContent: 'space-between', position:'absolute', bottom: 0, paddingBottom:10}}>
+        <TouchableOpacity onPress={() => navigation.navigate('Horoscopemain')}>
+        <Image source={Horosbtn}  />
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => navigation.navigate('Psychic')}>
+           <Image source={Psychicbtn} style={{ marginRight:30, bottom:'80%'}}  />
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate('Home')}>
+            <Image source={HomeB} style={{ bottom:'100%'}}/>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => navigation.navigate('Profile')}>
+            <Image source={Profilebtn} style={{ marginLeft:30, bottom:'80%'}} />
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate('Favorites')}>
+            <Image source={FavoritesW} style={{ bottom:'-20%'}} />
+        </TouchableOpacity>
+      </View>
+    </View>
+  )
+  }
+  
+
 
 let favoriteDatabase = [
   {
@@ -917,24 +1130,170 @@ let ShopDatabase = [
   }
 ]
 
+function Payment({navigation, route}) {
+  const [name, setName] = useState('')
+  const [email, setEmail] = useState('')
+  const [phone, setPhone] = useState('')
+  const [address, setAddress] = useState('')
+  const [city, setCity] = useState('')
+  const [country, setCountry] = useState('')
+  const [postal, setPostal] = useState('')
+  const [cityState, setCityState] = useState('')
+  const [cardNumber, setCardNumber] = useState('')
+  const [exp_month, setExp_Month] = useState('')
+  const [exp_year, setExp_Year] = useState('')
+  const [cvc, setCvc] = useState('')
 
+
+  function toStripe(name, email, phone, address, city, country, postal, cityState, cardNumber, exp_month, exp_year, cvc) {
+    fetch('https://peaceful-woodland-13730.herokuapp.com/api/customer', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        name: name,
+        email: email,
+        phone: phone,
+        address: {
+          line1: address,
+          city: city,
+          country: country,
+          postal_code: postal,
+          state: cityState
+        },
+        subscription: route.params.subscription,
+        card: {
+          number: cardNumber,
+          exp_month: exp_month,
+          exp_year: exp_year,
+          cvc: cvc
+        }
+      })
+    }).then(response => response.json())
+      .then(data => {
+        db.collection('users').doc(firebase.auth().currentUser.uid)
+        .set({
+          subscriptionLevel: route.params.subscription,
+          stripeId: data.subscription.customer,
+          subscriptionActive: true
+        }).then(() => {
+          console.log('yes')
+        }).catch(error => console.log(error))
+      });
+  }
+
+  return (
+    <View style={{  alignItems: 'center', justifyContent: 'center', backgroundColor: '#070631' }}>
+      <View style={styles.flexInRows}>
+          <TouchableOpacity onPress={() => navigation.popToTop()} style={{ top: 40, marginLeft: 10 }}>
+            <Image source={backButton} />
+          </TouchableOpacity>
+      </View>
+        <Text></Text>
+        <Text style={{ color: '#FFFFFF', fontSize: 8, textAlign: 'left', alignSelf: 'stretch', marginLeft: 20, marginTop: 30 }}>Name</Text>
+        <TextInput style={styles.savedFortuneTextBox}
+          label="Name"
+          placeholder="   Enter name here"
+          placeholderTextColor='#DCDCDC'
+          onChangeText={name => setName(name)}
+        />
+        <Text style={{ color: '#FFFFFF', fontSize: 8, marginTop: 10, textAlign: 'left', alignSelf: 'stretch', marginLeft: 15 }}>Email</Text>
+        <TextInput style={styles.savedFortuneTextBox}
+          label="Email"
+          placeholder="   Enter Email Here"
+          placeholderTextColor='#DCDCDC'
+          onChangeText={email => setEmail(email)}
+        />
+        <Text style={{ color: '#FFFFFF', fontSize: 8, marginTop: 10, textAlign: 'left', alignSelf: 'stretch', marginLeft: 15 }}>Phone</Text>
+        <TextInput style={styles.savedFortuneTextBox}
+          label="Phone"
+          placeholder="   Enter Phone # Here"
+          placeholderTextColor='#DCDCDC'
+          onChangeText={phone => setPhone(phone)}
+        />
+        <Text style={{ color: '#FFFFFF', fontSize: 8, marginTop: 10, textAlign: 'left', alignSelf: 'stretch', marginLeft: 15 }}>Address</Text>
+        <TextInput style={styles.savedFortuneTextBox}
+          label="Address"
+          placeholder="   Address"
+          placeholderTextColor='#DCDCDC'
+          onChangeText={address => setAddress(address)}
+        />
+        <Text style={{ color: '#FFFFFF', fontSize: 8, marginTop: 10, textAlign: 'left', alignSelf: 'stretch', marginLeft: 15 }}>City</Text>
+        <TextInput style={styles.savedFortuneTextBox}
+          label="City"
+          placeholder="   City"
+          placeholderTextColor='#DCDCDC'
+          onChangeText={city => setCity(city)}
+        />
+        <Text style={{ color: '#FFFFFF', fontSize: 8, marginTop: 10, textAlign: 'left', alignSelf: 'stretch', marginLeft: 15 }}>Country</Text>
+        <TextInput style={styles.savedFortuneTextBox}
+          label="Country"
+          placeholder="   Country"
+          placeholderTextColor='#DCDCDC'
+          onChangeText={country => setCountry(country)}
+        />
+      <View style={{ flexDirection: 'row', width: '90%', height: '7%' }}>
+        <Text style={{ color: '#FFFFFF', fontSize: 8, marginTop: 10, textAlign: 'left', alignSelf: 'stretch', marginLeft: 15 }}>Postal</Text>
+        <TextInput style={styles.savedFortuneTextBox2}
+          label="Postal"
+          placeholder="   Postal"
+          placeholderTextColor='#DCDCDC'
+          onChangeText={postal => setPostal(postal)}
+        />
+        <Text style={{ color: '#FFFFFF', fontSize: 8, marginTop: 10, textAlign: 'left', alignSelf: 'stretch', marginLeft: 15 }}>State</Text>
+        <TextInput style={styles.savedFortuneTextBox2}
+          label="State"
+          placeholder="   State"
+          placeholderTextColor='#DCDCDC'
+          onChangeText={cityState => setCityState(cityState)}
+        />
+        </View>
+        <Text style={{ color: '#FFFFFF', fontSize: 8, marginTop: 10, textAlign: 'left', alignSelf: 'stretch', marginLeft: 15 }}>Credit Card</Text>
+        <TextInput style={styles.savedFortuneTextBox}
+          label="Credit Card"
+          placeholder="   Card Number"
+          placeholderTextColor='#DCDCDC'
+          onChangeText={cardNumber => setCardNumber(cardNumber)}
+        />
+
+        <Text style={{ color: '#FFFFFF', fontSize: 7, marginTop: 10, textAlign: 'left', alignSelf: 'stretch', marginLeft: 15 }}>Credit Card</Text>
+        <View style={{ flexDirection: 'row', width: '90%', height: '6%' }}>
+
+          <TextInput style={styles.savedFortuneTextBox2}
+            label="Month"
+            placeholder="      Month"
+            placeholderTextColor='#DCDCDC'
+          onChangeText={exp_month => setExp_Month(exp_month)}
+          />
+          <TextInput style={styles.savedFortuneTextBox2}
+            label="Year"
+            placeholder="      Year"
+            placeholderTextColor='#DCDCDC'
+            onChangeText={exp_year => setExp_Year(exp_year)}
+          />
+          <TextInput style={styles.savedFortuneTextBox3}
+            label="CVC"
+            placeholder="      CVC"
+            placeholderTextColor='#DCDCDC'
+            onChangeText={cvc => setCvc(cvc)}
+          />
+        </View>
+        <Text></Text>
+      <TouchableOpacity onPress={() => { 
+        toStripe(name, email, phone, address, city, country, postal, cityState, cardNumber, exp_month, exp_year, cvc)
+
+        }}>
+          <Image source={continueImage} />
+        </TouchableOpacity>
+      <Text></Text>
+    </View>
+  )
+  
+}
 
 function SubscriptionScreen() {
   const navigation = useNavigation();
-
-  // work with carlo on getting this working
-  async function toCarlo() {
-      const userId = db.collection('users').doc(firebase.auth().currentUser.uid)
-
-      await firebase.auth().currentUser
-      .getIdToken(/* forceRefresh */ true)
-      .then(function (idToken) {
-        // Send token to your backend via HTTPS
-        fetch('https://firestore.googleapis.com/v1/projects/fortune-coffeee/databases/(default)/documents/users/' + userId)
-      }).catch(function (error) {
-        // Handle error
-      });
-    }
 
   return (
     <View style={styles.virtualContainer}>
@@ -945,16 +1304,24 @@ function SubscriptionScreen() {
           </TouchableOpacity>
           <Image source={subscriptionDescription} style ={{marginTop:100}}/>
 
-          <TouchableOpacity onPress={ () => Linking.openURL('http://payment-fortune-coffee.herokuapp.com/')}>
+          <TouchableOpacity onPress={ () => navigation.navigate('Payment', {
+            subscription: 'Amethyst'
+          })}>
             <Image source={sub1} />
           </TouchableOpacity>
-          <TouchableOpacity onPress={ () => Linking.openURL('http://payment-fortune-coffee.herokuapp.com/rose')}>
+          <TouchableOpacity onPress={() => navigation.navigate('Payment', {
+            subscription: 'Rose Quartz'
+          })}>
             <Image source={sub2}  />
           </TouchableOpacity >
-          <TouchableOpacity onPress={ () => Linking.openURL('http://payment-fortune-coffee.herokuapp.com/tiger')}>
+          <TouchableOpacity onPress={() => navigation.navigate('Payment', {
+            subscription: 'Sapphire'
+          })}>
             <Image source={sub4} />
           </TouchableOpacity>
-          <TouchableOpacity onPress={ () => Linking.openURL('http://payment-fortune-coffee.herokuapp.com/sapphire')}>
+          <TouchableOpacity onPress={() => navigation.navigate('Payment', {
+            subscription: "Tiger's Eye"
+          })}>
  
             <Image source={sub3} />
           </TouchableOpacity>
@@ -996,6 +1363,7 @@ function ShopScreen() {
     </ScrollView>
   )
 }
+
 
 function VirtualCoffeeReadingScreen() {
   const [image, setImage] = useState(null);
@@ -1059,6 +1427,31 @@ function FortuneModal() {
   )
 }
 
+function Psychic() {
+  const navigation = useNavigation();
+  return (
+    
+    <View style={styles.virtualContainer}>
+      <ImageBackground source={bgcoming} style={styles.bgfull}>
+      <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-between', padding: 25, marginTop: 18 }}>
+            <TouchableOpacity onPress={() => navigation.navigate('SignUp')}>
+              <Image source={SignUpButton} />
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => navigation.navigate('SignIn')}>
+              <Image source={SignInButton} />
+            </TouchableOpacity>
+          </View>
+      <NavBar_psyc/>
+      </ImageBackground>
+      </View>
+     
+  )
+  
+  }
+  
+
+
+
 function VirtualOne(){
   const navigation = useNavigation();
   return(
@@ -1120,7 +1513,7 @@ function VirtualFive(){
 
   {/* ASYNCHRONOUSLY FIND RANDOM FORTUNE */}
   // BUG: redirects to fortunes away from subscription page if subscription button was pressed
-  setTimeout( () => { navigation.navigate('Reading') }, 15000);
+  setTimeout( () => { navigation.navigate('Reading') }, 15);
   
   return( 
     <View style={styles.virtualContainer}>
@@ -1165,12 +1558,12 @@ function SignUpScreen({ navigation }) {
         <Image source={signTitle} style={{marginTop:'20%'}}/>
         <Image source={signUpBelowTitle} style={{marginBottom:12, marginTop:12}} />
         <View style={{marginTop:8, marginBottom:20}}>
-          <TouchableOpacity onPress={() => console.log('google pressed')} style={{marginBottom:20}}>
+        {/*}  <TouchableOpacity onPress={() => console.log('google pressed')} style={{marginBottom:20}}>
             <Image source={googleTitle} />
           </TouchableOpacity>
           <TouchableOpacity onPress={() => console.log('facebook pressed')}>
             <Image source={facebookTitle} />
-          </TouchableOpacity>
+          </TouchableOpacity>*/}
         </View>
         <Image source={signEmailText} style={{marginBottom:8}}/>
         <TextInput style={styles.textBox}
@@ -1225,11 +1618,33 @@ function SignUpScreen({ navigation }) {
 }
 
 // TODO need to hook this up to a button after signed in
-
 function Profile() {
   const navigation = useNavigation();
   return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: '#070631' }}>
+    <ImageBackground source={bgstars} style={styles.bgfull}>
+      <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-between', padding: 25, marginTop: 18 }}>
+            <TouchableOpacity onPress={() => navigation.navigate('SignUp')}>
+              <Image source={SignUpButton} />
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => navigation.navigate('SignIn')}>
+              <Image source={SignInButton} />
+            </TouchableOpacity>
+          </View>
+   <NavBar_pro></NavBar_pro>
+    </ImageBackground>
+    
+  )
+}
+
+
+
+
+
+function ProfileDetails() {
+  const navigation = useNavigation();
+  return (
+    <ImageBackground source={bgstars} style={styles.bgfull}>
+    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
       <View style={ styles.flexInRows}>
         <TouchableOpacity onPress={()=>navigation.popToTop()} style = {{top: 50, marginLeft: 10}}>
           <Image source={backButton} />
@@ -1287,6 +1702,7 @@ function Profile() {
         <Image source={skipImage} />
       </TouchableOpacity>
     </View>
+    </ImageBackground>
   )
 }
 
@@ -1315,12 +1731,12 @@ function SignInScreen() {
         </TouchableOpacity>
         <Image source={signTitle}  style={{marginTop:'20%', marginBottom:40}}/>
         <View style={{marginTop:8, marginBottom:20}}>
-          <TouchableOpacity onPress={() => console.log('google pressed')} style={{marginBottom:20}}>
+         {/* <TouchableOpacity onPress={() => console.log('google pressed')} style={{marginBottom:20}}>
             <Image source={googleTitle} />
           </TouchableOpacity>
           <TouchableOpacity onPress={() => console.log('facebook pressed')}>
             <Image source={facebookTitle} />
-          </TouchableOpacity>
+          </TouchableOpacity>*/}
         </View>
         <Image source={signEmailText} style={{marginBottom:8}}/>
         <TextInput style={styles.textBox}
@@ -1391,7 +1807,7 @@ function ReadingAnimationScreen({navigation}){
   {
   InteractionManager.runAfterInteractions(() => navigation.navigate("VirtualFive"));
   }
-  InteractionManager.runAfterInteractions(() => navigation.navigate("Reading"));
+  InteractionManager.runAfterInteractions(() => setTimeout(() => { navigation.navigate('Reading') }, 1000000000000));
 
   return(
     <View style={styles.mainContainer}>
@@ -1442,7 +1858,7 @@ function Onboarding({}){
         <ImageBackground source={OnboardingBg2} style={styles.virtualOne}>
           <View style={{justifyContent:'flex-end', paddingBottom: 20, height:'100%'}}>
             <TouchableOpacity onPress={() => navigation.navigate('Home')} >
-              <Image source={Next} />
+              <Image source={getStarted} />
             </TouchableOpacity>
           </View>
         </ImageBackground>
@@ -1454,7 +1870,8 @@ function Onboarding({}){
 function Horoscopemain({}) {
   const navigation = useNavigation();
     return (
-      <View style={styles.mainContainer}>
+      <ImageBackground source={bgstars} style={styles.bgfull}>
+      <View >
         <View style={{  alignItems: 'center' }}>
           <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-between', padding: 25, marginTop: 18 }}>
             <TouchableOpacity onPress={() => navigation.navigate('SignUp')}>
@@ -1464,11 +1881,59 @@ function Horoscopemain({}) {
               <Image source={SignInButton} />
             </TouchableOpacity>
           </View>
-          <Image source={Horoscopetxt} style={{ alignItems: 'center', marginTop: 18 }} />
-  
-      
+          <Image source={Horoscopetxt} style={{ }} />
+          <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'center', padding:2, marginTop:40}}>
+          <TouchableOpacity onPress={() => navigation.navigate()}>
+            <Image source={Ariesbttn} />
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => navigation.navigate()}>
+            <Image source={Taurusbttn} />
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => navigation.navigate()}>
+            <Image source={Geminibttn} />
+          </TouchableOpacity>
+          </View>
+          <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'center', padding:2, marginTop:2}}>
+          <TouchableOpacity onPress={() => navigation.navigate()}>
+            <Image source={Cancerbttn} />
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => navigation.navigate()}>
+            <Image source={Leobttn} />
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => navigation.navigate()}>
+            <Image source={Virgobttn} />
+          </TouchableOpacity>
+          </View>
+          <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'center', padding:2, marginTop:2}}>
+          <TouchableOpacity onPress={() => navigation.navigate()}>
+            <Image source={Librabttn} />
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => navigation.navigate()}>
+            <Image source={Scorpiobttn} />
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => navigation.navigate()}>
+            <Image source={Sagittariusbttn} />
+          </TouchableOpacity>
+          </View>
+          <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'center', padding:2, marginTop:2}}>
+          <TouchableOpacity onPress={() => navigation.navigate()}>
+            <Image source={Capribttn} />
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => navigation.navigate()}>
+            <Image source={Aquariusbttn} />
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => navigation.navigate('Horoscopepisces')}>
+            <Image source={Piscesbttn} />
+          </TouchableOpacity>
+          </View>
             </View>
+
+            
             </View>
+            <NavBar_hor></NavBar_hor>
+
+            </ImageBackground>
+
 
 
      
@@ -1478,10 +1943,18 @@ function Horoscopemain({}) {
 
 //horoscope pisces
 
-function Horoscopeunique({}) {
+function Horoscopepisces({}) {
 const navigation = useNavigation();
 const [randomFortune, setRandomFortune] = useState('');
 const [buttonClicked, setButtonClicked] = useState(false);
+const [randNumber, setRandomNumber] = useState('');
+const [randLetter, setRandomLetter] = useState('');
+const [randWord, setRandomWord] = useState('');
+const [randWord2, setRandomWord2] = useState('');
+const [randWord3, setRandomWord3] = useState('');
+const [randWord4, setRandomWord4] = useState('');
+const [randAdvice, setRandomAdvice] = useState('');
+
   return (
     <View style={styles.mainContainer}>
       <View style={{  alignItems: 'center' }}>
@@ -1495,16 +1968,101 @@ const [buttonClicked, setButtonClicked] = useState(false);
         </View>
 
         <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-evenly' }}>
-        <Image source={leftword} style={{ marginTop: 40 }} />
-        <Image source={PiscesCard} style={{ marginLeft:30, marginTop: 18 }} />
-        <Image source={rightword} style={{ marginTop: 40 }} />
+        <View style={{ flexDirection: 'column', justifyContent: 'space-evenly' , marginRight:12 }}>
+
+        <Image source={number} style={{ marginTop: 10 }} />
+        <Text style={{fontSize:14, color:'white', marginTop:5}}> {randNumber}  </Text>
+          
+            {!buttonClicked ? (
+              <Button
+                onPress={() => {
+                  setRandomNumber(getRandomNumber)
+                  setButtonClicked(true)
+                }}
+                title='Number'
+              >
+              </Button>
+            ) : null}
+        
+        <Image source={letter} style={{ marginTop: 10 }} />
+        <Text style={{fontSize:14, color:'white', marginTop:5}}> {randLetter}  </Text>
+          
+          {!buttonClicked ? (
+            <Button
+              onPress={() => {
+                setRandomLetter(getRandomLetter)
+                setButtonClicked(true)
+              }}
+              title='Letter'
+            >
+            </Button>
+          ) : null}
+        <Image source={appre} style={{ marginTop: 10 }} />
+        <Text style={{fontSize:14, color:'white', marginTop:5}}> {randWord}  </Text>
+          
+          {!buttonClicked ? (
+            <Button
+              onPress={() => {
+                setRandomWord(getRandomWord)
+                setButtonClicked(true)
+              }}
+              title='Word'
+            >
+            </Button>
+          ) : null}
         </View>
+        <Image source={PiscesCard} style={{ justifyContent: 'space-evenly', marginRight:70 }} />
+
+        <View style={{  flexDirection: 'column', justifyContent: 'space-evenly'}}>
+        <Image source={love} style={{ marginTop: 10, marginLeft:12}} />
+        <Text style={{fontSize:14, color:'white', marginTop:5}}> {randWord2}  </Text>
+          
+          {!buttonClicked ? (
+            <Button
+              onPress={() => {
+                setRandomWord2(getRandomWord2)
+                setButtonClicked(true)
+              }}
+              title='Word'
+            >
+            </Button>
+          ) : null}
+        <Image source={career} style={{ marginTop: 10}} />
+        <Text style={{fontSize:14, color:'white', marginTop:5}}> {randWord3}  </Text>
+          
+          {!buttonClicked ? (
+            <Button
+              onPress={() => {
+                setRandomWord3(getRandomWord3)
+                setButtonClicked(true)
+              }}
+              title='Word'
+            >
+            </Button>
+          ) : null}
+        <Image source={luck} style={{ marginTop: 0 , marginLeft:12}} />
+        <Text style={{fontSize:14, color:'white', marginTop:5}}> {randWord4}  </Text>
+          
+          {!buttonClicked ? (
+            <Button
+              onPress={() => {
+                setRandomWord4(getRandomWord4)
+                setButtonClicked(true)
+              }}
+              title='Word'
+            >
+            </Button>
+          ) : null}
+        </View>
+        </View>
+        
         <Image source={PiscesTxt} style={{ alignItems: 'center', marginTop: 18 }} />
     
-        <Image source={linehors} style={{  marginTop: 10 }} />
+        <Image source={linehors} style={{  marginTop: 25 }} />
+        <View style={{  alignItems: 'center' }}>
         <Image source={hottxt} style={{ alignItems: 'center', marginTop: 30 }} />
-        <View style={styles.readingTableContainer}>
-            <ScrollView>
+        <View style={styles.readingTableContainer2}>
+            <View>
             <Text style={{fontSize:17, color:'white'}}> {randomFortune}  </Text>
           
             {!buttonClicked ? (
@@ -1518,19 +2076,20 @@ const [buttonClicked, setButtonClicked] = useState(false);
               </Button>
             ) : null}
             
-            </ScrollView>
-          </View>
-
-
-        <Image source={advicetxt} style={{ alignItems: 'center', marginTop: 60 }} />
-        <View style={styles.readingTableContainer}>
-            <ScrollView>
-            <Text style={{fontSize:17, color:'white'}}> {randomFortune}  </Text>
+            </View>
+          
+            </View>
+          
+          
+        <Image source={advicetxt} style={{ alignItems: 'center'}} />
+        <View style={styles.readingTableContainer2}>
+            <View>
+            <Text style={{fontSize:17, color:'white'}}> {randAdvice}  </Text>
           
             {!buttonClicked ? (
               <Button
                 onPress={() => {
-                  setRandomFortune(getRandomFortune)
+                  setRandomAdvice(getRandomAdvice)
                   setButtonClicked(true)
                 }}
                 title='View Advice of Today'
@@ -1538,15 +2097,97 @@ const [buttonClicked, setButtonClicked] = useState(false);
               </Button>
             ) : null}
             
-            </ScrollView>
+            </View>
+       
           </View>
 
            </View>
 
-        <NavBar />
+       
+      </View>
+      <NavBar_hor/>
+      
       </View>
    
   );
+
+  function getRandomFortune() {
+    let random = Math.floor((Math.random() * fortunesArray.length))
+    console.log(random);
+    let fortune = fortunesArray[random];
+    console.log(fortune);
+    return fortune;
+  
+  }
+  function getRandomNumber() {
+    let random = Math.floor((Math.random() * numbersArray.length))
+    console.log(random);
+    let fortune = numbersArray[random];
+    console.log(randNumber);
+    return randNumber;
+  
+  }
+
+  function getRandomLetter() {
+    let random = Math.floor((Math.random() * lettersArray.length))
+    console.log(random);
+    let fortune = lettersArray[random];
+    console.log(randLetter);
+    return randLetter;
+  
+  }
+   function getRandomWord() {
+     let random = Math.floor((Math.random() * wordsArray.length))
+    console.log(random);
+     let randWord = wordsArray[random];
+    console.log(randWord);
+    return randWord;
+  
+  }
+
+  function getRandomWord2() {
+    let random = Math.floor((Math.random() * wordsArray.length))
+   console.log(random);
+    let randWord = wordsArray[random];
+   console.log(randWord);
+   return randWord;
+ 
+ }
+
+ function getRandomWord3() {
+  let random = Math.floor((Math.random() * wordsArray.length))
+ console.log(random);
+  let randWord = wordsArray[random];
+ console.log(randWord);
+ return randWord;
+
+}
+function getRandomWord4() {
+  let random = Math.floor((Math.random() * wordsArray.length))
+ console.log(random);
+  let randWord = wordsArray[random];
+ console.log(randWord);
+ return randWord;
+
+}
+function getRandomAdvice() {
+  let random = Math.floor((Math.random() * adviceArray.length))
+ console.log(random);
+  let randWord = adviceArray[random];
+ console.log(randAdvice);
+ return randAdvice;
+
+}
+
+
+  //FIRESTORE
+  function onSaveFortune() {
+    db.collection('users').doc(firebase.auth().currentUser.uid).update({
+      favorites: firebase.firestore.FieldValue.arrayUnion(...[randomFortune])
+    })
+    // navigation.navigate('Favorites')
+  }
+
 }
 
 
@@ -1684,6 +2325,7 @@ function App() {
         <Stack.Screen name="VirtualFive" component={VirtualFive} options={{ cardStyleInterpolator:forFade}}/>
         }
         <Stack.Screen name="VirtualLoading" component={VirtualLoadingScreen} />
+        <Stack.Screen name="Payment" component={Payment} />
         <Stack.Screen name="PhotoReading" component={PhotoReadingScreen} />
         <Stack.Screen name="SignUp" component={SignUpScreen} />
         <Stack.Screen name="SignIn" component={SignInScreen} />
@@ -1693,8 +2335,10 @@ function App() {
         <Stack.Screen name="Subscription" component={SubscriptionScreen} />
         <Stack.Screen name="Fortune" component={FortuneModal} />
         <Stack.Screen name="Profile" component={Profile} />
-        <Stack.Screen name="Horoscopeunique" component={Horoscopeunique} />
+        <Stack.Screen name="ProfileDetails" component={ProfileDetails} />
+        <Stack.Screen name="Horoscopepisces" component={Horoscopepisces} />
         <Stack.Screen name="Horoscopemain" component={Horoscopemain} />
+        <Stack.Screen name="Psychic" component={Psychic} />
       </Stack.Navigator>
     </NavigationContainer>
   );

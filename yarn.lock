@@ -10031,4 +10031,8 @@
 "yocto-queue@^0.1.0":
   "integrity" "sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q=="
   "resolved" "https://registry.npmjs.org/yocto-queue/-/yocto-queue-0.1.0.tgz"
+<<<<<<< HEAD
   "version" "0.1.0"
+=======
+  "version" "0.1.0"
+>>>>>>> 71a34a97c0b88c4a4dbae7b372c30378e81f0c07
