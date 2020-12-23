@@ -605,6 +605,7 @@ function HomeScreen({ navigation }) {
       }
     },[isModalVisible])
   
+
     // This use Effect is only called when the navigation lands here, This will reduce the amount of times
     // it will run on this page.
     useEffect(()=>{

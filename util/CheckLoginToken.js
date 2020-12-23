@@ -9,6 +9,8 @@ export default CheckLoginToken = async () =>{
       try{
         // Just need to pass in a Key for storage, need to await the promise
         const token = await GetItemInStorage("AUTH_TOKEN");
+
+        
         
         if(!token){
           // Set the default user to Guest if the user is not logged in
