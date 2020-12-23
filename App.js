@@ -210,6 +210,13 @@ import sub4 from './assets/FortuneCoffeePNGassets/Subscription/subscription4.png
 import subscriptionDescription from './assets/FortuneCoffeePNGassets/Subscription/subscriptionDescription.png';
 import subBackground from './assets/FortuneCoffeePNGassets/Subscription/subscriptionBackground.png'
 
+// SUBSCRIPTION Details//
+import amet from './assets/FortuneCoffeePNGassets/subscriptioncards/Amet.png';
+import rosq from './assets/FortuneCoffeePNGassets/subscriptioncards/Roseq.png';
+import tige from './assets/FortuneCoffeePNGassets/subscriptioncards/Tige.png';
+import saph from './assets/FortuneCoffeePNGassets/subscriptioncards/Saph.png';
+
+
 // Fortune Page //
 import Modal from 'react-native-modal';
 import FlipCard from 'react-native-flip-card';
@@ -744,6 +751,7 @@ function HomeScreen({ navigation }) {
             }}>
               <Image source={TakePhoto} />
             </TouchableOpacity>
+
           </View>
         </>
       )
@@ -1966,6 +1974,8 @@ const [randAdvice, setRandomAdvice] = useState('');
 
 
 
+
+
 useEffect(() => {
   setRandomHoroscope(getRandomHoroscope)
   setRandomNumber(getRandomNumber)
@@ -2124,7 +2134,7 @@ function getRandomAdvice() {
 }
 
 //ARIES 
-{/*function Horoscopearies({}) {
+{/*function Horoscope({}) {
 
   
 
