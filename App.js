@@ -1994,18 +1994,6 @@ const [randAdvice, setRandomAdvice] = useState('');
 
 
 
-useEffect(() => {
-  setRandomHoroscope(getRandomHoroscope)
-  setRandomNumber(getRandomNumber)
-  setRandomLetter(getRandomLetter)
-  setRandomThanks(getRandomThanks)
-  setRandomWord2(getRandomWord2)
-  setRandomWord3(getRandomWord3)
-  setRandomWord4(getRandomWord4)
-  setRandomAdvice(getRandomAdvice)
-  
-
- }, [])
 
 
   return (
