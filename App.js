@@ -19,12 +19,17 @@ import { Button,
   Easing, 
   InteractionManager, 
   Linking, 
-  KeyboardAvoidingView,
+  KeyboardAvoidingView
   } from 'react-native';
 import { NavigationContainer, useNavigation } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
 import ViewPager from '@react-native-community/viewpager';
+
+import StoreData from './util/SaveItemInStorage';
+import RetrieveData from './util/GetItemInStorage';
+
+
 
 
 /*import { WebView } from 'react-native';
@@ -593,6 +598,7 @@ function HomeScreen({ navigation }) {
 
   return (
     <View style={styles.mainContainer}>
+      {/* <Button text="Clear Storeage" onPress={ () => {AsyncStorage.clear()} } />*/ }
       <View style={{ flex: 1, alignItems: 'center' }}>
         <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-between', padding: 25, marginTop: 18 }}>
           <TouchableOpacity onPress={() => navigation.navigate('SignUp')}>
@@ -1626,6 +1632,34 @@ const Stack = createStackNavigator();
 
 function App() {
   const forFade = ({ current }) => ({ cardStyle: { opacity: current.progress }});
+  const [onboarding, setOnboarding] = useState();
+
+  
+  useEffect(()=>{
+    RetrieveData('ONBOARDING').then( (val) => {
+      if(!val) {
+        StoreData("ONBOARDING", 'PENDING');
+        setOnboarding('DONE');
+        console.log(`Onboarding State: ${val}`);
+      }
+      else {
+        setOnboarding(val);
+        console.log(`Onboarding State: ${val}`);
+      }
+    }
+    )
+  })
+
+  const _CheckOnboarding = ( () => {
+
+      switch(onboarding) {
+        case 'PENDING': return ( <Stack.Screen name="Onboarding" component={Onboarding} /> );
+      }
+    
+    console.log(`PopToTop: Onboarding is ${onboarding}`);
+  })
+  
+  
   
   return (
     <NavigationContainer>
@@ -1634,7 +1668,9 @@ function App() {
           headerShown: false
         }}
       >
-        <Stack.Screen name="Onboarding" component={Onboarding} />
+        {
+          _CheckOnboarding()
+        }
         <Stack.Screen name="Home" component={HomeScreen} />
         <Stack.Screen name="HomeLoggedIn" component={HomeScreenLoggedIn} />
         <Stack.Screen name="Favorites" component={FavoritesScreen} />
