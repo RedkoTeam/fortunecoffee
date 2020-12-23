@@ -113,8 +113,6 @@ import Shop from './assets/FortuneCoffeePNGassets/HomePage/Shop.png';
 import Favorites from './assets/FortuneCoffeePNGassets/HomePage/Favorites.png';
 import FavoritesW from './assets/FortuneCoffeePNGassets/HomePage/favw.png';
 import homeSelected from './assets/FortuneCoffeePNGassets/HomePage/homeSelected.png';
-import favSelected from './assets/FortuneCoffeePNGassets/HomePage/favSelected.png';
-import shopSelected from './assets/FortuneCoffeePNGassets/HomePage/shopSelected.png';
 import Psychicbtn from './assets/FortuneCoffeePNGassets/HomePage/psyhbtn.png';
 import PsychicbtnW from './assets/FortuneCoffeePNGassets/HomePage/psW.png';
 import Horosbtn from './assets/FortuneCoffeePNGassets/HomePage/horosbtn.png';
@@ -257,6 +255,7 @@ import FortuneCardCounter from './util/cardCounters/FortuneCardCounter.js'
 
 // Protypes
 import prototype from './util/prototypes/ProtoTypes'
+import AsyncStorage from '@react-native-community/async-storage';
 
 ////////////////////
 // Styling  //
@@ -752,6 +751,7 @@ function HomeScreen({ navigation }) {
               <Image source={SignInButton} />
             </TouchableOpacity>
           </View>
+          <Button title="Clear Async" onPress={() => AsyncStorage.clear()} />
           <Image source={LargeTitleApp} style={{ width: '100%' }} />
           {RenderTheFortuneButtons()}
           {/* <Button title="Subscription" onPress={ () => navigation.navigate('Subscription')} /> */}
@@ -1037,7 +1037,7 @@ function FavoritesScreen() {
     <View style={{flexGrow:1, justifyContent:'space-between'}}>
       <ScrollView contentContainerStyle={styles.shopContainer}>
         <View style={{flexDirection:'row', width:'100%', position: 'relative', left:0, top:75, marginBottom: 65}} >
-          <TouchableOpacity onPress={()=>navigation.popToTop()} style={styles.backButtonStyle}>
+          <TouchableOpacity onPress={()=>navigation.navigate('Home')} style={styles.backButtonStyle}>
             <Image source={backButton} />
             
           </TouchableOpacity>
@@ -1186,7 +1186,7 @@ function Payment({navigation, route}) {
   return (
     <View style={{  alignItems: 'center', justifyContent: 'center', backgroundColor: '#070631' }}>
       <View style={styles.flexInRows}>
-          <TouchableOpacity onPress={() => navigation.popToTop()} style={{ top: 40, marginLeft: 10 }}>
+          <TouchableOpacity onPress={() => navigation.navigate('Home')} style={{ top: 40, marginLeft: 10 }}>
             <Image source={backButton} />
           </TouchableOpacity>
       </View>
@@ -1299,7 +1299,7 @@ function SubscriptionScreen() {
     <View style={styles.virtualContainer}>
       <ImageBackground source={subBackground} style={styles.virtualOne}>
         <View style={{justifyContent: 'center', alignItems: 'center'}}>
-          <TouchableOpacity onPress={()=>navigation.popToTop()} style={styles.backButtonStyle}>
+          <TouchableOpacity onPress={()=>navigation.navigate('Home')} style={styles.backButtonStyle}>
             <Image source={backButton} />
           </TouchableOpacity>
           <Image source={subscriptionDescription} style ={{marginTop:100}}/>
@@ -1340,7 +1340,7 @@ function ShopScreen() {
     <ScrollView contentContainerStyle={styles.shopContainer}>
       <Image source={ galaxy } style={styles.shopBackgroundContainer} />
       <View style={{position:'absolute', top:0, flexDirection:'row', width:'100%', margin:16}}>
-        <TouchableOpacity onPress={()=>{navigation.popToTop()}}>
+        <TouchableOpacity onPress={()=>{navigation.navigate('Home')}}>
           <Image source={backButton} style={styles.backButtonStyle}/>
         </TouchableOpacity>
         <Image source={shop} style={{position:'absolute', alignSelf:'center', right:'43%', top: 60}} />
@@ -1395,7 +1395,7 @@ function VirtualCoffeeReadingScreen() {
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: '#070631' }}>
         <View style={{position: "absolute", top: 0, flexDirection: 'row',justifyContent: 'space-between',width:'100%', margin: 16}}>
-          <TouchableOpacity onPress={() => navigation.popToTop()} style={styles.backButtonStyle} >
+          <TouchableOpacity onPress={() => navigation.navigate('Home')} style={styles.backButtonStyle} >
             <Image source={backButton}/>
           </TouchableOpacity>
         </View>
@@ -1552,7 +1552,7 @@ function SignUpScreen({ navigation }) {
   return (
     <KeyboardAvoidingView style={styles.virtualContainer} behavior='padding'>
       <ImageBackground source={signBackground} style={styles.virtualOne}>
-        <TouchableOpacity onPress={() => navigation.popToTop()} style={styles.backButtonStyle}>
+        <TouchableOpacity onPress={() => navigation.navigate('Home')} style={styles.backButtonStyle}>
           <Image source={backButton}/>
         </TouchableOpacity>
         <Image source={signTitle} style={{marginTop:'20%'}}/>
@@ -1646,7 +1646,7 @@ function ProfileDetails() {
     <ImageBackground source={bgstars} style={styles.bgfull}>
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
       <View style={ styles.flexInRows}>
-        <TouchableOpacity onPress={()=>navigation.popToTop()} style = {{top: 50, marginLeft: 10}}>
+        <TouchableOpacity onPress={()=>navigation.navigate('Home')} style = {{top: 50, marginLeft: 10}}>
           <Image source={backButton} />
         </TouchableOpacity>
       </View>
@@ -1726,7 +1726,7 @@ function SignInScreen() {
   return (
     <KeyboardAvoidingView style={styles.virtualContainer} behavior='padding'>
       <ImageBackground source={signBackground} style={styles.virtualOne}>
-        <TouchableOpacity onPress={() => navigation.popToTop()} style={styles.backButtonStyle}>
+        <TouchableOpacity onPress={() => navigation.navigate('Home')} style={styles.backButtonStyle}>
           <Image source={backButton}/>
         </TouchableOpacity>
         <Image source={signTitle}  style={{marginTop:'20%', marginBottom:40}}/>
@@ -2207,7 +2207,7 @@ function Reading({}){
     <View style={styles.virtualContainer}>
       <ImageBackground source={readingBackground} style={styles.virtualOne}>
         <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-between', padding: 25, marginTop: 18}}>
-          <TouchableOpacity onPress={() => navigation.popToTop()} >
+          <TouchableOpacity onPress={() => navigation.navigate('Home')} >
             <Image source={backButton} />
           </TouchableOpacity>
           <TouchableOpacity onPress={() => navigation.navigate('Profile')}>
@@ -2281,7 +2281,7 @@ function App() {
       if(!val) {
         StoreData("ONBOARDING", 'PENDING');
         setOnboarding('DONE');
-        console.log(`Onboarding State: ${val}`);
+        console.log(`Onboarding State 1: ${val}`);
       }
       else {
         setOnboarding(val);
@@ -2309,9 +2309,7 @@ function App() {
           headerShown: false
         }}
       >
-        {
-          _CheckOnboarding()
-        }
+        <Stack.Screen name="Onboarding" component={Onboarding} />
         <Stack.Screen name="Home" component={HomeScreen} />
         <Stack.Screen name="HomeLoggedIn" component={HomeScreenLoggedIn} />
         <Stack.Screen name="Favorites" component={FavoritesScreen} />
