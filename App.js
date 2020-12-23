@@ -953,8 +953,16 @@ function Payment({navigation, route}) {
         }
       })
     }).then(response => response.json())
-      .then(data => console.log(data));
-    console.log(name, email, phone, address, city, country, postal, cityState, cardNumber, exp_month, exp_year, cvc)
+      .then(data => {
+        db.collection('users').doc(firebase.auth().currentUser.uid)
+        .set({
+          subscriptionLevel: route.params.subscription,
+          stripeId: data.subscription.customer,
+          subscriptionActive: true
+        }).then(() => {
+          console.log('yes')
+        }).catch(error => console.log(error))
+      });
   }
 
   return (
@@ -1532,7 +1540,7 @@ function ReadingAnimationScreen({navigation}){
   {
   InteractionManager.runAfterInteractions(() => navigation.navigate("VirtualFive"));
   }
-  InteractionManager.runAfterInteractions(() => setTimeout(() => { navigation.navigate('Reading') }, 10000000));
+  InteractionManager.runAfterInteractions(() => setTimeout(() => { navigation.navigate('Reading') }, 1000000000000));
 
   return(
     <View style={styles.mainContainer}>
