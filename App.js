@@ -797,7 +797,7 @@ function FavoritesScreen() {
   const navigation = useNavigation();
   const [favoritesData, setFavoritesData] = useState([])
 
-  // still not working... need help
+  
      useEffect(() => {
       db.collection('users').doc(firebase.auth().currentUser.uid)
         .get()
@@ -954,6 +954,7 @@ function Payment({navigation, route}) {
       })
     }).then(response => response.json())
       .then(data => {
+        console.log(data)
         db.collection('users').doc(firebase.auth().currentUser.uid)
         .set({
           subscriptionLevel: route.params.subscription,
