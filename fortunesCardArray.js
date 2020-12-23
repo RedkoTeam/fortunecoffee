@@ -141,6 +141,6 @@ export const cardsAndMeaning = [
     [require("./assets/Cards/CardsFrontReversed/Two_of_Pentacles_R.png"), require("./assets/Cards/CardsMeaning/Two_of_Pentacles_A.png")],
     [require("./assets/Cards/CardsFrontReversed/Two_of_Wands_R.png"), require("./assets/Cards/CardsMeaning/Two_of_Wands_A.png")],
     [require("./assets/Cards/CardsFrontReversed/Two_of_Cups_R.png"), require("./assets/Cards/CardsMeaning/Two_of_Cups_A.png")],
-    [require("./assets/Cards/CardsFrontReversed/Two_of_swords_R.png"), require("./assets/Cards/CardsMeaning/Two_of_Swords_A.png")],
+    [require("./assets/Cards/CardsFrontReversed/Two_of_Swords_R.png"), require("./assets/Cards/CardsMeaning/Two_of_Swords_A.png")],
     [require("./assets/Cards/CardsFrontReversed/Wheel_of_Fortune_R.png"), require("./assets/Cards/CardsMeaning/Wheel_of_Fortune_A.png")]
 ];

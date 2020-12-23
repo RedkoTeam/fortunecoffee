@@ -7,6 +7,7 @@ import {numbersArray} from './numbersArray';
 import {lettersArray} from './lettersArray';
 import {wordsArray} from './wordsArray';
 import {adviceArray} from './adviceArray';
+import {thanksArray} from './thanksArray';
 
 
 import { Button, 
@@ -577,7 +578,7 @@ function HomeScreen({ navigation }) {
     /// Modal Viewer based on date. 
     const [userCanViewCard, setUserCanViewCard] = useState(false);
     const [cardCheckTimeRemaining, setCardCheckTimeRemaining] = useState("00:00:00")
-  
+      
     // UseEffect for checking the card before each trigger
     // Rather than putting it inside the function, we put it on the useeffect for checking
     useEffect(()=>{
@@ -674,7 +675,7 @@ function HomeScreen({ navigation }) {
       <Modal isVisible={isModalVisible} style={{ alignItems: "center", flex: 1 }}>
           <View>
             <Text style={styles.tapCard}>Already checked!{cardCheckTimeRemaining} remaining</Text>
-            <Button title="Hide " onPress={toggleModal} />
+            <Button title="Hide Card" onPress={toggleModal} />
             <View style={{ marginBottom: 500 }}>
             </View>
           </View>
@@ -1962,6 +1963,17 @@ const [randWord3, setRandomWord3] = useState('');
 const [randWord4, setRandomWord4] = useState('');
 const [randAdvice, setRandomAdvice] = useState('');
 
+{/*  // MAKE TEXT ONLY //  
+
+componentDidMount(){
+  this.timer = setInterval(()=> this.setRandomFortune(), 43200)
+ }
+
+
+useEffect(() => {setRandomFortune(getRandomFortune)()
+              }, []);*/}
+
+
   return (
     <View style={styles.mainContainer}>
       <View style={{  alignItems: 'center' }}>
@@ -2086,21 +2098,6 @@ const [randAdvice, setRandomAdvice] = useState('');
               </Button>
             ) : null}
 
-
-
-{/*  // MAKE TEXT ONLY //  
-
-componentDidMount(){
-  this.timer = setInterval(()=> this.setRandomFortune(), 43200)
- }
-
-
-useEffect(() => {
-              (async () => {
-                      setRandomFortune(getRandomFortune)
-                  setButtonClicked(true)
-             })()
-              }, []);*/}
 
             </View>
           
