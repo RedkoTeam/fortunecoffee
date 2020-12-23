@@ -8,6 +8,7 @@ import {lettersArray} from './lettersArray';
 import {wordsArray} from './wordsArray';
 import {adviceArray} from './adviceArray';
 import {thanksArray} from './thanksArray';
+import {horoscopeArray} from './horoscopeArray';
 
 
 import { Button, 
@@ -1954,8 +1955,7 @@ function Horoscopemain({}) {
 
 function Horoscopepisces({}) {
 const navigation = useNavigation();
-const [randomFortune, setRandomFortune] = useState('');
-const [buttonClicked, setButtonClicked] = useState(false);
+const [randHoroscope, setRandomHoroscope] = useState('');
 const [randNumber, setRandomNumber] = useState('');
 const [randLetter, setRandomLetter] = useState('');
 const [randThanks, setRandomThanks] = useState('');
@@ -1967,7 +1967,7 @@ const [randAdvice, setRandomAdvice] = useState('');
 
 
 useEffect(() => {
-  setRandomFortune(getRandomFortune)
+  setRandomHoroscope(getRandomHoroscope)
   setRandomNumber(getRandomNumber)
   setRandomLetter(getRandomLetter)
   setRandomThanks(getRandomThanks)
@@ -1996,88 +1996,29 @@ useEffect(() => {
         <View style={{ flexDirection: 'column', justifyContent: 'space-evenly' , marginRight:12 }}>
 
         <Image source={number} style={{ marginTop: 10 }} />
-        <Text style={{fontSize:14, color:'white', marginTop:5}}> {randNumber}  </Text>
+        <Text style={{fontSize:14, color:'white', marginTop:5,marginLeft:3}}> {randNumber}  </Text>
           
-            {/* {!buttonClicked ? (
-              <Button
-                onPress={() => {
-                  setRandomNumber(getRandomNumber)
-                  setButtonClicked(true)
-                }}
-                title='Number'
-              >
-              </Button>
-            ) : null} */}
-        
         <Image source={letter} style={{ marginTop: 10 }} />
-        <Text style={{fontSize:14, color:'white', marginTop:5}}> {randLetter}  </Text>
+        <Text style={{fontSize:14, color:'white', marginTop:5,marginLeft:3}}> {randLetter}  </Text>
           
-          {/* {!buttonClicked ? (
-            <Button
-              onPress={() => {
-                setRandomLetter(getRandomLetter)
-                setButtonClicked(true)
-              }}
-              title='Letter'
-            >
-            </Button>
-          ) : null} */}
         <Image source={appre} style={{ marginTop: 10 }} />
-        <Text style={{fontSize:14, color:'white', marginTop:5}}> {randThanks}  </Text>
-          
-          {/* {!buttonClicked ? (
-            <Button
-              onPress={() => {
-                setRandomThanks(getRandomThanks)
-                setButtonClicked(true)
-              }}
-              title='Appreciate'
-            >
-            </Button>
-          ) : null} */}
+        <Text style={{fontSize:14, color:'white', marginTop:5,marginLeft:3}}> {randThanks}  </Text>
+
         </View>
-        <Image source={PiscesCard} style={{ justifyContent: 'space-evenly', marginRight:70 }} />
+        <Image source={PiscesCard} style={{ justifyContent: 'space-evenly'}} />
 
         <View style={{  flexDirection: 'column', justifyContent: 'space-evenly'}}>
-        <Image source={love} style={{ marginTop: 10, marginLeft:12}} />
-        <Text style={{fontSize:14, color:'white', marginTop:5}}> {randWord2}  </Text>
+        <Image source={love} style={{ marginTop: 10}} />
+        <Text style={{fontSize:14, color:'white', marginTop:5, marginLeft:3}}> {randWord2}  </Text>
           
-          {/* {!buttonClicked ? (
-            <Button
-              onPress={() => {
-                setRandomWord2(getRandomWord2)
-                setButtonClicked(true)
-              }}
-              title='Word'
-            >
-            </Button>
-          ) : null} */}
+
         <Image source={career} style={{ marginTop: 10}} />
-        <Text style={{fontSize:14, color:'white', marginTop:5}}> {randWord3}  </Text>
+        <Text style={{fontSize:14, color:'white', marginTop:5, marginLeft:3}}> {randWord3}  </Text>
+        
+        <Image source={luck} style={{ marginTop: 0 }} />
+        <Text style={{fontSize:14, color:'white', marginTop:5, marginLeft:3}}> {randWord4}  </Text>
           
-          {/* {!buttonClicked ? (
-            <Button
-              onPress={() => {
-                setRandomWord3(getRandomWord3)
-                setButtonClicked(true)
-              }}
-              title='Word'
-            >
-            </Button>
-          ) : null} */}
-        <Image source={luck} style={{ marginTop: 0 , marginLeft:12}} />
-        <Text style={{fontSize:14, color:'white', marginTop:5}}> {randWord4}  </Text>
-          
-          {/* {!buttonClicked ? (
-            <Button
-              onPress={() => {
-                setRandomWord4(getRandomWord4)
-                setButtonClicked(true)
-              }}
-              title='Word'
-            >
-            </Button>
-          ) : null} */}
+     
         </View>
         </View>
         
@@ -2088,43 +2029,17 @@ useEffect(() => {
         <Image source={hottxt} style={{ alignItems: 'center', marginTop: 30 }} />
         <View style={styles.readingTableContainer2}>
             <View>
-            <Text style={{fontSize:17, color:'white'}}> {randomFortune}  </Text>
-          
-
-
-            
-            {/* {!buttonClicked ? (
-              <Button
-                onPress={() => {
-                  setRandomFortune(getRandomFortune)
-                  setButtonClicked(true)
-                }}
-                title='View Horoscope of Today'
-              >
-              </Button>
-            ) : null} */}
-
-
+            <Text style={{fontSize:17, color:'white'}}> {randHoroscope}  </Text>
             </View>
           
             </View>
           
           
-        <Image source={advicetxt} style={{ alignItems: 'center'}} />
+        <Image source={advicetxt} style={{ alignItems: 'center', marginTop:30}} />
         <View style={styles.readingTableContainer2}>
             <View>
             <Text style={{fontSize:17, color:'white'}}> {randAdvice}  </Text>
-          
-            {/* {!buttonClicked ? (
-              <Button
-                onPress={() => {
-                  setRandomAdvice(getRandomAdvice)
-                  setButtonClicked(true)
-                }}
-                title='View Advice of Today'
-              >
-              </Button>
-            ) : null} */}
+    
             
             </View>
        
@@ -2140,12 +2055,12 @@ useEffect(() => {
    
   );
 
-  function getRandomFortune() {
-    let random = Math.floor((Math.random() * fortunesArray.length))
+  function getRandomHoroscope() {
+    let random = Math.floor((Math.random() * horoscopeArray.length))
     console.log(random);
-    let fortune = fortunesArray[random];
-    console.log(fortune);
-    return fortune;
+    let randHoroscope = horoscopeArray[random];
+    console.log(randHoroscope);
+    return randHoroscope;
   
   }
   function getRandomNumber() {
@@ -2202,11 +2117,41 @@ function getRandomWord4() {
 function getRandomAdvice() {
   let random = Math.floor((Math.random() * adviceArray.length))
  console.log(random);
-  let randWord = adviceArray[random];
+  let randAdvice= adviceArray[random];
  console.log(randAdvice);
  return randAdvice;
 
 }
+
+//ARIES 
+{/*function Horoscopearies({}) {
+
+  
+
+*/}
+
+//TAURUS
+
+//GEMINI
+
+//CANCER
+
+//LEO
+
+
+//VIRGO
+
+//LIBRA
+
+//SCORPIO
+
+//SAGITTRAIUS
+
+//CAPRICORN
+
+//AQUARIUS
+
+
 
 
   //FIRESTORE
