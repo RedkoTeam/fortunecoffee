@@ -103,14 +103,19 @@ import Virgobttn from './assets/FortuneCoffeePNGassets/horoscopes/horoscopebtns/
 //NAVBAR//
 import Ellipse1 from './assets/FortuneCoffeePNGassets/HomePage/ellipse.png';
 import Home from './assets/FortuneCoffeePNGassets/HomePage/Home.png';
+import HomeB from './assets/FortuneCoffeePNGassets/HomePage/homeb.png';
 import Shop from './assets/FortuneCoffeePNGassets/HomePage/Shop.png';
 import Favorites from './assets/FortuneCoffeePNGassets/HomePage/Favorites.png';
+import FavoritesW from './assets/FortuneCoffeePNGassets/HomePage/favw.png';
 import homeSelected from './assets/FortuneCoffeePNGassets/HomePage/homeSelected.png';
 import favSelected from './assets/FortuneCoffeePNGassets/HomePage/favSelected.png';
 import shopSelected from './assets/FortuneCoffeePNGassets/HomePage/shopSelected.png';
 import Psychicbtn from './assets/FortuneCoffeePNGassets/HomePage/psyhbtn.png';
+import PsychicbtnW from './assets/FortuneCoffeePNGassets/HomePage/psW.png';
 import Horosbtn from './assets/FortuneCoffeePNGassets/HomePage/horosbtn.png';
+import HorosbtnW from './assets/FortuneCoffeePNGassets/HomePage/horW.png';
 import Profilebtn from './assets/FortuneCoffeePNGassets/HomePage/Profile.png';
+import ProfilebtnW from './assets/FortuneCoffeePNGassets/HomePage/proW.png';
 
 //HOMEPAGE//
 import TakePhoto from './assets/FortuneCoffeePNGassets/HomePage/TakePhoto.png';
@@ -242,8 +247,11 @@ import { Alert } from 'react-native';
 
 // Card utils
 import CheckLoginToken from './util/CheckLoginToken'
-import RegularCardCounter from './util/cardCounters/RegularCardCounter'
+import RegularCardCounter from './util/cardCounters/RegularCardCounter.js'
+import FortuneCardCounter from './util/cardCounters/FortuneCardCounter.js'
 
+// Protypes
+import prototype from './util/prototypes/ProtoTypes'
 
 ////////////////////
 // Styling  //
@@ -543,193 +551,222 @@ const styles = StyleSheet.create({
 //ReadingAnimation back to PhotoReading 
 function HomeScreen({ navigation }) {
   const [isModalVisible, setModalVisible] = useState(false);
+  const [isFortuneModalVisible, setFortuneModalVisible] = useState(false);
   const [front, setFront] = useState(dummyPath);
   const [meaning, setMeaning] = useState(dummyPath);
   const toggleModal = () => {
     setModalVisible(!isModalVisible);
   };
 
-  /// Modal Viewer based on date. 
-  const [userCanViewCard, setUserCanViewCard] = useState(false);
+    // Fortune Modal
 
-  // UseEffect for checking the card before each trigger
-  // Rather than putting it inside the function, we put it on the useeffect for checking
-  useEffect(()=>{
-    let mounted = true;
-
-    // If mounted . Check the state then storage.
-    if(mounted){
-      if(isModalVisible === true){
-        console.log("Modal is visible")
-        // Check the counter based on async storage, not fire ..
-        RegularCardCounter().then((result)=>{
-          console.log("User can view card : " , result)
-
-          // CHANGE THIS TO FALSE AND TRUE IF YOU WAANT TO CHECK.
-          // TODO : DATE FILTER AND CHECKING
-          setUserCanViewCard(false)
+    const toggleFortuneModal = () =>{
+      setFortuneModalVisible(!isFortuneModalVisible)
+    }
+  
+  
+    /// Modal Viewer based on date. 
+    const [userCanViewCard, setUserCanViewCard] = useState(false);
+    const [cardCheckTimeRemaining, setCardCheckTimeRemaining] = useState("00:00:00")
+  
+    // UseEffect for checking the card before each trigger
+    // Rather than putting it inside the function, we put it on the useeffect for checking
+    useEffect(()=>{
+      let mounted = true;
+  
+      // If mounted . Check the state then storage.
+      if(mounted){
+        if(isModalVisible === true){
+          console.log("Modal is visible")
+          // Check the counter based on async storage, not fire ..
+          RegularCardCounter().then((result)=>{
+            if(mounted){
+            console.log("User can view card : " , result)
+            setUserCanViewCard(result.userCanView)
+            console.log("Time Remaining in seconds : ", result.timeRemaining)
+            // update time remaining onto modal, must pass seconds ! .toHHMMSS = custom prototype
+              setCardCheckTimeRemaining(result.timeRemaining.toString().toHHMMSS());
+            }
+          });
+        }
+      }
+      return () =>{
+        mounted = false;
+      }
+    },[isModalVisible])
+  
+    // This use Effect is only called when the navigation lands here, This will reduce the amount of times
+    // it will run on this page.
+    useEffect(()=>{
+      let mounted = true;
+      if(mounted)
+      {
+        // Checks the login upon opening App
+      CheckLoginToken().then(async (result)=>{
+          console.log("User TYPE  : " , result)
+          // Navigate the user's based off of results
+          // TODO, log the user in via firestore
+          if(result === "User"){
+            navigation.navigate("HomeLoggedIn")
+          }
         });
       }
+      return ()=>{
+        mounted = false;
+      }
+    },[navigation])
+  
+    const toggleModal2 = () => {
+      setModalVisible(!isModalVisible);
+      let random = Math.floor((Math.random() * cardsAndMeaning.length));
+      setFront(cardsAndMeaning[random][0]);
+      setMeaning(cardsAndMeaning[random][1]);
     }
-    return () =>{
-      mounted = false;
+  
+    state = {
+      open: true,
+    };
+    toggleImage = () => {
+      this.setState(state => ({ open: !state.open }));
     }
-  },[isModalVisible])
-  // This use Effect is only called when the navigation lands here, This will reduce the amount of times
-  // it will run on this page.
-  useEffect(()=>{
-    let mounted = true;
-    if(mounted)
-    {
-      // Checks the login upon opening App
-    CheckLoginToken().then(async (result)=>{
-        console.log("User TYPE  : " , result)
-        // Navigate the user's based off of results
-        // TODO, log the user in via firestore
-        if(result === "User"){
-          navigation.navigate("HomeLoggedIn")
-        }
-      });
-    }
-    return ()=>{
-      mounted = false;
-    }
-  },[navigation])
-
-  const toggleModal2 = () => {
-    setModalVisible(!isModalVisible);
-    let random = Math.floor((Math.random() * cardsAndMeaning.length));
-    setFront(cardsAndMeaning[random][0]);
-    setMeaning(cardsAndMeaning[random][1]);
-  }
-
-  state = {
-    open: true,
-  };
-  toggleImage = () => {
-    this.setState(state => ({ open: !state.open }));
-  }
-
-  const Render_CardModule = () =>{
-
-    // TODO, give the real estamate time.
-    const counter = 2;
-
-    return userCanViewCard ? (
-      <> 
-    {/* Show module if user can view*/}
-          <Modal isVisible={isModalVisible} style={{ alignItems: "center", flex: 1 }}>
-            <View>
-              <Text style={styles.tapCard}>Tap card to flip</Text>
-              <Button title="Hide " onPress={toggleModal} />
-              <View style={{ marginBottom: 500 }}>
-                <FlipCard
-                  flipHorizontal={true}
-                  flipVertical={false}>
-                  <View style={styles.face}>
-                    {/* <Text>The Face</Text> */}
-                    <Image source={front} style={styles.cardStyle} />
-                  </View>
-                  <View>
-                    {/* <Text>The Back</Text> */}
-                    <Image source={meaning} style={styles.cardStyle} />
-                  </View>
-                </FlipCard>
+  
+    const Render_CardModule = () =>{
+  
+      // TODO, give the real estamate time.
+      // Result Returns, an object, i sent back the calculatorions. 
+  
+      // Just needs to show the time in 00:00 format. It's back in seconds. 
+      return userCanViewCard ? (
+        <> 
+      {/* Show module if user can view*/}
+            <Modal isVisible={isModalVisible} style={{ alignItems: "center", flex: 1 }}>
+              <View>
+                <Text style={styles.tapCard}>Tap card to flip</Text>
+                <Button title="Hide " onPress={toggleModal} />
+                <View style={{ marginBottom: 500 }}>
+                  <FlipCard
+                    flipHorizontal={true}
+                    flipVertical={false}>
+                    <View style={styles.face}>
+                      {/* <Text>The Face</Text> */}
+                      <Image source={front} style={styles.cardStyle} />
+                    </View>
+                    <View>
+                      {/* <Text>The Back</Text> */}
+                      <Image source={meaning} style={styles.cardStyle} />
+                    </View>
+                  </FlipCard>
+                </View>
               </View>
+            </Modal>
+        </>
+      ) : <>
+      {/* What to show iff the user is over the max setting.*/}
+      <Modal isVisible={isModalVisible} style={{ alignItems: "center", flex: 1 }}>
+          <View>
+            <Text style={styles.tapCard}>Already checked!{cardCheckTimeRemaining} remaining</Text>
+            <Button title="Hide " onPress={toggleModal} />
+            <View style={{ marginBottom: 500 }}>
             </View>
-          </Modal>
-      </>
-    ) : <>
-    {/* What to show iff the user is over the max setting.*/}
-    <Modal isVisible={isModalVisible} style={{ alignItems: "center", flex: 1 }}>
-        <View>
-          <Text style={styles.tapCard}>You already checked! Please check agian in {counter} hours.</Text>
-          <Button title="Hide " onPress={toggleModal} />
-          <View style={{ marginBottom: 500 }}>
           </View>
-        </View>
-      </Modal>
-    </>;
-  }
- 
-
-  return (
-    <View style={styles.mainContainer}>
-      <View style={{ flex: 1, alignItems: 'center' }}>
-        <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-between', padding: 25, marginTop: 18 }}>
-          <TouchableOpacity onPress={() => navigation.navigate('SignUp')}>
-            <Image source={SignUpButton} />
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => navigation.navigate('SignIn')}>
-            <Image source={SignInButton} />
-          </TouchableOpacity>
-        </View>
-        <Image source={LargeTitleApp} style={{ width: '100%' }} />
-        <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-evenly' }}>
-          <TouchableOpacity onPress={() => navigation.navigate('VirtualOne')}>
-          {/* Virtual Coffe Reading */}
-            <Image source={VirtualCoffee} />
-          </TouchableOpacity>
-          {/* Take a photo for reading */}
-          <TouchableOpacity onPress={() => navigation.navigate('Virtual')}>
-            <Image source={TakePhoto} />
-          </TouchableOpacity>
-        </View>
-        
-        {/* <Button title="Subscription" onPress={ () => navigation.navigate('Subscription')} /> */}
-        <Image source={PickCard} style={{ margin: 8 }} />
-          {/* Pick a card  */}
-        <TouchableOpacity onPress={toggleModal2} style={styles.cards}>
-          <Image source={Cards} />
-          <Modal isVisible={isModalVisible} style={{ alignItems: "center", flex: 1 }}>
-            <View>
-              <Text style={styles.tapCard}>Tap card to flip</Text>
-              <Button title="Hide Card" onPress={toggleModal} />
-              <View style={{ marginBottom: 500 }}>
-                <FlipCard
-                  flipHorizontal={true}
-                  flipVertical={false}>
-                <View>
-                   <Image source={front} style={styles.cardStyle} />
-                  </View>
-                  <View>
-                    <Image source={meaning} style={styles.cardStyle} />
-                  </View>
-                </FlipCard>
-              </View>
+        </Modal>
+      </>;
+    }
+  
+    const CheckFortuneCountCoffeeReading = () =>{
+       // navigation.navigate('VirtualOne')
+       FortuneCardCounter().then((result)=>{
+        console.log("THe user can go to next screen : ", result)
+        if(result){
+        // Continue to Virtual Coffee Reading.
+          navigation.navigate('VirtualOne')
+        }else{
+          // dont navigate
+         console.log("User, maxed out the time, not navigating")
+         toggleFortuneModal();
+  
+        }
+       });
+  
+    }
+    
+    const CheckFortuneCountPhoto = () =>{
+      // navigation.navigate('VirtualOne')
+      FortuneCardCounter().then((result)=>{
+       console.log("THe user can go to next screen : ", result)
+       if(result){
+        // Continue to photo navigation page.
+         navigation.navigate('Virtual')
+       }else{
+         // dont navigate
+         console.log("User, maxed out the time, not navigating")
+         toggleFortuneModal();
+       }
+      });
+  
+   }
+  
+    const RenderTheFortuneButtons = () =>{
+      return (
+        <> 
+         <Modal isVisible={isFortuneModalVisible} style={{ alignItems: "center", flex: 1 }}>
+          <View>
+            <Text style={styles.tapCard}>Sorry, you ran out of weekly fortune. Check next week!</Text>
+            <Button title="Hide " onPress={toggleFortuneModal} />
+            <View style={{ marginBottom: 500 }}>
             </View>
-          </Modal>
-        </TouchableOpacity>
-        {/*<View>
-        <TouchableOpacity onPress={toggleModal} style={styles.cards}>
-          <Image source={Cards} />
-           <Modal isVisible={isModalVisible} style = {{alignItems: "center"}}>
-            <View>
-              <Text style = {styles.tapCard}>Tap card to flip</Text>
-              <Button title="Hide modal" onPress={toggleModal} />
-              <View style={{marginBottom:500}}>
-                <FlipCard
-                  flipHorizontal={true}
-                  flipVertical={false}>
-                  <View style={styles.face}>
-                    <Text>The Face</Text>
-                    <Image source={arr[0]} style={styles.cardStyle} />
-                  </View>
-                  <View>
-                    <Text>The Back</Text>
-                    <Image source={arr[2]} style={styles.cardStyle} />
-                  </View>
-                </FlipCard>
+          </View>
+        </Modal>
+  
+         <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-evenly' }}>
+            <TouchableOpacity onPress={() => {
+               CheckFortuneCountCoffeeReading()
+              }}>
+            {/* Virtual Coffe Reading */}
+              <Image source={VirtualCoffee} />
+            </TouchableOpacity>
+            {/* Take a photo for reading */}
+            <TouchableOpacity onPress={() => {
+              CheckFortuneCountPhoto()
+            }}>
+              <Image source={TakePhoto} />
+            </TouchableOpacity>
+          </View>
+        </>
+      )
+    }
+  
+    return (
+      <View style={styles.mainContainer}>
+        <View style={{ flex: 1, alignItems: 'center' }}>
+          <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-between', padding: 25, marginTop: 18 }}>
+            <TouchableOpacity onPress={() => navigation.navigate('SignUp')}>
+              <Image source={SignUpButton} />
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => navigation.navigate('SignIn')}>
+              <Image source={SignInButton} />
+            </TouchableOpacity>
+          </View>
+          <Image source={LargeTitleApp} style={{ width: '100%' }} />
+          {RenderTheFortuneButtons()}
+          {/* <Button title="Subscription" onPress={ () => navigation.navigate('Subscription')} /> */}
+          <Image source={PickCard} style={{ margin: 8 }} />
+            {/* Pick a card  */}
+          <TouchableOpacity onPress={toggleModal2} style={styles.cards}>
+            <Image source={Cards} />
+            <Modal isVisible={isModalVisible} style={{ alignItems: "center", flex: 1 }}>
+              <View>
+                <View style={{ marginBottom: 500 }}>
+                  {Render_CardModule()}
+                </View>
               </View>
-            </View>
-          </Modal> 
-        </TouchableOpacity>
-        { /* Checker if the cards are */}
-        <NavBar />
+            </Modal>
+          </TouchableOpacity>
+          <NavBar />
+        </View>
       </View>
-    </View>
-  );
-}
+    );
+  }
 
 function HomeScreenLoggedIn({ navigation }) {
   const [isModalVisible, setModalVisible] = useState(false);
@@ -849,6 +886,114 @@ function NavBar(){
     </View>
   )
 }
+
+function NavBar_psyc(){
+  const navigation = useNavigation();
+  return(
+    <View style={{flex:1, backgroundColor:'#070631', height:'30%', alignItems:'center', alignContent:'center'}}>
+      <Image source={Ellipse1} style={styles.ellipse} />
+      <View style={{flexDirection:'row', width:'80%', justifyContent: 'space-between', position:'absolute', bottom: 0, paddingBottom:10}}>
+        <TouchableOpacity onPress={() => navigation.navigate('Horoscopemain')}>
+        <Image source={Horosbtn}  />
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => navigation.navigate('Psychic')}>
+           <Image source={PsychicbtnW} style={{ marginRight:30, bottom:'80%'}}  />
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate('Home')}>
+            <Image source={HomeB} style={{ bottom:'100%'}}/>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => navigation.navigate('Profile')}>
+            <Image source={Profilebtn} style={{ marginLeft:30, bottom:'80%'}} />
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate('Favorites')}>
+            <Image source={Favorites} style={{ bottom:'-20%'}} />
+        </TouchableOpacity>
+      </View>
+    </View>
+  )
+}
+
+function NavBar_hor(){
+  const navigation = useNavigation();
+  return(
+    <View style={{flex:1, backgroundColor:'#070631', height:'30%', alignItems:'center', alignContent:'center'}}>
+      <Image source={Ellipse1} style={styles.ellipse} />
+      <View style={{flexDirection:'row', width:'80%', justifyContent: 'space-between', position:'absolute', bottom: 0, paddingBottom:10}}>
+        <TouchableOpacity onPress={() => navigation.navigate('Horoscopemain')}>
+        <Image source={HorosbtnW}  />
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => navigation.navigate('Psychic')}>
+           <Image source={Psychicbtn} style={{ marginRight:30, bottom:'80%'}}  />
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate('Home')}>
+            <Image source={HomeB} style={{ bottom:'100%'}}/>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => navigation.navigate('Profile')}>
+            <Image source={Profilebtn} style={{ marginLeft:30, bottom:'80%'}} />
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate('Favorites')}>
+            <Image source={Favorites} style={{ bottom:'-20%'}} />
+        </TouchableOpacity>
+      </View>
+    </View>
+  )
+}
+
+
+
+function NavBar_pro(){
+const navigation = useNavigation();
+return(
+  <View style={{flex:1, backgroundColor:'#070631', height:'30%', alignItems:'center', alignContent:'center'}}>
+    <Image source={Ellipse1} style={styles.ellipse} />
+    <View style={{flexDirection:'row', width:'80%', justifyContent: 'space-between', position:'absolute', bottom: 0, paddingBottom:10}}>
+      <TouchableOpacity onPress={() => navigation.navigate('Horoscopemain')}>
+      <Image source={Horosbtn}  />
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate('Psychic')}>
+         <Image source={Psychicbtn} style={{ marginRight:30, bottom:'80%'}}  />
+      </TouchableOpacity>
+      <TouchableOpacity onPress={() => navigation.navigate('Home')}>
+          <Image source={HomeB} style={{ bottom:'100%'}}/>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate('Profile')}>
+          <Image source={ProfilebtnW} style={{ marginLeft:30, bottom:'80%'}} />
+      </TouchableOpacity>
+      <TouchableOpacity onPress={() => navigation.navigate('Favorites')}>
+          <Image source={Favorites} style={{ bottom:'-20%'}} />
+      </TouchableOpacity>
+    </View>
+  </View>
+)
+}
+
+function NavBar_fav(){
+  const navigation = useNavigation();
+  return(
+    <View style={{flex:1, backgroundColor:'#070631', height:'30%', alignItems:'center', alignContent:'center'}}>
+      <Image source={Ellipse1} style={styles.ellipse} />
+      <View style={{flexDirection:'row', width:'80%', justifyContent: 'space-between', position:'absolute', bottom: 0, paddingBottom:10}}>
+        <TouchableOpacity onPress={() => navigation.navigate('Horoscopemain')}>
+        <Image source={Horosbtn}  />
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => navigation.navigate('Psychic')}>
+           <Image source={Psychicbtn} style={{ marginRight:30, bottom:'80%'}}  />
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate('Home')}>
+            <Image source={HomeB} style={{ bottom:'100%'}}/>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => navigation.navigate('Profile')}>
+            <Image source={Profilebtn} style={{ marginLeft:30, bottom:'80%'}} />
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate('Favorites')}>
+            <Image source={FavoritesW} style={{ bottom:'-20%'}} />
+        </TouchableOpacity>
+      </View>
+    </View>
+  )
+  }
+  
+
 
 let favoriteDatabase = [
   {
@@ -1291,7 +1436,7 @@ function Psychic() {
               <Image source={SignInButton} />
             </TouchableOpacity>
           </View>
-      <NavBar/>
+      <NavBar_psyc/>
       </ImageBackground>
       </View>
      
@@ -1363,7 +1508,7 @@ function VirtualFive(){
 
   {/* ASYNCHRONOUSLY FIND RANDOM FORTUNE */}
   // BUG: redirects to fortunes away from subscription page if subscription button was pressed
-  setTimeout( () => { navigation.navigate('Reading') }, 10000000);
+  setTimeout( () => { navigation.navigate('Reading') }, 15);
   
   return( 
     <View style={styles.virtualContainer}>
@@ -1408,12 +1553,12 @@ function SignUpScreen({ navigation }) {
         <Image source={signTitle} style={{marginTop:'20%'}}/>
         <Image source={signUpBelowTitle} style={{marginBottom:12, marginTop:12}} />
         <View style={{marginTop:8, marginBottom:20}}>
-          <TouchableOpacity onPress={() => console.log('google pressed')} style={{marginBottom:20}}>
+        {/*}  <TouchableOpacity onPress={() => console.log('google pressed')} style={{marginBottom:20}}>
             <Image source={googleTitle} />
           </TouchableOpacity>
           <TouchableOpacity onPress={() => console.log('facebook pressed')}>
             <Image source={facebookTitle} />
-          </TouchableOpacity>
+          </TouchableOpacity>*/}
         </View>
         <Image source={signEmailText} style={{marginBottom:8}}/>
         <TextInput style={styles.textBox}
@@ -1480,7 +1625,7 @@ function Profile() {
               <Image source={SignInButton} />
             </TouchableOpacity>
           </View>
-   <NavBar></NavBar>
+   <NavBar_pro></NavBar_pro>
     </ImageBackground>
     
   )
@@ -1581,12 +1726,12 @@ function SignInScreen() {
         </TouchableOpacity>
         <Image source={signTitle}  style={{marginTop:'20%', marginBottom:40}}/>
         <View style={{marginTop:8, marginBottom:20}}>
-          <TouchableOpacity onPress={() => console.log('google pressed')} style={{marginBottom:20}}>
+         {/* <TouchableOpacity onPress={() => console.log('google pressed')} style={{marginBottom:20}}>
             <Image source={googleTitle} />
           </TouchableOpacity>
           <TouchableOpacity onPress={() => console.log('facebook pressed')}>
             <Image source={facebookTitle} />
-          </TouchableOpacity>
+          </TouchableOpacity>*/}
         </View>
         <Image source={signEmailText} style={{marginBottom:8}}/>
         <TextInput style={styles.textBox}
@@ -1780,7 +1925,7 @@ function Horoscopemain({}) {
 
             
             </View>
-            <NavBar></NavBar>
+            <NavBar_hor></NavBar_hor>
 
             </ImageBackground>
 
@@ -1955,7 +2100,7 @@ const [randAdvice, setRandomAdvice] = useState('');
 
        
       </View>
-      <NavBar/>
+      <NavBar_hor/>
       
       </View>
    
