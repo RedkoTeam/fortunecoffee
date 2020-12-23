@@ -717,12 +717,14 @@ function HomeScreen({ navigation }) {
             </View>
           </View>
         </Modal>
-  
+
+        
+         
          <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-evenly' }}>
             <TouchableOpacity onPress={() => {
                CheckFortuneCountCoffeeReading()
               }}>
-            {/* Virtual Coffe Reading */}
+            {/* Virtual Coffee Reading */}
               <Image source={VirtualCoffee} />
             </TouchableOpacity>
             {/* Take a photo for reading */}
