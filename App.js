@@ -2017,15 +2017,15 @@ useEffect(() => {setRandomFortune(getRandomFortune)()
             </Button>
           ) : null}
         <Image source={appre} style={{ marginTop: 10 }} />
-        <Text style={{fontSize:14, color:'white', marginTop:5}}> {randWord}  </Text>
+        <Text style={{fontSize:14, color:'white', marginTop:5}}> {randThanks}  </Text>
           
           {!buttonClicked ? (
             <Button
               onPress={() => {
-                setRandomWord(getRandomWord)
+                setRandomThanks(getRandomThanks)
                 setButtonClicked(true)
               }}
-              title='Word'
+              title='Appreciate'
             >
             </Button>
           ) : null}
@@ -2159,12 +2159,12 @@ useEffect(() => {setRandomFortune(getRandomFortune)()
     return randLetter;
   
   }
-   function getRandomWord() {
-     let random = Math.floor((Math.random() * wordsArray.length))
+   function getRandomThanks() {
+     let random = Math.floor((Math.random() * thanksArray.length))
     console.log(random);
-     let randWord = wordsArray[random];
-    console.log(randWord);
-    return randWord;
+     let randThanks = thanksArray[random];
+    console.log(randThanks );
+    return randThanks;
   
   }
 
