@@ -102,7 +102,10 @@ import Scorpiobttn from './assets/FortuneCoffeePNGassets/horoscopes/horoscopebtn
 import Taurusbttn from './assets/FortuneCoffeePNGassets/horoscopes/horoscopebtns/Taurus-bttn.png'
 import Virgobttn from './assets/FortuneCoffeePNGassets/horoscopes/horoscopebtns/Virgo-bttn.png'
 
-
+//MODALS//
+import submod from './assets/submod.png'
+import submodfo from './assets/submodfo.png'
+import getCrystalsBtn from './assets/getcrysbtn.png'
 
 
 //NAVBAR//
@@ -230,6 +233,8 @@ import photoGallery from './assets/photoGallery.png';
 //Saved Fortunes //
 
 //Psyhic//
+
+
 
 
 //Profile //
@@ -2067,6 +2072,9 @@ const [randAdvice, setRandomAdvice] = useState('');
             <View>
             <Text style={{fontSize:17, color:'white'}}> {randomFortune}  </Text>
           
+
+
+            
             {!buttonClicked ? (
               <Button
                 onPress={() => {
@@ -2077,7 +2085,23 @@ const [randAdvice, setRandomAdvice] = useState('');
               >
               </Button>
             ) : null}
-            
+
+
+
+{/*  // MAKE TEXT ONLY //  
+
+componentDidMount(){
+  this.timer = setInterval(()=> this.setRandomFortune(), 43200)
+ }
+
+
+useEffect(() => {
+              (async () => {
+                      setRandomFortune(getRandomFortune)
+                  setButtonClicked(true)
+             })()
+              }, []);*/}
+
             </View>
           
             </View>
