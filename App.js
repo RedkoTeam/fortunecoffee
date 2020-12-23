@@ -631,7 +631,7 @@ function HomeScreen({ navigation }) {
       if(mounted)
       {
         // Checks the login upon opening App
-      CheckLoginToken().then(async (result)=>{
+        CheckLoginToken().then(async (result)=>{
           console.log("User TYPE  : " , result)
           // Navigate the user's based off of results
           // TODO, log the user in via firestore
@@ -639,11 +639,27 @@ function HomeScreen({ navigation }) {
             navigation.navigate("HomeLoggedIn")
           }
         });
+        _CheckOnboarding();
       }
       return ()=>{
         mounted = false;
       }
     },[navigation])
+
+    const _CheckOnboarding = async () => {
+      await RetrieveData('ONBOARDING').then( (val) => {
+        if(val !== 'DONE') { // if onboarding 
+          StoreData("ONBOARDING", 'PENDING');
+          console.log(`Onboarding State 1: ${RetrieveData('ONBOARDING')}`);
+          StoreData("ONBOARDING", "DONE");
+          navigation.navigate('Onboarding');
+        }
+        else {
+          console.log(`Onboarding State: ${JSON.stringify(val)}`);
+        }
+      }
+      )
+    }
   
     const toggleModal2 = () => {
       setModalVisible(!isModalVisible);
@@ -786,7 +802,7 @@ function HomeScreen({ navigation }) {
               </View>
             }
             
-          <Button title="Clear Async" onPress={() => AsyncStorage.clear()} />
+          <Button title="Clear Async" onPress={ () => { console.log("Async Storage Cleared"); AsyncStorage.clear();}}></Button>
           <Image source={LargeTitleApp} style={{ width: '100%' }} />
           {RenderTheFortuneButtons()}
           {/* <Button title="Subscription" onPress={ () => navigation.navigate('Subscription')} /> */}
@@ -2259,32 +2275,23 @@ const Stack = createStackNavigator();
 
 function App() {
   const forFade = ({ current }) => ({ cardStyle: { opacity: current.progress }});
-  const [onboarding, setOnboarding] = useState();
 
-  
-  useEffect(()=>{
+  const _CheckOnboarding = () => {
     RetrieveData('ONBOARDING').then( (val) => {
-      if(!val) {
+      if(val !== 'DONE') { // if onboarding 
         StoreData("ONBOARDING", 'PENDING');
-        setOnboarding('DONE');
-        console.log(`Onboarding State 1: ${val}`);
+        console.log(`Onboarding State 1: ${RetrieveData('ONBOARDING')}`);
+        StoreData("ONBOARDING", "DONE");
+        return ( <Stack.Screen name="Onboarding" component={Onboarding} /> );
       }
       else {
-        setOnboarding(val);
-        console.log(`Onboarding State: ${val}`);
+        console.log(`Onboarding State: ${JSON.stringify(val)}`);
       }
     }
     )
-  })
+  }
 
-  const _CheckOnboarding = ( () => {
-
-      switch(onboarding) {
-        case 'PENDING': return ( <Stack.Screen name="Onboarding" component={Onboarding} /> );
-      }
-    
-    console.log(`PopToTop: Onboarding is ${onboarding}`);
-  })
+  
   
   
   
@@ -2295,8 +2302,7 @@ function App() {
           headerShown: false
         }}
       >
-        <Stack.Screen name="Onboarding" component={Onboarding} />
-        <Stack.Screen name="Home" component={HomeScreen} />
+        {<Stack.Screen name="Home" component={HomeScreen} />}
         <Stack.Screen name="HomeLoggedIn" component={HomeScreenLoggedIn} />
         <Stack.Screen name="Favorites" component={FavoritesScreen} />
         <Stack.Screen name="Shop" component={ShopScreen} />
@@ -2323,6 +2329,7 @@ function App() {
         <Stack.Screen name="Horoscopepisces" component={Horoscopepisces} />
         <Stack.Screen name="Horoscopemain" component={Horoscopemain} />
         <Stack.Screen name="Psychic" component={Psychic} />
+        <Stack.Screen name="Onboarding" component={Onboarding} />
       </Stack.Navigator>
     </NavigationContainer>
   );
