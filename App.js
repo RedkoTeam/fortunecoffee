@@ -568,10 +568,19 @@ const styles = StyleSheet.create({
 // Completed and Ready for code review
 //ReadingAnimation back to PhotoReading 
 function HomeScreen({ navigation }) {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isModalVisible, setModalVisible] = useState(false);
   const [isFortuneModalVisible, setFortuneModalVisible] = useState(false);
   const [front, setFront] = useState(dummyPath);
   const [meaning, setMeaning] = useState(dummyPath);
+
+  const checkLoggedIn = () => {
+    if(db.collection('users').doc(firebase.auth().currentUser.uid)) {
+      return true
+    } else {
+      return false
+    }
+  }
   const toggleModal = () => {
     setModalVisible(!isModalVisible);
   };
@@ -590,6 +599,7 @@ function HomeScreen({ navigation }) {
     // UseEffect for checking the card before each trigger
     // Rather than putting it inside the function, we put it on the useeffect for checking
     useEffect(()=>{
+      setIsLoggedIn(checkLoggedIn)
       let mounted = true;
   
       // If mounted . Check the state then storage.
@@ -613,6 +623,7 @@ function HomeScreen({ navigation }) {
       }
     },[isModalVisible])
   
+
     // This use Effect is only called when the navigation lands here, This will reduce the amount of times
     // it will run on this page.
     useEffect(()=>{
@@ -760,14 +771,21 @@ function HomeScreen({ navigation }) {
     return (
       <View style={styles.mainContainer}>
         <View style={{ flex: 1, alignItems: 'center' }}>
-          <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-between', padding: 25, marginTop: 18 }}>
-            <TouchableOpacity onPress={() => navigation.navigate('SignUp')}>
+          {/* <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-between', padding: 25, marginTop: 18 }}> */}
+            {isLoggedIn ? (
+              <View>
+                <Text></Text>
+              </View>
+            ) : 
+             <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-between', padding: 25, marginTop: 18 }}><TouchableOpacity onPress={() => navigation.navigate('SignUp')}>
               <Image source={SignUpButton} />
             </TouchableOpacity>
             <TouchableOpacity onPress={() => navigation.navigate('SignIn')}>
               <Image source={SignInButton} />
             </TouchableOpacity>
-          </View>
+              </View>
+            }
+            
           <Button title="Clear Async" onPress={() => AsyncStorage.clear()} />
           <Image source={LargeTitleApp} style={{ width: '100%' }} />
           {RenderTheFortuneButtons()}
