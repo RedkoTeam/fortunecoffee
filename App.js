@@ -600,7 +600,7 @@ function HomeScreen({ navigation }) {
     // UseEffect for checking the card before each trigger
     // Rather than putting it inside the function, we put it on the useeffect for checking
     useEffect(()=>{
-      //setIsLoggedIn(checkLoggedIn)
+      // setIsLoggedIn(checkLoggedIn)
       let mounted = true;
   
       // If mounted . Check the state then storage.
@@ -804,6 +804,7 @@ function HomeScreen({ navigation }) {
             }
             
           <Button title="Clear Async" onPress={ () => { console.log("Async Storage Cleared"); AsyncStorage.clear();}}></Button>
+          <Button title="Sign out" onPress={ () => { console.log("User Sign Out"); firebase.auth().signOut()}}></Button>
           <Image source={LargeTitleApp} style={{ width: '100%' }} />
           {RenderTheFortuneButtons()}
           {/* <Button title="Subscription" onPress={ () => navigation.navigate('Subscription')} /> */}
@@ -1065,18 +1066,23 @@ let favoriteDatabase = [
 
 function FavoritesScreen() {
   const navigation = useNavigation();
-  const [favoritesData, setFavoritesData] = useState([{}]);
+  const [favoritesData, setFavoritesData] = useState([{"fortune" : "You're not logged in. Please come back and check after logging in"}]);
 
   useEffect( () => {
-    console.log('Favorites Screen Populated. Fetching data from firestore');
-    db.collection('users').doc(firebase.auth().currentUser.uid).get()
+    CheckLoginToken().then(async (result) => {
+      console.log('Favorites Screen Populated. Fetching data from firestore');
+      console.log("Login Status: ", result)
+      if(result === "User"){
+        db.collection('users').doc(firebase.auth().currentUser.uid).get()
         .then(uData => {
           const userData = uData.data().favorites;
           setFavoritesData(userData);
           console.log(`USER DATA  ${JSON.stringify(favoritesData)}`);
         })
         .catch(error => console.log(error));
-                    }, []);
+      }
+    })
+  })
                     
 
   return (
@@ -2004,19 +2010,62 @@ const [randAdvice, setRandomAdvice] = useState('');
 
 
 
+ const HoroscopeRanomizer = async () =>{
 
-useEffect(() => {
-  setRandomHoroscope(getRandomHoroscope)
-  setRandomNumber(getRandomNumber)
-  setRandomLetter(getRandomLetter)
-  setRandomThanks(getRandomThanks)
-  setRandomWord2(getRandomWord2)
-  setRandomWord3(getRandomWord3)
-  setRandomWord4(getRandomWord4)
-  setRandomAdvice(getRandomAdvice)
-  
+            // Async storage, Key , Date
+  const randomHoroscope = await GetItemInStorage("HOROSCOPE_RANDOM_TIMER");
+  console.log(randomHoroscope)
+  if(!randomHoroscope){
+    await SaveItemInStorage("HOROSCOPE_RANDOM_TIMER", new Date().getTime().toString())
+    let random = Math.floor((Math.random() * horoscopeArray.length))
+    await SaveItemInStorage("HOROSCOPE_RANDOM_NUMBER", random.toString())
+    await setRandomHoroscope(getRandomHoroscope(random));
+    
+  }else{
 
- }, [])
+    let currentDate = parseInt(new Date().getTime().toString());
+    let previousDate = parseInt(randomHoroscope);
+
+    let newPreviousDate = parseInt(previousDate) + 86400000;
+    console.log("CurrentDate : " ,currentDate)
+    console.log("Previous Date : " ,newPreviousDate)
+
+    // 86400000 = 1 day
+    if((previousDate + 86400000) < currentDate){
+      // if one day has passed
+      // Grab a random number
+      let random = Math.floor((Math.random() * horoscopeArray.length))
+      console.log("One day has passed, getting new horoscope")
+      await setRandomHoroscope(getRandomHoroscope(random));
+      await SaveItemInStorage("HOROSCOPE_RANDOM_TIMER", currentDate.toString())
+      await SaveItemInStorage("HOROSCOPE_RANDOM_NUMBER", random.toString())
+    }else{
+      console.log("One day has not passed, will not reset the current horoscope")
+      let getOldRandomNumber = await GetItemInStorage("HOROSCOPE_RANDOM_NUMBER")
+      await setRandomHoroscope(getRandomHoroscope(getOldRandomNumber));
+      // Display previous horoscope.
+    }
+
+  }
+    
+ }
+
+
+  useEffect(()=>{
+    let mounted = true;
+
+
+    if(mounted){
+      HoroscopeRanomizer();
+    }
+
+
+    return()=>{
+
+      mounted =false;
+    }
+
+  },[navigation])
 
 
   return (
