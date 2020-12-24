@@ -581,6 +581,7 @@ function HomeScreen({ navigation }) {
   //     return false
   //   }
   // }
+
   const toggleModal = () => {
     setModalVisible(!isModalVisible);
   };
@@ -803,6 +804,7 @@ function HomeScreen({ navigation }) {
             }
             
           <Button title="Clear Async" onPress={ () => { console.log("Async Storage Cleared"); AsyncStorage.clear();}}></Button>
+          <Button title="Sign out" onPress={ () => { console.log("User Sign Out"); firebase.auth().signOut()}}></Button>
           <Image source={LargeTitleApp} style={{ width: '100%' }} />
           {RenderTheFortuneButtons()}
           {/* <Button title="Subscription" onPress={ () => navigation.navigate('Subscription')} /> */}
@@ -1064,48 +1066,45 @@ let favoriteDatabase = [
 
 function FavoritesScreen() {
   const navigation = useNavigation();
-  const [favoritesData, setFavoritesData] = useState([])
+  const [favoritesData, setFavoritesData] = useState([{"fortune" : "You're not logged in. Please come back and check after logging in"}]);
 
-  
-     useEffect(() => {
-      db.collection('users').doc(firebase.auth().currentUser.uid)
-        .get()
-        .then(queryResult => {
-          const userData = queryResult.data();
-          // console.log(`Retrieved data: ${JSON.stringify(userData.favorites)}`)
-          const userDataParsed = userData.favorites
-          let arrayOfFavorites = [];
-          for (const key in userDataParsed) {
-            arrayOfFavorites.push(userDataParsed[key])
-          }
-        
-          setFavoritesData(arrayOfFavorites)
-          console.log(arrayOfFavorites)
+  useEffect( () => {
+    CheckLoginToken().then(async (result) => {
+      console.log('Favorites Screen Populated. Fetching data from firestore');
+      console.log("Login Status: ", result)
+      if(result === "User"){
+        db.collection('users').doc(firebase.auth().currentUser.uid).get()
+        .then(uData => {
+          const userData = uData.data().favorites;
+          setFavoritesData(userData);
+          console.log(`USER DATA  ${JSON.stringify(favoritesData)}`);
         })
-    }, []);
+        .catch(error => console.log(error));
+      }
+    })
+  })
+                    
 
   return (
     <View style={{flexGrow:1, justifyContent:'space-between'}}>
       <ScrollView contentContainerStyle={styles.shopContainer}>
-        <View style={{flexDirection:'row', width:'100%', position: 'relative', left:0, top:75, marginBottom: 65}} >
-          <TouchableOpacity onPress={()=>navigation.navigate('Home')} style={styles.backButtonStyle}>
-            <Image source={backButton} />
-            
-          </TouchableOpacity>
-          
-            <Image source={savedFortunesTitle} style={{position:'absolute', alignSelf:'center', right:'28%', bottom:'5%'}} />
-        </View>
         <Image source={ galaxy } style={styles.shopBackgroundContainer} />
+        <View style={{position:'absolute', top:0, flexDirection:'row', width:'100%', margin:16}}>
+        <TouchableOpacity onPress={()=>{navigation.navigate('Home')}}>
+          <Image source={backButton} style={styles.backButtonStyle}/>
+        </TouchableOpacity>
+        <Image source={savedFortunesTitle} style={{position:'absolute', alignSelf:'center', right:'28%', top: 100}} />
+      </View>
+        <View style={{paddingTop: 130}}></View>
         {
-          favoriteDatabase.map((item, index) => {
+          favoritesData.map((item, index) => {
             // favorites data is showing up in the console.log but not populating on the screen
             // this needs to be changed from a map to something else to correctly access the fortunes. 
-            console.log(` favoritesData: ${favoritesData}`)
             return(
               <View key={index} style={{padding:30}}>
                 <Image source={fortuneBox} />
                 <View style={{flexDirection:'row', position: 'absolute', bottom:500, right:0, alignItems:'center', padding:12}}>
-                  <Text style={{color:'black', fontWeight:'bold', fontSize: 21, right: 75}}>{item.date}</Text>
+                  <Text style={{color:'white', fontWeight:'bold', fontSize: 21, right: 75}}>{item.date}</Text>
                     <Image source={etcButton} style={{right:50}}/>
                 </View>
                 <View style={{position:'absolute', top:150, left: 60, width:'90%'}}>
@@ -1115,22 +1114,24 @@ function FavoritesScreen() {
             )
           })
         }
+        <View style={{paddingBottom:180}}></View>
+        <NavBar_fav/>
       </ScrollView>
     </View>
   )
 
   // FIRESTORE not populating when mapped above. 
-  async function getFavorites() {
-    await db.collection('users').doc(firebase.auth().currentUser.uid)
-      .get()
-      .then(documentSnapshot => {
-        const userData = documentSnapshot.data();
-        console.log(`Retrieved data: ${JSON.stringify(userData.favorites)}`)
-        setFavoritesData(userData.favorites)
-      })
-      .catch(error => console.log(error))
-  }
-}
+//   async function getFavorites() {
+//     await db.collection('users').doc(firebase.auth().currentUser.uid)
+//       .get()
+//       .then(documentSnapshot => {
+//         const userData = documentSnapshot.data();
+//         console.log(`Retrieved data: ${JSON.stringify(userData.favorites)}`)
+//         setFavoritesData(userData.favorites)
+//       })
+//       .catch(error => console.log(error))
+//   }
+ }
 
 function ReadMore(){
   return(
@@ -2668,12 +2669,12 @@ function getRandomAdvice() {
 
 
   //FIRESTORE
-  function onSaveFortune() {
-    db.collection('users').doc(firebase.auth().currentUser.uid).update({
-      favorites: firebase.firestore.FieldValue.arrayUnion(...[randomFortune])
-    })
-    // navigation.navigate('Favorites')
-  }
+  // function onSaveFortune() {
+  //   db.collection('users').doc(firebase.auth().currentUser.uid).update({
+  //     favorites: firebase.firestore.FieldValue.arrayUnion(...[randomFortune])
+  //   })
+  //   // navigation.navigate('Favorites')
+  // }
 
 }
 
@@ -2698,7 +2699,7 @@ function Reading({}){
           </TouchableOpacity>
         </View>
         <View style={styles.flexInRowsCoffee}>
-          <TouchableOpacity onPress={() => onSaveFortune()}>
+          <TouchableOpacity onPress={() => onSave()}>
               <Image source={saveButton} />
             </TouchableOpacity>
             <View>
@@ -2741,11 +2742,13 @@ function Reading({}){
   }
 
   //FIRESTORE
-  function onSaveFortune() {
-    db.collection('users').doc(firebase.auth().currentUser.uid).update({
-      favorites: firebase.firestore.FieldValue.arrayUnion(...[randomFortune])
+  function onSave() {
+    var today = new Date().toLocaleDateString('en-US', {month:'long', day:'numeric', year:'numeric'});
+    var favRef = db.collection('users').doc(firebase.auth().currentUser.uid);
+    favRef.update({
+      'favorites' : firebase.firestore.FieldValue.arrayUnion(...[{'date': today, 'fortune': randomFortune}])
     })
-    // navigation.navigate('Favorites')
+    navigation.navigate('Favorites')
   }
 }
 
