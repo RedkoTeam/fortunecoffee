@@ -540,7 +540,7 @@ const styles = StyleSheet.create({
     backgroundColor : '#fff',
     borderRadius: 5,
     color: '#000',
-    padding: 10,
+    padding: 5,
     margin: 40,
   },
   savedFortuneTextBox: {
@@ -548,6 +548,7 @@ const styles = StyleSheet.create({
     width: "90%",
     borderWidth: 1,
     borderRadius: 10,
+    marginTop:10,
     backgroundColor: "rgba(255,255,255,0.4)",
   },
   savedFortuneTextBox2: {
@@ -799,7 +800,9 @@ function HomeScreen({ navigation }) {
             }}>
               <Image source={TakePhoto} />
             </TouchableOpacity>
-
+            <TouchableOpacity onPress={() => navigation.navigate('Payment')}>
+            <Image source={TakePhoto} />
+          </TouchableOpacity>
           </View>
         </>
       )
@@ -1257,64 +1260,66 @@ function Payment({navigation, route}) {
   }
 
   return (
-    <View style={{  alignItems: 'center', justifyContent: 'center', backgroundColor: '#070631' }}>
+ 
+    <View style={{  alignItems: 'center', height: '100%' ,justifyContent: 'center'}}>
+      <ImageBackground source={bgstars} style={styles.bgfull}>
       <View style={styles.flexInRows}>
           <TouchableOpacity onPress={() => navigation.navigate('Home')} style={{ top: 40, marginLeft: 10 }}>
             <Image source={backButton} />
           </TouchableOpacity>
       </View>
         <Text></Text>
-        <Text style={{ color: '#FFFFFF', fontSize: 8, textAlign: 'left', alignSelf: 'stretch', marginLeft: 20, marginTop: 30 }}>Name</Text>
+        <Text style={{ color: '#FFFFFF', fontSize: 15, textAlign: 'left', alignSelf: 'stretch', marginLeft: 20, marginTop: 60 }}>Name</Text>
         <TextInput style={styles.savedFortuneTextBox}
           label="Name"
           placeholder="   Enter name here"
           placeholderTextColor='#DCDCDC'
           onChangeText={name => setName(name)}
         />
-        <Text style={{ color: '#FFFFFF', fontSize: 8, marginTop: 10, textAlign: 'left', alignSelf: 'stretch', marginLeft: 15 }}>Email</Text>
+        <Text style={{ color: '#FFFFFF', fontSize: 15, marginTop: 10, textAlign: 'left', alignSelf: 'stretch', marginLeft: 15 }}>Email</Text>
         <TextInput style={styles.savedFortuneTextBox}
           label="Email"
           placeholder="   Enter Email Here"
           placeholderTextColor='#DCDCDC'
           onChangeText={email => setEmail(email)}
         />
-        <Text style={{ color: '#FFFFFF', fontSize: 8, marginTop: 10, textAlign: 'left', alignSelf: 'stretch', marginLeft: 15 }}>Phone</Text>
+        <Text style={{ color: '#FFFFFF', fontSize: 15, marginTop: 10, textAlign: 'left', alignSelf: 'stretch', marginLeft: 15 }}>Phone</Text>
         <TextInput style={styles.savedFortuneTextBox}
           label="Phone"
           placeholder="   Enter Phone # Here"
           placeholderTextColor='#DCDCDC'
           onChangeText={phone => setPhone(phone)}
         />
-        <Text style={{ color: '#FFFFFF', fontSize: 8, marginTop: 10, textAlign: 'left', alignSelf: 'stretch', marginLeft: 15 }}>Address</Text>
+        <Text style={{ color: '#FFFFFF', fontSize: 15, marginTop: 10, textAlign: 'left', alignSelf: 'stretch', marginLeft: 15 }}>Address</Text>
         <TextInput style={styles.savedFortuneTextBox}
           label="Address"
           placeholder="   Address"
           placeholderTextColor='#DCDCDC'
           onChangeText={address => setAddress(address)}
         />
-        <Text style={{ color: '#FFFFFF', fontSize: 8, marginTop: 10, textAlign: 'left', alignSelf: 'stretch', marginLeft: 15 }}>City</Text>
+        <Text style={{ color: '#FFFFFF', fontSize: 15, marginTop: 10, textAlign: 'left', alignSelf: 'stretch', marginLeft: 15 }}>City</Text>
         <TextInput style={styles.savedFortuneTextBox}
           label="City"
           placeholder="   City"
           placeholderTextColor='#DCDCDC'
           onChangeText={city => setCity(city)}
         />
-        <Text style={{ color: '#FFFFFF', fontSize: 8, marginTop: 10, textAlign: 'left', alignSelf: 'stretch', marginLeft: 15 }}>Country</Text>
+        <Text style={{ color: '#FFFFFF', fontSize: 15, marginTop: 10, textAlign: 'left', alignSelf: 'stretch', marginLeft: 15 }}>Country</Text>
         <TextInput style={styles.savedFortuneTextBox}
           label="Country"
           placeholder="   Country"
           placeholderTextColor='#DCDCDC'
           onChangeText={country => setCountry(country)}
         />
-      <View style={{ flexDirection: 'row', width: '90%', height: '7%' }}>
-        <Text style={{ color: '#FFFFFF', fontSize: 8, marginTop: 10, textAlign: 'left', alignSelf: 'stretch', marginLeft: 15 }}>Postal</Text>
+      <View style={{ flexDirection: 'row', justifyContent:'space-between' , width: '90%', height: '5%' ,marginTop:15}}>
+        <Text style={{ color: '#FFFFFF', fontSize: 15, marginTop: 10, textAlign: 'left', alignSelf: 'stretch' }}>Postal</Text>
         <TextInput style={styles.savedFortuneTextBox2}
           label="Postal"
           placeholder="   Postal"
           placeholderTextColor='#DCDCDC'
           onChangeText={postal => setPostal(postal)}
         />
-        <Text style={{ color: '#FFFFFF', fontSize: 8, marginTop: 10, textAlign: 'left', alignSelf: 'stretch', marginLeft: 15 }}>State</Text>
+        <Text style={{ color: '#FFFFFF', fontSize: 15, marginTop: 10, textAlign: 'left', alignSelf: 'stretch'}}>State</Text>
         <TextInput style={styles.savedFortuneTextBox2}
           label="State"
           placeholder="   State"
@@ -1322,7 +1327,7 @@ function Payment({navigation, route}) {
           onChangeText={cityState => setCityState(cityState)}
         />
         </View>
-        <Text style={{ color: '#FFFFFF', fontSize: 8, marginTop: 10, textAlign: 'left', alignSelf: 'stretch', marginLeft: 15 }}>Credit Card</Text>
+        <Text style={{ color: '#FFFFFF', fontSize: 15, marginTop: 10, textAlign: 'left', alignSelf: 'stretch', marginLeft: 15 }}>Credit Card</Text>
         <TextInput style={styles.savedFortuneTextBox}
           label="Credit Card"
           placeholder="   Card Number"
@@ -1330,7 +1335,7 @@ function Payment({navigation, route}) {
           onChangeText={cardNumber => setCardNumber(cardNumber)}
         />
 
-        <Text style={{ color: '#FFFFFF', fontSize: 7, marginTop: 10, textAlign: 'left', alignSelf: 'stretch', marginLeft: 15 }}>Credit Card</Text>
+        <Text style={{ color: '#FFFFFF', fontSize: 15, marginTop: 10, textAlign: 'left', alignSelf: 'stretch', marginLeft: 15 }}>Credit Card</Text>
         <View style={{ flexDirection: 'row', width: '90%', height: '6%' }}>
 
           <TextInput style={styles.savedFortuneTextBox2}
@@ -1357,10 +1362,12 @@ function Payment({navigation, route}) {
         toStripe(name, email, phone, address, city, country, postal, cityState, cardNumber, exp_month, exp_year, cvc)
 
         }}>
-          <Image source={continueImage} />
+          <Image style={{marginTop:10 }} source={continueImage} />
         </TouchableOpacity>
       <Text></Text>
+   </ImageBackground>
     </View>
+    
   )
   
 }
