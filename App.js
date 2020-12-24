@@ -86,6 +86,8 @@ import CancerCard from './assets/FortuneCoffeePNGassets/horoscopes/horoscopebtns
 import CancerTxt from './assets/FortuneCoffeePNGassets/horoscopes/CANCER.png'
 import GeminiCard from './assets/FortuneCoffeePNGassets/horoscopes/horoscopebtns/Gemini.png'
 import GeminiTxt from './assets/FortuneCoffeePNGassets/horoscopes/GEMINI.png'
+import CapricornCard from './assets/FortuneCoffeePNGassets/horoscopes/horoscopebtns/Capricorn.png'
+import CapricornTxt from './assets/FortuneCoffeePNGassets/horoscopes/CAPRICORN.png'
 import LeoCard from './assets/FortuneCoffeePNGassets/horoscopes/horoscopebtns/Leo.png'
 import LeoTxt from './assets/FortuneCoffeePNGassets/horoscopes/LEO.png'
 import LibraCard from './assets/FortuneCoffeePNGassets/horoscopes/horoscopebtns/Libra.png'
@@ -2378,16 +2380,16 @@ function HoroscopeAries({}) {
 
   return (
     <View style={styles.mainContainer}>
-      <View style={{  alignItems: 'center' }}>
-        <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-between', padding: 25, marginTop: 18 }}>
-          <TouchableOpacity onPress={() => navigation.navigate('SignUp')}>
-            <Image source={SignUpButton} />
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => navigation.navigate('SignIn')}>
-            <Image source={SignInButton} />
-          </TouchableOpacity>
-        </View>
+      <ImageBackground source={bgstars} style={styles.bgfull}>
+      <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-between', padding: 25, marginTop: 10 }}>
+      <View style={{position:'absolute', top:0, flexDirection:'row', width:'100%', margin:0}}>
+        <TouchableOpacity onPress={()=>{navigation.navigate('Horoscopemain')}}>
+          <Image source={backButton} style={styles.backButtonStyle}/>
+        </TouchableOpacity>
+      </View>
 
+        </View>
+      <View style={{  alignItems: 'center' , marginTop:40}}>  
         <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-evenly' }}>
         <View style={{ flexDirection: 'column', justifyContent: 'space-evenly' , marginRight:12 }}>
 
@@ -2446,7 +2448,7 @@ function HoroscopeAries({}) {
        
       </View>
       <NavBar_hor/>
-      
+      </ImageBackground>
       </View>
    
   );
@@ -2857,16 +2859,16 @@ function HoroscopeAquarius({}) {
 
   return (
     <View style={styles.mainContainer}>
-      <View style={{  alignItems: 'center' }}>
-        <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-between', padding: 25, marginTop: 18 }}>
-          <TouchableOpacity onPress={() => navigation.navigate('SignUp')}>
-            <Image source={SignUpButton} />
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => navigation.navigate('SignIn')}>
-            <Image source={SignInButton} />
-          </TouchableOpacity>
-        </View>
+      <ImageBackground source={bgstars} style={styles.bgfull}>
+      <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-between', padding: 25, marginTop: 10 }}>
+      <View style={{position:'absolute', top:0, flexDirection:'row', width:'100%', margin:0}}>
+        <TouchableOpacity onPress={()=>{navigation.navigate('Horoscopemain')}}>
+          <Image source={backButton} style={styles.backButtonStyle}/>
+        </TouchableOpacity>
+      </View>
 
+        </View>
+      <View style={{  alignItems: 'center' , marginTop:40}}>  
         <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-evenly' }}>
         <View style={{ flexDirection: 'column', justifyContent: 'space-evenly' , marginRight:12 }}>
 
@@ -2925,7 +2927,7 @@ function HoroscopeAquarius({}) {
        
       </View>
       <NavBar_hor/>
-      
+      </ImageBackground>
       </View>
    
   );
@@ -3338,16 +3340,16 @@ function HoroscopeCancer({}) {
 
   return (
     <View style={styles.mainContainer}>
-      <View style={{  alignItems: 'center' }}>
-        <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-between', padding: 25, marginTop: 18 }}>
-          <TouchableOpacity onPress={() => navigation.navigate('SignUp')}>
-            <Image source={SignUpButton} />
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => navigation.navigate('SignIn')}>
-            <Image source={SignInButton} />
-          </TouchableOpacity>
-        </View>
+      <ImageBackground source={bgstars} style={styles.bgfull}>
+      <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-between', padding: 25, marginTop: 10 }}>
+      <View style={{position:'absolute', top:0, flexDirection:'row', width:'100%', margin:0}}>
+        <TouchableOpacity onPress={()=>{navigation.navigate('Horoscopemain')}}>
+          <Image source={backButton} style={styles.backButtonStyle}/>
+        </TouchableOpacity>
+      </View>
 
+        </View>
+      <View style={{  alignItems: 'center' , marginTop:40}}>  
         <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-evenly' }}>
         <View style={{ flexDirection: 'column', justifyContent: 'space-evenly' , marginRight:12 }}>
 
@@ -3406,6 +3408,7 @@ function HoroscopeCancer({}) {
        
       </View>
       <NavBar_hor/>
+      </ImageBackground>
       
       </View>
    
@@ -3817,15 +3820,16 @@ function HoroscopeLibra({}) {
 
   return (
     <View style={styles.mainContainer}>
-      <View style={{  alignItems: 'center' }}>
-        <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-between', padding: 25, marginTop: 18 }}>
-          <TouchableOpacity onPress={() => navigation.navigate('SignUp')}>
-            <Image source={SignUpButton} />
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => navigation.navigate('SignIn')}>
-            <Image source={SignInButton} />
-          </TouchableOpacity>
+      <ImageBackground source={bgstars} style={styles.bgfull}>
+      <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-between', padding: 25, marginTop: 10 }}>
+      <View style={{position:'absolute', top:0, flexDirection:'row', width:'100%', margin:0}}>
+        <TouchableOpacity onPress={()=>{navigation.navigate('Horoscopemain')}}>
+          <Image source={backButton} style={styles.backButtonStyle}/>
+        </TouchableOpacity>
+      </View>
+
         </View>
+      <View style={{  alignItems: 'center' , marginTop:40}}>  
 
         <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-evenly' }}>
         <View style={{ flexDirection: 'column', justifyContent: 'space-evenly' , marginRight:12 }}>
@@ -3885,7 +3889,7 @@ function HoroscopeLibra({}) {
        
       </View>
       <NavBar_hor/>
-      
+      </ImageBackground>
       </View>
    
   );
@@ -4296,15 +4300,16 @@ function HoroscopeLeo({}) {
 
   return (
     <View style={styles.mainContainer}>
-      <View style={{  alignItems: 'center' }}>
-        <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-between', padding: 25, marginTop: 18 }}>
-          <TouchableOpacity onPress={() => navigation.navigate('SignUp')}>
-            <Image source={SignUpButton} />
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => navigation.navigate('SignIn')}>
-            <Image source={SignInButton} />
-          </TouchableOpacity>
+      <ImageBackground source={bgstars} style={styles.bgfull}>
+      <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-between', padding: 25, marginTop: 10 }}>
+      <View style={{position:'absolute', top:0, flexDirection:'row', width:'100%', margin:0}}>
+        <TouchableOpacity onPress={()=>{navigation.navigate('Horoscopemain')}}>
+          <Image source={backButton} style={styles.backButtonStyle}/>
+        </TouchableOpacity>
+      </View>
+
         </View>
+      <View style={{  alignItems: 'center' , marginTop:40}}>  
 
         <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-evenly' }}>
         <View style={{ flexDirection: 'column', justifyContent: 'space-evenly' , marginRight:12 }}>
@@ -4364,7 +4369,7 @@ function HoroscopeLeo({}) {
        
       </View>
       <NavBar_hor/>
-      
+      </ImageBackground>
       </View>
    
   );
@@ -4775,15 +4780,16 @@ function HoroscopeScorpio({}) {
 
   return (
     <View style={styles.mainContainer}>
-      <View style={{  alignItems: 'center' }}>
-        <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-between', padding: 25, marginTop: 18 }}>
-          <TouchableOpacity onPress={() => navigation.navigate('SignUp')}>
-            <Image source={SignUpButton} />
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => navigation.navigate('SignIn')}>
-            <Image source={SignInButton} />
-          </TouchableOpacity>
+      <ImageBackground source={bgstars} style={styles.bgfull}>
+      <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-between', padding: 25, marginTop: 10 }}>
+      <View style={{position:'absolute', top:0, flexDirection:'row', width:'100%', margin:0}}>
+        <TouchableOpacity onPress={()=>{navigation.navigate('Horoscopemain')}}>
+          <Image source={backButton} style={styles.backButtonStyle}/>
+        </TouchableOpacity>
+      </View>
+
         </View>
+      <View style={{  alignItems: 'center' , marginTop:40}}>  
 
         <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-evenly' }}>
         <View style={{ flexDirection: 'column', justifyContent: 'space-evenly' , marginRight:12 }}>
@@ -4843,7 +4849,7 @@ function HoroscopeScorpio({}) {
        
       </View>
       <NavBar_hor/>
-      
+      </ImageBackground>
       </View>
    
   );
@@ -5258,16 +5264,16 @@ function HoroscopeSagittarius({}) {
 
   return (
     <View style={styles.mainContainer}>
-      <View style={{  alignItems: 'center' }}>
-        <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-between', padding: 25, marginTop: 18 }}>
-          <TouchableOpacity onPress={() => navigation.navigate('SignUp')}>
-            <Image source={SignUpButton} />
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => navigation.navigate('SignIn')}>
-            <Image source={SignInButton} />
-          </TouchableOpacity>
-        </View>
+      <ImageBackground source={bgstars} style={styles.bgfull}>
+      <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-between', padding: 25, marginTop: 10 }}>
+      <View style={{position:'absolute', top:0, flexDirection:'row', width:'100%', margin:0}}>
+        <TouchableOpacity onPress={()=>{navigation.navigate('Horoscopemain')}}>
+          <Image source={backButton} style={styles.backButtonStyle}/>
+        </TouchableOpacity>
+      </View>
 
+        </View>
+      <View style={{  alignItems: 'center' , marginTop:40}}>  
         <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-evenly' }}>
         <View style={{ flexDirection: 'column', justifyContent: 'space-evenly' , marginRight:12 }}>
 
@@ -5326,7 +5332,7 @@ function HoroscopeSagittarius({}) {
        
       </View>
       <NavBar_hor/>
-      
+      </ImageBackground>
       </View>
    
   );
@@ -5738,15 +5744,16 @@ function HoroscopeTaurus({}) {
 
   return (
     <View style={styles.mainContainer}>
-      <View style={{  alignItems: 'center' }}>
-        <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-between', padding: 25, marginTop: 18 }}>
-          <TouchableOpacity onPress={() => navigation.navigate('SignUp')}>
-            <Image source={SignUpButton} />
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => navigation.navigate('SignIn')}>
-            <Image source={SignInButton} />
-          </TouchableOpacity>
+      <ImageBackground source={bgstars} style={styles.bgfull}>
+      <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-between', padding: 25, marginTop: 10 }}>
+      <View style={{position:'absolute', top:0, flexDirection:'row', width:'100%', margin:0}}>
+        <TouchableOpacity onPress={()=>{navigation.navigate('Horoscopemain')}}>
+          <Image source={backButton} style={styles.backButtonStyle}/>
+        </TouchableOpacity>
+      </View>
+
         </View>
+      <View style={{  alignItems: 'center' , marginTop:40}}>  
 
         <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-evenly' }}>
         <View style={{ flexDirection: 'column', justifyContent: 'space-evenly' , marginRight:12 }}>
@@ -5806,6 +5813,7 @@ function HoroscopeTaurus({}) {
        
       </View>
       <NavBar_hor/>
+      </ImageBackground>
       
       </View>
    
@@ -6216,15 +6224,16 @@ function HoroscopeVirgo({}) {
 
   return (
     <View style={styles.mainContainer}>
-      <View style={{  alignItems: 'center' }}>
-        <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-between', padding: 25, marginTop: 18 }}>
-          <TouchableOpacity onPress={() => navigation.navigate('SignUp')}>
-            <Image source={SignUpButton} />
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => navigation.navigate('SignIn')}>
-            <Image source={SignInButton} />
-          </TouchableOpacity>
+      <ImageBackground source={bgstars} style={styles.bgfull}>
+      <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-between', padding: 25, marginTop: 10 }}>
+      <View style={{position:'absolute', top:0, flexDirection:'row', width:'100%', margin:0}}>
+        <TouchableOpacity onPress={()=>{navigation.navigate('Horoscopemain')}}>
+          <Image source={backButton} style={styles.backButtonStyle}/>
+        </TouchableOpacity>
+      </View>
+
         </View>
+      <View style={{  alignItems: 'center' , marginTop:40}}>  
 
         <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-evenly' }}>
         <View style={{ flexDirection: 'column', justifyContent: 'space-evenly' , marginRight:12 }}>
@@ -6284,7 +6293,7 @@ function HoroscopeVirgo({}) {
        
       </View>
       <NavBar_hor/>
-      
+       </ImageBackground>
       </View>
    
   );
@@ -6696,16 +6705,16 @@ function HoroscopeGemini({}) {
 
   return (
     <View style={styles.mainContainer}>
-      <View style={{  alignItems: 'center' }}>
-        <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-between', padding: 25, marginTop: 18 }}>
-          <TouchableOpacity onPress={() => navigation.navigate('SignUp')}>
-            <Image source={SignUpButton} />
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => navigation.navigate('SignIn')}>
-            <Image source={SignInButton} />
-          </TouchableOpacity>
-        </View>
+      <ImageBackground source={bgstars} style={styles.bgfull}>
+      <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-between', padding: 25, marginTop: 10 }}>
+      <View style={{position:'absolute', top:0, flexDirection:'row', width:'100%', margin:0}}>
+        <TouchableOpacity onPress={()=>{navigation.navigate('Horoscopemain')}}>
+          <Image source={backButton} style={styles.backButtonStyle}/>
+        </TouchableOpacity>
+      </View>
 
+        </View>
+      <View style={{  alignItems: 'center' , marginTop:40}}>  
         <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-evenly' }}>
         <View style={{ flexDirection: 'column', justifyContent: 'space-evenly' , marginRight:12 }}>
 
@@ -6764,7 +6773,7 @@ function HoroscopeGemini({}) {
        
       </View>
       <NavBar_hor/>
-      
+      </ImageBackground>
       </View>
    
   );
@@ -7182,15 +7191,16 @@ function HoroscopeCapricorn({}) {
 
   return (
     <View style={styles.mainContainer}>
-      <View style={{  alignItems: 'center' }}>
-        <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-between', padding: 25, marginTop: 18 }}>
-          <TouchableOpacity onPress={() => navigation.navigate('SignUp')}>
-            <Image source={SignUpButton} />
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => navigation.navigate('SignIn')}>
-            <Image source={SignInButton} />
-          </TouchableOpacity>
-        </View>
+    <ImageBackground source={bgstars} style={styles.bgfull}>
+    <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-between', padding: 25, marginTop: 10 }}>
+    <View style={{position:'absolute', top:0, flexDirection:'row', width:'100%', margin:0}}>
+      <TouchableOpacity onPress={()=>{navigation.navigate('Horoscopemain')}}>
+        <Image source={backButton} style={styles.backButtonStyle}/>
+      </TouchableOpacity>
+    </View>
+
+      </View>
+    <View style={{  alignItems: 'center' , marginTop:40}}>  
 
         <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-evenly' }}>
         <View style={{ flexDirection: 'column', justifyContent: 'space-evenly' , marginRight:12 }}>
@@ -7250,8 +7260,9 @@ function HoroscopeCapricorn({}) {
        
       </View>
       <NavBar_hor/>
-      
+      </ImageBackground>
       </View>
+      
    
   );
 
@@ -7666,15 +7677,15 @@ function Horoscopepisces({}) {
   return (
     <View style={styles.mainContainer}>
       <ImageBackground source={bgstars} style={styles.bgfull}>
-      <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-between', padding: 25, marginTop: 18 }}>
-          <TouchableOpacity onPress={() => navigation.navigate('SignUp')}>
-            <Image source={SignUpButton} />
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => navigation.navigate('SignIn')}>
-            <Image source={SignInButton} />
-          </TouchableOpacity>
+      <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-between', padding: 25, marginTop: 10 }}>
+      <View style={{position:'absolute', top:0, flexDirection:'row', width:'100%', margin:0}}>
+        <TouchableOpacity onPress={()=>{navigation.navigate('Horoscopemain')}}>
+          <Image source={backButton} style={styles.backButtonStyle}/>
+        </TouchableOpacity>
+      </View>
+
         </View>
-      <View style={{  alignItems: 'center' }}>  
+      <View style={{  alignItems: 'center' , marginTop:40}}>  
 
         <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-evenly' }}>
         <View style={{ flexDirection: 'column', justifyContent: 'space-evenly' , marginRight:12 }}>
