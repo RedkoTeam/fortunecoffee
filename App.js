@@ -2060,6 +2060,7 @@ const [randAdvice, setRandomAdvice] = useState('');
       HoroscopeRanomizer();
     }
 
+<<<<<<< HEAD
 
     return()=>{
 
@@ -2067,6 +2068,8 @@ const [randAdvice, setRandomAdvice] = useState('');
     }
 
   },[navigation])
+=======
+>>>>>>> 856b2d3b0daf488df49d1c05aaa51874365ab90d
 
 
   return (
