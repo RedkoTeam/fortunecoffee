@@ -574,13 +574,13 @@ function HomeScreen({ navigation }) {
   const [front, setFront] = useState(dummyPath);
   const [meaning, setMeaning] = useState(dummyPath);
 
-  const checkLoggedIn = () => {
-    if(db.collection('users').doc(firebase.auth().currentUser.uid)) {
-      return true
-    } else {
-      return false
-    }
-  }
+  // const checkLoggedIn = () => {
+  //   if(db.collection('users').doc(firebase.auth().currentUser.uid)) {
+  //     return true
+  //   } else {
+  //     return false
+  //   }
+  // }
   const toggleModal = () => {
     setModalVisible(!isModalVisible);
   };
@@ -599,7 +599,7 @@ function HomeScreen({ navigation }) {
     // UseEffect for checking the card before each trigger
     // Rather than putting it inside the function, we put it on the useeffect for checking
     useEffect(()=>{
-      setIsLoggedIn(checkLoggedIn)
+      // setIsLoggedIn(checkLoggedIn)
       let mounted = true;
   
       // If mounted . Check the state then storage.
@@ -2009,7 +2009,62 @@ const [randAdvice, setRandomAdvice] = useState('');
 
 
 
+ const HoroscopeRanomizer = async () =>{
 
+            // Async storage, Key , Date
+  const randomHoroscope = await GetItemInStorage("HOROSCOPE_RANDOM_TIMER");
+  console.log(randomHoroscope)
+  if(!randomHoroscope){
+    await SaveItemInStorage("HOROSCOPE_RANDOM_TIMER", new Date().getTime().toString())
+    let random = Math.floor((Math.random() * horoscopeArray.length))
+    await SaveItemInStorage("HOROSCOPE_RANDOM_NUMBER", random.toString())
+    await setRandomHoroscope(getRandomHoroscope(random));
+    
+  }else{
+
+    let currentDate = parseInt(new Date().getTime().toString());
+    let previousDate = parseInt(randomHoroscope);
+
+    let newPreviousDate = parseInt(previousDate) + 86400000;
+    console.log("CurrentDate : " ,currentDate)
+    console.log("Previous Date : " ,newPreviousDate)
+
+    // 86400000 = 1 day
+    if((previousDate + 86400000) < currentDate){
+      // if one day has passed
+      // Grab a random number
+      let random = Math.floor((Math.random() * horoscopeArray.length))
+      console.log("One day has passed, getting new horoscope")
+      await setRandomHoroscope(getRandomHoroscope(random));
+      await SaveItemInStorage("HOROSCOPE_RANDOM_TIMER", currentDate.toString())
+      await SaveItemInStorage("HOROSCOPE_RANDOM_NUMBER", random.toString())
+    }else{
+      console.log("One day has not passed, will not reset the current horoscope")
+      let getOldRandomNumber = await GetItemInStorage("HOROSCOPE_RANDOM_NUMBER")
+      await setRandomHoroscope(getRandomHoroscope(getOldRandomNumber));
+      // Display previous horoscope.
+    }
+
+  }
+    
+ }
+
+
+  useEffect(()=>{
+    let mounted = true;
+
+
+    if(mounted){
+      HoroscopeRanomizer();
+    }
+
+
+    return()=>{
+
+      mounted =false;
+    }
+
+  },[navigation])
 
 
   return (
