@@ -800,9 +800,6 @@ function HomeScreen({ navigation }) {
             }}>
               <Image source={TakePhoto} />
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => navigation.navigate('Payment')}>
-            <Image source={TakePhoto} />
-          </TouchableOpacity>
           </View>
         </>
       )
@@ -826,12 +823,12 @@ function HomeScreen({ navigation }) {
               </View>
             }
             
-          <Button title="Clear Async" onPress={ () => { console.log("Async Storage Cleared"); AsyncStorage.clear();}}></Button>
-          <Button title="Sign out" onPress={ () => { console.log("User Sign Out"); firebase.auth().signOut()}}></Button>
-          <Image source={LargeTitleApp} style={{ width: '100%' }} />
+         {/* <Button title="Clear Async" onPress={ () => { console.log("Async Storage Cleared"); AsyncStorage.clear();}}></Button>
+          <Button title="Sign out" onPress={ () => { console.log("User Sign Out"); firebase.auth().signOut()}}></Button> */}
+          <Image source={LargeTitleApp} style={{ marginTop:20 , width: '100%' }} />
           {RenderTheFortuneButtons()}
           {/* <Button title="Subscription" onPress={ () => navigation.navigate('Subscription')} /> */}
-          <Image source={PickCard} style={{ margin: 8 }} />
+          <Image source={PickCard} style={{ marginTop:20, margin: 8 }} />
             {/* Pick a card  */}
           <TouchableOpacity onPress={toggleModal2} style={styles.cards}>
             <Image source={Cards} />
