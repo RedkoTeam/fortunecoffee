@@ -212,7 +212,7 @@ import subBackground from './assets/FortuneCoffeePNGassets/Subscription/subscrip
 
 // SUBSCRIPTION Details//
 import amet from './assets/FortuneCoffeePNGassets/subscriptioncards/Amet.png';
-import rosq from './assets/FortuneCoffeePNGassets/subscriptioncards/Roseq.png';
+import roseq from './assets/FortuneCoffeePNGassets/subscriptioncards/Roseq.png';
 import tige from './assets/FortuneCoffeePNGassets/subscriptioncards/Tige.png';
 import saph from './assets/FortuneCoffeePNGassets/subscriptioncards/Saph.png';
 
@@ -568,19 +568,10 @@ const styles = StyleSheet.create({
 // Completed and Ready for code review
 //ReadingAnimation back to PhotoReading 
 function HomeScreen({ navigation }) {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isModalVisible, setModalVisible] = useState(false);
   const [isFortuneModalVisible, setFortuneModalVisible] = useState(false);
   const [front, setFront] = useState(dummyPath);
   const [meaning, setMeaning] = useState(dummyPath);
-
-  const checkLoggedIn = () => {
-    if(db.collection('users').doc(firebase.auth().currentUser.uid)) {
-      return true
-    } else {
-      return false
-    }
-  }
   const toggleModal = () => {
     setModalVisible(!isModalVisible);
   };
@@ -599,7 +590,6 @@ function HomeScreen({ navigation }) {
     // UseEffect for checking the card before each trigger
     // Rather than putting it inside the function, we put it on the useeffect for checking
     useEffect(()=>{
-      setIsLoggedIn(checkLoggedIn)
       let mounted = true;
   
       // If mounted . Check the state then storage.
@@ -623,7 +613,6 @@ function HomeScreen({ navigation }) {
       }
     },[isModalVisible])
   
-
     // This use Effect is only called when the navigation lands here, This will reduce the amount of times
     // it will run on this page.
     useEffect(()=>{
@@ -631,7 +620,7 @@ function HomeScreen({ navigation }) {
       if(mounted)
       {
         // Checks the login upon opening App
-        CheckLoginToken().then(async (result)=>{
+      CheckLoginToken().then(async (result)=>{
           console.log("User TYPE  : " , result)
           // Navigate the user's based off of results
           // TODO, log the user in via firestore
@@ -639,27 +628,11 @@ function HomeScreen({ navigation }) {
             navigation.navigate("HomeLoggedIn")
           }
         });
-        _CheckOnboarding();
       }
       return ()=>{
         mounted = false;
       }
     },[navigation])
-
-    const _CheckOnboarding = async () => {
-      await RetrieveData('ONBOARDING').then( (val) => {
-        if(val !== 'DONE') { // if onboarding 
-          StoreData("ONBOARDING", 'PENDING');
-          console.log(`Onboarding State 1: ${RetrieveData('ONBOARDING')}`);
-          StoreData("ONBOARDING", "DONE");
-          navigation.navigate('Onboarding');
-        }
-        else {
-          console.log(`Onboarding State: ${JSON.stringify(val)}`);
-        }
-      }
-      )
-    }
   
     const toggleModal2 = () => {
       setModalVisible(!isModalVisible);
@@ -787,22 +760,15 @@ function HomeScreen({ navigation }) {
     return (
       <View style={styles.mainContainer}>
         <View style={{ flex: 1, alignItems: 'center' }}>
-          {/* <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-between', padding: 25, marginTop: 18 }}> */}
-            {isLoggedIn ? (
-              <View>
-                <Text></Text>
-              </View>
-            ) : 
-             <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-between', padding: 25, marginTop: 18 }}><TouchableOpacity onPress={() => navigation.navigate('SignUp')}>
+          <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-between', padding: 25, marginTop: 18 }}>
+            <TouchableOpacity onPress={() => navigation.navigate('SignUp')}>
               <Image source={SignUpButton} />
             </TouchableOpacity>
             <TouchableOpacity onPress={() => navigation.navigate('SignIn')}>
               <Image source={SignInButton} />
             </TouchableOpacity>
-              </View>
-            }
-            
-          <Button title="Clear Async" onPress={ () => { console.log("Async Storage Cleared"); AsyncStorage.clear();}}></Button>
+          </View>
+          <Button title="Clear Async" onPress={() => AsyncStorage.clear()} />
           <Image source={LargeTitleApp} style={{ width: '100%' }} />
           {RenderTheFortuneButtons()}
           {/* <Button title="Subscription" onPress={ () => navigation.navigate('Subscription')} /> */}
@@ -2010,6 +1976,18 @@ const [randAdvice, setRandomAdvice] = useState('');
 
 
 
+useEffect(() => {
+  setRandomHoroscope(getRandomHoroscope)
+  setRandomNumber(getRandomNumber)
+  setRandomLetter(getRandomLetter)
+  setRandomThanks(getRandomThanks)
+  setRandomWord2(getRandomWord2)
+  setRandomWord3(getRandomWord3)
+  setRandomWord4(getRandomWord4)
+  setRandomAdvice(getRandomAdvice)
+  
+
+ }, [])
 
 
   return (
@@ -2275,23 +2253,32 @@ const Stack = createStackNavigator();
 
 function App() {
   const forFade = ({ current }) => ({ cardStyle: { opacity: current.progress }});
+  const [onboarding, setOnboarding] = useState();
 
-  const _CheckOnboarding = () => {
+  
+  useEffect(()=>{
     RetrieveData('ONBOARDING').then( (val) => {
-      if(val !== 'DONE') { // if onboarding 
+      if(!val) {
         StoreData("ONBOARDING", 'PENDING');
-        console.log(`Onboarding State 1: ${RetrieveData('ONBOARDING')}`);
-        StoreData("ONBOARDING", "DONE");
-        return ( <Stack.Screen name="Onboarding" component={Onboarding} /> );
+        setOnboarding('DONE');
+        console.log(`Onboarding State 1: ${val}`);
       }
       else {
-        console.log(`Onboarding State: ${JSON.stringify(val)}`);
+        setOnboarding(val);
+        console.log(`Onboarding State: ${val}`);
       }
     }
     )
-  }
+  })
 
-  
+  const _CheckOnboarding = ( () => {
+
+      switch(onboarding) {
+        case 'PENDING': return ( <Stack.Screen name="Onboarding" component={Onboarding} /> );
+      }
+    
+    console.log(`PopToTop: Onboarding is ${onboarding}`);
+  })
   
   
   
@@ -2302,7 +2289,8 @@ function App() {
           headerShown: false
         }}
       >
-        {<Stack.Screen name="Home" component={HomeScreen} />}
+        <Stack.Screen name="Onboarding" component={Onboarding} />
+        <Stack.Screen name="Home" component={HomeScreen} />
         <Stack.Screen name="HomeLoggedIn" component={HomeScreenLoggedIn} />
         <Stack.Screen name="Favorites" component={FavoritesScreen} />
         <Stack.Screen name="Shop" component={ShopScreen} />
@@ -2329,7 +2317,6 @@ function App() {
         <Stack.Screen name="Horoscopepisces" component={Horoscopepisces} />
         <Stack.Screen name="Horoscopemain" component={Horoscopemain} />
         <Stack.Screen name="Psychic" component={Psychic} />
-        <Stack.Screen name="Onboarding" component={Onboarding} />
       </Stack.Navigator>
     </NavigationContainer>
   );
