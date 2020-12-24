@@ -1997,64 +1997,33 @@ function Horoscopemain({}) {
 //horoscope pisces
 
 function Horoscopepisces({}) {
-const navigation = useNavigation();
-const [randHoroscope, setRandomHoroscope] = useState('');
-const [randNumber, setRandomNumber] = useState('');
-const [randLetter, setRandomLetter] = useState('');
-const [randThanks, setRandomThanks] = useState('');
-const [randWord2, setRandomWord2] = useState('');
-const [randWord3, setRandomWord3] = useState('');
-const [randWord4, setRandomWord4] = useState('');
-const [randAdvice, setRandomAdvice] = useState('');
+  const navigation = useNavigation();
+  const [randHoroscope, setRandomHoroscope] = useState('');
+  const [randNumber, setRandomNumber] = useState('');
+  const [randLetter, setRandomLetter] = useState('');
+  const [randThanks, setRandomThanks] = useState('');
+  const [randWord2, setRandomWord2] = useState('');
+  const [randWord3, setRandomWord3] = useState('');
+  const [randWord4, setRandomWord4] = useState('');
+  const [randAdvice, setRandomAdvice] = useState('');
 
 
 
 
- const HoroscopeRandomizer = async () =>{
-
-            // Async storage, Key , Date
-  const randomHoroscope = await GetItemInStorage("HOROSCOPE_RANDOM_TIMER");
-  console.log(randomHoroscope)
-  if(!randomHoroscope){
-    await SaveItemInStorage("HOROSCOPE_RANDOM_TIMER", new Date().getTime().toString())
-    let random = Math.floor((Math.random() * horoscopeArray.length))
-    await SaveItemInStorage("HOROSCOPE_RANDOM_NUMBER", random.toString())
-    await setRandomHoroscope(getRandomHoroscope(random));
-    
-  }else{
-
-    let currentDate = parseInt(new Date().getTime().toString());
-    let previousDate = parseInt(randomHoroscope);
-
-    let newPreviousDate = parseInt(previousDate) + 86400000;
-    console.log("CurrentDate : " ,currentDate)
-    console.log("Previous Date : " ,newPreviousDate)
-
-    // 86400000 = 1 day
-    if((previousDate + 86400000) < currentDate){
-      // if one day has passed
-      // Grab a random number
-      let random = Math.floor((Math.random() * horoscopeArray.length))
-      console.log("One day has passed, getting new horoscope")
-      await setRandomHoroscope(getRandomHoroscope(random));
-      await SaveItemInStorage("HOROSCOPE_RANDOM_TIMER", currentDate.toString())
-      await SaveItemInStorage("HOROSCOPE_RANDOM_NUMBER", random.toString())
-    }else{
-      console.log("One day has not passed, will not reset the current horoscope")
-      let getOldRandomNumber = await GetItemInStorage("HOROSCOPE_RANDOM_NUMBER")
-      await setRandomHoroscope(getRandomHoroscope(parseInt(getOldRandomNumber)));
-      // Display previous horoscope.
-    }
-
-  }
-    
- }
 
   useEffect(()=>{
     let mounted = true;
 
     if(mounted){
+      // We can put them all together
       HoroscopeRandomizer();
+      AdviceRandomizer();
+      ThanksRandomizer();
+      LetterRandomizer();
+      Word4Randomizer();
+      Word3Randomizer();
+      Word2Randomizer();
+      NumberRandomizer();
     }
     return()=>{
       mounted =false;
@@ -2062,446 +2031,310 @@ const [randAdvice, setRandomAdvice] = useState('');
   },[navigation])
 
 
-//NUMBER
-const NumberRandomizer = async () =>{
-
-  // Async storage, Key , Date
-const randomNumber = await GetItemInStorage("NUMBER_RANDOM_TIMER");
-console.log(randomNumber)
-if(!randomNumber){
-await SaveItemInStorage("NUMBER_RANDOM_TIMER", new Date().getTime().toString())
-let random = Math.floor((Math.random() * numbersArray.length))
-await SaveItemInStorage("NUMBER_RANDOM_NUMBER", random.toString())
-await setRandomnNumber(getRandomNumber(random));
-
-}else{
-
-let currentDate = parseInt(new Date().getTime().toString());
-let previousDate = parseInt(getRandomWord2);
-
-let newPreviousDate = parseInt(previousDate) + 86400000;
-console.log("CurrentDate : " ,currentDate)
-console.log("Previous Date : " ,newPreviousDate)
-
-// 86400000 = 1 day
-if((previousDate + 86400000) < currentDate){
-// if one day has passed
-// Grab a random number
-let random = Math.floor((Math.random() * wordsArray.length))
-console.log("One day has passed, getting new horoscope")
-await setRandomNumber(getRandomNumber(random));
-await SaveItemInStorage("NUMBER_RANDOM_TIMER", currentDate.toString())
-await SaveItemInStorage("NUMBER_RANDOM_NUMBER", random.toString())
-}else{
-console.log("One day has not passed, will not reset the current horoscope")
-let getOldRandomNumber = await GetItemInStorage("NUMBER_RANDOM_NUMBER")
-await setRandomNumber(getRandomNumber(getOldRandomNumber));
-// Display previous horoscope.
-}
-
-}
-
-}
-
-
-useEffect(()=>{
-let mounted = true;
-
-
-if(mounted){
-NumberRandomizer();
-}
-
-
-return()=>{
-
-mounted =false;
-}
-
-},[navigation])
-
-
-
-//WORD2
-
-
-const Word2Randomizer = async () =>{
-
-  // Async storage, Key , Date
-const randomWord2 = await GetItemInStorage("WORD2_RANDOM_TIMER");
-console.log(randomWord2)
-if(!randomWord2){
-await SaveItemInStorage("WORD2_RANDOM_TIMER", new Date().getTime().toString())
-let random = Math.floor((Math.random() * wordsArray.length))
-await SaveItemInStorage("WORD2_RANDOM_NUMBER", random.toString())
-await setRandomWord2(getRandomWord2(random));
-
-}else{
-
-let currentDate = parseInt(new Date().getTime().toString());
-let previousDate = parseInt(randomWord2);
-
-let newPreviousDate = parseInt(previousDate) + 86400000;
-console.log("CurrentDate : " ,currentDate)
-console.log("Previous Date : " ,newPreviousDate)
-
-// 86400000 = 1 day
-if((previousDate + 86400000) < currentDate){
-// if one day has passed
-// Grab a random number
-let random = Math.floor((Math.random() * wordsArray.length))
-console.log("One day has passed, getting new horoscope")
-await setRandomWord2(getRandomWord2(random));
-await SaveItemInStorage("WORD2_RANDOM_TIMER", currentDate.toString())
-await SaveItemInStorage("WORD2_RANDOM_NUMBER", random.toString())
-}else{
-console.log("One day has not passed, will not reset the current horoscope")
-let getOldRandomNumber = await GetItemInStorage("WORD2_RANDOM_NUMBER")
-await setRandomWord2(getRandomWord2(getOldRandomNumber));
-// Display previous horoscope.
-}
-
-}
-
-}
-
-
-useEffect(()=>{
-let mounted = true;
-
-
-if(mounted){
-Word2Randomizer();
-}
-
-
-return()=>{
-
-mounted =false;
-}
-
-},[navigation])
-
-
-
-
-
-//WORD3
-
-
-
-const Word3Randomizer = async () =>{
-
-  // Async storage, Key , Date
-const randomWord3 = await GetItemInStorage("WORD3_RANDOM_TIMER");
-console.log(randomWord3)
-if(!randomWord3){
-await SaveItemInStorage("WORD3_RANDOM_TIMER", new Date().getTime().toString())
-let random = Math.floor((Math.random() * wordsArray.length))
-await SaveItemInStorage("WORD3_RANDOM_NUMBER", random.toString())
-await setRandomWord3(getRandomWord3(random));
-
-}else{
-
-let currentDate = parseInt(new Date().getTime().toString());
-let previousDate = parseInt(randomWord3);
-
-let newPreviousDate = parseInt(previousDate) + 86400000;
-console.log("CurrentDate : " ,currentDate)
-console.log("Previous Date : " ,newPreviousDate)
-
-// 86400000 = 1 day
-if((previousDate + 86400000) < currentDate){
-// if one day has passed
-// Grab a random number
-let random = Math.floor((Math.random() * wordsArray.length))
-console.log("One day has passed, getting new horoscope")
-await setRandomWord2(getRandomWord3(random));
-await SaveItemInStorage("WORD3_RANDOM_TIMER", currentDate.toString())
-await SaveItemInStorage("WORD3_RANDOM_NUMBER", random.toString())
-}else{
-console.log("One day has not passed, will not reset the current horoscope")
-let getOldRandomNumber = await GetItemInStorage("WORD3_RANDOM_NUMBER")
-await setRandomWord3(getRandomWord3(getOldRandomNumber));
-// Display previous horoscope.
-}
-
-}
-
-}
-
-
-useEffect(()=>{
-let mounted = true;
-
-
-if(mounted){
-Word3Randomizer();
-}
-
-
-return()=>{
-
-mounted =false;
-}
-
-},[navigation])
-
-
-
-//WORD4
-
-
-
-const Word4Randomizer = async () =>{
-
-  // Async storage, Key , Date
-const randomWord4 = await GetItemInStorage("WORD4_RANDOM_TIMER");
-console.log(randomWord4)
-if(!randomWord4){
-await SaveItemInStorage("WORD4_RANDOM_TIMER", new Date().getTime().toString())
-let random = Math.floor((Math.random() * wordsArray.length))
-await SaveItemInStorage("WORD4_RANDOM_NUMBER", random.toString())
-await setRandomWord4(getRandomWord4(random));
-
-}else{
-
-let currentDate = parseInt(new Date().getTime().toString());
-let previousDate = parseInt(randomWord4);
-
-let newPreviousDate = parseInt(previousDate) + 86400000;
-console.log("CurrentDate : " ,currentDate)
-console.log("Previous Date : " ,newPreviousDate)
-
-// 86400000 = 1 day
-if((previousDate + 86400000) < currentDate){
-// if one day has passed
-// Grab a random number
-let random = Math.floor((Math.random() * wordsArray.length))
-console.log("One day has passed, getting new horoscope")
-await setRandomWord4(getRandomWord4(random));
-await SaveItemInStorage("WORD4_RANDOM_TIMER", currentDate.toString())
-await SaveItemInStorage("WORD4_RANDOM_NUMBER", random.toString())
-}else{
-console.log("One day has not passed, will not reset the current horoscope")
-let getOldRandomNumber = await GetItemInStorage("WORD4_RANDOM_NUMBER")
-await setRandomWord4(getRandomWord4(getOldRandomNumber));
-// Display previous horoscope.
-}
-
-}
-
-}
-
-
-useEffect(()=>{
-let mounted = true;
-
-
-if(mounted){
-Word4Randomizer();
-}
-
-
-return()=>{
-
-mounted =false;
-}
-
-},[navigation])
-
-
-
-
-
-//LETTER
-
-
-
-const LetterRandomizer = async () =>{
-
-  // Async storage, Key , Date
-const randomLetter = await GetItemInStorage("Letter_RANDOM_TIMER");
-console.log(randomLetter)
-if(!randomLetter){
-await SaveItemInStorage("Letter_RANDOM_TIMER", new Date().getTime().toString())
-let random = Math.floor((Math.random() * lettersArray.length))
-await SaveItemInStorage("Letter_RANDOM_NUMBER", random.toString())
-await setLetter(getLetter(random));
-
-}else{
-
-let currentDate = parseInt(new Date().getTime().toString());
-let previousDate = parseInt(randomLetter);
-
-let newPreviousDate = parseInt(previousDate) + 86400000;
-console.log("CurrentDate : " ,currentDate)
-console.log("Previous Date : " ,newPreviousDate)
-
-// 86400000 = 1 day
-if((previousDate + 86400000) < currentDate){
-// if one day has passed
-// Grab a random number
-let random = Math.floor((Math.random() * lettersArray.length))
-console.log("One day has passed, getting new horoscope")
-await setRandomLetter(getRandomLetter(random));
-await SaveItemInStorage("Letter_RANDOM_TIMER", currentDate.toString())
-await SaveItemInStorage("Letter_RANDOM_NUMBER", random.toString())
-}else{
-console.log("One day has not passed, will not reset the current horoscope")
-let getOldRandomNumber = await GetItemInStorage("Letter_RANDOM_NUMBER")
-await setRandomLetter(getRandomLetter(getOldRandomNumber));
-// Display previous horoscope.
-}
-
-}
-
-}
-
-
-useEffect(()=>{
-let mounted = true;
-
-
-if(mounted){
-LetterRandomizer();
-}
-
-
-return()=>{
-
-mounted =false;
-}
-
-},[navigation])
-
-
-
-//LETTER
-
-
-
-const ThanksRandomizer = async () =>{
-
-  // Async storage, Key , Date
-const randomThanks = await GetItemInStorage("Thanks_RANDOM_TIMER");
-console.log(randomThanks)
-if(!randomThanks){
-await SaveItemInStorage("Thanks_RANDOM_TIMER", new Date().getTime().toString())
-let random = Math.floor((Math.random() * thanksArray.length))
-await SaveItemInStorage("Thanks_RANDOM_NUMBER", random.toString())
-await setRandomThanks(getRandomThanks(random));
-
-}else{
-
-let currentDate = parseInt(new Date().getTime().toString());
-let previousDate = parseInt(randomThanks);
-
-let newPreviousDate = parseInt(previousDate) + 86400000;
-console.log("CurrentDate : " ,currentDate)
-console.log("Previous Date : " ,newPreviousDate)
-
-// 86400000 = 1 day
-if((previousDate + 86400000) < currentDate){
-// if one day has passed
-// Grab a random number
-let random = Math.floor((Math.random() * thanksArray.length))
-console.log("One day has passed, getting new horoscope")
-await setRandomThanks(getRandomThanks(random));
-await SaveItemInStorage("Thanks_RANDOM_TIMER", currentDate.toString())
-await SaveItemInStorage("Thanks_RANDOM_NUMBER", random.toString())
-}else{
-console.log("One day has not passed, will not reset the current horoscope")
-let getOldRandomNumber = await GetItemInStorage("Thanks_RANDOM_NUMBER")
-await setRandomThanks(getRandomThanks(getOldRandomNumber));
-// Display previous horoscope.
-}
-
-}
-
-}
-
-
-useEffect(()=>{
-let mounted = true;
-
-
-if(mounted){
-ThanksRandomizer();
-}
-
-
-return()=>{
-
-mounted =false;
-}
-
-},[navigation])
-
-
-
-
-//ADVICE
-
-
-
-const AdviceRandomizer = async () =>{
-
-  // Async storage, Key , Date
-const randomAdvice = await GetItemInStorage("Advice_RANDOM_TIMER");
-console.log(randomAdvice)
-if(!randomAdvice){
-await SaveItemInStorage("Advice_RANDOM_TIMER", new Date().getTime().toString())
-let random = Math.floor((Math.random() * adviceArray.length))
-await SaveItemInStorage("Advice_RANDOM_NUMBER", random.toString())
-await setRandomAdvice(getRandomAdvice(random));
-
-}else{
-
-let currentDate = parseInt(new Date().getTime().toString());
-let previousDate = parseInt(randomAdvice);
-
-let newPreviousDate = parseInt(previousDate) + 86400000;
-console.log("CurrentDate : " ,currentDate)
-console.log("Previous Date : " ,newPreviousDate)
-
-// 86400000 = 1 day
-if((previousDate + 86400000) < currentDate){
-// if one day has passed
-// Grab a random number
-let random = Math.floor((Math.random() * adviceArray.length))
-console.log("One day has passed, getting new horoscope")
-await setRandomAdvice(getRandomAdvice(random));
-await SaveItemInStorage("Advice_RANDOM_TIMER", currentDate.toString())
-await SaveItemInStorage("Advice_RANDOM_NUMBER", random.toString())
-}else{
-console.log("One day has not passed, will not reset the current horoscope")
-let getOldRandomNumber = await GetItemInStorage("Advice_RANDOM_NUMBER")
-await setRandomAdvice(getRandomAdvice(getOldRandomNumber));
-// Display previous horoscope.
-}
-
-}
-
-}
-
-
-useEffect(()=>{
-let mounted = true;
-
-
-if(mounted){
-  AdviceRandomizer();
-}
-
-
-return()=>{
-
-mounted =false;
-}
-
-},[navigation])
-
+  const HoroscopeRandomizer = async () =>{
+
+              // Async storage, Key , Date
+    const randomHoroscope = await GetItemInStorage("HOROSCOPE_RANDOM_TIMER");
+    console.log(randomHoroscope)
+    if(!randomHoroscope){
+      await SaveItemInStorage("HOROSCOPE_RANDOM_TIMER", new Date().getTime().toString())
+      let random = Math.floor((Math.random() * horoscopeArray.length))
+      await SaveItemInStorage("HOROSCOPE_RANDOM_NUMBER", random.toString())
+      await setRandomHoroscope(getRandomHoroscope(random));
+      
+    }else{
+
+      let currentDate = parseInt(new Date().getTime().toString());
+      let previousDate = parseInt(randomHoroscope);
+
+      let newPreviousDate = parseInt(previousDate) + 86400000;
+      console.log("CurrentDate : " ,currentDate)
+      console.log("Previous Date : " ,newPreviousDate)
+
+      // 86400000 = 1 day
+      if((previousDate + 86400000) < currentDate){
+        // if one day has passed
+        // Grab a random number
+        let random = Math.floor((Math.random() * horoscopeArray.length))
+        console.log("One day has passed, getting new horoscope")
+        await setRandomHoroscope(getRandomHoroscope(random));
+        await SaveItemInStorage("HOROSCOPE_RANDOM_TIMER", currentDate.toString())
+        await SaveItemInStorage("HOROSCOPE_RANDOM_NUMBER", random.toString())
+      }else{
+        console.log("One day has not passed, will not reset the current horoscope")
+        let getOldRandomNumber = await GetItemInStorage("HOROSCOPE_RANDOM_NUMBER")
+        await setRandomHoroscope(getRandomHoroscope(parseInt(getOldRandomNumber)));
+        // Display previous horoscope.
+      }
+
+    }
+      
+  }
+
+  //NUMBER
+  const NumberRandomizer = async () =>{
+
+      // Async storage, Key , Date
+    const randomNumber = await GetItemInStorage("NUMBER_RANDOM_TIMER");
+    if(!randomNumber){
+      await SaveItemInStorage("NUMBER_RANDOM_TIMER", new Date().getTime().toString())
+      let random = Math.floor((Math.random() * numbersArray.length))
+      await SaveItemInStorage("NUMBER_RANDOM_NUMBER", random.toString())
+      await setRandomnNumber(getRandomNumber(random));
+
+    }else{
+      let currentDate = parseInt(new Date().getTime().toString());
+      let previousDate = parseInt(getRandomWord2);
+
+      let newPreviousDate = parseInt(previousDate) + 86400000;
+      console.log("CurrentDate : " ,currentDate)
+      console.log("Previous Date : " ,newPreviousDate)
+      // 86400000 = 1 day
+      if((previousDate + 86400000) < currentDate){
+      // if one day has passed
+      // Grab a random number
+        let random = Math.floor((Math.random() * numbersArray.length))
+        console.log("One day has passed, getting new horoscope")
+        await setRandomNumber(getRandomNumber(random));
+        await SaveItemInStorage("NUMBER_RANDOM_TIMER", currentDate.toString())
+        await SaveItemInStorage("NUMBER_RANDOM_NUMBER", random.toString())
+      }
+      else{
+        console.log("One day has not passed, will not reset the current horoscope")
+        let getOldRandomNumber = await GetItemInStorage("NUMBER_RANDOM_NUMBER")
+        await setRandomNumber(getRandomNumber(getOldRandomNumber));
+        // Display previous horoscope.
+      }
+
+    }
+  }
+
+
+  const Word2Randomizer = async () =>{
+
+        // Async storage, Key , Date
+      const randomWord2 = await GetItemInStorage("WORD2_RANDOM_TIMER");
+      console.log(randomWord2)
+      if(!randomWord2){
+        await SaveItemInStorage("WORD2_RANDOM_TIMER", new Date().getTime().toString())
+        let random = Math.floor((Math.random() * wordsArray.length))
+        await SaveItemInStorage("WORD2_RANDOM_NUMBER", random.toString())
+        await setRandomWord2(getRandomWord2(random));
+
+      }else{
+
+        let currentDate = parseInt(new Date().getTime().toString());
+        let previousDate = parseInt(randomWord2);
+
+        let newPreviousDate = parseInt(previousDate) + 86400000;
+        console.log("CurrentDate : " ,currentDate)
+        console.log("Previous Date : " ,newPreviousDate)
+        
+        // 86400000 = 1 day
+      if((previousDate + 86400000) < currentDate){
+        // if one day has passed
+        // Grab a random number
+        let random = Math.floor((Math.random() * wordsArray.length))
+        console.log("One day has passed, getting new horoscope")
+        await SaveItemInStorage("WORD2_RANDOM_TIMER", currentDate.toString())
+        await SaveItemInStorage("WORD2_RANDOM_NUMBER", random.toString())
+        await setRandomWord2(getRandomWord2(random));
+      }else{
+        console.log("One day has not passed, will not reset the current horoscope")
+        let getOldRandomNumber = await GetItemInStorage("WORD2_RANDOM_NUMBER")
+        await setRandomWord2(getRandomWord2(getOldRandomNumber));
+      // Display previous horoscope.
+      }
+    }
+  }
+
+
+  const Word3Randomizer = async () =>{
+
+      // Async storage, Key , Date
+    const randomWord3 = await GetItemInStorage("WORD3_RANDOM_TIMER");
+    console.log(randomWord3)
+    if(!randomWord3){
+      await SaveItemInStorage("WORD3_RANDOM_TIMER", new Date().getTime().toString())
+      let random = Math.floor((Math.random() * wordsArray.length))
+      await SaveItemInStorage("WORD3_RANDOM_NUMBER", random.toString())
+      await setRandomWord3(getRandomWord3(random));
+
+    }else{
+
+      let currentDate = parseInt(new Date().getTime().toString());
+      let previousDate = parseInt(randomWord3);
+
+      let newPreviousDate = parseInt(previousDate) + 86400000;
+      console.log("CurrentDate : " ,currentDate)
+      console.log("Previous Date : " ,newPreviousDate)
+
+    // 86400000 = 1 day
+    if((previousDate + 86400000) < currentDate){
+    // if one day has passed
+    // Grab a random number
+      let random = Math.floor((Math.random() * wordsArray.length))
+      console.log("One day has passed, getting new horoscope")
+      await setRandomWord2(getRandomWord3(random));
+      await SaveItemInStorage("WORD3_RANDOM_TIMER", currentDate.toString())
+      await SaveItemInStorage("WORD3_RANDOM_NUMBER", random.toString())
+    }else{
+      console.log("One day has not passed, will not reset the current horoscope")
+      let getOldRandomNumber = await GetItemInStorage("WORD3_RANDOM_NUMBER")
+      await setRandomWord3(getRandomWord3(getOldRandomNumber));
+      // Display previous horoscope.
+      }
+    }
+  }
+
+  const Word4Randomizer = async () =>{
+
+      // Async storage, Key , Date
+    const randomWord4 = await GetItemInStorage("WORD4_RANDOM_TIMER");
+    console.log(randomWord4)
+    if(!randomWord4){
+      await SaveItemInStorage("WORD4_RANDOM_TIMER", new Date().getTime().toString())
+      let random = Math.floor((Math.random() * wordsArray.length))
+      await SaveItemInStorage("WORD4_RANDOM_NUMBER", random.toString())
+      await setRandomWord4(getRandomWord4(random));
+
+    }else{
+
+      let currentDate = parseInt(new Date().getTime().toString());
+      let previousDate = parseInt(randomWord4);
+
+      let newPreviousDate = parseInt(previousDate) + 86400000;
+      console.log("CurrentDate : " ,currentDate)
+      console.log("Previous Date : " ,newPreviousDate)
+
+    // 86400000 = 1 day
+    if((previousDate + 86400000) < currentDate){
+      // if one day has passed
+      // Grab a random number
+      let random = Math.floor((Math.random() * wordsArray.length))
+      console.log("One day has passed, getting new horoscope")
+      await setRandomWord4(getRandomWord4(random));
+      await SaveItemInStorage("WORD4_RANDOM_TIMER", currentDate.toString())
+      await SaveItemInStorage("WORD4_RANDOM_NUMBER", random.toString())
+    }else{
+      console.log("One day has not passed, will not reset the current horoscope")
+      let getOldRandomNumber = await GetItemInStorage("WORD4_RANDOM_NUMBER")
+      await setRandomWord4(getRandomWord4(getOldRandomNumber));
+    // Display previous horoscope.
+      }
+    }
+  }
+
+
+  const LetterRandomizer = async () =>{
+
+    // Async storage, Key , Date
+  const randomLetter = await GetItemInStorage("Letter_RANDOM_TIMER");
+    console.log(randomLetter)
+    if(!randomLetter){
+      await SaveItemInStorage("Letter_RANDOM_TIMER", new Date().getTime().toString())
+      let random = Math.floor((Math.random() * lettersArray.length))
+      await SaveItemInStorage("Letter_RANDOM_NUMBER", random.toString())
+      await setLetter(getLetter(random));
+
+    }else{
+
+      let currentDate = parseInt(new Date().getTime().toString());
+      let previousDate = parseInt(randomLetter);
+
+      let newPreviousDate = parseInt(previousDate) + 86400000;
+      console.log("CurrentDate : " ,currentDate)
+      console.log("Previous Date : " ,newPreviousDate)
+    // 86400000 = 1 day
+    if((previousDate + 86400000) < currentDate){
+      // if one day has passed
+      // Grab a random number
+        let random = Math.floor((Math.random() * lettersArray.length))
+        console.log("One day has passed, getting new horoscope")
+        await setRandomLetter(getRandomLetter(random));
+        await SaveItemInStorage("Letter_RANDOM_TIMER", currentDate.toString())
+        await SaveItemInStorage("Letter_RANDOM_NUMBER", random.toString())
+      }else{
+        console.log("One day has not passed, will not reset the current horoscope")
+        let getOldRandomNumber = await GetItemInStorage("Letter_RANDOM_NUMBER")
+        await setRandomLetter(getRandomLetter(getOldRandomNumber));
+    // Display previous horoscope.
+      }
+    }
+  }
+
+  const ThanksRandomizer = async () =>{
+
+        // Async storage, Key , Date
+      const randomThanks = await GetItemInStorage("Thanks_RANDOM_TIMER");
+      console.log(randomThanks)
+      if(!randomThanks){
+        await SaveItemInStorage("Thanks_RANDOM_TIMER", new Date().getTime().toString())
+        let random = Math.floor((Math.random() * thanksArray.length))
+        await SaveItemInStorage("Thanks_RANDOM_NUMBER", random.toString())
+        await setRandomThanks(getRandomThanks(random));
+
+      }else{
+
+        let currentDate = parseInt(new Date().getTime().toString());
+        let previousDate = parseInt(randomThanks);
+
+        let newPreviousDate = parseInt(previousDate) + 86400000;
+        console.log("CurrentDate : " ,currentDate)
+        console.log("Previous Date : " ,newPreviousDate)
+      // 86400000 = 1 day
+      if((previousDate + 86400000) < currentDate){
+        // if one day has passed
+        // Grab a random number
+        let random = Math.floor((Math.random() * thanksArray.length))
+        console.log("One day has passed, getting new horoscope")
+        await setRandomThanks(getRandomThanks(random));
+        await SaveItemInStorage("Thanks_RANDOM_TIMER", currentDate.toString())
+        await SaveItemInStorage("Thanks_RANDOM_NUMBER", random.toString())
+      }else{
+        console.log("One day has not passed, will not reset the current horoscope")
+        let getOldRandomNumber = await GetItemInStorage("Thanks_RANDOM_NUMBER")
+        await setRandomThanks(getRandomThanks(getOldRandomNumber));
+        // Display previous horoscope.
+      }
+    }
+  }
+
+  const AdviceRandomizer = async () =>{
+    // Async storage, Key , Date
+      const randomAdvice = await GetItemInStorage("Advice_RANDOM_TIMER");
+      console.log(randomAdvice)
+      if(!randomAdvice){
+        await SaveItemInStorage("Advice_RANDOM_TIMER", new Date().getTime().toString())
+        let random = Math.floor((Math.random() * adviceArray.length))
+        await SaveItemInStorage("Advice_RANDOM_NUMBER", random.toString())
+        await setRandomAdvice(getRandomAdvice(random));
+
+      }else{
+
+        let currentDate = parseInt(new Date().getTime().toString());
+        let previousDate = parseInt(randomAdvice);
+
+        let newPreviousDate = parseInt(previousDate) + 86400000;
+        console.log("CurrentDate : " ,currentDate)
+        console.log("Previous Date : " ,newPreviousDate)
+      // 86400000 = 1 day
+      if((previousDate + 86400000) < currentDate){
+      // if one day has passed
+      // Grab a random number
+        let random = Math.floor((Math.random() * adviceArray.length))
+        console.log("One day has passed, getting new horoscope")
+        await setRandomAdvice(getRandomAdvice(random));
+        await SaveItemInStorage("Advice_RANDOM_TIMER", currentDate.toString())
+        await SaveItemInStorage("Advice_RANDOM_NUMBER", random.toString())
+      }else{
+        console.log("One day has not passed, will not reset the current horoscope")
+        let getOldRandomNumber = await GetItemInStorage("Advice_RANDOM_NUMBER")
+        await setRandomAdvice(getRandomAdvice(getOldRandomNumber));
+        // Display previous horoscope.
+      }
+    }
+  }
 
 
   return (
@@ -2579,14 +2412,14 @@ mounted =false;
    
   );
 
-  function getRandomHoroscope() {
+  function getRandomHoroscope(random) {
     console.log(random);
     let randHoroscope = horoscopeArray[random];
     console.log(randHoroscope);
     return randHoroscope;
   
   }
-  function getRandomNumber() {
+  function getRandomNumber(random) {
     console.log(random);
     let randNumber = numbersArray[random];
     console.log(randNumber);
@@ -2594,14 +2427,14 @@ mounted =false;
   
   }
 
-  function getRandomLetter() {
+  function getRandomLetter(random) {
     console.log(random);
     let randLetter = lettersArray[random];
     console.log(randLetter);
     return randLetter;
   
   }
-   function getRandomThanks() {
+   function getRandomThanks(random) {
     console.log(random);
      let randThanks = thanksArray[random];
     console.log(randThanks );
@@ -2609,7 +2442,7 @@ mounted =false;
   
   }
 
-  function getRandomWord2() {
+  function getRandomWord2(random) {
    console.log(random);
     let randWord = wordsArray[random];
    console.log(randWord);
@@ -2617,56 +2450,27 @@ mounted =false;
  
  }
 
- function getRandomWord3() {
- console.log(random);
-  let randWord = wordsArray[random];
- console.log(randWord);
- return randWord;
+  function getRandomWord3(random) {
+  console.log(random);
+    let randWord = wordsArray[random];
+  console.log(randWord);
+  return randWord;
 
-}
-function getRandomWord4() {
- console.log(random);
-  let randWord = wordsArray[random];
- console.log(randWord);
- return randWord;
+  }
+  function getRandomWord4(random) {
+  console.log(random);
+    let randWord = wordsArray[random];
+  console.log(randWord);
+  return randWord;
 
-}
-function getRandomAdvice() {
- console.log(random);
-  let randAdvice= adviceArray[random];
- console.log(randAdvice);
- return randAdvice;
+  }
+  function getRandomAdvice(random) {
+  console.log(random);
+    let randAdvice= adviceArray[random];
+  console.log(randAdvice);
+  return randAdvice;
 
-}
-
-//ARIES 
-
-
-
-
-//TAURUS
-
-//GEMINI
-
-//CANCER
-
-//LEO
-
-
-//VIRGO
-
-//LIBRA
-
-//SCORPIO
-
-//SAGITTRAIUS
-
-//CAPRICORN
-
-//AQUARIUS
-
-
-
+} 
 
   //FIRESTORE
   // function onSaveFortune() {
