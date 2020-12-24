@@ -709,7 +709,7 @@ function HomeScreen({ navigation }) {
             <Modal isVisible={isModalVisible} style={{ alignItems: "center", flex: 1 }}>
               <View>
                 <Text style={styles.tapCard}>Tap card to flip</Text>
-                <Button title="Hide " onPress={toggleModal} />
+                <Button title="Hide Card" onPress={toggleModal} />
                 <View style={{ marginBottom: 500 }}>
                   <FlipCard
                     flipHorizontal={true}
@@ -779,7 +779,7 @@ function HomeScreen({ navigation }) {
          <Modal isVisible={isFortuneModalVisible} style={{ alignItems: "center", flex: 1 }}>
           <View>
             <Text style={styles.tapCard}>Sorry, you ran out of weekly fortune. Check next week!</Text>
-            <Button title="Hide " onPress={toggleFortuneModal} />
+            <Button title="Hide Card" onPress={toggleFortuneModal} />
             <View style={{ marginBottom: 500 }}>
             </View>
           </View>
@@ -807,7 +807,9 @@ function HomeScreen({ navigation }) {
   
     return (
       <View style={styles.mainContainer}>
-        <View style={{ flex: 1, alignItems: 'center' }}>
+        <ImageBackground source={bgstars} style={styles.bgfull}>
+          
+          
           {/* <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-between', padding: 25, marginTop: 18 }}> */}
             {isLoggedIn ? (
               <View>
@@ -821,11 +823,13 @@ function HomeScreen({ navigation }) {
               <Image source={SignInButton} />
             </TouchableOpacity>
               </View>
+              
+              
             }
-            
+           <View style={{ flex: 1, alignItems: 'center' }}>
          {/* <Button title="Clear Async" onPress={ () => { console.log("Async Storage Cleared"); AsyncStorage.clear();}}></Button>
           <Button title="Sign out" onPress={ () => { console.log("User Sign Out"); firebase.auth().signOut()}}></Button> */}
-          <Image source={LargeTitleApp} style={{ marginTop:20 , width: '100%' }} />
+          <Image source={LargeTitleApp} style={{ marginBottom:20 }} />
           {RenderTheFortuneButtons()}
           {/* <Button title="Subscription" onPress={ () => navigation.navigate('Subscription')} /> */}
           <Image source={PickCard} style={{ marginTop:20, margin: 8 }} />
@@ -842,7 +846,9 @@ function HomeScreen({ navigation }) {
           </TouchableOpacity>
           <NavBar />
         </View>
+      </ImageBackground>
       </View>
+      
     );
   }
 
@@ -1948,9 +1954,17 @@ function Horoscopemain({}) {
   const navigation = useNavigation();
     return (
       <ImageBackground source={bgstars} style={styles.bgfull}>
+              <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-between', padding: 25, marginTop: 18 }}>
+            <TouchableOpacity onPress={() => navigation.navigate('SignUp')}>
+              <Image source={SignUpButton} />
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => navigation.navigate('SignIn')}>
+              <Image source={SignInButton} />
+            </TouchableOpacity>
+          </View>
       <View >
         <View style={{  alignItems: 'center' }}>
-          <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-between', padding: 25, marginTop: 18 }}>
+          <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-between', padding: 25, marginTop: -90 }}>
             <TouchableOpacity onPress={() => navigation.navigate('SignUp')}>
               <Image source={SignUpButton} />
             </TouchableOpacity>
@@ -1959,7 +1973,7 @@ function Horoscopemain({}) {
             </TouchableOpacity>
           </View>
           <Image source={Horoscopetxt} style={{ }} />
-          <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'center', padding:2, marginTop:40}}>
+          <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'center', padding:2, marginTop:30}}>
           <TouchableOpacity onPress={() => navigation.navigate('HoroscopeAries')}>
             <Image source={Ariesbttn} />
           </TouchableOpacity>
@@ -7651,8 +7665,8 @@ function Horoscopepisces({}) {
 
   return (
     <View style={styles.mainContainer}>
-      <View style={{  alignItems: 'center' }}>
-        <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-between', padding: 25, marginTop: 18 }}>
+      <ImageBackground source={bgstars} style={styles.bgfull}>
+      <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-between', padding: 25, marginTop: 18 }}>
           <TouchableOpacity onPress={() => navigation.navigate('SignUp')}>
             <Image source={SignUpButton} />
           </TouchableOpacity>
@@ -7660,6 +7674,7 @@ function Horoscopepisces({}) {
             <Image source={SignInButton} />
           </TouchableOpacity>
         </View>
+      <View style={{  alignItems: 'center' }}>  
 
         <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-evenly' }}>
         <View style={{ flexDirection: 'column', justifyContent: 'space-evenly' , marginRight:12 }}>
@@ -7719,8 +7734,9 @@ function Horoscopepisces({}) {
        
       </View>
       <NavBar_hor/>
-      
+      </ImageBackground>
       </View>
+    
    
   );
 
