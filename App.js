@@ -288,6 +288,7 @@ import { Input } from 'react-native-elements';
 import profile_bg from './assets/FortuneCoffeePNGassets/Profile_bg.png';
 import pencil from './assets/pencil.png';
 import pageButton from './assets/pageButton.png';
+import profilebgnotlogged from './assets/FortuneCoffeePNGassets/profile_login.png';
 
 //random cards
 import {cardsAndMeaning} from './fortunesCardArray';
@@ -1573,30 +1574,40 @@ function Psychic() {
 
   function Manifest() {
     const navigation = useNavigation();
-    const [email, setEmail] = useState('')
+    const [wish, setWish] = useState('')
     return (
       
-      <View style={styles.virtualContainer}>
+      <View style={styles.mainContainer}>
         <ImageBackground source={manifestbg} style={styles.bgfull}>
         <View style={{position:'absolute', top:0, flexDirection:'row', width:'100%', margin:10}}>
+          
           <TouchableOpacity onPress={()=>{navigation.navigate('Psychic')}}>
             <Image source={backButton} style={styles.backButtonStyle}/>
           </TouchableOpacity>
+          
+          
           </View>
-          <Image source={signEmailText} style={{marginBottom:8}}/>
-        <TextInput style={styles.textBox}
-          label="Email"
-          placeholder="Type What You Want to Manifest"
-          placeholderTextColor='#DCDCDC'
-          autoCapitalize='none'
-          keyboardType='email-address'
-        />
+          <View style={{  alignItems: 'center', marginTop:60 }}>
+          <Text style={{ color: '#FFFFFF', fontSize: 17, textAlign: 'left', alignSelf: 'stretch'}}></Text>
+      <View style={{flexDirection: 'row',width:'80%', height: '10%'}}>
+        <TextInput style={styles.savedFortuneTextBox0}
+      onChangeText={wish => setWish(wish)}
+      value={wish}
+      placeholder="    Wish"
+      placeholderTextColor='#DCDCDC'
+      autoCapitalize='none'
+      />
+      </View>
+      </View>
+
+
         <View >
+          
           <TouchableOpacity onPress={()=>{navigation.navigate('Psychic')}}>
             <Image source={sendtouni} style={{justifyContent:'center',marginVertical:700}} />
           </TouchableOpacity>
-          </View>
           
+          </View>
         <NavBar_psyc/>
         </ImageBackground>
         </View>
@@ -1981,7 +1992,7 @@ function Profile() {
   //   })
   // })
   return (
-    <ImageBackground source={bgstars} style={styles.bgfull}>
+    <ImageBackground source={profilebgnotlogged} style={styles.bgfull}>
       <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-between', padding: 25, marginTop: 18 }}>
         <TouchableOpacity onPress={() => navigation.navigate('SignUp')}>
           <Image source={SignUpButton} />
