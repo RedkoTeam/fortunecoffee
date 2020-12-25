@@ -271,6 +271,12 @@ import someonebtn from './assets/FortuneCoffeePNGassets/Psychic/someonebtn.png';
 import LunaSc from './assets/FortuneCoffeePNGassets/Psychic/askluna/LunaSc.png';
 import ComingLuna from './assets/FortuneCoffeePNGassets/Psychic/askluna/ComingLuna.png';
 import transparent from './assets/FortuneCoffeePNGassets/Psychic/askluna/transparent.png';
+import manifestbg from './assets/FortuneCoffeePNGassets/Psychic/manifest/manifestbg.png';
+import sendtouni from './assets/FortuneCoffeePNGassets/Psychic/manifest/sendtouni.png';
+import magicglobetxt from './assets/FortuneCoffeePNGassets/Psychic/magicglobetxt.png';
+import magicbtn from './assets/FortuneCoffeePNGassets/Psychic/magicbtn.png';
+import someonetxt from './assets/FortuneCoffeePNGassets/Psychic/someonetxt.png';
+
 
 
 
@@ -1549,10 +1555,10 @@ function Psychic() {
           <TouchableOpacity onPress={() => navigation.navigate('LunaChat')}>
               <Image source={asklunabtn} style={{marginTop:15}} />
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => navigation.navigate('PsychicComingSoon')}>
+            <TouchableOpacity onPress={() => navigation.navigate('SomeoneFortune1')}>
               <Image source={someonebtn} style={{marginTop:15}}  />
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => navigation.navigate('PsychicComingSoon')}>
+            <TouchableOpacity onPress={() => navigation.navigate('Manifest')}>
               <Image source={manifestbtn} style={{marginTop:15}} />
             </TouchableOpacity>
 
@@ -1564,7 +1570,143 @@ function Psychic() {
   )
   
   }
+
+  function Manifest() {
+    const navigation = useNavigation();
+    const [email, setEmail] = useState('')
+    return (
+      
+      <View style={styles.virtualContainer}>
+        <ImageBackground source={manifestbg} style={styles.bgfull}>
+        <View style={{position:'absolute', top:0, flexDirection:'row', width:'100%', margin:10}}>
+          <TouchableOpacity onPress={()=>{navigation.navigate('Psychic')}}>
+            <Image source={backButton} style={styles.backButtonStyle}/>
+          </TouchableOpacity>
+          </View>
+          <Image source={signEmailText} style={{marginBottom:8}}/>
+        <TextInput style={styles.textBox}
+          label="Email"
+          placeholder="Type What You Want to Manifest"
+          placeholderTextColor='#DCDCDC'
+          autoCapitalize='none'
+          keyboardType='email-address'
+        />
+        <View >
+          <TouchableOpacity onPress={()=>{navigation.navigate('Psychic')}}>
+            <Image source={sendtouni} style={{justifyContent:'center',marginVertical:700}} />
+          </TouchableOpacity>
+          </View>
+          
+        <NavBar_psyc/>
+        </ImageBackground>
+        </View>
+       
+    )
+    
+    }
+
+    function SomeoneFortune1() {
+      const navigation = useNavigation();
+      const [email, setEmail] = useState('')
+      var userName = 'user';
+    
+      const [buttonClicked, setButtonClicked] = useState(false);
+      
+      return (
+        <View style={styles.mainContainer}>
+        <ImageBackground source={bgstars} style={styles.bgfull}>
+         <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-between', padding: 25,marginTop:30 }}>
+         <View style={{position:'absolute', top:0, flexDirection:'row', width:'100%', margin:10}}>
+         <TouchableOpacity onPress={()=>{navigation.navigate('Psychic')}}>
+           <Image source={backButton} style={styles.backButtonStyle}/>
+         </TouchableOpacity>
+         </View>
+         </View>
+         <View style={{  alignItems: 'center', marginTop:60 }}>
+         
+         <Image source={magicglobetxt} style={{ alignItems: 'center', marginTop: 18 }} />
+     
+         <Image source={linehors} style={{  marginTop: 25 }} />
+         <Image source={someonetxt} style={{  marginTop: 25 }} />
+
+{/*text input fields*/}
+
+         <TouchableOpacity onPress={()=>{navigation.navigate('SomeoneFortune')}}>
+           <Image source={magicbtn}  style={{ alignItems: 'center', marginTop: 18 }} />
+         </TouchableOpacity> 
+       </View>
+       <NavBar_psyc/>
+       </ImageBackground>
+       </View>
+      )
+    }
+    
+
+
+
+    function SomeoneFortune() {
+      const navigation = useNavigation();
+      const [email, setEmail] = useState('')
+      var userName = 'user';
+    
+      const [buttonClicked, setButtonClicked] = useState(false);
+      const [randomFortuneS, setRandomFortuneS] = useState('');
+      
+      return (
+        <View style={styles.mainContainer}>
+        <ImageBackground source={bgstars} style={styles.bgfull}>
+         <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-between', padding: 25,marginTop:30 }}>
+         <View style={{position:'absolute', top:0, flexDirection:'row', width:'100%', margin:10}}>
+         <TouchableOpacity onPress={()=>{navigation.navigate('SomeoneFortune1')}}>
+           <Image source={backButton} style={styles.backButtonStyle}/>
+         </TouchableOpacity>
+         </View>
+         </View>
+         <View style={{  alignItems: 'center', marginTop:60 }}>
+         
+         <Image source={magicglobetxt} style={{ alignItems: 'center', marginTop: 18 }} />
+     
+         <Image source={linehors} style={{  marginTop: 25 }} />
+         <Image source={someonetxt} style={{  marginTop: 25 }} />
+         <View style={styles.readingTableContainer}>
   
+  <ScrollView>
+  <Text style={{fontSize:17, color:'white', marginTop:30}}> {randomFortuneS}  </Text>
+ 
+  {!buttonClicked ? (
+    <Button
+      onPress={() => {
+        setRandomFortuneS(getRandomFortuneS)
+        setButtonClicked(true)
+      }}
+      title='Tap To See Magic Globe'
+
+    >
+    </Button>
+  ) : null}
+  
+  </ScrollView>
+</View>
+
+ 
+        
+       </View>
+       <NavBar_psyc/>
+       </ImageBackground>
+       </View>
+
+         
+      );
+
+      function getRandomFortuneS() {
+        let random = Math.floor((Math.random() * fortunesArray.length))
+        console.log(random);
+        let fortune = fortunesArray[random];
+        console.log(fortune);
+        return fortune;
+      }
+    }
+
 
   function LunaChat() {
     const navigation = useNavigation();
@@ -8084,7 +8226,9 @@ function App() {
         <Stack.Screen name="PsychicComingSoon" component={PsychicComingSoon} />
         <Stack.Screen name="LunaChatComing" component={LunaChatComing} />
         <Stack.Screen name="LunaChat" component={LunaChat} />
-       
+        <Stack.Screen name="Manifest" component={Manifest} />
+        <Stack.Screen name="SomeoneFortune" component={SomeoneFortune} />
+        <Stack.Screen name="SomeoneFortune1" component={SomeoneFortune1} />
       </Stack.Navigator>
     </NavigationContainer>
   );
