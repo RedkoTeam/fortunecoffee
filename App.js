@@ -551,6 +551,13 @@ const styles = StyleSheet.create({
     marginTop:10,
     backgroundColor: "rgba(255,255,255,0.4)",
   },
+  savedFortuneTextBox0: {
+    height: "100%",
+    width: "100%",
+    borderWidth: 1,
+    borderRadius: 10,
+    backgroundColor: "rgba(255,255,255,0.4)",
+  },
   savedFortuneTextBox2: {
     height: "100%",
     width: "25%",
@@ -709,7 +716,7 @@ function HomeScreen({ navigation }) {
             <Modal isVisible={isModalVisible} style={{ alignItems: "center", flex: 1 }}>
               <View>
                 <Text style={styles.tapCard}>Tap card to flip</Text>
-                <Button title="Hide " onPress={toggleModal} />
+                <Button title="Hide Card" onPress={toggleModal} />
                 <View style={{ marginBottom: 500 }}>
                   <FlipCard
                     flipHorizontal={true}
@@ -827,7 +834,9 @@ function HomeScreen({ navigation }) {
           <Button title="Sign out" onPress={ () => { console.log("User Sign Out"); firebase.auth().signOut()}}></Button> */}
           <Image source={LargeTitleApp} style={{ marginTop:20 , width: '100%' }} />
           {RenderTheFortuneButtons()}
-          {/* <Button title="Subscription" onPress={ () => navigation.navigate('Subscription')} /> */}
+
+          {/* <Button title="camera" onPress={ () => navigation.navigate('Virtual')} /> */}
+          
           <Image source={PickCard} style={{ marginTop:20, margin: 8 }} />
             {/* Pick a card  */}
           <TouchableOpacity onPress={toggleModal2} style={styles.cards}>
@@ -1471,15 +1480,15 @@ function VirtualCoffeeReadingScreen() {
   const navigation = useNavigation();
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: '#070631' }}>
-        <View style={{position: "absolute", top: 0, flexDirection: 'row',justifyContent: 'space-between',width:'100%', margin: 16}}>
-          <TouchableOpacity onPress={() => navigation.navigate('Home')} style={styles.backButtonStyle} >
+        <View style={{ flexDirection: 'row', position: 'absolute', top: 0, width: '100%', justifyContent: 'space-between', padding: 25, marginTop: 18}}>
+          <TouchableOpacity onPress={() => navigation.navigate('Home')} style={{alignContent: 'left'}} >
             <Image source={backButton}/>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => navigation.navigate('VirtualOne')} style={{alignContent: 'right', marginTop: 10}}>
+           <Image source={useAVirtualCoffee}/>
           </TouchableOpacity>
         </View>
       {image && <Image source={{uri: image}} style={{marginTop:0, height: '40%', width: '80%', borderWidth:5, borderColor: '#FFF'}} />}
-      <TouchableOpacity onPress={() => navigation.navigate('VirtualOne')}>
-        <Image source={useAVirtualCoffee}/>
-      </TouchableOpacity>
       <Image source={virtualImage} />
       {image && <View>
         <TouchableOpacity onPress={() => navigation.navigate('ReadingAnimation')}>
@@ -1697,16 +1706,35 @@ function SignUpScreen({ navigation }) {
 // TODO need to hook this up to a button after signed in
 function Profile() {
   const navigation = useNavigation();
+  // const [favoritesData, setFavoritesData] = useState([{"fortune" : "You're not logged in. Please come back and check after logging in"}]);
+  // useEffect( () => {
+  //   CheckLoginToken().then(async (result) => {
+  //     console.log('Favorites Screen Populated. Fetching data from firestore');
+  //     console.log("Login Status: ", result)
+  //     if(result === "User"){
+  //       db.collection('users').doc(firebase.auth().currentUser.uid).get()
+  //       .then(uData => {
+  //         const userData = uData.data().favorites;
+  //         setFavoritesData(userData);
+  //         console.log(`USER DATA  ${JSON.stringify(favoritesData)}`);
+  //       })
+  //       .catch(error => console.log(error));
+  //     }
+  //   })
+  // })
   return (
     <ImageBackground source={bgstars} style={styles.bgfull}>
       <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-between', padding: 25, marginTop: 18 }}>
-            <TouchableOpacity onPress={() => navigation.navigate('SignUp')}>
-              <Image source={SignUpButton} />
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => navigation.navigate('SignIn')}>
-              <Image source={SignInButton} />
-            </TouchableOpacity>
-          </View>
+        <TouchableOpacity onPress={() => navigation.navigate('SignUp')}>
+          <Image source={SignUpButton} />
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate('SignIn')}>
+          <Image source={SignInButton} />
+        </TouchableOpacity>
+      </View>
+      {/* <Text style={{fontSize: 30}}>Hi</Text>
+      <Button title="console" onPress={ () => console.log(favRef)} /> */}
+      
    <NavBar_pro></NavBar_pro>
     </ImageBackground>
     
@@ -1728,29 +1756,37 @@ function ProfileDetails() {
         </TouchableOpacity>
       </View>
       <Text style={{ color: '#FFFFFF', fontSize: 18, textAlign: 'left', alignSelf: 'stretch', marginLeft: 20}}>Name</Text>
-      <TextInput style={styles.savedFortuneTextBox}
-        label="Name"
-        placeholder="   Enter name here"
-        placeholderTextColor='#DCDCDC'
-      />
+      <View style={{flexDirection: 'row',width:'90%', height: '7%'}}>
+        <TextInput style={styles.savedFortuneTextBox0}
+          label="Name"
+          placeholder="   Enter name here"
+          placeholderTextColor='#DCDCDC'
+        />
+      </View>
       <Text style={{ color: '#FFFFFF', fontSize: 18, marginTop: 20, textAlign: 'left', alignSelf: 'stretch', marginLeft: 20}}>Relationship Status</Text>
-      <TextInput style={styles.savedFortuneTextBox}
-        label="Relationship Status"
-        placeholder="   Enter relationship status here"
-        placeholderTextColor='#DCDCDC'
-      />
+      <View style={{flexDirection: 'row',width:'90%', height: '7%'}}>  
+        <TextInput style={styles.savedFortuneTextBox0}
+          label="Relationship Status"
+          placeholder="   Enter relationship status here"
+          placeholderTextColor='#DCDCDC'
+        />
+      </View>
       <Text style={{ color: '#FFFFFF', fontSize: 18, marginTop: 20, textAlign: 'left', alignSelf: 'stretch', marginLeft: 20}}>Employment Status</Text>
-      <TextInput style={styles.savedFortuneTextBox}
-        label="EmploymentStatus"
-        placeholder="   Enter employment status here"
-        placeholderTextColor='#DCDCDC'
-      />
+      <View style={{flexDirection: 'row',width:'90%', height: '7%'}}>  
+        <TextInput style={styles.savedFortuneTextBox0}
+          label="EmploymentStatus"
+          placeholder="   Enter employment status here"
+          placeholderTextColor='#DCDCDC'
+        />
+      </View>
       <Text style={{ color: '#FFFFFF', fontSize: 18, marginTop: 20, textAlign: 'left', alignSelf: 'stretch', marginLeft: 20}}>Gender</Text>
-      <TextInput style={styles.savedFortuneTextBox}
-        label="Gender"
-        placeholder="   Enter gender here"
-        placeholderTextColor='#DCDCDC'
-      />
+      <View style={{flexDirection: 'row',width:'90%', height: '7%'}}>  
+        <TextInput style={styles.savedFortuneTextBox0}
+          label="Gender"
+          placeholder="   Enter gender here"
+          placeholderTextColor='#DCDCDC'
+        />
+      </View>  
       <Text style={{ color: '#FFFFFF', fontSize: 18, marginTop: 20, textAlign: 'left', alignSelf: 'stretch', marginLeft: 20}}>Birthday</Text>
       <View style={{flexDirection: 'row',width:'90%', height: '7%'}}>
         <TextInput style={styles.savedFortuneTextBox2}
