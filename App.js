@@ -1607,7 +1607,8 @@ function Psychic() {
 
     function SomeoneFortune1() {
       const navigation = useNavigation();
-      const [email, setEmail] = useState('')
+      const [nameS, setNameS] = useState('')
+      const [bdayS, setbdayS] = useState('')
       var userName = 'user';
     
       const [buttonClicked, setButtonClicked] = useState(false);
@@ -1629,10 +1630,30 @@ function Psychic() {
          <Image source={linehors} style={{  marginTop: 25 }} />
          <Image source={someonetxt} style={{  marginTop: 25 }} />
 
-{/*text input fields*/}
+       
+<Text style={{ color: '#FFFFFF', fontSize: 17, textAlign: 'left', alignSelf: 'stretch', marginLeft: 20, marginTop:20}}>Name</Text>
+      <View style={{flexDirection: 'row',width:'80%', height: '10%',marginTop:5}}>
+        <TextInput style={styles.savedFortuneTextBox0}
+       onChangeText={nameS => setNameS(nameS)}
+      value={nameS}
+      placeholder="    Enter The Name of The Person"
+      placeholderTextColor='#DCDCDC'
+      autoCapitalize='none'
+      />
+      </View>
+      <Text style={{ color: '#FFFFFF', fontSize: 17, textAlign: 'left', alignSelf: 'stretch', marginLeft: 20, marginTop:20}}>Birthday</Text>
+      <View style={{flexDirection: 'row',width:'80%', height: '10%',marginTop:5}}>
+        <TextInput style={styles.savedFortuneTextBox0}
+      onChangeText={bdayS => setbdayS(bdayS)}
+      value={bdayS}
+      placeholder="    Their Birthday"
+      placeholderTextColor='#DCDCDC'
+      autoCapitalize='none'
+      />
+      </View>
 
          <TouchableOpacity onPress={()=>{navigation.navigate('SomeoneFortune')}}>
-           <Image source={magicbtn}  style={{ alignItems: 'center', marginTop: 18 }} />
+           <Image source={magicbtn}  style={{ alignItems: 'center', marginTop: 28 }} />
          </TouchableOpacity> 
        </View>
        <NavBar_psyc/>
