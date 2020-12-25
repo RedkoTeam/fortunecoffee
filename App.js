@@ -264,7 +264,13 @@ import photoGallery from './assets/photoGallery.png';
 //Saved Fortunes //
 
 //Psyhic//
-
+import psychicbg from './assets/FortuneCoffeePNGassets/Psychic/psychbg.png';
+import asklunabtn from './assets/FortuneCoffeePNGassets/Psychic/asklunabtn.png';
+import manifestbtn from './assets/FortuneCoffeePNGassets/Psychic/manifestbtn.png';
+import someonebtn from './assets/FortuneCoffeePNGassets/Psychic/someonebtn.png';
+import LunaSc from './assets/FortuneCoffeePNGassets/Psychic/askluna/LunaSc.png';
+import ComingLuna from './assets/FortuneCoffeePNGassets/Psychic/askluna/ComingLuna.png';
+import transparent from './assets/FortuneCoffeePNGassets/Psychic/askluna/transparent.png';
 
 
 
@@ -444,6 +450,7 @@ const styles = StyleSheet.create({
     width:'100%',
     opacity: 1,
   },
+  
 
   bgfull2: {
     flex: 1,
@@ -1521,12 +1528,13 @@ function FortuneModal() {
   )
 }
 
+
 function Psychic() {
   const navigation = useNavigation();
   return (
     
     <View style={styles.virtualContainer}>
-      <ImageBackground source={bgcoming} style={styles.bgfull}>
+      <ImageBackground source={psychicbg} style={styles.bgfull}>
       <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-between', padding: 25, marginTop: 18 }}>
             <TouchableOpacity onPress={() => navigation.navigate('SignUp')}>
               <Image source={SignUpButton} />
@@ -1534,6 +1542,20 @@ function Psychic() {
             <TouchableOpacity onPress={() => navigation.navigate('SignIn')}>
               <Image source={SignInButton} />
             </TouchableOpacity>
+
+
+          </View>
+          <View style={{marginTop:'25%'}}>
+          <TouchableOpacity onPress={() => navigation.navigate('LunaChat')}>
+              <Image source={asklunabtn} style={{marginTop:15}} />
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => navigation.navigate('PsychicComingSoon')}>
+              <Image source={someonebtn} style={{marginTop:15}}  />
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => navigation.navigate('PsychicComingSoon')}>
+              <Image source={manifestbtn} style={{marginTop:15}} />
+            </TouchableOpacity>
+
           </View>
       <NavBar_psyc/>
       </ImageBackground>
@@ -1542,6 +1564,71 @@ function Psychic() {
   )
   
   }
+  
+
+  function LunaChat() {
+    const navigation = useNavigation();
+    return (
+      
+      <View style={styles.virtualContainer}>
+        <ImageBackground source={LunaSc} style={styles.bgfull}>
+        <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-between', padding: 25, marginTop: 18 }}>
+        <View style={{position:'absolute', top:0, flexDirection:'row', width:'100%', margin:10}}>
+          <TouchableOpacity onPress={()=>{navigation.navigate('LunaChatComing')}}>
+            <Image source={transparent} style={styles.backButtonStyle}/>
+          </TouchableOpacity>
+          </View>
+            </View>
+      
+        </ImageBackground>
+        </View>
+       
+    )
+    
+    }
+
+
+  function LunaChatComing() {
+    const navigation = useNavigation();
+    return (
+      
+      <View style={styles.virtualContainer}>
+        <ImageBackground source={ComingLuna} style={styles.bgfull}>
+        <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-between', padding: 25, marginTop: 18 }}>
+        <View style={{position:'absolute', top:0, flexDirection:'row', width:'100%', margin:10}}>
+          <TouchableOpacity onPress={()=>{navigation.navigate('Psychic')}}>
+            <Image source={backButton} style={styles.backButtonStyle}/>
+          </TouchableOpacity>
+          </View>
+            </View>
+        <NavBar_psyc/>
+        </ImageBackground>
+        </View>
+       
+    )
+    
+    }
+
+  function PsychicComingSoon() {
+    const navigation = useNavigation();
+    return (
+      
+      <View style={styles.virtualContainer}>
+        <ImageBackground source={bgcoming} style={styles.bgfull}>
+        <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-between', padding: 25, marginTop: 18 }}>
+        <View style={{position:'absolute', top:0, flexDirection:'row', width:'100%', margin:10}}>
+          <TouchableOpacity onPress={()=>{navigation.navigate('HomeScreen')}}>
+            <Image source={backButton} style={styles.backButtonStyle}/>
+          </TouchableOpacity>
+          </View>
+            </View>
+        <NavBar_psyc/>
+        </ImageBackground>
+        </View>
+       
+    )
+    
+    }
   
 
 
@@ -1992,17 +2079,17 @@ function Horoscopemain({}) {
   const navigation = useNavigation();
     return (
       <ImageBackground source={bgstars} style={styles.bgfull}>
-              <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-between', padding: 25, marginTop: 18 }}>
+             {/* <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-between', padding: 25, marginTop: 18 }}>
             <TouchableOpacity onPress={() => navigation.navigate('SignUp')}>
               <Image source={SignUpButton} />
             </TouchableOpacity>
             <TouchableOpacity onPress={() => navigation.navigate('SignIn')}>
               <Image source={SignInButton} />
             </TouchableOpacity>
-          </View>
+          </View> */}
       <View >
         <View style={{  alignItems: 'center' }}>
-          <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-between', padding: 25, marginTop: -90 }}>
+          <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-between', padding: 25, marginTop: 10 }}>
             <TouchableOpacity onPress={() => navigation.navigate('SignUp')}>
               <Image source={SignUpButton} />
             </TouchableOpacity>
@@ -7994,9 +8081,14 @@ function App() {
         <Stack.Screen name="Horoscopemain" component={Horoscopemain} />
         <Stack.Screen name="Psychic" component={Psychic} />
         <Stack.Screen name="Onboarding" component={Onboarding} />
+        <Stack.Screen name="PsychicComingSoon" component={PsychicComingSoon} />
+        <Stack.Screen name="LunaChatComing" component={LunaChatComing} />
+        <Stack.Screen name="LunaChat" component={LunaChat} />
+       
       </Stack.Navigator>
     </NavigationContainer>
   );
 }
 
 export default App;
+
