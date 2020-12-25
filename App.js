@@ -978,11 +978,11 @@ function NavBar(){
         <TouchableOpacity onPress={() => navigation.navigate('Home')}>
             <Image source={Home} style={{ bottom:'100%'}}/>
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => navigation.navigate('Profile')}>
-            <Image source={Profilebtn} style={{ marginLeft:30, bottom:'80%'}} />
+          <TouchableOpacity onPress={() => navigation.navigate('Favorites')}>
+            <Image source={Favorites} style={{ marginLeft:30, bottom:'80%'}} />
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => navigation.navigate('Favorites')}>
-            <Image source={Favorites} style={{ bottom:'-20%'}} />
+        <TouchableOpacity onPress={() => navigation.navigate('Profile')}>
+            <Image source={Profilebtn} style={{ bottom:'-20%'}} />
         </TouchableOpacity>
       </View>
     </View>
@@ -1004,11 +1004,11 @@ function NavBar_psyc(){
         <TouchableOpacity onPress={() => navigation.navigate('Home')}>
             <Image source={HomeB} style={{ bottom:'100%'}}/>
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => navigation.navigate('Profile')}>
-            <Image source={Profilebtn} style={{ marginLeft:30, bottom:'80%'}} />
+          <TouchableOpacity onPress={() => navigation.navigate('Favorites')}>
+            <Image source={Favorites} style={{ marginLeft:30, bottom:'80%'}} />
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => navigation.navigate('Favorites')}>
-            <Image source={Favorites} style={{ bottom:'-20%'}} />
+        <TouchableOpacity onPress={() => navigation.navigate('Profile')}>
+            <Image source={Profilebtn} style={{ bottom:'-20%'}} />
         </TouchableOpacity>
       </View>
     </View>
@@ -1030,11 +1030,11 @@ function NavBar_hor(){
         <TouchableOpacity onPress={() => navigation.navigate('Home')}>
             <Image source={HomeB} style={{ bottom:'100%'}}/>
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => navigation.navigate('Profile')}>
-            <Image source={Profilebtn} style={{ marginLeft:30, bottom:'80%'}} />
+          <TouchableOpacity onPress={() => navigation.navigate('Favorites')}>
+            <Image source={Favorites} style={{ marginLeft:30, bottom:'80%'}} />
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => navigation.navigate('Favorites')}>
-            <Image source={Favorites} style={{ bottom:'-20%'}} />
+        <TouchableOpacity onPress={() => navigation.navigate('Profile')}>
+            <Image source={Profilebtn} style={{ bottom:'-20%'}} />
         </TouchableOpacity>
       </View>
     </View>
@@ -1058,11 +1058,11 @@ return(
       <TouchableOpacity onPress={() => navigation.navigate('Home')}>
           <Image source={HomeB} style={{ bottom:'100%'}}/>
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => navigation.navigate('Profile')}>
-          <Image source={ProfilebtnW} style={{ marginLeft:30, bottom:'80%'}} />
+        <TouchableOpacity onPress={() => navigation.navigate('Favorites')}>
+          <Image source={Favorites} style={{ marginLeft:30, bottom:'80%'}} />
       </TouchableOpacity>
-      <TouchableOpacity onPress={() => navigation.navigate('Favorites')}>
-          <Image source={Favorites} style={{ bottom:'-20%'}} />
+      <TouchableOpacity onPress={() => navigation.navigate('Profile')}>
+          <Image source={ProfilebtnW} style={{ bottom:'-20%'}} />
       </TouchableOpacity>
     </View>
   </View>
@@ -1084,11 +1084,11 @@ function NavBar_fav(){
         <TouchableOpacity onPress={() => navigation.navigate('Home')}>
             <Image source={HomeB} style={{ bottom:'100%'}}/>
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => navigation.navigate('Profile')}>
-            <Image source={Profilebtn} style={{ marginLeft:30, bottom:'80%'}} />
+          <TouchableOpacity onPress={() => navigation.navigate('Favorites')}>
+            <Image source={FavoritesW} style={{ marginLeft:30, bottom:'80%'}} />
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => navigation.navigate('Favorites')}>
-            <Image source={FavoritesW} style={{ bottom:'-20%'}} />
+        <TouchableOpacity onPress={() => navigation.navigate('Profile')}>
+            <Image source={Profilebtn} style={{ bottom:'-20%'}} />
         </TouchableOpacity>
       </View>
     </View>
@@ -1617,7 +1617,7 @@ function Psychic() {
         <ImageBackground source={bgcoming} style={styles.bgfull}>
         <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-between', padding: 25, marginTop: 18 }}>
         <View style={{position:'absolute', top:0, flexDirection:'row', width:'100%', margin:10}}>
-          <TouchableOpacity onPress={()=>{navigation.navigate('HomeScreen')}}>
+          <TouchableOpacity onPress={()=>{navigation.navigate('Psychic')}}>
             <Image source={backButton} style={styles.backButtonStyle}/>
           </TouchableOpacity>
           </View>
