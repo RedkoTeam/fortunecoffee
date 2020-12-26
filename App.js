@@ -1687,8 +1687,8 @@ function Psychic() {
       return (
         <View style={styles.mainContainer}>
         <ImageBackground source={bgstars} style={styles.bgfull}>
-         <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-between', padding: 25,marginTop:30 }}>
-         <View style={{position:'absolute', top:0, flexDirection:'row', width:'100%', margin:10}}>
+         <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-between'}}>
+         <View style={{position:'absolute',flexDirection:'row', width:'100%', padding: 15 }}>
          <TouchableOpacity onPress={()=>{navigation.navigate('SomeoneFortune1')}}>
            <Image source={backButton} style={styles.backButtonStyle}/>
          </TouchableOpacity>
@@ -1696,7 +1696,7 @@ function Psychic() {
          </View>
          <View style={{  alignItems: 'center', marginTop:60 }}>
          
-         <Image source={magicglobetxt} style={{ alignItems: 'center', marginTop: 18 }} />
+         <Image source={magicglobetxt} style={{ alignItems: 'center', marginTop: 30 }} />
      
          <Image source={linehors} style={{  marginTop: 25 }} />
          <Image source={someonetxt} style={{  marginTop: 25 }} />
