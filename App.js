@@ -763,7 +763,7 @@ function HomeScreen({ navigation }) {
             
             <TouchableOpacity onPress={() => {
               toggleModal();
-              navigation.navigate('Shop');
+              navigation.navigate('SubscriptionScreen');
               }} style={{position: 'absolute', bottom: 65}}>
               <Image source={getCrystals}/>
             </TouchableOpacity>
@@ -826,7 +826,7 @@ function HomeScreen({ navigation }) {
             {/* Change to correct image please. */}
             <TouchableOpacity onPress={() => {
               toggleFortuneModal();
-              navigation.navigate('Shop');
+              navigation.navigate('SubscriptionScreen');
               }} style={{position: 'absolute', bottom: 65}}>
               <Image source={getCrystals}/>
             </TouchableOpacity>
@@ -8257,7 +8257,7 @@ function App() {
         <Stack.Screen name="ReadingAnimation" component={ReadingAnimationScreen} />
         <Stack.Screen name="Reading" component={Reading} />
         <Stack.Screen name="ReadMore" component={ReadMore} />
-        <Stack.Screen name="Subscription" component={SubscriptionScreen} />
+        <Stack.Screen name="SubscriptionScreen" component={SubscriptionScreen} />
         <Stack.Screen name="Fortune" component={FortuneModal} />
         <Stack.Screen name="Profile" component={Profile} />
         <Stack.Screen name="ProfileDetails" component={ProfileDetails} />
