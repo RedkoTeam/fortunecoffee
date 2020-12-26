@@ -1,0 +1,13 @@
+export const dialogflowConfig = {
+  type: 'service_account',
+  project_id: 'fortune-coffeee',
+  private_key_id: '14feae9e20628bae2d1b1a6d1991d8208c1eda49',
+  private_key:  '-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQC8Yowi5PdP6Zjf\n4STJ59VDGegUTSSQN7O1JGUL09JmmG5aYR0lzxpYOQE6kBKr1oul/loaMEELZ8S9\nGJezpVA9sZur2A29TQUBQ2y/Y4iTuBKxTtYOtxKovEMhvQs8wRz+GhcT8cGoIUE9\nVUzCe+BUCEPmluw6WU0dYHMMZvOZfcuhgfnhoRf3B9YhMrxyRbhZBc9CXzG8Vk1L\noUcTvsXN76dKd0zb8f5nBk/MVg+kLL4Z04ILidYnG9RQMMiue2240J9+kPOsYdXD\nBLrwWOeyQfuWrVxWnyLhKelx5MKtelVP8gHcNdPaBnxbiv6cZ37nWpt5QWM39lOo\n5MN431UFAgMBAAECggEAA+0x6pBHL105GIGC2MqCQXHKypGJD5B5qG7nxEVX/1dy\nBWQ8zUrxy6D0i5nxKa/BHWadzinvUSOKkD5w+weZEpAfJIfOUYHHdu1G2P5kHGAb\n06JHB+t88hNqesuL7mpABnPYw0uos65tw6+BeBRI6rd5YtcGeXjfCJu4CiwjK7HQ\nTsifhcuo3jxFDBrA/odkyiQuU+IVqkCbRRloX/z1Ft6C+QB9VBXMmKg4R5Gf2wxj\nUrlHDdQFlOJN4V2ezbsGJ3QE0tp/RU5z8f8zg2tmd8zYr57UEXLvpNdgRx9rGdPY\nkzFdApENfqHT0vejBKTHxzacNKITT54sxXQntONLgQKBgQD6hnTynrvZLTqVPwqP\nwYzlce+RbUCCIgkuJBq90P7ewioqtyaXvRx4mnoNnxYNXT8TG/qYwyA7B7WCd5Oa\nwZAznrguyhtkGpsosxz9sHp8UuJoSNhmG+eUnUMYHUCBRe/MNL1QCyIDfo5vIefc\nMwsTDhMCMEOYUWJh6UzERq4iNQKBgQDAgHOruj2T5DNWjXxNbw5o6qc1Mx8lO2vy\nO0OK34xZxcFkrac6cpTtKblvkbgO5Q41Fzjn84CUlL0iTmZspDyVd8Rt6u9aYdnu\nkiBtrAUL8a4yI5GNmnthVDPR/J3XePrnvYNePuMTgjO/3SiSbeWGdkFV9bq19+p0\nQRtXFSTBkQKBgQCfVvN8+O67U+QF1uHNyynlKVFZKqaz3hf+q+ICRrJEVjRhlLnM\nGvDH2GC21y88cslSSyJZFQoj4WRVxd4wuNoRquq0f8FqKu3ytfFDfYJ6HnF4KJTS\nZP8m69sntDs5vZSmSgj6pwoMNOs8zdDdoe1yQipe4vmrIGA1rCAyWk4Y3QKBgDVk\nKzDpIeUf+QE7kstjTwrYcnH18OCBv6nauBwPbr0DdWU4KNa0Kwwwc2c3cmZnL26Y\nN0dWKUaMjnyyZAQj9U27fzbBX4ug8jISQ35HpMqwSJFNfjRZMXlIQmsudpTp0CVw\nUbxVEuQ5S6Mecv9SDcQijnKKCjQoQ9XkrPGVQrGRAoGAK/M89yrSzDLwLeh0xn7o\ntPsy1ElrD7eF+LbC0eh3v6h7/N25exw9OT5aGcpA7JSs0bjgHZ/KEVMv7jjbevDv\nHJQ0CSnvb+MdmLEi0YweJ/P7YtLQflaoNrR8++8VYDPgrpk4ZCWCC0iVYGaf9XFh\nOP47Nh3InougzUKDkkKOU3k=\n-----END PRIVATE KEY-----\n',
+  client_email: 'fortune-coffeee@appspot.gserviceaccount.com',
+  client_id: '108079200368392902076',
+  auth_uri: 'https://accounts.google.com/o/oauth2/auth',
+  token_uri: 'https://oauth2.googleapis.com/token',
+  auth_provider_x509_cert_url: 'https://www.googleapis.com/oauth2/v1/certs',
+  client_x509_cert_url: 'https://www.googleapis.com/robot/v1/metadata/x509/fortune-coffeee%40appspot.gserviceaccount.com'
+};
+
