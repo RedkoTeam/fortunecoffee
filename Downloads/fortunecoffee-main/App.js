@@ -8135,7 +8135,7 @@ function Horoscopepisces({}) {
 
 //CHAT
 
-const BOT_USER = {
+/*const BOT_USER = {
   _id: 2,
   name: 'FAQ Bot',
   avatar: 'https://i.imgur.com/7k12EPD.png'
@@ -8208,7 +8208,7 @@ class App extends Component {
   }
 }
 
-
+*/
 
 
 
