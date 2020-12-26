@@ -1591,46 +1591,74 @@ function Psychic() {
 
   function Manifest() {
     const navigation = useNavigation();
-    const [wish, setWish] = useState('')
-    return (
+      const [wish, setWish] = useState('')
+      var userName = 'user';
+    
+      const [buttonClicked, setButtonClicked] = useState(false);
       
-      <View style={styles.mainContainer}>
+      return (
+        <View style={styles.mainContainer}>
         <ImageBackground source={manifestbg} style={styles.bgfull}>
-        <View style={{position:'absolute', top:0, flexDirection:'row', width:'100%', margin:10}}>
-          
-          <TouchableOpacity onPress={()=>{navigation.navigate('Psychic')}}>
-            <Image source={backButton} style={styles.backButtonStyle}/>
-          </TouchableOpacity>
-          
-          
-          </View>
-          <View style={{  alignItems: 'center', marginTop:60 }}>
-          <Text style={{ color: '#FFFFFF', fontSize: 17, textAlign: 'left', alignSelf: 'stretch'}}></Text>
-      <View style={{flexDirection: 'row',width:'80%', height: '10%'}}>
+         <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-between', padding: 25,marginTop:30 }}>
+         <View style={{position:'absolute', top:0, flexDirection:'row', width:'100%', margin:10}}>
+         <TouchableOpacity onPress={()=>{navigation.navigate('Psychic')}}>
+           <Image source={backButton} style={styles.backButtonStyle}/>
+         </TouchableOpacity>
+         </View>
+         </View>
+         <View style={{  alignItems: 'center', marginTop:60 }}>
+
+       
+<Text style={{ color: '#FFFFFF', fontSize: 17, textAlign: 'center', alignSelf: 'stretch', marginLeft: 20, marginTop:110}}></Text>
+      <View style={{flexDirection: 'row',width:'80%', height: '10%',marginTop:5}}>
         <TextInput style={styles.savedFortuneTextBox0}
-      onChangeText={wish => setWish(wish)}
+       onChangeText={wish => setWish(wish)}
       value={wish}
-      placeholder="    Wish"
+      placeholder="    What's going to happen?"
       placeholderTextColor='#DCDCDC'
       autoCapitalize='none'
       />
       </View>
+      <Text style={{ color: '#FFFFFF', fontSize: 17, textAlign: 'center', alignSelf: 'stretch', marginLeft: 20}}></Text>
+      <View style={{flexDirection: 'row',width:'80%', height: '10%',marginTop:5}}>
+        <TextInput style={styles.savedFortuneTextBox0}
+      onChangeText={wish => setWish(wish)}
+      value={wish}
+      placeholder="    What's going to happen?"
+      placeholderTextColor='#DCDCDC'
+      autoCapitalize='none'
+      />
       </View>
 
+      <Text style={{ color: '#FFFFFF', fontSize: 17, textAlign: 'center', alignSelf: 'stretch', marginLeft: 20}}></Text>
+      <View style={{flexDirection: 'row',width:'80%', height: '10%',marginTop:5}}>
+        <TextInput style={styles.savedFortuneTextBox0}
+       onChangeText={wish => setWish(wish)}
+      value={wish}
+      placeholder="    What's going to happen?"
+      placeholderTextColor='#DCDCDC'
+      autoCapitalize='none'
+      />
+      </View>
+      <Text style={{ color: '#FFFFFF', fontSize: 17, textAlign: 'center', alignSelf: 'stretch', marginLeft: 20}}></Text>
+      <View style={{flexDirection: 'row',width:'80%', height: '10%',marginTop:5}}>
+        <TextInput style={styles.savedFortuneTextBox0}
+      onChangeText={wish => setWish(wish)}
+      value={wish}
+      placeholder="    What's going to happen?"
+      placeholderTextColor='#DCDCDC'
+      autoCapitalize='none'
+      />
+      </View>
 
-        <View >
-          
-          <TouchableOpacity onPress={()=>{navigation.navigate('Psychic')}}>
-            <Image source={sendtouni} style={{justifyContent:'center',marginVertical:700}} />
-          </TouchableOpacity>
-          
-          </View>
-        <NavBar_psyc/>
-        </ImageBackground>
-        </View>
-       
-    )
-    
+         <TouchableOpacity onPress={()=>{navigation.navigate('Psychic')}}>
+           <Image source={sendtouni}  style={{ alignItems: 'center', marginTop: 38 }} />
+         </TouchableOpacity> 
+       </View>
+       <NavBar_psyc/>
+       </ImageBackground>
+       </View>
+      )
     }
 
     function SomeoneFortune1() {
@@ -1704,8 +1732,8 @@ function Psychic() {
       return (
         <View style={styles.mainContainer}>
         <ImageBackground source={bgstars} style={styles.bgfull}>
-         <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-between', padding: 25,marginTop:30 }}>
-         <View style={{position:'absolute', top:0, flexDirection:'row', width:'100%', margin:10}}>
+         <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-between'}}>
+         <View style={{position:'absolute',flexDirection:'row', width:'100%', padding: 15 }}>
          <TouchableOpacity onPress={()=>{navigation.navigate('SomeoneFortune1')}}>
            <Image source={backButton} style={styles.backButtonStyle}/>
          </TouchableOpacity>
