@@ -601,6 +601,12 @@ const styles = StyleSheet.create({
     position: 'absolute', 
     top: 40,
     left: 15
+  },
+
+  backButtonStyle1: {
+    marginTop:50,
+    marginRight: 300,
+    padding:25
   }
 });
 
@@ -1731,16 +1737,12 @@ function Psychic() {
       const [randomFortuneS, setRandomFortuneS] = useState('');
       
       return (
-        <View style={styles.mainContainer}>
-        <ImageBackground source={bgstars} style={styles.bgfull}>
-         <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-between'}}>
-         <View style={{position:'absolute',flexDirection:'row', width:'100%', padding: 15 }}>
-         <TouchableOpacity onPress={()=>{navigation.navigate('SomeoneFortune1')}}>
-           <Image source={backButton} style={styles.backButtonStyle}/>
+        <View style={styles.bgfull}>
+        <ImageBackground source={bgstars} style={styles.bgfull}>      
+        <TouchableOpacity onPress={()=>{navigation.navigate('SomeoneFortune1')}}>
+           <Image source={backButton} style={styles.backButtonStyle1}/>
          </TouchableOpacity>
-         </View>
-         </View>
-         <View style={{  alignItems: 'center', marginTop:60 }}>
+
          
          <Image source={magicglobetxt} style={{ alignItems: 'center', marginTop: 18 }} />
      
@@ -1749,7 +1751,7 @@ function Psychic() {
          <View style={styles.readingTableContainer}>
   
   <ScrollView>
-  <Text style={{fontSize:17, color:'white', marginTop:30}}> {randomFortuneS}  </Text>
+  <Text style={{fontSize:20, color:'white', marginTop:30, alignItems: 'center', marginLeft:15 }}> {randomFortuneS}  </Text>
  
   {!buttonClicked ? (
     <Button
@@ -1768,7 +1770,6 @@ function Psychic() {
 
  
         
-       </View>
        <NavBar_psyc/>
        </ImageBackground>
        </View>
@@ -1779,7 +1780,7 @@ function Psychic() {
       function getRandomFortuneS() {
         let random = Math.floor((Math.random() * someoneArray.length))
         console.log(random);
-        let fortune = fortunesArray[random];
+        let fortune = someoneArray[random];
         console.log(fortune);
         return fortune;
       }

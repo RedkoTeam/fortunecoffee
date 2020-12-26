@@ -1,8 +1,8 @@
 {
   "expo": {
-    "name": "coffee",
-    "slug": "coffee",
-    "version": "1.0.4",
+    "name": "Fortune Coffee",
+    "slug": "FortuneCoffee",
+    "version": "1.0.5",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {
