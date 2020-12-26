@@ -9,6 +9,7 @@ import {wordsArray} from './wordsArray';
 import {adviceArray} from './adviceArray';
 import {thanksArray} from './thanksArray';
 import {horoscopeArray} from './horoscopeArray';
+import {someoneArray} from './someoneArray';
 
 
 import { Button, 
@@ -1759,7 +1760,7 @@ function Psychic() {
       );
 
       function getRandomFortuneS() {
-        let random = Math.floor((Math.random() * fortunesArray.length))
+        let random = Math.floor((Math.random() * someoneArray.length))
         console.log(random);
         let fortune = fortunesArray[random];
         console.log(fortune);
