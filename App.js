@@ -1539,7 +1539,7 @@ function VirtualCoffeeReadingScreen() {
            <Image source={useAVirtualCoffee}/>
           </TouchableOpacity>
         </View>
-      {image && <Image source={{uri: image}} style={{marginTop:0, height: '40%', width: '80%', borderWidth:5, borderColor: '#FFF'}} />}
+      {image && <Image source={{uri: image}} style={{marginTop:20, height: '40%', width: '80%', borderWidth:5, borderColor: '#FFF'}} />}
       <Image source={virtualImage} />
       {image && <View>
         <TouchableOpacity onPress={() => navigation.navigate('ReadingAnimation')}>
@@ -1603,7 +1603,10 @@ function Psychic() {
 
   function Manifest() {
     const navigation = useNavigation();
-      const [wish, setWish] = useState('')
+      const [wish1, setWish1] = useState('')
+      const [wish2, setWish2] = useState('')
+      const [wish3, setWish3] = useState('')
+      const [wish4, setWish4] = useState('')
       var userName = 'user';
     
       const [buttonClicked, setButtonClicked] = useState(false);
@@ -1624,8 +1627,8 @@ function Psychic() {
 <Text style={{ color: '#FFFFFF', fontSize: 17, textAlign: 'center', alignSelf: 'stretch', marginLeft: 20, marginTop:110}}></Text>
       <View style={{flexDirection: 'row',width:'80%', height: '10%',marginTop:5}}>
         <TextInput style={styles.savedFortuneTextBox0}
-       onChangeText={wish => setWish(wish)}
-      value={wish}
+       onChangeText={wish1 => setWish1(wish1)}
+      value={wish1}
       placeholder="    What's going to happen?"
       placeholderTextColor='#DCDCDC'
       autoCapitalize='none'
@@ -1634,8 +1637,8 @@ function Psychic() {
       <Text style={{ color: '#FFFFFF', fontSize: 17, textAlign: 'center', alignSelf: 'stretch', marginLeft: 20}}></Text>
       <View style={{flexDirection: 'row',width:'80%', height: '10%',marginTop:5}}>
         <TextInput style={styles.savedFortuneTextBox0}
-      onChangeText={wish => setWish(wish)}
-      value={wish}
+      onChangeText={wish2 => setWish2(wish2)}
+      value={wish2}
       placeholder="    What's going to happen?"
       placeholderTextColor='#DCDCDC'
       autoCapitalize='none'
@@ -1645,8 +1648,8 @@ function Psychic() {
       <Text style={{ color: '#FFFFFF', fontSize: 17, textAlign: 'center', alignSelf: 'stretch', marginLeft: 20}}></Text>
       <View style={{flexDirection: 'row',width:'80%', height: '10%',marginTop:5}}>
         <TextInput style={styles.savedFortuneTextBox0}
-       onChangeText={wish => setWish(wish)}
-      value={wish}
+       onChangeText={wish3 => setWish3(wish3)}
+      value={wish3}
       placeholder="    What's going to happen?"
       placeholderTextColor='#DCDCDC'
       autoCapitalize='none'
@@ -1655,8 +1658,8 @@ function Psychic() {
       <Text style={{ color: '#FFFFFF', fontSize: 17, textAlign: 'center', alignSelf: 'stretch', marginLeft: 20}}></Text>
       <View style={{flexDirection: 'row',width:'80%', height: '10%',marginTop:5}}>
         <TextInput style={styles.savedFortuneTextBox0}
-      onChangeText={wish => setWish(wish)}
-      value={wish}
+      onChangeText={wish4 => setWish4(wish4)}
+      value={wish4}
       placeholder="    What's going to happen?"
       placeholderTextColor='#DCDCDC'
       autoCapitalize='none'
@@ -2165,79 +2168,7 @@ function ProfileDetails() {
   )
 }
 
-function ProfileDetails() {
-  const navigation = useNavigation();
-  return (
-    <ImageBackground source={bgstars} style={styles.bgfull}>
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <View style={ styles.flexInRows}>
-        <TouchableOpacity onPress={()=>navigation.navigate('Home')} style = {{top: 50, marginLeft: 10}}>
-          <Image source={backButton} />
-        </TouchableOpacity>
-      </View>
-      <Text style={{ color: '#FFFFFF', fontSize: 18, textAlign: 'left', alignSelf: 'stretch', marginLeft: 20}}>Name</Text>
-      <View style={{flexDirection: 'row',width:'90%', height: '7%'}}>
-        <TextInput style={styles.savedFortuneTextBox0}
-          label="Name"
-          placeholder="   Enter name here"
-          placeholderTextColor='#DCDCDC'
-        />
-      </View>
-      <Text style={{ color: '#FFFFFF', fontSize: 18, marginTop: 20, textAlign: 'left', alignSelf: 'stretch', marginLeft: 20}}>Relationship Status</Text>
-      <View style={{flexDirection: 'row',width:'90%', height: '7%'}}>  
-        <TextInput style={styles.savedFortuneTextBox0}
-          label="Relationship Status"
-          placeholder="   Enter relationship status here"
-          placeholderTextColor='#DCDCDC'
-        />
-      </View>
-      <Text style={{ color: '#FFFFFF', fontSize: 18, marginTop: 20, textAlign: 'left', alignSelf: 'stretch', marginLeft: 20}}>Employment Status</Text>
-      <View style={{flexDirection: 'row',width:'90%', height: '7%'}}>  
-        <TextInput style={styles.savedFortuneTextBox0}
-          label="EmploymentStatus"
-          placeholder="   Enter employment status here"
-          placeholderTextColor='#DCDCDC'
-        />
-      </View>
-      <Text style={{ color: '#FFFFFF', fontSize: 18, marginTop: 20, textAlign: 'left', alignSelf: 'stretch', marginLeft: 20}}>Gender</Text>
-      <View style={{flexDirection: 'row',width:'90%', height: '7%'}}>  
-        <TextInput style={styles.savedFortuneTextBox0}
-          label="Gender"
-          placeholder="   Enter gender here"
-          placeholderTextColor='#DCDCDC'
-        />
-      </View>  
-      <Text style={{ color: '#FFFFFF', fontSize: 18, marginTop: 20, textAlign: 'left', alignSelf: 'stretch', marginLeft: 20}}>Birthday</Text>
-      <View style={{flexDirection: 'row',width:'90%', height: '7%'}}>
-        <TextInput style={styles.savedFortuneTextBox2}
-          label="Month"
-          placeholder="      00"
-          placeholderTextColor='#DCDCDC'
-        />
-        <TextInput style={styles.savedFortuneTextBox2}
-          label="Day"
-          placeholder="      00"
-          placeholderTextColor='#DCDCDC'
-        />
-        <TextInput style={styles.savedFortuneTextBox3}
-          label="Year"
-          placeholder="      00"
-          placeholderTextColor='#DCDCDC'
-        />
-      </View>
-      <Text></Text>
-      <TouchableOpacity onPress={() => console.log('log in pressed')}>
-        <Image source={continueImage} />
-      </TouchableOpacity>
-      <Text></Text>
-      <Text></Text>
-      <TouchableOpacity onPress={() => console.log('log in pressed')}>
-        <Image source={skipImage} />
-      </TouchableOpacity>
-    </View>
-    </ImageBackground>
-  )
-}
+
 
 function SignInScreen() {
   const navigation = useNavigation();
@@ -8243,7 +8174,7 @@ function Horoscopepisces({}) {
 // ADDED
 function Reading({}){
   const navigation = useNavigation();
-  var userName = 'user';
+  var userName = '!';
 
   const [buttonClicked, setButtonClicked] = useState(false);
   const [randomFortune, setRandomFortune] = useState('');
@@ -8263,7 +8194,7 @@ function Reading({}){
               <Image source={saveButton} />
             </TouchableOpacity>
             <View>
-              <Text style={styles.helloUserTextContainer}> Hello {userName} </Text>
+              <Text style={styles.helloUserTextContainer}> Your Fortune Is Ready {userName} </Text>
               <Image source={coffeeImg} style={{ marginTop: 20 }} />
             </View>
             <TouchableOpacity onPress={() => console.log("SHARE")}>
