@@ -286,10 +286,15 @@ import profileImage from './assets/FortuneCoffeePNGassets/Profile.png';
 import skipImage from './assets/FortuneCoffeePNGassets/Skip.png';
 import continueImage from './assets/FortuneCoffeePNGassets/Continue.png';
 import { Input } from 'react-native-elements';
-import profile_bg from './assets/FortuneCoffeePNGassets/Profile_bg.png';
 import pencil from './assets/pencil.png';
 import pageButton from './assets/pageButton.png';
 import profilebgnotlogged from './assets/FortuneCoffeePNGassets/profile_login.png';
+import profilebg from './assets/FortuneCoffeePNGassets/Profile/Profile.png';
+import Logoutbtn from './assets/FortuneCoffeePNGassets/Profile/BtnPrimary.png';
+import Shopbtn from './assets/FortuneCoffeePNGassets/Profile/shopbtn.png';
+import DOB from './assets/FortuneCoffeePNGassets/Profile/DateofBirth.png';
+import UserNametxt from './assets/FortuneCoffeePNGassets/Profile/Name.png';
+import proline from './assets/FortuneCoffeePNGassets/Profile/Line2.png';
 
 //random cards
 import {cardsAndMeaning} from './fortunesCardArray';
@@ -2054,6 +2059,109 @@ function Profile() {
    <NavBar_pro></NavBar_pro>
     </ImageBackground>
     
+  )
+}
+
+
+
+//TODO REPLACE WITH DOB AND NAME FROM FIREBASE
+function ProfileLoggedIn() {
+  const navigation = useNavigation();
+  return (
+    <ImageBackground source={profilebg} style={styles.bgfull}>
+      <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-between', padding: 25, marginTop: 18 }}>
+        <TouchableOpacity onPress={() => navigation.navigate('Shop')}>
+          <Image source={Shopbtn} />
+        </TouchableOpacity>
+        <TouchableOpacity onPress={ () => { console.log("User Sign Out"); firebase.auth().signOut()}}>
+          <Image source={Logoutbtn} />
+        </TouchableOpacity>
+      </View>
+      {/* <Text style={{fontSize: 30}}>Hi</Text>
+      <Button title="console" onPress={ () => console.log(favRef)} /> */}
+      <Image source={UserNametxt} style={{marginTop:"50%",marginRight:"60%"}}/>
+      <Image source={UserNametxt} style={{marginTop:20, marginRight:"60%",marginBottom:20}}/>
+      <Image source={proline} />
+      <Image source={DOB} style={{marginTop:30,marginRight:"50%"}}/>
+      <Image source={DOB} style={{marginTop:20, marginRight:"50%",marginBottom:20}}/>
+      <Image source={proline} />
+   <NavBar_pro></NavBar_pro>
+    </ImageBackground>
+    
+  )
+}
+
+function ProfileDetails() {
+  const navigation = useNavigation();
+  return (
+    <ImageBackground source={bgstars} style={styles.bgfull}>
+    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+      <View style={ styles.flexInRows}>
+        <TouchableOpacity onPress={()=>navigation.navigate('Home')} style = {{top: 50, marginLeft: 10}}>
+          <Image source={backButton} />
+        </TouchableOpacity>
+      </View>
+      <Text style={{ color: '#FFFFFF', fontSize: 18, textAlign: 'left', alignSelf: 'stretch', marginLeft: 20}}>Name</Text>
+      <View style={{flexDirection: 'row',width:'90%', height: '7%'}}>
+        <TextInput style={styles.savedFortuneTextBox0}
+          label="Name"
+          placeholder="   Enter name here"
+          placeholderTextColor='#DCDCDC'
+        />
+      </View>
+      <Text style={{ color: '#FFFFFF', fontSize: 18, marginTop: 20, textAlign: 'left', alignSelf: 'stretch', marginLeft: 20}}>Relationship Status</Text>
+      <View style={{flexDirection: 'row',width:'90%', height: '7%'}}>  
+        <TextInput style={styles.savedFortuneTextBox0}
+          label="Relationship Status"
+          placeholder="   Enter relationship status here"
+          placeholderTextColor='#DCDCDC'
+        />
+      </View>
+      <Text style={{ color: '#FFFFFF', fontSize: 18, marginTop: 20, textAlign: 'left', alignSelf: 'stretch', marginLeft: 20}}>Employment Status</Text>
+      <View style={{flexDirection: 'row',width:'90%', height: '7%'}}>  
+        <TextInput style={styles.savedFortuneTextBox0}
+          label="EmploymentStatus"
+          placeholder="   Enter employment status here"
+          placeholderTextColor='#DCDCDC'
+        />
+      </View>
+      <Text style={{ color: '#FFFFFF', fontSize: 18, marginTop: 20, textAlign: 'left', alignSelf: 'stretch', marginLeft: 20}}>Gender</Text>
+      <View style={{flexDirection: 'row',width:'90%', height: '7%'}}>  
+        <TextInput style={styles.savedFortuneTextBox0}
+          label="Gender"
+          placeholder="   Enter gender here"
+          placeholderTextColor='#DCDCDC'
+        />
+      </View>  
+      <Text style={{ color: '#FFFFFF', fontSize: 18, marginTop: 20, textAlign: 'left', alignSelf: 'stretch', marginLeft: 20}}>Birthday</Text>
+      <View style={{flexDirection: 'row',width:'90%', height: '7%'}}>
+        <TextInput style={styles.savedFortuneTextBox2}
+          label="Month"
+          placeholder="      00"
+          placeholderTextColor='#DCDCDC'
+        />
+        <TextInput style={styles.savedFortuneTextBox2}
+          label="Day"
+          placeholder="      00"
+          placeholderTextColor='#DCDCDC'
+        />
+        <TextInput style={styles.savedFortuneTextBox3}
+          label="Year"
+          placeholder="      00"
+          placeholderTextColor='#DCDCDC'
+        />
+      </View>
+      <Text></Text>
+      <TouchableOpacity onPress={() => console.log('log in pressed')}>
+        <Image source={continueImage} />
+      </TouchableOpacity>
+      <Text></Text>
+      <Text></Text>
+      <TouchableOpacity onPress={() => console.log('log in pressed')}>
+        <Image source={skipImage} />
+      </TouchableOpacity>
+    </View>
+    </ImageBackground>
   )
 }
 
@@ -8261,6 +8369,7 @@ function App() {
         <Stack.Screen name="SubscriptionScreen" component={SubscriptionScreen} />
         <Stack.Screen name="Fortune" component={FortuneModal} />
         <Stack.Screen name="Profile" component={Profile} />
+        <Stack.Screen name="ProfileLoggedIn" component={ProfileLoggedIn} />
         <Stack.Screen name="ProfileDetails" component={ProfileDetails} />
         <Stack.Screen name="Horoscopepisces" component={Horoscopepisces} />
         <Stack.Screen name="HoroscopeAries" component={HoroscopeAries} />
