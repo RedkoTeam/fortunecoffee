@@ -631,252 +631,276 @@ function HomeScreen({ navigation }) {
     setModalVisible(!isModalVisible);
   };
 
-    // Fortune Modal
+  // Fortune Modal
 
-    const toggleFortuneModal = () =>{
-      setFortuneModalVisible(!isFortuneModalVisible)
-    }
-  
-  
-    /// Modal Viewer based on date. 
-    const [userCanViewCard, setUserCanViewCard] = useState(false);
-    const [cardCheckTimeRemaining, setCardCheckTimeRemaining] = useState("00:00:00")
-      
-    // UseEffect for checking the card before each trigger
-    // Rather than putting it inside the function, we put it on the useeffect for checking
-    useEffect(()=>{
-      // setIsLoggedIn(checkLoggedIn)
-      let mounted = true;
-  
-      // If mounted . Check the state then storage.
-      if(mounted){
-        if(isModalVisible === true){
-          console.log("Modal is visible")
-          // Check the counter based on async storage, not fire ..
-          RegularCardCounter().then((result)=>{
-            if(mounted){
-            console.log("User can view card : " , result)
-            setUserCanViewCard(result.userCanView)
-            console.log("Time Remaining in seconds : ", result.timeRemaining)
-            // update time remaining onto modal, must pass seconds ! .toHHMMSS = custom prototype
-              setCardCheckTimeRemaining(result.timeRemaining.toString().toHHMMSS());
-            }
-          });
-        }
-      }
-      return () =>{
-        mounted = false;
-      }
-    },[isModalVisible])
-  
+  const toggleFortuneModal = () =>{
+    setFortuneModalVisible(!isFortuneModalVisible)
+  }
 
-    // This use Effect is only called when the navigation lands here, This will reduce the amount of times
-    // it will run on this page.
-    useEffect(()=>{
-      let mounted = true;
-      if(mounted)
-      {
-        // Checks the login upon opening App
-        CheckLoginToken().then(async (result)=>{
-          console.log("User TYPE  : " , result)
-          // Navigate the user's based off of results
-          // TODO, log the user in via firestore
-          if(result === "User"){
-            navigation.navigate("HomeLoggedIn")
+
+  /// Modal Viewer based on date. 
+  const [userCanViewCard, setUserCanViewCard] = useState(false);
+  const [cardCheckTimeRemaining, setCardCheckTimeRemaining] = useState("00:00:00")
+    
+  // UseEffect for checking the card before each trigger
+  // Rather than putting it inside the function, we put it on the useeffect for checking
+  useEffect(()=>{
+    // setIsLoggedIn(checkLoggedIn)
+    let mounted = true;
+
+    // If mounted . Check the state then storage.
+    if(mounted){
+      if(isModalVisible === true){
+        console.log("Modal is visible")
+        // Check the counter based on async storage, not fire ..
+        RegularCardCounter().then((result)=>{
+          if(mounted){
+          console.log("User can view card : " , result)
+          setUserCanViewCard(result.userCanView)
+          console.log("Time Remaining in seconds : ", result.timeRemaining)
+          // update time remaining onto modal, must pass seconds ! .toHHMMSS = custom prototype
+            setCardCheckTimeRemaining(result.timeRemaining.toString().toHHMMSS());
           }
         });
-        _CheckOnboarding();
       }
-      return ()=>{
-        mounted = false;
-      }
-    },[navigation])
+    }
+    return () =>{
+      mounted = false;
+    }
+  },[isModalVisible])
 
-    const _CheckOnboarding = async () => {
-      await RetrieveData('ONBOARDING').then( (val) => {
-        if(val !== 'DONE') { // if onboarding 
-          StoreData("ONBOARDING", 'PENDING');
-          console.log(`Onboarding State 1: ${RetrieveData('ONBOARDING')}`);
-          StoreData("ONBOARDING", "DONE");
-          navigation.navigate('Onboarding');
+
+  // This use Effect is only called when the navigation lands here, This will reduce the amount of times
+  // it will run on this page.
+  useEffect(()=>{
+    let mounted = true;
+    if(mounted)
+    {
+      // Checks the login upon opening App
+      CheckLoginToken().then(async (result)=>{
+        console.log("User TYPE  : " , result)
+        // Navigate the user's based off of results
+        // TODO, log the user in via firestore
+        if(result === "User"){
+          navigation.navigate("HomeLoggedIn")
         }
-        else {
-          console.log(`Onboarding State: ${JSON.stringify(val)}`);
-        }
+      });
+      _CheckOnboarding().then(r => console.log("Checked on Boarding"));
+    }
+    return ()=>{
+      mounted = false;
+    }
+  },[navigation])
+
+  const _CheckOnboarding = async () => {
+    await RetrieveData('ONBOARDING').then( async (val) => {
+      if(val !== 'DONE') { // if onboarding 
+        await StoreData("ONBOARDING", 'PENDING');
+        //console.log(`Onboarding State 1: ${RetrieveData('ONBOARDING')}`);
+        await StoreData("ONBOARDING", "DONE");
+        navigation.navigate('Onboarding');
       }
-      )
+      else {
+        console.log(`Onboarding State: ${JSON.stringify(val)}`);
+      }
     }
-  
-    const toggleModal2 = () => {
-      setModalVisible(!isModalVisible);
-      let random = Math.floor((Math.random() * cardsAndMeaning.length));
-      setFront(cardsAndMeaning[random][0]);
-      setMeaning(cardsAndMeaning[random][1]);
-    }
-  
-    state = {
-      open: true,
-    };
-    toggleImage = () => {
-      this.setState(state => ({ open: !state.open }));
-    }
-  
-    const Render_CardModule = () =>{
-  
-      // TODO, give the real estamate time.
-      // Result Returns, an object, i sent back the calculatorions. 
-  
-      // Just needs to show the time in 00:00 format. It's back in seconds. 
-      return userCanViewCard ? (
-        <> 
-      {/* Show module if user can view*/}
-            <Modal isVisible={isModalVisible} style={{ alignItems: "center", flex: 1 }}>
-              <View>
-                <Text style={styles.tapCard}>Tap card to flip</Text>
-                <Button title="Hide Card" onPress={toggleModal} />
-                <View style={{ marginBottom: 500 }}>
-                  <FlipCard
-                    flipHorizontal={true}
-                    flipVertical={false}>
-                    <View style={styles.face}>
-                      {/* <Text>The Face</Text> */}
-                      <Image source={front} style={styles.cardStyle} />
-                    </View>
-                    <View>
-                      {/* <Text>The Back</Text> */}
-                      <Image source={meaning} style={styles.cardStyle} />
-                    </View>
-                  </FlipCard>
-                </View>
+    )
+  }
+
+  const toggleModal2 = () => {
+    setModalVisible(!isModalVisible);
+    let random = Math.floor((Math.random() * cardsAndMeaning.length));
+    setFront(cardsAndMeaning[random][0]);
+    setMeaning(cardsAndMeaning[random][1]);
+  }
+
+  const Render_CardModule = () =>{
+
+    // TODO, give the real estamate time.
+    // Result Returns, an object, i sent back the calculatorions. 
+
+    // Just needs to show the time in 00:00 format. It's back in seconds. 
+    return userCanViewCard ? (
+      <> 
+    {/* Show module if user can view*/}
+          <Modal isVisible={isModalVisible} style={{ alignItems: "center", flex: 1 }}>
+            <View>
+              <Text style={styles.tapCard}>Tap card to flip</Text>
+              <Button title="Hide Card" onPress={toggleModal} />
+              <View style={{ marginBottom: 500 }}>
+                <FlipCard
+                  flipHorizontal={true}
+                  flipVertical={false}>
+                  <View style={styles.face}>
+                    {/* <Text>The Face</Text> */}
+                    <Image source={front} style={styles.cardStyle} />
+                  </View>
+                  <View>
+                    {/* <Text>The Back</Text> */}
+                    <Image source={meaning} style={styles.cardStyle} />
+                  </View>
+                </FlipCard>
               </View>
-            </Modal>
-        </>
-      ) : <>
-      {/* What to show iff the user is over the max setting.*/}
-      <Modal isVisible={isModalVisible} style={{ alignItems: "center", flex: 1 }}>
-          <View>
-            <Text style={styles.tapCard}>Already checked!{cardCheckTimeRemaining} remaining</Text>
-            <Button title="Hide Card" onPress={toggleModal} />
-            <View style={{ marginBottom: 500 }}>
             </View>
+          </Modal>
+      </>
+    ) : <>
+    {/* What to show iff the user is over the max setting.*/}
+    <Modal isVisible={isModalVisible} style={{ alignItems: "center", flex: 1 }}>
+        <View>
+          <View style={{alignItems: 'center',justifyContent: 'center',}}>
+            <Image source={crystalBackground} style={{alignItems:'center'}} />
+            <TouchableOpacity style={{ 
+                flexDirection: 'row',
+                position: 'absolute',
+                top: 10,
+                right: 15
+              }} onPress={()=>{
+                toggleModal();
+              }}>
+              <Image source={xButton} style={{width: 30, height: 30,}} />
+            </TouchableOpacity>
+            
+            <TouchableOpacity onPress={() => {
+              toggleModal();
+              navigation.navigate('Shop');
+              }} style={{position: 'absolute', bottom: 65}}>
+              <Image source={getCrystals}/>
+            </TouchableOpacity>
           </View>
-        </Modal>
-      </>;
-    }
-  
-    const CheckFortuneCountCoffeeReading = () =>{
-       // navigation.navigate('VirtualOne')
-       FortuneCardCounter().then((result)=>{
-        console.log("THe user can go to next screen : ", result)
-        if(result){
-        // Continue to Virtual Coffee Reading.
-          navigation.navigate('VirtualOne')
-        }else{
-          // dont navigate
-         console.log("User, maxed out the time, not navigating")
-         toggleFortuneModal();
-  
-        }
-       });
-  
-    }
-    
-    const CheckFortuneCountPhoto = () =>{
+        </View>
+      </Modal>
+    </>;
+  }
+
+  const CheckFortuneCountCoffeeReading = () =>{
       // navigation.navigate('VirtualOne')
       FortuneCardCounter().then((result)=>{
-       console.log("THe user can go to next screen : ", result)
-       if(result){
-        // Continue to photo navigation page.
-         navigation.navigate('Virtual')
-       }else{
-         // dont navigate
-         console.log("User, maxed out the time, not navigating")
-         toggleFortuneModal();
-       }
+      console.log("THe user can go to next screen : ", result)
+      if(result){
+      // Continue to Virtual Coffee Reading.
+        navigation.navigate('VirtualOne')
+      }else{
+        // dont navigate
+        console.log("User, maxed out the time, not navigating")
+        toggleFortuneModal();
+
+      }
       });
-  
-   }
-  
-    const RenderTheFortuneButtons = () =>{
-      return (
-        <> 
-         <Modal isVisible={isFortuneModalVisible} style={{ alignItems: "center", flex: 1 }}>
-          <View>
-            <Text style={styles.tapCard}>Sorry, you ran out of weekly fortune. Check next week!</Text>
-            <Button title="Hide Card" onPress={toggleFortuneModal} />
-            <View style={{ marginBottom: 500 }}>
-            </View>
-          </View>
-        </Modal>
 
-        
-         
-         <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-evenly' }}>
-            <TouchableOpacity onPress={() => {
-               CheckFortuneCountCoffeeReading()
-              }}>
-            {/* Virtual Coffee Reading */}
-              <Image source={VirtualCoffee} />
-            </TouchableOpacity>
-            {/* Take a photo for reading */}
-            <TouchableOpacity onPress={() => {
-              CheckFortuneCountPhoto()
-            }}>
-              <Image source={TakePhoto} />
-            </TouchableOpacity>
-          </View>
-        </>
-      )
-    }
-  
-    return (
-      <View style={styles.mainContainer}>
-        <ImageBackground source={bgstars} style={styles.bgfull}>
-          
-          
-          {/* <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-between', padding: 25, marginTop: 18 }}> */}
-            {isLoggedIn ? (
-              <View>
-                <Text></Text>
-              </View>
-            ) : 
-             <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-between', padding: 25, marginTop: 18 }}><TouchableOpacity onPress={() => navigation.navigate('SignUp')}>
-              <Image source={SignUpButton} />
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => navigation.navigate('SignIn')}>
-              <Image source={SignInButton} />
-            </TouchableOpacity>
-              </View>
-              
-              
-            }
-           <View style={{ flex: 1, alignItems: 'center' }}>
-         {/* <Button title="Clear Async" onPress={ () => { console.log("Async Storage Cleared"); AsyncStorage.clear();}}></Button>
-          <Button title="Sign out" onPress={ () => { console.log("User Sign Out"); firebase.auth().signOut()}}></Button> */}
-          <Image source={LargeTitleApp} style={{ marginBottom:20 }} />
-          {RenderTheFortuneButtons()}
-
-          {/* <Button title="camera" onPress={ () => navigation.navigate('Virtual')} /> */}
-          
-          <Image source={PickCard} style={{ marginTop:20, margin: 8 }} />
-            {/* Pick a card  */}
-          <TouchableOpacity onPress={toggleModal2} style={styles.cards}>
-            <Image source={Cards} />
-            <Modal isVisible={isModalVisible} style={{ alignItems: "center", flex: 1 }}>
-              <View>
-                <View style={{ marginBottom: 500 }}>
-                  {Render_CardModule()}
-                </View>
-              </View>
-            </Modal>
-          </TouchableOpacity>
-          <NavBar />
-        </View>
-      </ImageBackground>
-      </View>
-      
-    );
   }
+  
+  const CheckFortuneCountPhoto = () =>{
+    // navigation.navigate('VirtualOne')
+    FortuneCardCounter().then((result)=>{
+      console.log("THe user can go to next screen : ", result)
+      if(result){
+      // Continue to photo navigation page.
+        navigation.navigate('Virtual')
+      }else{
+        // dont navigate
+        console.log("User, maxed out the time, not navigating")
+        toggleFortuneModal();
+      }
+    });
+
+  }
+
+  const RenderTheFortuneButtons = () =>{
+    return (
+      <> 
+        <Modal isVisible={isFortuneModalVisible} style={{ alignItems: "center", flex: 1 }}>
+        <View style={{alignItems: 'center',justifyContent: 'center',}}>
+            <Image source={crystalBackground} style={{alignItems:'center'}} />
+            <TouchableOpacity style={{ 
+                flexDirection: 'row',
+                position: 'absolute',
+                top: 10,
+                right: 15
+              }} onPress={()=>{
+                toggleFortuneModal();
+              }}>
+              <Image source={xButton} style={{width: 30, height: 30,}} />
+            </TouchableOpacity>
+            
+            {/* Change to correct image please. */}
+            <TouchableOpacity onPress={() => {
+              toggleFortuneModal();
+              navigation.navigate('Shop');
+              }} style={{position: 'absolute', bottom: 65}}>
+              <Image source={getCrystals}/>
+            </TouchableOpacity>
+          </View>
+      </Modal>
+
+      
+        
+        <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-evenly' }}>
+          <TouchableOpacity onPress={() => {
+              CheckFortuneCountCoffeeReading()
+            }}>
+          {/* Virtual Coffee Reading */}
+            <Image source={VirtualCoffee} />
+          </TouchableOpacity>
+          {/* Take a photo for reading */}
+          <TouchableOpacity onPress={() => {
+            CheckFortuneCountPhoto()
+          }}>
+            <Image source={TakePhoto} />
+          </TouchableOpacity>
+        </View>
+      </>
+    )
+  }
+
+  return (
+    <View style={styles.mainContainer}>
+      <ImageBackground source={bgstars} style={styles.bgfull}>
+        
+        
+        {/* <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-between', padding: 25, marginTop: 18 }}> */}
+          {isLoggedIn ? (
+            <View>
+              <Text></Text>
+            </View>
+          ) : 
+            <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-between', padding: 25, marginTop: 18 }}><TouchableOpacity onPress={() => navigation.navigate('SignUp')}>
+            <Image source={SignUpButton} />
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => navigation.navigate('SignIn')}>
+            <Image source={SignInButton} />
+          </TouchableOpacity>
+            </View>
+            
+            
+          }
+          <View style={{ flex: 1, alignItems: 'center' }}>
+        {/* <Button title="Clear Async" onPress={ () => { console.log("Async Storage Cleared"); AsyncStorage.clear();}}></Button>
+        <Button title="Sign out" onPress={ () => { console.log("User Sign Out"); firebase.auth().signOut()}}></Button> */}
+        <Image source={LargeTitleApp} style={{ marginBottom:20 }} />
+        {RenderTheFortuneButtons()}
+
+        {/* <Button title="camera" onPress={ () => navigation.navigate('Virtual')} /> */}
+        
+        <Image source={PickCard} style={{ marginTop:20, margin: 8 }} />
+          {/* Pick a card  */}
+        <TouchableOpacity onPress={toggleModal2} style={styles.cards}>
+          <Image source={Cards} />
+          <Modal isVisible={isModalVisible} style={{ alignItems: "center", flex: 1 }}>
+            <View>
+              <View style={{ marginBottom: 500 }}>
+                {Render_CardModule()}
+              </View>
+            </View>
+          </Modal>
+        </TouchableOpacity>
+        <NavBar />
+      </View>
+    </ImageBackground>
+    </View>
+    
+  );
+}
 
 function HomeScreenLoggedIn({ navigation }) {
   const [isModalVisible, setModalVisible] = useState(false);
@@ -890,13 +914,6 @@ function HomeScreenLoggedIn({ navigation }) {
     let random = Math.floor((Math.random() * cardsAndMeaning.length));
     setFront(cardsAndMeaning[random][0]);
     setMeaning(cardsAndMeaning[random][1]);
-  }
-
-  state = {
-    open: true,
-  };
-  toggleImage = () => {
-    this.setState(state => ({ open: !state.open }));
   }
 
 
@@ -2039,10 +2056,6 @@ function Profile() {
   )
 }
 
-
-
-
-
 function ProfileDetails() {
   const navigation = useNavigation();
   return (
@@ -2401,12 +2414,12 @@ function HoroscopeAries({}) {
   const HoroscopeRandomizer = async () =>{
 
               // Async storage, Key , Date
-    const randomHoroscope = await GetItemInStorage("HOROSCOPE_RANDOM_TIMER");
+    const randomHoroscope = await GetItemInStorage("HOROSCOPE_RANDOM_TIMER_Aries");
     console.log(randomHoroscope)
     if(!randomHoroscope){
-      await SaveItemInStorage("HOROSCOPE_RANDOM_TIMER", new Date().getTime().toString())
+      await SaveItemInStorage("HOROSCOPE_RANDOM_TIMER_Aries", new Date().getTime().toString())
       let random = Math.floor((Math.random() * horoscopeArray.length))
-      await SaveItemInStorage("HOROSCOPE_RANDOM_NUMBER", random.toString())
+      await SaveItemInStorage("HOROSCOPE_RANDOM_NUMBER_Aries", random.toString())
       await setRandomHoroscope(getRandomHoroscope(random));
       
     }else{
@@ -2425,11 +2438,11 @@ function HoroscopeAries({}) {
         let random = Math.floor((Math.random() * horoscopeArray.length))
         console.log("One day has passed, getting new horoscope")
         await setRandomHoroscope(getRandomHoroscope(random));
-        await SaveItemInStorage("HOROSCOPE_RANDOM_TIMER", currentDate.toString())
-        await SaveItemInStorage("HOROSCOPE_RANDOM_NUMBER", random.toString())
+        await SaveItemInStorage("HOROSCOPE_RANDOM_TIMER_Aries", currentDate.toString())
+        await SaveItemInStorage("HOROSCOPE_RANDOM_NUMBER_Aries", random.toString())
       }else{
         console.log("One day has not passed, will not reset the current horoscope")
-        let getOldRandomNumber = await GetItemInStorage("HOROSCOPE_RANDOM_NUMBER")
+        let getOldRandomNumber = await GetItemInStorage("HOROSCOPE_RANDOM_NUMBER_Aries")
         await setRandomHoroscope(getRandomHoroscope(parseInt(getOldRandomNumber)));
         // Display previous horoscope.
       }
@@ -2442,12 +2455,12 @@ function HoroscopeAries({}) {
   const NumberRandomizer = async () =>{
 
       // Async storage, Key , Date
-    const randomNumber = await GetItemInStorage("NUMBER_RANDOM_TIMER");
+    const randomNumber = await GetItemInStorage("NUMBER_RANDOM_TIMER_Aries");
     if(!randomNumber){
-      await SaveItemInStorage("NUMBER_RANDOM_TIMER", new Date().getTime().toString())
+      await SaveItemInStorage("NUMBER_RANDOM_TIMER_Aries", new Date().getTime().toString())
       let random = Math.floor((Math.random() * numbersArray.length))
-      await SaveItemInStorage("NUMBER_RANDOM_NUMBER", random.toString())
-      await setRandomnNumber(getRandomNumber(random));
+      await SaveItemInStorage("NUMBER_RANDOM_NUMBER_Aries", random.toString())
+      await setRandomNumber(getRandomNumber(random));
 
     }else{
       let currentDate = parseInt(new Date().getTime().toString());
@@ -2463,12 +2476,12 @@ function HoroscopeAries({}) {
         let random = Math.floor((Math.random() * numbersArray.length))
         console.log("One day has passed, getting new horoscope")
         await setRandomNumber(getRandomNumber(random));
-        await SaveItemInStorage("NUMBER_RANDOM_TIMER", currentDate.toString())
-        await SaveItemInStorage("NUMBER_RANDOM_NUMBER", random.toString())
+        await SaveItemInStorage("NUMBER_RANDOM_TIMER_Aries", currentDate.toString())
+        await SaveItemInStorage("NUMBER_RANDOM_NUMBER_Aries", random.toString())
       }
       else{
         console.log("One day has not passed, will not reset the current horoscope")
-        let getOldRandomNumber = await GetItemInStorage("NUMBER_RANDOM_NUMBER")
+        let getOldRandomNumber = await GetItemInStorage("NUMBER_RANDOM_NUMBER_Aries")
         await setRandomNumber(getRandomNumber(getOldRandomNumber));
         // Display previous horoscope.
       }
@@ -2480,12 +2493,12 @@ function HoroscopeAries({}) {
   const Word2Randomizer = async () =>{
 
         // Async storage, Key , Date
-      const randomWord2 = await GetItemInStorage("WORD2_RANDOM_TIMER");
+      const randomWord2 = await GetItemInStorage("WORD2_RANDOM_TIMER_Aries");
       console.log(randomWord2)
       if(!randomWord2){
-        await SaveItemInStorage("WORD2_RANDOM_TIMER", new Date().getTime().toString())
+        await SaveItemInStorage("WORD2_RANDOM_TIMER_Aries", new Date().getTime().toString())
         let random = Math.floor((Math.random() * wordsArray.length))
-        await SaveItemInStorage("WORD2_RANDOM_NUMBER", random.toString())
+        await SaveItemInStorage("WORD2_RANDOM_NUMBER_Aries", random.toString())
         await setRandomWord2(getRandomWord2(random));
 
       }else{
@@ -2503,12 +2516,12 @@ function HoroscopeAries({}) {
         // Grab a random number
         let random = Math.floor((Math.random() * wordsArray.length))
         console.log("One day has passed, getting new horoscope")
-        await SaveItemInStorage("WORD2_RANDOM_TIMER", currentDate.toString())
-        await SaveItemInStorage("WORD2_RANDOM_NUMBER", random.toString())
+        await SaveItemInStorage("WORD2_RANDOM_TIMER_Aries", currentDate.toString())
+        await SaveItemInStorage("WORD2_RANDOM_NUMBER_Aries", random.toString())
         await setRandomWord2(getRandomWord2(random));
       }else{
         console.log("One day has not passed, will not reset the current horoscope")
-        let getOldRandomNumber = await GetItemInStorage("WORD2_RANDOM_NUMBER")
+        let getOldRandomNumber = await GetItemInStorage("WORD2_RANDOM_NUMBER_Aries")
         await setRandomWord2(getRandomWord2(getOldRandomNumber));
       // Display previous horoscope.
       }
@@ -2519,12 +2532,12 @@ function HoroscopeAries({}) {
   const Word3Randomizer = async () =>{
 
       // Async storage, Key , Date
-    const randomWord3 = await GetItemInStorage("WORD3_RANDOM_TIMER");
+    const randomWord3 = await GetItemInStorage("WORD3_RANDOM_TIMER_Aries");
     console.log(randomWord3)
     if(!randomWord3){
-      await SaveItemInStorage("WORD3_RANDOM_TIMER", new Date().getTime().toString())
+      await SaveItemInStorage("WORD3_RANDOM_TIMER_Aries", new Date().getTime().toString())
       let random = Math.floor((Math.random() * wordsArray.length))
-      await SaveItemInStorage("WORD3_RANDOM_NUMBER", random.toString())
+      await SaveItemInStorage("WORD3_RANDOM_NUMBER_Aries", random.toString())
       await setRandomWord3(getRandomWord3(random));
 
     }else{
@@ -2543,11 +2556,11 @@ function HoroscopeAries({}) {
       let random = Math.floor((Math.random() * wordsArray.length))
       console.log("One day has passed, getting new horoscope")
       await setRandomWord2(getRandomWord3(random));
-      await SaveItemInStorage("WORD3_RANDOM_TIMER", currentDate.toString())
-      await SaveItemInStorage("WORD3_RANDOM_NUMBER", random.toString())
+      await SaveItemInStorage("WORD3_RANDOM_TIMER_Aries", currentDate.toString())
+      await SaveItemInStorage("WORD3_RANDOM_NUMBER_Aries", random.toString())
     }else{
       console.log("One day has not passed, will not reset the current horoscope")
-      let getOldRandomNumber = await GetItemInStorage("WORD3_RANDOM_NUMBER")
+      let getOldRandomNumber = await GetItemInStorage("WORD3_RANDOM_NUMBER_Aries")
       await setRandomWord3(getRandomWord3(getOldRandomNumber));
       // Display previous horoscope.
       }
@@ -2557,12 +2570,12 @@ function HoroscopeAries({}) {
   const Word4Randomizer = async () =>{
 
       // Async storage, Key , Date
-    const randomWord4 = await GetItemInStorage("WORD4_RANDOM_TIMER");
+    const randomWord4 = await GetItemInStorage("WORD4_RANDOM_TIMER_Aries");
     console.log(randomWord4)
     if(!randomWord4){
-      await SaveItemInStorage("WORD4_RANDOM_TIMER", new Date().getTime().toString())
+      await SaveItemInStorage("WORD4_RANDOM_TIMER_Aries", new Date().getTime().toString())
       let random = Math.floor((Math.random() * wordsArray.length))
-      await SaveItemInStorage("WORD4_RANDOM_NUMBER", random.toString())
+      await SaveItemInStorage("WORD4_RANDOM_NUMBER_Aries", random.toString())
       await setRandomWord4(getRandomWord4(random));
 
     }else{
@@ -2581,11 +2594,11 @@ function HoroscopeAries({}) {
       let random = Math.floor((Math.random() * wordsArray.length))
       console.log("One day has passed, getting new horoscope")
       await setRandomWord4(getRandomWord4(random));
-      await SaveItemInStorage("WORD4_RANDOM_TIMER", currentDate.toString())
-      await SaveItemInStorage("WORD4_RANDOM_NUMBER", random.toString())
+      await SaveItemInStorage("WORD4_RANDOM_TIMER_Aries", currentDate.toString())
+      await SaveItemInStorage("WORD4_RANDOM_NUMBER_Aries", random.toString())
     }else{
       console.log("One day has not passed, will not reset the current horoscope")
-      let getOldRandomNumber = await GetItemInStorage("WORD4_RANDOM_NUMBER")
+      let getOldRandomNumber = await GetItemInStorage("WORD4_RANDOM_NUMBER_Aries")
       await setRandomWord4(getRandomWord4(getOldRandomNumber));
     // Display previous horoscope.
       }
@@ -2596,13 +2609,13 @@ function HoroscopeAries({}) {
   const LetterRandomizer = async () =>{
 
     // Async storage, Key , Date
-  const randomLetter = await GetItemInStorage("Letter_RANDOM_TIMER");
+  const randomLetter = await GetItemInStorage("Letter_RANDOM_TIMER_Aries");
     console.log(randomLetter)
     if(!randomLetter){
-      await SaveItemInStorage("Letter_RANDOM_TIMER", new Date().getTime().toString())
+      await SaveItemInStorage("Letter_RANDOM_TIMER_Aries", new Date().getTime().toString())
       let random = Math.floor((Math.random() * lettersArray.length))
-      await SaveItemInStorage("Letter_RANDOM_NUMBER", random.toString())
-      await setLetter(getLetter(random));
+      await SaveItemInStorage("Letter_RANDOM_NUMBER_Aries", random.toString())
+      await setRandomLetter(getRandomLetter(random));
 
     }else{
 
@@ -2619,11 +2632,11 @@ function HoroscopeAries({}) {
         let random = Math.floor((Math.random() * lettersArray.length))
         console.log("One day has passed, getting new horoscope")
         await setRandomLetter(getRandomLetter(random));
-        await SaveItemInStorage("Letter_RANDOM_TIMER", currentDate.toString())
-        await SaveItemInStorage("Letter_RANDOM_NUMBER", random.toString())
+        await SaveItemInStorage("Letter_RANDOM_TIMER_Aries", currentDate.toString())
+        await SaveItemInStorage("Letter_RANDOM_NUMBER_Aries", random.toString())
       }else{
         console.log("One day has not passed, will not reset the current horoscope")
-        let getOldRandomNumber = await GetItemInStorage("Letter_RANDOM_NUMBER")
+        let getOldRandomNumber = await GetItemInStorage("Letter_RANDOM_NUMBER_Aries")
         await setRandomLetter(getRandomLetter(getOldRandomNumber));
     // Display previous horoscope.
       }
@@ -2633,12 +2646,12 @@ function HoroscopeAries({}) {
   const ThanksRandomizer = async () =>{
 
         // Async storage, Key , Date
-      const randomThanks = await GetItemInStorage("Thanks_RANDOM_TIMER");
+      const randomThanks = await GetItemInStorage("Thanks_RANDOM_TIMER_Aries");
       console.log(randomThanks)
       if(!randomThanks){
-        await SaveItemInStorage("Thanks_RANDOM_TIMER", new Date().getTime().toString())
+        await SaveItemInStorage("Thanks_RANDOM_TIMER_Aries", new Date().getTime().toString())
         let random = Math.floor((Math.random() * thanksArray.length))
-        await SaveItemInStorage("Thanks_RANDOM_NUMBER", random.toString())
+        await SaveItemInStorage("Thanks_RANDOM_NUMBER_Aries", random.toString())
         await setRandomThanks(getRandomThanks(random));
 
       }else{
@@ -2656,11 +2669,11 @@ function HoroscopeAries({}) {
         let random = Math.floor((Math.random() * thanksArray.length))
         console.log("One day has passed, getting new horoscope")
         await setRandomThanks(getRandomThanks(random));
-        await SaveItemInStorage("Thanks_RANDOM_TIMER", currentDate.toString())
-        await SaveItemInStorage("Thanks_RANDOM_NUMBER", random.toString())
+        await SaveItemInStorage("Thanks_RANDOM_TIMER_Aries", currentDate.toString())
+        await SaveItemInStorage("Thanks_RANDOM_NUMBER_Aries", random.toString())
       }else{
         console.log("One day has not passed, will not reset the current horoscope")
-        let getOldRandomNumber = await GetItemInStorage("Thanks_RANDOM_NUMBER")
+        let getOldRandomNumber = await GetItemInStorage("Thanks_RANDOM_NUMBER_Aries")
         await setRandomThanks(getRandomThanks(getOldRandomNumber));
         // Display previous horoscope.
       }
@@ -2669,12 +2682,12 @@ function HoroscopeAries({}) {
 
   const AdviceRandomizer = async () =>{
     // Async storage, Key , Date
-      const randomAdvice = await GetItemInStorage("Advice_RANDOM_TIMER");
+      const randomAdvice = await GetItemInStorage("Advice_RANDOM_TIMER_Aries");
       console.log(randomAdvice)
       if(!randomAdvice){
-        await SaveItemInStorage("Advice_RANDOM_TIMER", new Date().getTime().toString())
+        await SaveItemInStorage("Advice_RANDOM_TIMER_Aries", new Date().getTime().toString())
         let random = Math.floor((Math.random() * adviceArray.length))
-        await SaveItemInStorage("Advice_RANDOM_NUMBER", random.toString())
+        await SaveItemInStorage("Advice_RANDOM_NUMBER_Aries", random.toString())
         await setRandomAdvice(getRandomAdvice(random));
 
       }else{
@@ -2692,11 +2705,11 @@ function HoroscopeAries({}) {
         let random = Math.floor((Math.random() * adviceArray.length))
         console.log("One day has passed, getting new horoscope")
         await setRandomAdvice(getRandomAdvice(random));
-        await SaveItemInStorage("Advice_RANDOM_TIMER", currentDate.toString())
-        await SaveItemInStorage("Advice_RANDOM_NUMBER", random.toString())
+        await SaveItemInStorage("Advice_RANDOM_TIMER_Aries", currentDate.toString())
+        await SaveItemInStorage("Advice_RANDOM_NUMBER_Aries", random.toString())
       }else{
         console.log("One day has not passed, will not reset the current horoscope")
-        let getOldRandomNumber = await GetItemInStorage("Advice_RANDOM_NUMBER")
+        let getOldRandomNumber = await GetItemInStorage("Advice_RANDOM_NUMBER_Aries")
         await setRandomAdvice(getRandomAdvice(getOldRandomNumber));
         // Display previous horoscope.
       }
@@ -2841,7 +2854,6 @@ function HoroscopeAries({}) {
 }
 
 //horoscope Aquarius
-
 function HoroscopeAquarius({}) {
   const navigation = useNavigation();
   const [randHoroscope, setRandomHoroscope] = useState('');
@@ -2880,12 +2892,12 @@ function HoroscopeAquarius({}) {
   const HoroscopeRandomizer = async () =>{
 
               // Async storage, Key , Date
-    const randomHoroscope = await GetItemInStorage("HOROSCOPE_RANDOM_TIMER");
+    const randomHoroscope = await GetItemInStorage("HOROSCOPE_RANDOM_TIMER_Aquarius");
     console.log(randomHoroscope)
     if(!randomHoroscope){
-      await SaveItemInStorage("HOROSCOPE_RANDOM_TIMER", new Date().getTime().toString())
+      await SaveItemInStorage("HOROSCOPE_RANDOM_TIMER_Aquarius", new Date().getTime().toString())
       let random = Math.floor((Math.random() * horoscopeArray.length))
-      await SaveItemInStorage("HOROSCOPE_RANDOM_NUMBER", random.toString())
+      await SaveItemInStorage("HOROSCOPE_RANDOM_NUMBER_Aquarius", random.toString())
       await setRandomHoroscope(getRandomHoroscope(random));
       
     }else{
@@ -2904,8 +2916,8 @@ function HoroscopeAquarius({}) {
         let random = Math.floor((Math.random() * horoscopeArray.length))
         console.log("One day has passed, getting new horoscope")
         await setRandomHoroscope(getRandomHoroscope(random));
-        await SaveItemInStorage("HOROSCOPE_RANDOM_TIMER", currentDate.toString())
-        await SaveItemInStorage("HOROSCOPE_RANDOM_NUMBER", random.toString())
+        await SaveItemInStorage("HOROSCOPE_RANDOM_TIMER_Aquarius", currentDate.toString())
+        await SaveItemInStorage("HOROSCOPE_RANDOM_NUMBER_Aquarius", random.toString())
       }else{
         console.log("One day has not passed, will not reset the current horoscope")
         let getOldRandomNumber = await GetItemInStorage("HOROSCOPE_RANDOM_NUMBER")
@@ -2921,12 +2933,12 @@ function HoroscopeAquarius({}) {
   const NumberRandomizer = async () =>{
 
       // Async storage, Key , Date
-    const randomNumber = await GetItemInStorage("NUMBER_RANDOM_TIMER");
+    const randomNumber = await GetItemInStorage("NUMBER_RANDOM_TIMER_Aquarius");
     if(!randomNumber){
-      await SaveItemInStorage("NUMBER_RANDOM_TIMER", new Date().getTime().toString())
+      await SaveItemInStorage("NUMBER_RANDOM_TIMER_Aquarius", new Date().getTime().toString())
       let random = Math.floor((Math.random() * numbersArray.length))
-      await SaveItemInStorage("NUMBER_RANDOM_NUMBER", random.toString())
-      await setRandomnNumber(getRandomNumber(random));
+      await SaveItemInStorage("NUMBER_RANDOM_NUMBER_Aquarius", random.toString())
+      await setRandomNumber(getRandomNumber(random));
 
     }else{
       let currentDate = parseInt(new Date().getTime().toString());
@@ -2942,12 +2954,12 @@ function HoroscopeAquarius({}) {
         let random = Math.floor((Math.random() * numbersArray.length))
         console.log("One day has passed, getting new horoscope")
         await setRandomNumber(getRandomNumber(random));
-        await SaveItemInStorage("NUMBER_RANDOM_TIMER", currentDate.toString())
-        await SaveItemInStorage("NUMBER_RANDOM_NUMBER", random.toString())
+        await SaveItemInStorage("NUMBER_RANDOM_TIMER_Aquarius", currentDate.toString())
+        await SaveItemInStorage("NUMBER_RANDOM_NUMBER_Aquarius", random.toString())
       }
       else{
         console.log("One day has not passed, will not reset the current horoscope")
-        let getOldRandomNumber = await GetItemInStorage("NUMBER_RANDOM_NUMBER")
+        let getOldRandomNumber = await GetItemInStorage("NUMBER_RANDOM_NUMBER_Aquarius")
         await setRandomNumber(getRandomNumber(getOldRandomNumber));
         // Display previous horoscope.
       }
@@ -2959,12 +2971,12 @@ function HoroscopeAquarius({}) {
   const Word2Randomizer = async () =>{
 
         // Async storage, Key , Date
-      const randomWord2 = await GetItemInStorage("WORD2_RANDOM_TIMER");
+      const randomWord2 = await GetItemInStorage("WORD2_RANDOM_TIMER_Aquarius");
       console.log(randomWord2)
       if(!randomWord2){
-        await SaveItemInStorage("WORD2_RANDOM_TIMER", new Date().getTime().toString())
+        await SaveItemInStorage("WORD2_RANDOM_TIMER_Aquarius", new Date().getTime().toString())
         let random = Math.floor((Math.random() * wordsArray.length))
-        await SaveItemInStorage("WORD2_RANDOM_NUMBER", random.toString())
+        await SaveItemInStorage("WORD2_RANDOM_NUMBER_Aquarius", random.toString())
         await setRandomWord2(getRandomWord2(random));
 
       }else{
@@ -2982,12 +2994,12 @@ function HoroscopeAquarius({}) {
         // Grab a random number
         let random = Math.floor((Math.random() * wordsArray.length))
         console.log("One day has passed, getting new horoscope")
-        await SaveItemInStorage("WORD2_RANDOM_TIMER", currentDate.toString())
-        await SaveItemInStorage("WORD2_RANDOM_NUMBER", random.toString())
+        await SaveItemInStorage("WORD2_RANDOM_TIMER_Aquarius", currentDate.toString())
+        await SaveItemInStorage("WORD2_RANDOM_NUMBER_Aquarius", random.toString())
         await setRandomWord2(getRandomWord2(random));
       }else{
         console.log("One day has not passed, will not reset the current horoscope")
-        let getOldRandomNumber = await GetItemInStorage("WORD2_RANDOM_NUMBER")
+        let getOldRandomNumber = await GetItemInStorage("WORD2_RANDOM_NUMBER_Aquarius")
         await setRandomWord2(getRandomWord2(getOldRandomNumber));
       // Display previous horoscope.
       }
@@ -2998,12 +3010,12 @@ function HoroscopeAquarius({}) {
   const Word3Randomizer = async () =>{
 
       // Async storage, Key , Date
-    const randomWord3 = await GetItemInStorage("WORD3_RANDOM_TIMER");
+    const randomWord3 = await GetItemInStorage("WORD3_RANDOM_TIMER_Aquarius");
     console.log(randomWord3)
     if(!randomWord3){
-      await SaveItemInStorage("WORD3_RANDOM_TIMER", new Date().getTime().toString())
+      await SaveItemInStorage("WORD3_RANDOM_TIMER_Aquarius", new Date().getTime().toString())
       let random = Math.floor((Math.random() * wordsArray.length))
-      await SaveItemInStorage("WORD3_RANDOM_NUMBER", random.toString())
+      await SaveItemInStorage("WORD3_RANDOM_NUMBER_Aquarius", random.toString())
       await setRandomWord3(getRandomWord3(random));
 
     }else{
@@ -3022,11 +3034,11 @@ function HoroscopeAquarius({}) {
       let random = Math.floor((Math.random() * wordsArray.length))
       console.log("One day has passed, getting new horoscope")
       await setRandomWord2(getRandomWord3(random));
-      await SaveItemInStorage("WORD3_RANDOM_TIMER", currentDate.toString())
-      await SaveItemInStorage("WORD3_RANDOM_NUMBER", random.toString())
+      await SaveItemInStorage("WORD3_RANDOM_TIMER_Aquarius", currentDate.toString())
+      await SaveItemInStorage("WORD3_RANDOM_NUMBER_Aquarius", random.toString())
     }else{
       console.log("One day has not passed, will not reset the current horoscope")
-      let getOldRandomNumber = await GetItemInStorage("WORD3_RANDOM_NUMBER")
+      let getOldRandomNumber = await GetItemInStorage("WORD3_RANDOM_NUMBER_Aquarius")
       await setRandomWord3(getRandomWord3(getOldRandomNumber));
       // Display previous horoscope.
       }
@@ -3036,12 +3048,12 @@ function HoroscopeAquarius({}) {
   const Word4Randomizer = async () =>{
 
       // Async storage, Key , Date
-    const randomWord4 = await GetItemInStorage("WORD4_RANDOM_TIMER");
+    const randomWord4 = await GetItemInStorage("WORD4_RANDOM_TIMER_Aquarius");
     console.log(randomWord4)
     if(!randomWord4){
-      await SaveItemInStorage("WORD4_RANDOM_TIMER", new Date().getTime().toString())
+      await SaveItemInStorage("WORD4_RANDOM_TIMER_Aquarius", new Date().getTime().toString())
       let random = Math.floor((Math.random() * wordsArray.length))
-      await SaveItemInStorage("WORD4_RANDOM_NUMBER", random.toString())
+      await SaveItemInStorage("WORD4_RANDOM_NUMBER_Aquarius", random.toString())
       await setRandomWord4(getRandomWord4(random));
 
     }else{
@@ -3060,11 +3072,11 @@ function HoroscopeAquarius({}) {
       let random = Math.floor((Math.random() * wordsArray.length))
       console.log("One day has passed, getting new horoscope")
       await setRandomWord4(getRandomWord4(random));
-      await SaveItemInStorage("WORD4_RANDOM_TIMER", currentDate.toString())
-      await SaveItemInStorage("WORD4_RANDOM_NUMBER", random.toString())
+      await SaveItemInStorage("WORD4_RANDOM_TIMER_Aquarius", currentDate.toString())
+      await SaveItemInStorage("WORD4_RANDOM_NUMBER_Aquarius", random.toString())
     }else{
       console.log("One day has not passed, will not reset the current horoscope")
-      let getOldRandomNumber = await GetItemInStorage("WORD4_RANDOM_NUMBER")
+      let getOldRandomNumber = await GetItemInStorage("WORD4_RANDOM_NUMBER_Aquarius")
       await setRandomWord4(getRandomWord4(getOldRandomNumber));
     // Display previous horoscope.
       }
@@ -3075,13 +3087,13 @@ function HoroscopeAquarius({}) {
   const LetterRandomizer = async () =>{
 
     // Async storage, Key , Date
-  const randomLetter = await GetItemInStorage("Letter_RANDOM_TIMER");
+  const randomLetter = await GetItemInStorage("Letter_RANDOM_TIMER_Aquarius");
     console.log(randomLetter)
     if(!randomLetter){
-      await SaveItemInStorage("Letter_RANDOM_TIMER", new Date().getTime().toString())
+      await SaveItemInStorage("Letter_RANDOM_TIMER_Aquarius", new Date().getTime().toString())
       let random = Math.floor((Math.random() * lettersArray.length))
-      await SaveItemInStorage("Letter_RANDOM_NUMBER", random.toString())
-      await setLetter(getLetter(random));
+      await SaveItemInStorage("Letter_RANDOM_NUMBER_Aquarius", random.toString())
+      await setRandomLetter(getRandomLetter(random));
 
     }else{
 
@@ -3098,11 +3110,11 @@ function HoroscopeAquarius({}) {
         let random = Math.floor((Math.random() * lettersArray.length))
         console.log("One day has passed, getting new horoscope")
         await setRandomLetter(getRandomLetter(random));
-        await SaveItemInStorage("Letter_RANDOM_TIMER", currentDate.toString())
-        await SaveItemInStorage("Letter_RANDOM_NUMBER", random.toString())
+        await SaveItemInStorage("Letter_RANDOM_TIMER_Aquarius", currentDate.toString())
+        await SaveItemInStorage("Letter_RANDOM_NUMBER_Aquarius", random.toString())
       }else{
         console.log("One day has not passed, will not reset the current horoscope")
-        let getOldRandomNumber = await GetItemInStorage("Letter_RANDOM_NUMBER")
+        let getOldRandomNumber = await GetItemInStorage("Letter_RANDOM_NUMBER_Aquarius")
         await setRandomLetter(getRandomLetter(getOldRandomNumber));
     // Display previous horoscope.
       }
@@ -3112,12 +3124,12 @@ function HoroscopeAquarius({}) {
   const ThanksRandomizer = async () =>{
 
         // Async storage, Key , Date
-      const randomThanks = await GetItemInStorage("Thanks_RANDOM_TIMER");
+      const randomThanks = await GetItemInStorage("Thanks_RANDOM_TIMER_Aquarius");
       console.log(randomThanks)
       if(!randomThanks){
-        await SaveItemInStorage("Thanks_RANDOM_TIMER", new Date().getTime().toString())
+        await SaveItemInStorage("Thanks_RANDOM_TIMER_Aquarius", new Date().getTime().toString())
         let random = Math.floor((Math.random() * thanksArray.length))
-        await SaveItemInStorage("Thanks_RANDOM_NUMBER", random.toString())
+        await SaveItemInStorage("Thanks_RANDOM_NUMBER_Aquarius", random.toString())
         await setRandomThanks(getRandomThanks(random));
 
       }else{
@@ -3135,11 +3147,11 @@ function HoroscopeAquarius({}) {
         let random = Math.floor((Math.random() * thanksArray.length))
         console.log("One day has passed, getting new horoscope")
         await setRandomThanks(getRandomThanks(random));
-        await SaveItemInStorage("Thanks_RANDOM_TIMER", currentDate.toString())
-        await SaveItemInStorage("Thanks_RANDOM_NUMBER", random.toString())
+        await SaveItemInStorage("Thanks_RANDOM_TIMER_Aquarius", currentDate.toString())
+        await SaveItemInStorage("Thanks_RANDOM_NUMBER_Aquarius", random.toString())
       }else{
         console.log("One day has not passed, will not reset the current horoscope")
-        let getOldRandomNumber = await GetItemInStorage("Thanks_RANDOM_NUMBER")
+        let getOldRandomNumber = await GetItemInStorage("Thanks_RANDOM_NUMBER_Aquarius")
         await setRandomThanks(getRandomThanks(getOldRandomNumber));
         // Display previous horoscope.
       }
@@ -3148,12 +3160,12 @@ function HoroscopeAquarius({}) {
 
   const AdviceRandomizer = async () =>{
     // Async storage, Key , Date
-      const randomAdvice = await GetItemInStorage("Advice_RANDOM_TIMER");
+      const randomAdvice = await GetItemInStorage("Advice_RANDOM_TIMER_Aquarius");
       console.log(randomAdvice)
       if(!randomAdvice){
-        await SaveItemInStorage("Advice_RANDOM_TIMER", new Date().getTime().toString())
+        await SaveItemInStorage("Advice_RANDOM_TIMER_Aquarius", new Date().getTime().toString())
         let random = Math.floor((Math.random() * adviceArray.length))
-        await SaveItemInStorage("Advice_RANDOM_NUMBER", random.toString())
+        await SaveItemInStorage("Advice_RANDOM_NUMBER_Aquarius", random.toString())
         await setRandomAdvice(getRandomAdvice(random));
 
       }else{
@@ -3171,11 +3183,11 @@ function HoroscopeAquarius({}) {
         let random = Math.floor((Math.random() * adviceArray.length))
         console.log("One day has passed, getting new horoscope")
         await setRandomAdvice(getRandomAdvice(random));
-        await SaveItemInStorage("Advice_RANDOM_TIMER", currentDate.toString())
-        await SaveItemInStorage("Advice_RANDOM_NUMBER", random.toString())
+        await SaveItemInStorage("Advice_RANDOM_TIMER_Aquarius", currentDate.toString())
+        await SaveItemInStorage("Advice_RANDOM_NUMBER_Aquarius", random.toString())
       }else{
         console.log("One day has not passed, will not reset the current horoscope")
-        let getOldRandomNumber = await GetItemInStorage("Advice_RANDOM_NUMBER")
+        let getOldRandomNumber = await GetItemInStorage("Advice_RANDOM_NUMBER_Aquarius")
         await setRandomAdvice(getRandomAdvice(getOldRandomNumber));
         // Display previous horoscope.
       }
@@ -3320,9 +3332,7 @@ function HoroscopeAquarius({}) {
 
 }
 
-
 //horoscope cancer
-
 function HoroscopeCancer({}) {
   const navigation = useNavigation();
   const [randHoroscope, setRandomHoroscope] = useState('');
@@ -3361,12 +3371,12 @@ function HoroscopeCancer({}) {
   const HoroscopeRandomizer = async () =>{
 
               // Async storage, Key , Date
-    const randomHoroscope = await GetItemInStorage("HOROSCOPE_RANDOM_TIMER");
+    const randomHoroscope = await GetItemInStorage("HOROSCOPE_RANDOM_TIMER_Cancer");
     console.log(randomHoroscope)
     if(!randomHoroscope){
-      await SaveItemInStorage("HOROSCOPE_RANDOM_TIMER", new Date().getTime().toString())
+      await SaveItemInStorage("HOROSCOPE_RANDOM_TIMER_Cancer", new Date().getTime().toString())
       let random = Math.floor((Math.random() * horoscopeArray.length))
-      await SaveItemInStorage("HOROSCOPE_RANDOM_NUMBER", random.toString())
+      await SaveItemInStorage("HOROSCOPE_RANDOM_NUMBER_Cancer", random.toString())
       await setRandomHoroscope(getRandomHoroscope(random));
       
     }else{
@@ -3385,11 +3395,11 @@ function HoroscopeCancer({}) {
         let random = Math.floor((Math.random() * horoscopeArray.length))
         console.log("One day has passed, getting new horoscope")
         await setRandomHoroscope(getRandomHoroscope(random));
-        await SaveItemInStorage("HOROSCOPE_RANDOM_TIMER", currentDate.toString())
-        await SaveItemInStorage("HOROSCOPE_RANDOM_NUMBER", random.toString())
+        await SaveItemInStorage("HOROSCOPE_RANDOM_TIMER_Cancer", currentDate.toString())
+        await SaveItemInStorage("HOROSCOPE_RANDOM_NUMBER_Cancer", random.toString())
       }else{
         console.log("One day has not passed, will not reset the current horoscope")
-        let getOldRandomNumber = await GetItemInStorage("HOROSCOPE_RANDOM_NUMBER")
+        let getOldRandomNumber = await GetItemInStorage("HOROSCOPE_RANDOM_NUMBER_Cancer")
         await setRandomHoroscope(getRandomHoroscope(parseInt(getOldRandomNumber)));
         // Display previous horoscope.
       }
@@ -3402,12 +3412,12 @@ function HoroscopeCancer({}) {
   const NumberRandomizer = async () =>{
 
       // Async storage, Key , Date
-    const randomNumber = await GetItemInStorage("NUMBER_RANDOM_TIMER");
+    const randomNumber = await GetItemInStorage("NUMBER_RANDOM_TIMER_Cancer");
     if(!randomNumber){
-      await SaveItemInStorage("NUMBER_RANDOM_TIMER", new Date().getTime().toString())
+      await SaveItemInStorage("NUMBER_RANDOM_TIMER_Cancer", new Date().getTime().toString())
       let random = Math.floor((Math.random() * numbersArray.length))
-      await SaveItemInStorage("NUMBER_RANDOM_NUMBER", random.toString())
-      await setRandomnNumber(getRandomNumber(random));
+      await SaveItemInStorage("NUMBER_RANDOM_NUMBER_Cancer", random.toString())
+      await setRandomNumber(getRandomNumber(random));
 
     }else{
       let currentDate = parseInt(new Date().getTime().toString());
@@ -3423,12 +3433,12 @@ function HoroscopeCancer({}) {
         let random = Math.floor((Math.random() * numbersArray.length))
         console.log("One day has passed, getting new horoscope")
         await setRandomNumber(getRandomNumber(random));
-        await SaveItemInStorage("NUMBER_RANDOM_TIMER", currentDate.toString())
-        await SaveItemInStorage("NUMBER_RANDOM_NUMBER", random.toString())
+        await SaveItemInStorage("NUMBER_RANDOM_TIMER_Cancer", currentDate.toString())
+        await SaveItemInStorage("NUMBER_RANDOM_NUMBER_Cancer", random.toString())
       }
       else{
         console.log("One day has not passed, will not reset the current horoscope")
-        let getOldRandomNumber = await GetItemInStorage("NUMBER_RANDOM_NUMBER")
+        let getOldRandomNumber = await GetItemInStorage("NUMBER_RANDOM_NUMBER_Cancer")
         await setRandomNumber(getRandomNumber(getOldRandomNumber));
         // Display previous horoscope.
       }
@@ -3440,12 +3450,12 @@ function HoroscopeCancer({}) {
   const Word2Randomizer = async () =>{
 
         // Async storage, Key , Date
-      const randomWord2 = await GetItemInStorage("WORD2_RANDOM_TIMER");
+      const randomWord2 = await GetItemInStorage("WORD2_RANDOM_TIMER_Cancer");
       console.log(randomWord2)
       if(!randomWord2){
-        await SaveItemInStorage("WORD2_RANDOM_TIMER", new Date().getTime().toString())
+        await SaveItemInStorage("WORD2_RANDOM_TIMER_Cancer", new Date().getTime().toString())
         let random = Math.floor((Math.random() * wordsArray.length))
-        await SaveItemInStorage("WORD2_RANDOM_NUMBER", random.toString())
+        await SaveItemInStorage("WORD2_RANDOM_NUMBER_Cancer", random.toString())
         await setRandomWord2(getRandomWord2(random));
 
       }else{
@@ -3463,12 +3473,12 @@ function HoroscopeCancer({}) {
         // Grab a random number
         let random = Math.floor((Math.random() * wordsArray.length))
         console.log("One day has passed, getting new horoscope")
-        await SaveItemInStorage("WORD2_RANDOM_TIMER", currentDate.toString())
-        await SaveItemInStorage("WORD2_RANDOM_NUMBER", random.toString())
+        await SaveItemInStorage("WORD2_RANDOM_TIMER_Cancer", currentDate.toString())
+        await SaveItemInStorage("WORD2_RANDOM_NUMBER_Cancer", random.toString())
         await setRandomWord2(getRandomWord2(random));
       }else{
         console.log("One day has not passed, will not reset the current horoscope")
-        let getOldRandomNumber = await GetItemInStorage("WORD2_RANDOM_NUMBER")
+        let getOldRandomNumber = await GetItemInStorage("WORD2_RANDOM_NUMBER_Cancer")
         await setRandomWord2(getRandomWord2(getOldRandomNumber));
       // Display previous horoscope.
       }
@@ -3479,12 +3489,12 @@ function HoroscopeCancer({}) {
   const Word3Randomizer = async () =>{
 
       // Async storage, Key , Date
-    const randomWord3 = await GetItemInStorage("WORD3_RANDOM_TIMER");
+    const randomWord3 = await GetItemInStorage("WORD3_RANDOM_TIMER_Cancer");
     console.log(randomWord3)
     if(!randomWord3){
-      await SaveItemInStorage("WORD3_RANDOM_TIMER", new Date().getTime().toString())
+      await SaveItemInStorage("WORD3_RANDOM_TIMER_Cancer", new Date().getTime().toString())
       let random = Math.floor((Math.random() * wordsArray.length))
-      await SaveItemInStorage("WORD3_RANDOM_NUMBER", random.toString())
+      await SaveItemInStorage("WORD3_RANDOM_NUMBER_Cancer", random.toString())
       await setRandomWord3(getRandomWord3(random));
 
     }else{
@@ -3503,11 +3513,11 @@ function HoroscopeCancer({}) {
       let random = Math.floor((Math.random() * wordsArray.length))
       console.log("One day has passed, getting new horoscope")
       await setRandomWord2(getRandomWord3(random));
-      await SaveItemInStorage("WORD3_RANDOM_TIMER", currentDate.toString())
-      await SaveItemInStorage("WORD3_RANDOM_NUMBER", random.toString())
+      await SaveItemInStorage("WORD3_RANDOM_TIMER_Cancer", currentDate.toString())
+      await SaveItemInStorage("WORD3_RANDOM_NUMBER_Cancer", random.toString())
     }else{
       console.log("One day has not passed, will not reset the current horoscope")
-      let getOldRandomNumber = await GetItemInStorage("WORD3_RANDOM_NUMBER")
+      let getOldRandomNumber = await GetItemInStorage("WORD3_RANDOM_NUMBER_Cancer")
       await setRandomWord3(getRandomWord3(getOldRandomNumber));
       // Display previous horoscope.
       }
@@ -3517,12 +3527,12 @@ function HoroscopeCancer({}) {
   const Word4Randomizer = async () =>{
 
       // Async storage, Key , Date
-    const randomWord4 = await GetItemInStorage("WORD4_RANDOM_TIMER");
+    const randomWord4 = await GetItemInStorage("WORD4_RANDOM_TIMER_Cancer");
     console.log(randomWord4)
     if(!randomWord4){
-      await SaveItemInStorage("WORD4_RANDOM_TIMER", new Date().getTime().toString())
+      await SaveItemInStorage("WORD4_RANDOM_TIMER_Cancer", new Date().getTime().toString())
       let random = Math.floor((Math.random() * wordsArray.length))
-      await SaveItemInStorage("WORD4_RANDOM_NUMBER", random.toString())
+      await SaveItemInStorage("WORD4_RANDOM_NUMBER_Cancer", random.toString())
       await setRandomWord4(getRandomWord4(random));
 
     }else{
@@ -3541,11 +3551,11 @@ function HoroscopeCancer({}) {
       let random = Math.floor((Math.random() * wordsArray.length))
       console.log("One day has passed, getting new horoscope")
       await setRandomWord4(getRandomWord4(random));
-      await SaveItemInStorage("WORD4_RANDOM_TIMER", currentDate.toString())
-      await SaveItemInStorage("WORD4_RANDOM_NUMBER", random.toString())
+      await SaveItemInStorage("WORD4_RANDOM_TIMER_Cancer", currentDate.toString())
+      await SaveItemInStorage("WORD4_RANDOM_NUMBER_Cancer", random.toString())
     }else{
       console.log("One day has not passed, will not reset the current horoscope")
-      let getOldRandomNumber = await GetItemInStorage("WORD4_RANDOM_NUMBER")
+      let getOldRandomNumber = await GetItemInStorage("WORD4_RANDOM_NUMBER_Cancer")
       await setRandomWord4(getRandomWord4(getOldRandomNumber));
     // Display previous horoscope.
       }
@@ -3556,13 +3566,13 @@ function HoroscopeCancer({}) {
   const LetterRandomizer = async () =>{
 
     // Async storage, Key , Date
-  const randomLetter = await GetItemInStorage("Letter_RANDOM_TIMER");
+  const randomLetter = await GetItemInStorage("Letter_RANDOM_TIMER_Cancer");
     console.log(randomLetter)
     if(!randomLetter){
-      await SaveItemInStorage("Letter_RANDOM_TIMER", new Date().getTime().toString())
+      await SaveItemInStorage("Letter_RANDOM_TIMER_Cancer", new Date().getTime().toString())
       let random = Math.floor((Math.random() * lettersArray.length))
-      await SaveItemInStorage("Letter_RANDOM_NUMBER", random.toString())
-      await setLetter(getLetter(random));
+      await SaveItemInStorage("Letter_RANDOM_NUMBER_Cancer", random.toString())
+      await setRandomLetter(getRandomLetter(random));
 
     }else{
 
@@ -3579,11 +3589,11 @@ function HoroscopeCancer({}) {
         let random = Math.floor((Math.random() * lettersArray.length))
         console.log("One day has passed, getting new horoscope")
         await setRandomLetter(getRandomLetter(random));
-        await SaveItemInStorage("Letter_RANDOM_TIMER", currentDate.toString())
-        await SaveItemInStorage("Letter_RANDOM_NUMBER", random.toString())
+        await SaveItemInStorage("Letter_RANDOM_TIMER_Cancer", currentDate.toString())
+        await SaveItemInStorage("Letter_RANDOM_NUMBER_Cancer", random.toString())
       }else{
         console.log("One day has not passed, will not reset the current horoscope")
-        let getOldRandomNumber = await GetItemInStorage("Letter_RANDOM_NUMBER")
+        let getOldRandomNumber = await GetItemInStorage("Letter_RANDOM_NUMBER_Cancer")
         await setRandomLetter(getRandomLetter(getOldRandomNumber));
     // Display previous horoscope.
       }
@@ -3593,12 +3603,12 @@ function HoroscopeCancer({}) {
   const ThanksRandomizer = async () =>{
 
         // Async storage, Key , Date
-      const randomThanks = await GetItemInStorage("Thanks_RANDOM_TIMER");
+      const randomThanks = await GetItemInStorage("Thanks_RANDOM_TIMER_Cancer");
       console.log(randomThanks)
       if(!randomThanks){
-        await SaveItemInStorage("Thanks_RANDOM_TIMER", new Date().getTime().toString())
+        await SaveItemInStorage("Thanks_RANDOM_TIMER_Cancer", new Date().getTime().toString())
         let random = Math.floor((Math.random() * thanksArray.length))
-        await SaveItemInStorage("Thanks_RANDOM_NUMBER", random.toString())
+        await SaveItemInStorage("Thanks_RANDOM_NUMBER_Cancer", random.toString())
         await setRandomThanks(getRandomThanks(random));
 
       }else{
@@ -3616,11 +3626,11 @@ function HoroscopeCancer({}) {
         let random = Math.floor((Math.random() * thanksArray.length))
         console.log("One day has passed, getting new horoscope")
         await setRandomThanks(getRandomThanks(random));
-        await SaveItemInStorage("Thanks_RANDOM_TIMER", currentDate.toString())
-        await SaveItemInStorage("Thanks_RANDOM_NUMBER", random.toString())
+        await SaveItemInStorage("Thanks_RANDOM_TIMER_Cancer", currentDate.toString())
+        await SaveItemInStorage("Thanks_RANDOM_NUMBER_Cancer", random.toString())
       }else{
         console.log("One day has not passed, will not reset the current horoscope")
-        let getOldRandomNumber = await GetItemInStorage("Thanks_RANDOM_NUMBER")
+        let getOldRandomNumber = await GetItemInStorage("Thanks_RANDOM_NUMBER_Cancer")
         await setRandomThanks(getRandomThanks(getOldRandomNumber));
         // Display previous horoscope.
       }
@@ -3629,12 +3639,12 @@ function HoroscopeCancer({}) {
 
   const AdviceRandomizer = async () =>{
     // Async storage, Key , Date
-      const randomAdvice = await GetItemInStorage("Advice_RANDOM_TIMER");
+      const randomAdvice = await GetItemInStorage("Advice_RANDOM_TIMER_Cancer");
       console.log(randomAdvice)
       if(!randomAdvice){
-        await SaveItemInStorage("Advice_RANDOM_TIMER", new Date().getTime().toString())
+        await SaveItemInStorage("Advice_RANDOM_TIMER_Cancer", new Date().getTime().toString())
         let random = Math.floor((Math.random() * adviceArray.length))
-        await SaveItemInStorage("Advice_RANDOM_NUMBER", random.toString())
+        await SaveItemInStorage("Advice_RANDOM_NUMBER_Cancer", random.toString())
         await setRandomAdvice(getRandomAdvice(random));
 
       }else{
@@ -3652,11 +3662,11 @@ function HoroscopeCancer({}) {
         let random = Math.floor((Math.random() * adviceArray.length))
         console.log("One day has passed, getting new horoscope")
         await setRandomAdvice(getRandomAdvice(random));
-        await SaveItemInStorage("Advice_RANDOM_TIMER", currentDate.toString())
-        await SaveItemInStorage("Advice_RANDOM_NUMBER", random.toString())
+        await SaveItemInStorage("Advice_RANDOM_TIMER_Cancer", currentDate.toString())
+        await SaveItemInStorage("Advice_RANDOM_NUMBER_Cancer", random.toString())
       }else{
         console.log("One day has not passed, will not reset the current horoscope")
-        let getOldRandomNumber = await GetItemInStorage("Advice_RANDOM_NUMBER")
+        let getOldRandomNumber = await GetItemInStorage("Advice_RANDOM_NUMBER_Cancer")
         await setRandomAdvice(getRandomAdvice(getOldRandomNumber));
         // Display previous horoscope.
       }
@@ -3801,7 +3811,6 @@ function HoroscopeCancer({}) {
 }
 
 //horoscope Libra
-
 function HoroscopeLibra({}) {
   const navigation = useNavigation();
   const [randHoroscope, setRandomHoroscope] = useState('');
@@ -3840,12 +3849,12 @@ function HoroscopeLibra({}) {
   const HoroscopeRandomizer = async () =>{
 
               // Async storage, Key , Date
-    const randomHoroscope = await GetItemInStorage("HOROSCOPE_RANDOM_TIMER");
+    const randomHoroscope = await GetItemInStorage("HOROSCOPE_RANDOM_TIMER_Libra");
     console.log(randomHoroscope)
     if(!randomHoroscope){
-      await SaveItemInStorage("HOROSCOPE_RANDOM_TIMER", new Date().getTime().toString())
+      await SaveItemInStorage("HOROSCOPE_RANDOM_TIMER_Libra", new Date().getTime().toString())
       let random = Math.floor((Math.random() * horoscopeArray.length))
-      await SaveItemInStorage("HOROSCOPE_RANDOM_NUMBER", random.toString())
+      await SaveItemInStorage("HOROSCOPE_RANDOM_NUMBER_Libra", random.toString())
       await setRandomHoroscope(getRandomHoroscope(random));
       
     }else{
@@ -3864,11 +3873,11 @@ function HoroscopeLibra({}) {
         let random = Math.floor((Math.random() * horoscopeArray.length))
         console.log("One day has passed, getting new horoscope")
         await setRandomHoroscope(getRandomHoroscope(random));
-        await SaveItemInStorage("HOROSCOPE_RANDOM_TIMER", currentDate.toString())
-        await SaveItemInStorage("HOROSCOPE_RANDOM_NUMBER", random.toString())
+        await SaveItemInStorage("HOROSCOPE_RANDOM_TIMER_Libra", currentDate.toString())
+        await SaveItemInStorage("HOROSCOPE_RANDOM_NUMBER_Libra", random.toString())
       }else{
         console.log("One day has not passed, will not reset the current horoscope")
-        let getOldRandomNumber = await GetItemInStorage("HOROSCOPE_RANDOM_NUMBER")
+        let getOldRandomNumber = await GetItemInStorage("HOROSCOPE_RANDOM_NUMBER_Libra")
         await setRandomHoroscope(getRandomHoroscope(parseInt(getOldRandomNumber)));
         // Display previous horoscope.
       }
@@ -3881,12 +3890,12 @@ function HoroscopeLibra({}) {
   const NumberRandomizer = async () =>{
 
       // Async storage, Key , Date
-    const randomNumber = await GetItemInStorage("NUMBER_RANDOM_TIMER");
+    const randomNumber = await GetItemInStorage("NUMBER_RANDOM_TIMER_Libra");
     if(!randomNumber){
-      await SaveItemInStorage("NUMBER_RANDOM_TIMER", new Date().getTime().toString())
+      await SaveItemInStorage("NUMBER_RANDOM_TIMER_Libra", new Date().getTime().toString())
       let random = Math.floor((Math.random() * numbersArray.length))
-      await SaveItemInStorage("NUMBER_RANDOM_NUMBER", random.toString())
-      await setRandomnNumber(getRandomNumber(random));
+      await SaveItemInStorage("NUMBER_RANDOM_NUMBER_Libra", random.toString())
+      await setRandomNumber(getRandomNumber(random));
 
     }else{
       let currentDate = parseInt(new Date().getTime().toString());
@@ -3902,12 +3911,12 @@ function HoroscopeLibra({}) {
         let random = Math.floor((Math.random() * numbersArray.length))
         console.log("One day has passed, getting new horoscope")
         await setRandomNumber(getRandomNumber(random));
-        await SaveItemInStorage("NUMBER_RANDOM_TIMER", currentDate.toString())
-        await SaveItemInStorage("NUMBER_RANDOM_NUMBER", random.toString())
+        await SaveItemInStorage("NUMBER_RANDOM_TIMER_Libra", currentDate.toString())
+        await SaveItemInStorage("NUMBER_RANDOM_NUMBER_Libra", random.toString())
       }
       else{
         console.log("One day has not passed, will not reset the current horoscope")
-        let getOldRandomNumber = await GetItemInStorage("NUMBER_RANDOM_NUMBER")
+        let getOldRandomNumber = await GetItemInStorage("NUMBER_RANDOM_NUMBER_Libra")
         await setRandomNumber(getRandomNumber(getOldRandomNumber));
         // Display previous horoscope.
       }
@@ -3919,12 +3928,12 @@ function HoroscopeLibra({}) {
   const Word2Randomizer = async () =>{
 
         // Async storage, Key , Date
-      const randomWord2 = await GetItemInStorage("WORD2_RANDOM_TIMER");
+      const randomWord2 = await GetItemInStorage("WORD2_RANDOM_TIMER_Libra");
       console.log(randomWord2)
       if(!randomWord2){
-        await SaveItemInStorage("WORD2_RANDOM_TIMER", new Date().getTime().toString())
+        await SaveItemInStorage("WORD2_RANDOM_TIMER_Libra", new Date().getTime().toString())
         let random = Math.floor((Math.random() * wordsArray.length))
-        await SaveItemInStorage("WORD2_RANDOM_NUMBER", random.toString())
+        await SaveItemInStorage("WORD2_RANDOM_NUMBER_Libra", random.toString())
         await setRandomWord2(getRandomWord2(random));
 
       }else{
@@ -3942,12 +3951,12 @@ function HoroscopeLibra({}) {
         // Grab a random number
         let random = Math.floor((Math.random() * wordsArray.length))
         console.log("One day has passed, getting new horoscope")
-        await SaveItemInStorage("WORD2_RANDOM_TIMER", currentDate.toString())
-        await SaveItemInStorage("WORD2_RANDOM_NUMBER", random.toString())
+        await SaveItemInStorage("WORD2_RANDOM_TIMER_Libra", currentDate.toString())
+        await SaveItemInStorage("WORD2_RANDOM_NUMBER_Libra", random.toString())
         await setRandomWord2(getRandomWord2(random));
       }else{
         console.log("One day has not passed, will not reset the current horoscope")
-        let getOldRandomNumber = await GetItemInStorage("WORD2_RANDOM_NUMBER")
+        let getOldRandomNumber = await GetItemInStorage("WORD2_RANDOM_NUMBER_Libra")
         await setRandomWord2(getRandomWord2(getOldRandomNumber));
       // Display previous horoscope.
       }
@@ -3958,12 +3967,12 @@ function HoroscopeLibra({}) {
   const Word3Randomizer = async () =>{
 
       // Async storage, Key , Date
-    const randomWord3 = await GetItemInStorage("WORD3_RANDOM_TIMER");
+    const randomWord3 = await GetItemInStorage("WORD3_RANDOM_TIMER_Libra");
     console.log(randomWord3)
     if(!randomWord3){
-      await SaveItemInStorage("WORD3_RANDOM_TIMER", new Date().getTime().toString())
+      await SaveItemInStorage("WORD3_RANDOM_TIMER_Libra", new Date().getTime().toString())
       let random = Math.floor((Math.random() * wordsArray.length))
-      await SaveItemInStorage("WORD3_RANDOM_NUMBER", random.toString())
+      await SaveItemInStorage("WORD3_RANDOM_NUMBER_Libra", random.toString())
       await setRandomWord3(getRandomWord3(random));
 
     }else{
@@ -3982,11 +3991,11 @@ function HoroscopeLibra({}) {
       let random = Math.floor((Math.random() * wordsArray.length))
       console.log("One day has passed, getting new horoscope")
       await setRandomWord2(getRandomWord3(random));
-      await SaveItemInStorage("WORD3_RANDOM_TIMER", currentDate.toString())
-      await SaveItemInStorage("WORD3_RANDOM_NUMBER", random.toString())
+      await SaveItemInStorage("WORD3_RANDOM_TIMER_Libra", currentDate.toString())
+      await SaveItemInStorage("WORD3_RANDOM_NUMBER_Libra", random.toString())
     }else{
       console.log("One day has not passed, will not reset the current horoscope")
-      let getOldRandomNumber = await GetItemInStorage("WORD3_RANDOM_NUMBER")
+      let getOldRandomNumber = await GetItemInStorage("WORD3_RANDOM_NUMBER_Libra")
       await setRandomWord3(getRandomWord3(getOldRandomNumber));
       // Display previous horoscope.
       }
@@ -3996,12 +4005,12 @@ function HoroscopeLibra({}) {
   const Word4Randomizer = async () =>{
 
       // Async storage, Key , Date
-    const randomWord4 = await GetItemInStorage("WORD4_RANDOM_TIMER");
+    const randomWord4 = await GetItemInStorage("WORD4_RANDOM_TIMER_Libra");
     console.log(randomWord4)
     if(!randomWord4){
-      await SaveItemInStorage("WORD4_RANDOM_TIMER", new Date().getTime().toString())
+      await SaveItemInStorage("WORD4_RANDOM_TIMER_Libra", new Date().getTime().toString())
       let random = Math.floor((Math.random() * wordsArray.length))
-      await SaveItemInStorage("WORD4_RANDOM_NUMBER", random.toString())
+      await SaveItemInStorage("WORD4_RANDOM_NUMBER_Libra", random.toString())
       await setRandomWord4(getRandomWord4(random));
 
     }else{
@@ -4020,11 +4029,11 @@ function HoroscopeLibra({}) {
       let random = Math.floor((Math.random() * wordsArray.length))
       console.log("One day has passed, getting new horoscope")
       await setRandomWord4(getRandomWord4(random));
-      await SaveItemInStorage("WORD4_RANDOM_TIMER", currentDate.toString())
-      await SaveItemInStorage("WORD4_RANDOM_NUMBER", random.toString())
+      await SaveItemInStorage("WORD4_RANDOM_TIMER_Libra", currentDate.toString())
+      await SaveItemInStorage("WORD4_RANDOM_NUMBER_Libra", random.toString())
     }else{
       console.log("One day has not passed, will not reset the current horoscope")
-      let getOldRandomNumber = await GetItemInStorage("WORD4_RANDOM_NUMBER")
+      let getOldRandomNumber = await GetItemInStorage("WORD4_RANDOM_NUMBER_Libra")
       await setRandomWord4(getRandomWord4(getOldRandomNumber));
     // Display previous horoscope.
       }
@@ -4035,13 +4044,13 @@ function HoroscopeLibra({}) {
   const LetterRandomizer = async () =>{
 
     // Async storage, Key , Date
-  const randomLetter = await GetItemInStorage("Letter_RANDOM_TIMER");
+  const randomLetter = await GetItemInStorage("Letter_RANDOM_TIMER_Libra");
     console.log(randomLetter)
     if(!randomLetter){
-      await SaveItemInStorage("Letter_RANDOM_TIMER", new Date().getTime().toString())
+      await SaveItemInStorage("Letter_RANDOM_TIMER_Libra", new Date().getTime().toString())
       let random = Math.floor((Math.random() * lettersArray.length))
-      await SaveItemInStorage("Letter_RANDOM_NUMBER", random.toString())
-      await setLetter(getLetter(random));
+      await SaveItemInStorage("Letter_RANDOM_NUMBER_Libra", random.toString())
+      await setRandomLetter(getRandomLetter(random));
 
     }else{
 
@@ -4058,11 +4067,11 @@ function HoroscopeLibra({}) {
         let random = Math.floor((Math.random() * lettersArray.length))
         console.log("One day has passed, getting new horoscope")
         await setRandomLetter(getRandomLetter(random));
-        await SaveItemInStorage("Letter_RANDOM_TIMER", currentDate.toString())
-        await SaveItemInStorage("Letter_RANDOM_NUMBER", random.toString())
+        await SaveItemInStorage("Letter_RANDOM_TIMER_Libra", currentDate.toString())
+        await SaveItemInStorage("Letter_RANDOM_NUMBER_Libra", random.toString())
       }else{
         console.log("One day has not passed, will not reset the current horoscope")
-        let getOldRandomNumber = await GetItemInStorage("Letter_RANDOM_NUMBER")
+        let getOldRandomNumber = await GetItemInStorage("Letter_RANDOM_NUMBER_Libra")
         await setRandomLetter(getRandomLetter(getOldRandomNumber));
     // Display previous horoscope.
       }
@@ -4072,12 +4081,12 @@ function HoroscopeLibra({}) {
   const ThanksRandomizer = async () =>{
 
         // Async storage, Key , Date
-      const randomThanks = await GetItemInStorage("Thanks_RANDOM_TIMER");
+      const randomThanks = await GetItemInStorage("Thanks_RANDOM_TIMER_Libra");
       console.log(randomThanks)
       if(!randomThanks){
-        await SaveItemInStorage("Thanks_RANDOM_TIMER", new Date().getTime().toString())
+        await SaveItemInStorage("Thanks_RANDOM_TIMER_Libra", new Date().getTime().toString())
         let random = Math.floor((Math.random() * thanksArray.length))
-        await SaveItemInStorage("Thanks_RANDOM_NUMBER", random.toString())
+        await SaveItemInStorage("Thanks_RANDOM_NUMBER_Libra", random.toString())
         await setRandomThanks(getRandomThanks(random));
 
       }else{
@@ -4095,11 +4104,11 @@ function HoroscopeLibra({}) {
         let random = Math.floor((Math.random() * thanksArray.length))
         console.log("One day has passed, getting new horoscope")
         await setRandomThanks(getRandomThanks(random));
-        await SaveItemInStorage("Thanks_RANDOM_TIMER", currentDate.toString())
-        await SaveItemInStorage("Thanks_RANDOM_NUMBER", random.toString())
+        await SaveItemInStorage("Thanks_RANDOM_TIMER_Libra", currentDate.toString())
+        await SaveItemInStorage("Thanks_RANDOM_NUMBER_Libra", random.toString())
       }else{
         console.log("One day has not passed, will not reset the current horoscope")
-        let getOldRandomNumber = await GetItemInStorage("Thanks_RANDOM_NUMBER")
+        let getOldRandomNumber = await GetItemInStorage("Thanks_RANDOM_NUMBER_Libra")
         await setRandomThanks(getRandomThanks(getOldRandomNumber));
         // Display previous horoscope.
       }
@@ -4108,12 +4117,12 @@ function HoroscopeLibra({}) {
 
   const AdviceRandomizer = async () =>{
     // Async storage, Key , Date
-      const randomAdvice = await GetItemInStorage("Advice_RANDOM_TIMER");
+      const randomAdvice = await GetItemInStorage("Advice_RANDOM_TIMER_Libra");
       console.log(randomAdvice)
       if(!randomAdvice){
-        await SaveItemInStorage("Advice_RANDOM_TIMER", new Date().getTime().toString())
+        await SaveItemInStorage("Advice_RANDOM_TIMER_Libra", new Date().getTime().toString())
         let random = Math.floor((Math.random() * adviceArray.length))
-        await SaveItemInStorage("Advice_RANDOM_NUMBER", random.toString())
+        await SaveItemInStorage("Advice_RANDOM_NUMBER_Libra", random.toString())
         await setRandomAdvice(getRandomAdvice(random));
 
       }else{
@@ -4131,11 +4140,11 @@ function HoroscopeLibra({}) {
         let random = Math.floor((Math.random() * adviceArray.length))
         console.log("One day has passed, getting new horoscope")
         await setRandomAdvice(getRandomAdvice(random));
-        await SaveItemInStorage("Advice_RANDOM_TIMER", currentDate.toString())
-        await SaveItemInStorage("Advice_RANDOM_NUMBER", random.toString())
+        await SaveItemInStorage("Advice_RANDOM_TIMER_Libra", currentDate.toString())
+        await SaveItemInStorage("Advice_RANDOM_NUMBER_Libra", random.toString())
       }else{
         console.log("One day has not passed, will not reset the current horoscope")
-        let getOldRandomNumber = await GetItemInStorage("Advice_RANDOM_NUMBER")
+        let getOldRandomNumber = await GetItemInStorage("Advice_RANDOM_NUMBER_Libra")
         await setRandomAdvice(getRandomAdvice(getOldRandomNumber));
         // Display previous horoscope.
       }
@@ -4280,7 +4289,6 @@ function HoroscopeLibra({}) {
 }
 
 //horoscope Leo
-
 function HoroscopeLeo({}) {
   const navigation = useNavigation();
   const [randHoroscope, setRandomHoroscope] = useState('');
@@ -4319,12 +4327,12 @@ function HoroscopeLeo({}) {
   const HoroscopeRandomizer = async () =>{
 
               // Async storage, Key , Date
-    const randomHoroscope = await GetItemInStorage("HOROSCOPE_RANDOM_TIMER");
+    const randomHoroscope = await GetItemInStorage("HOROSCOPE_RANDOM_TIMER_Leo");
     console.log(randomHoroscope)
     if(!randomHoroscope){
-      await SaveItemInStorage("HOROSCOPE_RANDOM_TIMER", new Date().getTime().toString())
+      await SaveItemInStorage("HOROSCOPE_RANDOM_TIMER_Leo", new Date().getTime().toString())
       let random = Math.floor((Math.random() * horoscopeArray.length))
-      await SaveItemInStorage("HOROSCOPE_RANDOM_NUMBER", random.toString())
+      await SaveItemInStorage("HOROSCOPE_RANDOM_NUMBER_Leo", random.toString())
       await setRandomHoroscope(getRandomHoroscope(random));
       
     }else{
@@ -4343,11 +4351,11 @@ function HoroscopeLeo({}) {
         let random = Math.floor((Math.random() * horoscopeArray.length))
         console.log("One day has passed, getting new horoscope")
         await setRandomHoroscope(getRandomHoroscope(random));
-        await SaveItemInStorage("HOROSCOPE_RANDOM_TIMER", currentDate.toString())
-        await SaveItemInStorage("HOROSCOPE_RANDOM_NUMBER", random.toString())
+        await SaveItemInStorage("HOROSCOPE_RANDOM_TIMER_Leo", currentDate.toString())
+        await SaveItemInStorage("HOROSCOPE_RANDOM_NUMBER_Leo", random.toString())
       }else{
         console.log("One day has not passed, will not reset the current horoscope")
-        let getOldRandomNumber = await GetItemInStorage("HOROSCOPE_RANDOM_NUMBER")
+        let getOldRandomNumber = await GetItemInStorage("HOROSCOPE_RANDOM_NUMBER_Leo")
         await setRandomHoroscope(getRandomHoroscope(parseInt(getOldRandomNumber)));
         // Display previous horoscope.
       }
@@ -4360,12 +4368,12 @@ function HoroscopeLeo({}) {
   const NumberRandomizer = async () =>{
 
       // Async storage, Key , Date
-    const randomNumber = await GetItemInStorage("NUMBER_RANDOM_TIMER");
+    const randomNumber = await GetItemInStorage("NUMBER_RANDOM_TIMER_Leo");
     if(!randomNumber){
-      await SaveItemInStorage("NUMBER_RANDOM_TIMER", new Date().getTime().toString())
+      await SaveItemInStorage("NUMBER_RANDOM_TIMER_Leo", new Date().getTime().toString())
       let random = Math.floor((Math.random() * numbersArray.length))
-      await SaveItemInStorage("NUMBER_RANDOM_NUMBER", random.toString())
-      await setRandomnNumber(getRandomNumber(random));
+      await SaveItemInStorage("NUMBER_RANDOM_NUMBER_Leo", random.toString())
+      await setRandomNumber(getRandomNumber(random));
 
     }else{
       let currentDate = parseInt(new Date().getTime().toString());
@@ -4381,12 +4389,12 @@ function HoroscopeLeo({}) {
         let random = Math.floor((Math.random() * numbersArray.length))
         console.log("One day has passed, getting new horoscope")
         await setRandomNumber(getRandomNumber(random));
-        await SaveItemInStorage("NUMBER_RANDOM_TIMER", currentDate.toString())
-        await SaveItemInStorage("NUMBER_RANDOM_NUMBER", random.toString())
+        await SaveItemInStorage("NUMBER_RANDOM_TIMER_Leo", currentDate.toString())
+        await SaveItemInStorage("NUMBER_RANDOM_NUMBER_Leo", random.toString())
       }
       else{
         console.log("One day has not passed, will not reset the current horoscope")
-        let getOldRandomNumber = await GetItemInStorage("NUMBER_RANDOM_NUMBER")
+        let getOldRandomNumber = await GetItemInStorage("NUMBER_RANDOM_NUMBER_Leo")
         await setRandomNumber(getRandomNumber(getOldRandomNumber));
         // Display previous horoscope.
       }
@@ -4398,12 +4406,12 @@ function HoroscopeLeo({}) {
   const Word2Randomizer = async () =>{
 
         // Async storage, Key , Date
-      const randomWord2 = await GetItemInStorage("WORD2_RANDOM_TIMER");
+      const randomWord2 = await GetItemInStorage("WORD2_RANDOM_TIMER_Leo");
       console.log(randomWord2)
       if(!randomWord2){
-        await SaveItemInStorage("WORD2_RANDOM_TIMER", new Date().getTime().toString())
+        await SaveItemInStorage("WORD2_RANDOM_TIMER_Leo", new Date().getTime().toString())
         let random = Math.floor((Math.random() * wordsArray.length))
-        await SaveItemInStorage("WORD2_RANDOM_NUMBER", random.toString())
+        await SaveItemInStorage("WORD2_RANDOM_NUMBER_Leo", random.toString())
         await setRandomWord2(getRandomWord2(random));
 
       }else{
@@ -4421,12 +4429,12 @@ function HoroscopeLeo({}) {
         // Grab a random number
         let random = Math.floor((Math.random() * wordsArray.length))
         console.log("One day has passed, getting new horoscope")
-        await SaveItemInStorage("WORD2_RANDOM_TIMER", currentDate.toString())
-        await SaveItemInStorage("WORD2_RANDOM_NUMBER", random.toString())
+        await SaveItemInStorage("WORD2_RANDOM_TIMER_Leo", currentDate.toString())
+        await SaveItemInStorage("WORD2_RANDOM_NUMBER_Leo", random.toString())
         await setRandomWord2(getRandomWord2(random));
       }else{
         console.log("One day has not passed, will not reset the current horoscope")
-        let getOldRandomNumber = await GetItemInStorage("WORD2_RANDOM_NUMBER")
+        let getOldRandomNumber = await GetItemInStorage("WORD2_RANDOM_NUMBER_Leo")
         await setRandomWord2(getRandomWord2(getOldRandomNumber));
       // Display previous horoscope.
       }
@@ -4437,12 +4445,12 @@ function HoroscopeLeo({}) {
   const Word3Randomizer = async () =>{
 
       // Async storage, Key , Date
-    const randomWord3 = await GetItemInStorage("WORD3_RANDOM_TIMER");
+    const randomWord3 = await GetItemInStorage("WORD3_RANDOM_TIMER_Leo");
     console.log(randomWord3)
     if(!randomWord3){
-      await SaveItemInStorage("WORD3_RANDOM_TIMER", new Date().getTime().toString())
+      await SaveItemInStorage("WORD3_RANDOM_TIMER_Leo", new Date().getTime().toString())
       let random = Math.floor((Math.random() * wordsArray.length))
-      await SaveItemInStorage("WORD3_RANDOM_NUMBER", random.toString())
+      await SaveItemInStorage("WORD3_RANDOM_NUMBER_Leo", random.toString())
       await setRandomWord3(getRandomWord3(random));
 
     }else{
@@ -4461,11 +4469,11 @@ function HoroscopeLeo({}) {
       let random = Math.floor((Math.random() * wordsArray.length))
       console.log("One day has passed, getting new horoscope")
       await setRandomWord2(getRandomWord3(random));
-      await SaveItemInStorage("WORD3_RANDOM_TIMER", currentDate.toString())
-      await SaveItemInStorage("WORD3_RANDOM_NUMBER", random.toString())
+      await SaveItemInStorage("WORD3_RANDOM_TIMER_Leo", currentDate.toString())
+      await SaveItemInStorage("WORD3_RANDOM_NUMBER_Leo", random.toString())
     }else{
       console.log("One day has not passed, will not reset the current horoscope")
-      let getOldRandomNumber = await GetItemInStorage("WORD3_RANDOM_NUMBER")
+      let getOldRandomNumber = await GetItemInStorage("WORD3_RANDOM_NUMBER_Leo")
       await setRandomWord3(getRandomWord3(getOldRandomNumber));
       // Display previous horoscope.
       }
@@ -4475,12 +4483,12 @@ function HoroscopeLeo({}) {
   const Word4Randomizer = async () =>{
 
       // Async storage, Key , Date
-    const randomWord4 = await GetItemInStorage("WORD4_RANDOM_TIMER");
+    const randomWord4 = await GetItemInStorage("WORD4_RANDOM_TIMER_Leo");
     console.log(randomWord4)
     if(!randomWord4){
-      await SaveItemInStorage("WORD4_RANDOM_TIMER", new Date().getTime().toString())
+      await SaveItemInStorage("WORD4_RANDOM_TIMER_Leo", new Date().getTime().toString())
       let random = Math.floor((Math.random() * wordsArray.length))
-      await SaveItemInStorage("WORD4_RANDOM_NUMBER", random.toString())
+      await SaveItemInStorage("WORD4_RANDOM_NUMBER_Leo", random.toString())
       await setRandomWord4(getRandomWord4(random));
 
     }else{
@@ -4499,11 +4507,11 @@ function HoroscopeLeo({}) {
       let random = Math.floor((Math.random() * wordsArray.length))
       console.log("One day has passed, getting new horoscope")
       await setRandomWord4(getRandomWord4(random));
-      await SaveItemInStorage("WORD4_RANDOM_TIMER", currentDate.toString())
-      await SaveItemInStorage("WORD4_RANDOM_NUMBER", random.toString())
+      await SaveItemInStorage("WORD4_RANDOM_TIMER_Leo", currentDate.toString())
+      await SaveItemInStorage("WORD4_RANDOM_NUMBER_Leo", random.toString())
     }else{
       console.log("One day has not passed, will not reset the current horoscope")
-      let getOldRandomNumber = await GetItemInStorage("WORD4_RANDOM_NUMBER")
+      let getOldRandomNumber = await GetItemInStorage("WORD4_RANDOM_NUMBER_Leo")
       await setRandomWord4(getRandomWord4(getOldRandomNumber));
     // Display previous horoscope.
       }
@@ -4514,13 +4522,13 @@ function HoroscopeLeo({}) {
   const LetterRandomizer = async () =>{
 
     // Async storage, Key , Date
-  const randomLetter = await GetItemInStorage("Letter_RANDOM_TIMER");
+  const randomLetter = await GetItemInStorage("Letter_RANDOM_TIMER_Leo");
     console.log(randomLetter)
     if(!randomLetter){
-      await SaveItemInStorage("Letter_RANDOM_TIMER", new Date().getTime().toString())
+      await SaveItemInStorage("Letter_RANDOM_TIMER_Leo", new Date().getTime().toString())
       let random = Math.floor((Math.random() * lettersArray.length))
-      await SaveItemInStorage("Letter_RANDOM_NUMBER", random.toString())
-      await setLetter(getLetter(random));
+      await SaveItemInStorage("Letter_RANDOM_NUMBER_Leo", random.toString())
+      await setRandomLetter(getRandomLetter(random));
 
     }else{
 
@@ -4537,11 +4545,11 @@ function HoroscopeLeo({}) {
         let random = Math.floor((Math.random() * lettersArray.length))
         console.log("One day has passed, getting new horoscope")
         await setRandomLetter(getRandomLetter(random));
-        await SaveItemInStorage("Letter_RANDOM_TIMER", currentDate.toString())
-        await SaveItemInStorage("Letter_RANDOM_NUMBER", random.toString())
+        await SaveItemInStorage("Letter_RANDOM_TIMER_Leo", currentDate.toString())
+        await SaveItemInStorage("Letter_RANDOM_NUMBER_Leo", random.toString())
       }else{
         console.log("One day has not passed, will not reset the current horoscope")
-        let getOldRandomNumber = await GetItemInStorage("Letter_RANDOM_NUMBER")
+        let getOldRandomNumber = await GetItemInStorage("Letter_RANDOM_NUMBER_Leo")
         await setRandomLetter(getRandomLetter(getOldRandomNumber));
     // Display previous horoscope.
       }
@@ -4551,12 +4559,12 @@ function HoroscopeLeo({}) {
   const ThanksRandomizer = async () =>{
 
         // Async storage, Key , Date
-      const randomThanks = await GetItemInStorage("Thanks_RANDOM_TIMER");
+      const randomThanks = await GetItemInStorage("Thanks_RANDOM_TIMER_Leo");
       console.log(randomThanks)
       if(!randomThanks){
-        await SaveItemInStorage("Thanks_RANDOM_TIMER", new Date().getTime().toString())
+        await SaveItemInStorage("Thanks_RANDOM_TIMER_Leo", new Date().getTime().toString())
         let random = Math.floor((Math.random() * thanksArray.length))
-        await SaveItemInStorage("Thanks_RANDOM_NUMBER", random.toString())
+        await SaveItemInStorage("Thanks_RANDOM_NUMBER_Leo", random.toString())
         await setRandomThanks(getRandomThanks(random));
 
       }else{
@@ -4574,11 +4582,11 @@ function HoroscopeLeo({}) {
         let random = Math.floor((Math.random() * thanksArray.length))
         console.log("One day has passed, getting new horoscope")
         await setRandomThanks(getRandomThanks(random));
-        await SaveItemInStorage("Thanks_RANDOM_TIMER", currentDate.toString())
-        await SaveItemInStorage("Thanks_RANDOM_NUMBER", random.toString())
+        await SaveItemInStorage("Thanks_RANDOM_TIMER_Leo", currentDate.toString())
+        await SaveItemInStorage("Thanks_RANDOM_NUMBER_Leo", random.toString())
       }else{
         console.log("One day has not passed, will not reset the current horoscope")
-        let getOldRandomNumber = await GetItemInStorage("Thanks_RANDOM_NUMBER")
+        let getOldRandomNumber = await GetItemInStorage("Thanks_RANDOM_NUMBER_Leo")
         await setRandomThanks(getRandomThanks(getOldRandomNumber));
         // Display previous horoscope.
       }
@@ -4587,12 +4595,12 @@ function HoroscopeLeo({}) {
 
   const AdviceRandomizer = async () =>{
     // Async storage, Key , Date
-      const randomAdvice = await GetItemInStorage("Advice_RANDOM_TIMER");
+      const randomAdvice = await GetItemInStorage("Advice_RANDOM_TIMER_Leo");
       console.log(randomAdvice)
       if(!randomAdvice){
-        await SaveItemInStorage("Advice_RANDOM_TIMER", new Date().getTime().toString())
+        await SaveItemInStorage("Advice_RANDOM_TIMER_Leo", new Date().getTime().toString())
         let random = Math.floor((Math.random() * adviceArray.length))
-        await SaveItemInStorage("Advice_RANDOM_NUMBER", random.toString())
+        await SaveItemInStorage("Advice_RANDOM_NUMBER_Leo", random.toString())
         await setRandomAdvice(getRandomAdvice(random));
 
       }else{
@@ -4610,11 +4618,11 @@ function HoroscopeLeo({}) {
         let random = Math.floor((Math.random() * adviceArray.length))
         console.log("One day has passed, getting new horoscope")
         await setRandomAdvice(getRandomAdvice(random));
-        await SaveItemInStorage("Advice_RANDOM_TIMER", currentDate.toString())
-        await SaveItemInStorage("Advice_RANDOM_NUMBER", random.toString())
+        await SaveItemInStorage("Advice_RANDOM_TIMER_Leo", currentDate.toString())
+        await SaveItemInStorage("Advice_RANDOM_NUMBER_Leo", random.toString())
       }else{
         console.log("One day has not passed, will not reset the current horoscope")
-        let getOldRandomNumber = await GetItemInStorage("Advice_RANDOM_NUMBER")
+        let getOldRandomNumber = await GetItemInStorage("Advice_RANDOM_NUMBER_Leo")
         await setRandomAdvice(getRandomAdvice(getOldRandomNumber));
         // Display previous horoscope.
       }
@@ -4759,7 +4767,6 @@ function HoroscopeLeo({}) {
 }
 
 //horoscope Scorpio
-
 function HoroscopeScorpio({}) {
   const navigation = useNavigation();
   const [randHoroscope, setRandomHoroscope] = useState('');
@@ -4798,12 +4805,12 @@ function HoroscopeScorpio({}) {
   const HoroscopeRandomizer = async () =>{
 
               // Async storage, Key , Date
-    const randomHoroscope = await GetItemInStorage("HOROSCOPE_RANDOM_TIMER");
+    const randomHoroscope = await GetItemInStorage("HOROSCOPE_RANDOM_TIMER_Scorpio");
     console.log(randomHoroscope)
     if(!randomHoroscope){
-      await SaveItemInStorage("HOROSCOPE_RANDOM_TIMER", new Date().getTime().toString())
+      await SaveItemInStorage("HOROSCOPE_RANDOM_TIMER_Scorpio", new Date().getTime().toString())
       let random = Math.floor((Math.random() * horoscopeArray.length))
-      await SaveItemInStorage("HOROSCOPE_RANDOM_NUMBER", random.toString())
+      await SaveItemInStorage("HOROSCOPE_RANDOM_NUMBER_Scorpio", random.toString())
       await setRandomHoroscope(getRandomHoroscope(random));
       
     }else{
@@ -4822,11 +4829,11 @@ function HoroscopeScorpio({}) {
         let random = Math.floor((Math.random() * horoscopeArray.length))
         console.log("One day has passed, getting new horoscope")
         await setRandomHoroscope(getRandomHoroscope(random));
-        await SaveItemInStorage("HOROSCOPE_RANDOM_TIMER", currentDate.toString())
-        await SaveItemInStorage("HOROSCOPE_RANDOM_NUMBER", random.toString())
+        await SaveItemInStorage("HOROSCOPE_RANDOM_TIMER_Scorpio", currentDate.toString())
+        await SaveItemInStorage("HOROSCOPE_RANDOM_NUMBER_Scorpio", random.toString())
       }else{
         console.log("One day has not passed, will not reset the current horoscope")
-        let getOldRandomNumber = await GetItemInStorage("HOROSCOPE_RANDOM_NUMBER")
+        let getOldRandomNumber = await GetItemInStorage("HOROSCOPE_RANDOM_NUMBER_Scorpio")
         await setRandomHoroscope(getRandomHoroscope(parseInt(getOldRandomNumber)));
         // Display previous horoscope.
       }
@@ -4839,12 +4846,12 @@ function HoroscopeScorpio({}) {
   const NumberRandomizer = async () =>{
 
       // Async storage, Key , Date
-    const randomNumber = await GetItemInStorage("NUMBER_RANDOM_TIMER");
+    const randomNumber = await GetItemInStorage("NUMBER_RANDOM_TIMER_Scorpio");
     if(!randomNumber){
-      await SaveItemInStorage("NUMBER_RANDOM_TIMER", new Date().getTime().toString())
+      await SaveItemInStorage("NUMBER_RANDOM_TIMER_Scorpio", new Date().getTime().toString())
       let random = Math.floor((Math.random() * numbersArray.length))
-      await SaveItemInStorage("NUMBER_RANDOM_NUMBER", random.toString())
-      await setRandomnNumber(getRandomNumber(random));
+      await SaveItemInStorage("NUMBER_RANDOM_NUMBER_Scorpio", random.toString())
+      await setRandomNumber(getRandomNumber(random));
 
     }else{
       let currentDate = parseInt(new Date().getTime().toString());
@@ -4860,12 +4867,12 @@ function HoroscopeScorpio({}) {
         let random = Math.floor((Math.random() * numbersArray.length))
         console.log("One day has passed, getting new horoscope")
         await setRandomNumber(getRandomNumber(random));
-        await SaveItemInStorage("NUMBER_RANDOM_TIMER", currentDate.toString())
-        await SaveItemInStorage("NUMBER_RANDOM_NUMBER", random.toString())
+        await SaveItemInStorage("NUMBER_RANDOM_TIMER_Scorpio", currentDate.toString())
+        await SaveItemInStorage("NUMBER_RANDOM_NUMBER_Scorpio", random.toString())
       }
       else{
         console.log("One day has not passed, will not reset the current horoscope")
-        let getOldRandomNumber = await GetItemInStorage("NUMBER_RANDOM_NUMBER")
+        let getOldRandomNumber = await GetItemInStorage("NUMBER_RANDOM_NUMBER_Scorpio")
         await setRandomNumber(getRandomNumber(getOldRandomNumber));
         // Display previous horoscope.
       }
@@ -4877,12 +4884,12 @@ function HoroscopeScorpio({}) {
   const Word2Randomizer = async () =>{
 
         // Async storage, Key , Date
-      const randomWord2 = await GetItemInStorage("WORD2_RANDOM_TIMER");
+      const randomWord2 = await GetItemInStorage("WORD2_RANDOM_TIMER_Scorpio");
       console.log(randomWord2)
       if(!randomWord2){
-        await SaveItemInStorage("WORD2_RANDOM_TIMER", new Date().getTime().toString())
+        await SaveItemInStorage("WORD2_RANDOM_TIMER_Scorpio", new Date().getTime().toString())
         let random = Math.floor((Math.random() * wordsArray.length))
-        await SaveItemInStorage("WORD2_RANDOM_NUMBER", random.toString())
+        await SaveItemInStorage("WORD2_RANDOM_NUMBER_Scorpio", random.toString())
         await setRandomWord2(getRandomWord2(random));
 
       }else{
@@ -4900,12 +4907,12 @@ function HoroscopeScorpio({}) {
         // Grab a random number
         let random = Math.floor((Math.random() * wordsArray.length))
         console.log("One day has passed, getting new horoscope")
-        await SaveItemInStorage("WORD2_RANDOM_TIMER", currentDate.toString())
-        await SaveItemInStorage("WORD2_RANDOM_NUMBER", random.toString())
+        await SaveItemInStorage("WORD2_RANDOM_TIMER_Scorpio", currentDate.toString())
+        await SaveItemInStorage("WORD2_RANDOM_NUMBER_Scorpio", random.toString())
         await setRandomWord2(getRandomWord2(random));
       }else{
         console.log("One day has not passed, will not reset the current horoscope")
-        let getOldRandomNumber = await GetItemInStorage("WORD2_RANDOM_NUMBER")
+        let getOldRandomNumber = await GetItemInStorage("WORD2_RANDOM_NUMBER_Scorpio")
         await setRandomWord2(getRandomWord2(getOldRandomNumber));
       // Display previous horoscope.
       }
@@ -4916,12 +4923,12 @@ function HoroscopeScorpio({}) {
   const Word3Randomizer = async () =>{
 
       // Async storage, Key , Date
-    const randomWord3 = await GetItemInStorage("WORD3_RANDOM_TIMER");
+    const randomWord3 = await GetItemInStorage("WORD3_RANDOM_TIMER_Scorpio");
     console.log(randomWord3)
     if(!randomWord3){
-      await SaveItemInStorage("WORD3_RANDOM_TIMER", new Date().getTime().toString())
+      await SaveItemInStorage("WORD3_RANDOM_TIMER_Scorpio", new Date().getTime().toString())
       let random = Math.floor((Math.random() * wordsArray.length))
-      await SaveItemInStorage("WORD3_RANDOM_NUMBER", random.toString())
+      await SaveItemInStorage("WORD3_RANDOM_NUMBER_Scorpio", random.toString())
       await setRandomWord3(getRandomWord3(random));
 
     }else{
@@ -4940,11 +4947,11 @@ function HoroscopeScorpio({}) {
       let random = Math.floor((Math.random() * wordsArray.length))
       console.log("One day has passed, getting new horoscope")
       await setRandomWord2(getRandomWord3(random));
-      await SaveItemInStorage("WORD3_RANDOM_TIMER", currentDate.toString())
-      await SaveItemInStorage("WORD3_RANDOM_NUMBER", random.toString())
+      await SaveItemInStorage("WORD3_RANDOM_TIMER_Scorpio", currentDate.toString())
+      await SaveItemInStorage("WORD3_RANDOM_NUMBER_Scorpio", random.toString())
     }else{
       console.log("One day has not passed, will not reset the current horoscope")
-      let getOldRandomNumber = await GetItemInStorage("WORD3_RANDOM_NUMBER")
+      let getOldRandomNumber = await GetItemInStorage("WORD3_RANDOM_NUMBER_Scorpio")
       await setRandomWord3(getRandomWord3(getOldRandomNumber));
       // Display previous horoscope.
       }
@@ -4954,12 +4961,12 @@ function HoroscopeScorpio({}) {
   const Word4Randomizer = async () =>{
 
       // Async storage, Key , Date
-    const randomWord4 = await GetItemInStorage("WORD4_RANDOM_TIMER");
+    const randomWord4 = await GetItemInStorage("WORD4_RANDOM_TIMER_Scorpio");
     console.log(randomWord4)
     if(!randomWord4){
-      await SaveItemInStorage("WORD4_RANDOM_TIMER", new Date().getTime().toString())
+      await SaveItemInStorage("WORD4_RANDOM_TIMER_Scorpio", new Date().getTime().toString())
       let random = Math.floor((Math.random() * wordsArray.length))
-      await SaveItemInStorage("WORD4_RANDOM_NUMBER", random.toString())
+      await SaveItemInStorage("WORD4_RANDOM_NUMBER_Scorpio", random.toString())
       await setRandomWord4(getRandomWord4(random));
 
     }else{
@@ -4978,11 +4985,11 @@ function HoroscopeScorpio({}) {
       let random = Math.floor((Math.random() * wordsArray.length))
       console.log("One day has passed, getting new horoscope")
       await setRandomWord4(getRandomWord4(random));
-      await SaveItemInStorage("WORD4_RANDOM_TIMER", currentDate.toString())
-      await SaveItemInStorage("WORD4_RANDOM_NUMBER", random.toString())
+      await SaveItemInStorage("WORD4_RANDOM_TIMER_Scorpio", currentDate.toString())
+      await SaveItemInStorage("WORD4_RANDOM_NUMBER_Scorpio", random.toString())
     }else{
       console.log("One day has not passed, will not reset the current horoscope")
-      let getOldRandomNumber = await GetItemInStorage("WORD4_RANDOM_NUMBER")
+      let getOldRandomNumber = await GetItemInStorage("WORD4_RANDOM_NUMBER_Scorpio")
       await setRandomWord4(getRandomWord4(getOldRandomNumber));
     // Display previous horoscope.
       }
@@ -4993,13 +5000,13 @@ function HoroscopeScorpio({}) {
   const LetterRandomizer = async () =>{
 
     // Async storage, Key , Date
-  const randomLetter = await GetItemInStorage("Letter_RANDOM_TIMER");
+  const randomLetter = await GetItemInStorage("Letter_RANDOM_TIMER_Scorpio");
     console.log(randomLetter)
     if(!randomLetter){
-      await SaveItemInStorage("Letter_RANDOM_TIMER", new Date().getTime().toString())
+      await SaveItemInStorage("Letter_RANDOM_TIMER_Scorpio", new Date().getTime().toString())
       let random = Math.floor((Math.random() * lettersArray.length))
-      await SaveItemInStorage("Letter_RANDOM_NUMBER", random.toString())
-      await setLetter(getLetter(random));
+      await SaveItemInStorage("Letter_RANDOM_NUMBER_Scorpio", random.toString())
+      await setRandomLetter(getRandomLetter(random));
 
     }else{
 
@@ -5016,11 +5023,11 @@ function HoroscopeScorpio({}) {
         let random = Math.floor((Math.random() * lettersArray.length))
         console.log("One day has passed, getting new horoscope")
         await setRandomLetter(getRandomLetter(random));
-        await SaveItemInStorage("Letter_RANDOM_TIMER", currentDate.toString())
-        await SaveItemInStorage("Letter_RANDOM_NUMBER", random.toString())
+        await SaveItemInStorage("Letter_RANDOM_TIMER_Scorpio", currentDate.toString())
+        await SaveItemInStorage("Letter_RANDOM_NUMBER_Scorpio", random.toString())
       }else{
         console.log("One day has not passed, will not reset the current horoscope")
-        let getOldRandomNumber = await GetItemInStorage("Letter_RANDOM_NUMBER")
+        let getOldRandomNumber = await GetItemInStorage("Letter_RANDOM_NUMBER_Scorpio")
         await setRandomLetter(getRandomLetter(getOldRandomNumber));
     // Display previous horoscope.
       }
@@ -5030,12 +5037,12 @@ function HoroscopeScorpio({}) {
   const ThanksRandomizer = async () =>{
 
         // Async storage, Key , Date
-      const randomThanks = await GetItemInStorage("Thanks_RANDOM_TIMER");
+      const randomThanks = await GetItemInStorage("Thanks_RANDOM_TIMER_Scorpio");
       console.log(randomThanks)
       if(!randomThanks){
-        await SaveItemInStorage("Thanks_RANDOM_TIMER", new Date().getTime().toString())
+        await SaveItemInStorage("Thanks_RANDOM_TIMER_Scorpio", new Date().getTime().toString())
         let random = Math.floor((Math.random() * thanksArray.length))
-        await SaveItemInStorage("Thanks_RANDOM_NUMBER", random.toString())
+        await SaveItemInStorage("Thanks_RANDOM_NUMBER_Scorpio", random.toString())
         await setRandomThanks(getRandomThanks(random));
 
       }else{
@@ -5053,11 +5060,11 @@ function HoroscopeScorpio({}) {
         let random = Math.floor((Math.random() * thanksArray.length))
         console.log("One day has passed, getting new horoscope")
         await setRandomThanks(getRandomThanks(random));
-        await SaveItemInStorage("Thanks_RANDOM_TIMER", currentDate.toString())
-        await SaveItemInStorage("Thanks_RANDOM_NUMBER", random.toString())
+        await SaveItemInStorage("Thanks_RANDOM_TIMER_Scorpio", currentDate.toString())
+        await SaveItemInStorage("Thanks_RANDOM_NUMBER_Scorpio", random.toString())
       }else{
         console.log("One day has not passed, will not reset the current horoscope")
-        let getOldRandomNumber = await GetItemInStorage("Thanks_RANDOM_NUMBER")
+        let getOldRandomNumber = await GetItemInStorage("Thanks_RANDOM_NUMBER_Scorpio")
         await setRandomThanks(getRandomThanks(getOldRandomNumber));
         // Display previous horoscope.
       }
@@ -5066,12 +5073,12 @@ function HoroscopeScorpio({}) {
 
   const AdviceRandomizer = async () =>{
     // Async storage, Key , Date
-      const randomAdvice = await GetItemInStorage("Advice_RANDOM_TIMER");
+      const randomAdvice = await GetItemInStorage("Advice_RANDOM_TIMER_Scorpio");
       console.log(randomAdvice)
       if(!randomAdvice){
-        await SaveItemInStorage("Advice_RANDOM_TIMER", new Date().getTime().toString())
+        await SaveItemInStorage("Advice_RANDOM_TIMER_Scorpio", new Date().getTime().toString())
         let random = Math.floor((Math.random() * adviceArray.length))
-        await SaveItemInStorage("Advice_RANDOM_NUMBER", random.toString())
+        await SaveItemInStorage("Advice_RANDOM_NUMBER_Scorpio", random.toString())
         await setRandomAdvice(getRandomAdvice(random));
 
       }else{
@@ -5089,11 +5096,11 @@ function HoroscopeScorpio({}) {
         let random = Math.floor((Math.random() * adviceArray.length))
         console.log("One day has passed, getting new horoscope")
         await setRandomAdvice(getRandomAdvice(random));
-        await SaveItemInStorage("Advice_RANDOM_TIMER", currentDate.toString())
-        await SaveItemInStorage("Advice_RANDOM_NUMBER", random.toString())
+        await SaveItemInStorage("Advice_RANDOM_TIMER_Scorpio", currentDate.toString())
+        await SaveItemInStorage("Advice_RANDOM_NUMBER_Scorpio", random.toString())
       }else{
         console.log("One day has not passed, will not reset the current horoscope")
-        let getOldRandomNumber = await GetItemInStorage("Advice_RANDOM_NUMBER")
+        let getOldRandomNumber = await GetItemInStorage("Advice_RANDOM_NUMBER_Scorpio")
         await setRandomAdvice(getRandomAdvice(getOldRandomNumber));
         // Display previous horoscope.
       }
@@ -5237,11 +5244,7 @@ function HoroscopeScorpio({}) {
 
 }
 
-
-
-
 //horoscope Sagittarius
-
 function HoroscopeSagittarius({}) {
   const navigation = useNavigation();
   const [randHoroscope, setRandomHoroscope] = useState('');
@@ -5280,12 +5283,12 @@ function HoroscopeSagittarius({}) {
   const HoroscopeRandomizer = async () =>{
 
               // Async storage, Key , Date
-    const randomHoroscope = await GetItemInStorage("HOROSCOPE_RANDOM_TIMER");
+    const randomHoroscope = await GetItemInStorage("HOROSCOPE_RANDOM_TIMER_Sagittarius");
     console.log(randomHoroscope)
     if(!randomHoroscope){
-      await SaveItemInStorage("HOROSCOPE_RANDOM_TIMER", new Date().getTime().toString())
+      await SaveItemInStorage("HOROSCOPE_RANDOM_TIMER_Sagittarius", new Date().getTime().toString())
       let random = Math.floor((Math.random() * horoscopeArray.length))
-      await SaveItemInStorage("HOROSCOPE_RANDOM_NUMBER", random.toString())
+      await SaveItemInStorage("HOROSCOPE_RANDOM_NUMBER_Sagittarius", random.toString())
       await setRandomHoroscope(getRandomHoroscope(random));
       
     }else{
@@ -5304,11 +5307,11 @@ function HoroscopeSagittarius({}) {
         let random = Math.floor((Math.random() * horoscopeArray.length))
         console.log("One day has passed, getting new horoscope")
         await setRandomHoroscope(getRandomHoroscope(random));
-        await SaveItemInStorage("HOROSCOPE_RANDOM_TIMER", currentDate.toString())
-        await SaveItemInStorage("HOROSCOPE_RANDOM_NUMBER", random.toString())
+        await SaveItemInStorage("HOROSCOPE_RANDOM_TIMER_Sagittarius", currentDate.toString())
+        await SaveItemInStorage("HOROSCOPE_RANDOM_NUMBER_Sagittarius", random.toString())
       }else{
         console.log("One day has not passed, will not reset the current horoscope")
-        let getOldRandomNumber = await GetItemInStorage("HOROSCOPE_RANDOM_NUMBER")
+        let getOldRandomNumber = await GetItemInStorage("HOROSCOPE_RANDOM_NUMBER_Sagittarius")
         await setRandomHoroscope(getRandomHoroscope(parseInt(getOldRandomNumber)));
         // Display previous horoscope.
       }
@@ -5321,12 +5324,12 @@ function HoroscopeSagittarius({}) {
   const NumberRandomizer = async () =>{
 
       // Async storage, Key , Date
-    const randomNumber = await GetItemInStorage("NUMBER_RANDOM_TIMER");
+    const randomNumber = await GetItemInStorage("NUMBER_RANDOM_TIMER_Sagittarius");
     if(!randomNumber){
-      await SaveItemInStorage("NUMBER_RANDOM_TIMER", new Date().getTime().toString())
+      await SaveItemInStorage("NUMBER_RANDOM_TIMER_Sagittarius", new Date().getTime().toString())
       let random = Math.floor((Math.random() * numbersArray.length))
-      await SaveItemInStorage("NUMBER_RANDOM_NUMBER", random.toString())
-      await setRandomnNumber(getRandomNumber(random));
+      await SaveItemInStorage("NUMBER_RANDOM_NUMBER_Sagittarius", random.toString())
+      await setRandomNumber(getRandomNumber(random));
 
     }else{
       let currentDate = parseInt(new Date().getTime().toString());
@@ -5342,12 +5345,12 @@ function HoroscopeSagittarius({}) {
         let random = Math.floor((Math.random() * numbersArray.length))
         console.log("One day has passed, getting new horoscope")
         await setRandomNumber(getRandomNumber(random));
-        await SaveItemInStorage("NUMBER_RANDOM_TIMER", currentDate.toString())
-        await SaveItemInStorage("NUMBER_RANDOM_NUMBER", random.toString())
+        await SaveItemInStorage("NUMBER_RANDOM_TIMER_Sagittarius", currentDate.toString())
+        await SaveItemInStorage("NUMBER_RANDOM_NUMBER_Sagittarius", random.toString())
       }
       else{
         console.log("One day has not passed, will not reset the current horoscope")
-        let getOldRandomNumber = await GetItemInStorage("NUMBER_RANDOM_NUMBER")
+        let getOldRandomNumber = await GetItemInStorage("NUMBER_RANDOM_NUMBER_Sagittarius")
         await setRandomNumber(getRandomNumber(getOldRandomNumber));
         // Display previous horoscope.
       }
@@ -5359,12 +5362,12 @@ function HoroscopeSagittarius({}) {
   const Word2Randomizer = async () =>{
 
         // Async storage, Key , Date
-      const randomWord2 = await GetItemInStorage("WORD2_RANDOM_TIMER");
+      const randomWord2 = await GetItemInStorage("WORD2_RANDOM_TIMER_Sagittarius");
       console.log(randomWord2)
       if(!randomWord2){
-        await SaveItemInStorage("WORD2_RANDOM_TIMER", new Date().getTime().toString())
+        await SaveItemInStorage("WORD2_RANDOM_TIMER_Sagittarius", new Date().getTime().toString())
         let random = Math.floor((Math.random() * wordsArray.length))
-        await SaveItemInStorage("WORD2_RANDOM_NUMBER", random.toString())
+        await SaveItemInStorage("WORD2_RANDOM_NUMBER_Sagittarius", random.toString())
         await setRandomWord2(getRandomWord2(random));
 
       }else{
@@ -5382,12 +5385,12 @@ function HoroscopeSagittarius({}) {
         // Grab a random number
         let random = Math.floor((Math.random() * wordsArray.length))
         console.log("One day has passed, getting new horoscope")
-        await SaveItemInStorage("WORD2_RANDOM_TIMER", currentDate.toString())
-        await SaveItemInStorage("WORD2_RANDOM_NUMBER", random.toString())
+        await SaveItemInStorage("WORD2_RANDOM_TIMER_Sagittarius", currentDate.toString())
+        await SaveItemInStorage("WORD2_RANDOM_NUMBER_Sagittarius", random.toString())
         await setRandomWord2(getRandomWord2(random));
       }else{
         console.log("One day has not passed, will not reset the current horoscope")
-        let getOldRandomNumber = await GetItemInStorage("WORD2_RANDOM_NUMBER")
+        let getOldRandomNumber = await GetItemInStorage("WORD2_RANDOM_NUMBER_Sagittarius")
         await setRandomWord2(getRandomWord2(getOldRandomNumber));
       // Display previous horoscope.
       }
@@ -5398,12 +5401,12 @@ function HoroscopeSagittarius({}) {
   const Word3Randomizer = async () =>{
 
       // Async storage, Key , Date
-    const randomWord3 = await GetItemInStorage("WORD3_RANDOM_TIMER");
+    const randomWord3 = await GetItemInStorage("WORD3_RANDOM_TIMER_Sagittarius");
     console.log(randomWord3)
     if(!randomWord3){
-      await SaveItemInStorage("WORD3_RANDOM_TIMER", new Date().getTime().toString())
+      await SaveItemInStorage("WORD3_RANDOM_TIMER_Sagittarius", new Date().getTime().toString())
       let random = Math.floor((Math.random() * wordsArray.length))
-      await SaveItemInStorage("WORD3_RANDOM_NUMBER", random.toString())
+      await SaveItemInStorage("WORD3_RANDOM_NUMBER_Sagittarius", random.toString())
       await setRandomWord3(getRandomWord3(random));
 
     }else{
@@ -5422,11 +5425,11 @@ function HoroscopeSagittarius({}) {
       let random = Math.floor((Math.random() * wordsArray.length))
       console.log("One day has passed, getting new horoscope")
       await setRandomWord2(getRandomWord3(random));
-      await SaveItemInStorage("WORD3_RANDOM_TIMER", currentDate.toString())
-      await SaveItemInStorage("WORD3_RANDOM_NUMBER", random.toString())
+      await SaveItemInStorage("WORD3_RANDOM_TIMER_Sagittarius", currentDate.toString())
+      await SaveItemInStorage("WORD3_RANDOM_NUMBER_Sagittarius", random.toString())
     }else{
       console.log("One day has not passed, will not reset the current horoscope")
-      let getOldRandomNumber = await GetItemInStorage("WORD3_RANDOM_NUMBER")
+      let getOldRandomNumber = await GetItemInStorage("WORD3_RANDOM_NUMBER_Sagittarius")
       await setRandomWord3(getRandomWord3(getOldRandomNumber));
       // Display previous horoscope.
       }
@@ -5436,12 +5439,12 @@ function HoroscopeSagittarius({}) {
   const Word4Randomizer = async () =>{
 
       // Async storage, Key , Date
-    const randomWord4 = await GetItemInStorage("WORD4_RANDOM_TIMER");
+    const randomWord4 = await GetItemInStorage("WORD4_RANDOM_TIMER_Sagittarius");
     console.log(randomWord4)
     if(!randomWord4){
-      await SaveItemInStorage("WORD4_RANDOM_TIMER", new Date().getTime().toString())
+      await SaveItemInStorage("WORD4_RANDOM_TIMER_Sagittarius", new Date().getTime().toString())
       let random = Math.floor((Math.random() * wordsArray.length))
-      await SaveItemInStorage("WORD4_RANDOM_NUMBER", random.toString())
+      await SaveItemInStorage("WORD4_RANDOM_NUMBER_Sagittarius", random.toString())
       await setRandomWord4(getRandomWord4(random));
 
     }else{
@@ -5460,11 +5463,11 @@ function HoroscopeSagittarius({}) {
       let random = Math.floor((Math.random() * wordsArray.length))
       console.log("One day has passed, getting new horoscope")
       await setRandomWord4(getRandomWord4(random));
-      await SaveItemInStorage("WORD4_RANDOM_TIMER", currentDate.toString())
-      await SaveItemInStorage("WORD4_RANDOM_NUMBER", random.toString())
+      await SaveItemInStorage("WORD4_RANDOM_TIMER_Sagittarius", currentDate.toString())
+      await SaveItemInStorage("WORD4_RANDOM_NUMBER_Sagittarius", random.toString())
     }else{
       console.log("One day has not passed, will not reset the current horoscope")
-      let getOldRandomNumber = await GetItemInStorage("WORD4_RANDOM_NUMBER")
+      let getOldRandomNumber = await GetItemInStorage("WORD4_RANDOM_NUMBER_Sagittarius")
       await setRandomWord4(getRandomWord4(getOldRandomNumber));
     // Display previous horoscope.
       }
@@ -5475,13 +5478,13 @@ function HoroscopeSagittarius({}) {
   const LetterRandomizer = async () =>{
 
     // Async storage, Key , Date
-  const randomLetter = await GetItemInStorage("Letter_RANDOM_TIMER");
+  const randomLetter = await GetItemInStorage("Letter_RANDOM_TIMER_Sagittarius");
     console.log(randomLetter)
     if(!randomLetter){
-      await SaveItemInStorage("Letter_RANDOM_TIMER", new Date().getTime().toString())
+      await SaveItemInStorage("Letter_RANDOM_TIMER_Sagittarius", new Date().getTime().toString())
       let random = Math.floor((Math.random() * lettersArray.length))
-      await SaveItemInStorage("Letter_RANDOM_NUMBER", random.toString())
-      await setLetter(getLetter(random));
+      await SaveItemInStorage("Letter_RANDOM_NUMBER_Sagittarius", random.toString())
+      await setRandomLetter(getRandomLetter(random));
 
     }else{
 
@@ -5498,11 +5501,11 @@ function HoroscopeSagittarius({}) {
         let random = Math.floor((Math.random() * lettersArray.length))
         console.log("One day has passed, getting new horoscope")
         await setRandomLetter(getRandomLetter(random));
-        await SaveItemInStorage("Letter_RANDOM_TIMER", currentDate.toString())
-        await SaveItemInStorage("Letter_RANDOM_NUMBER", random.toString())
+        await SaveItemInStorage("Letter_RANDOM_TIMER_Sagittarius", currentDate.toString())
+        await SaveItemInStorage("Letter_RANDOM_NUMBER_Sagittarius", random.toString())
       }else{
         console.log("One day has not passed, will not reset the current horoscope")
-        let getOldRandomNumber = await GetItemInStorage("Letter_RANDOM_NUMBER")
+        let getOldRandomNumber = await GetItemInStorage("Letter_RANDOM_NUMBER_Sagittarius")
         await setRandomLetter(getRandomLetter(getOldRandomNumber));
     // Display previous horoscope.
       }
@@ -5512,12 +5515,12 @@ function HoroscopeSagittarius({}) {
   const ThanksRandomizer = async () =>{
 
         // Async storage, Key , Date
-      const randomThanks = await GetItemInStorage("Thanks_RANDOM_TIMER");
+      const randomThanks = await GetItemInStorage("Thanks_RANDOM_TIMER_Sagittarius");
       console.log(randomThanks)
       if(!randomThanks){
-        await SaveItemInStorage("Thanks_RANDOM_TIMER", new Date().getTime().toString())
+        await SaveItemInStorage("Thanks_RANDOM_TIMER_Sagittarius", new Date().getTime().toString())
         let random = Math.floor((Math.random() * thanksArray.length))
-        await SaveItemInStorage("Thanks_RANDOM_NUMBER", random.toString())
+        await SaveItemInStorage("Thanks_RANDOM_NUMBER_Sagittarius", random.toString())
         await setRandomThanks(getRandomThanks(random));
 
       }else{
@@ -5535,11 +5538,11 @@ function HoroscopeSagittarius({}) {
         let random = Math.floor((Math.random() * thanksArray.length))
         console.log("One day has passed, getting new horoscope")
         await setRandomThanks(getRandomThanks(random));
-        await SaveItemInStorage("Thanks_RANDOM_TIMER", currentDate.toString())
-        await SaveItemInStorage("Thanks_RANDOM_NUMBER", random.toString())
+        await SaveItemInStorage("Thanks_RANDOM_TIMER_Sagittarius", currentDate.toString())
+        await SaveItemInStorage("Thanks_RANDOM_NUMBER_Sagittarius", random.toString())
       }else{
         console.log("One day has not passed, will not reset the current horoscope")
-        let getOldRandomNumber = await GetItemInStorage("Thanks_RANDOM_NUMBER")
+        let getOldRandomNumber = await GetItemInStorage("Thanks_RANDOM_NUMBER_Sagittarius")
         await setRandomThanks(getRandomThanks(getOldRandomNumber));
         // Display previous horoscope.
       }
@@ -5548,12 +5551,12 @@ function HoroscopeSagittarius({}) {
 
   const AdviceRandomizer = async () =>{
     // Async storage, Key , Date
-      const randomAdvice = await GetItemInStorage("Advice_RANDOM_TIMER");
+      const randomAdvice = await GetItemInStorage("Advice_RANDOM_TIMER_Sagittarius");
       console.log(randomAdvice)
       if(!randomAdvice){
-        await SaveItemInStorage("Advice_RANDOM_TIMER", new Date().getTime().toString())
+        await SaveItemInStorage("Advice_RANDOM_TIMER_Sagittarius", new Date().getTime().toString())
         let random = Math.floor((Math.random() * adviceArray.length))
-        await SaveItemInStorage("Advice_RANDOM_NUMBER", random.toString())
+        await SaveItemInStorage("Advice_RANDOM_NUMBER_Sagittarius", random.toString())
         await setRandomAdvice(getRandomAdvice(random));
 
       }else{
@@ -5571,11 +5574,11 @@ function HoroscopeSagittarius({}) {
         let random = Math.floor((Math.random() * adviceArray.length))
         console.log("One day has passed, getting new horoscope")
         await setRandomAdvice(getRandomAdvice(random));
-        await SaveItemInStorage("Advice_RANDOM_TIMER", currentDate.toString())
-        await SaveItemInStorage("Advice_RANDOM_NUMBER", random.toString())
+        await SaveItemInStorage("Advice_RANDOM_TIMER_Sagittarius", currentDate.toString())
+        await SaveItemInStorage("Advice_RANDOM_NUMBER_Sagittarius", random.toString())
       }else{
         console.log("One day has not passed, will not reset the current horoscope")
-        let getOldRandomNumber = await GetItemInStorage("Advice_RANDOM_NUMBER")
+        let getOldRandomNumber = await GetItemInStorage("Advice_RANDOM_NUMBER_Sagittarius")
         await setRandomAdvice(getRandomAdvice(getOldRandomNumber));
         // Display previous horoscope.
       }
@@ -5721,7 +5724,6 @@ function HoroscopeSagittarius({}) {
 
 
 //horoscope Taurus
-
 function HoroscopeTaurus({}) {
   const navigation = useNavigation();
   const [randHoroscope, setRandomHoroscope] = useState('');
@@ -5760,12 +5762,12 @@ function HoroscopeTaurus({}) {
   const HoroscopeRandomizer = async () =>{
 
               // Async storage, Key , Date
-    const randomHoroscope = await GetItemInStorage("HOROSCOPE_RANDOM_TIMER");
+    const randomHoroscope = await GetItemInStorage("HOROSCOPE_RANDOM_TIMER_Taurus");
     console.log(randomHoroscope)
     if(!randomHoroscope){
-      await SaveItemInStorage("HOROSCOPE_RANDOM_TIMER", new Date().getTime().toString())
+      await SaveItemInStorage("HOROSCOPE_RANDOM_TIMER_Taurus", new Date().getTime().toString())
       let random = Math.floor((Math.random() * horoscopeArray.length))
-      await SaveItemInStorage("HOROSCOPE_RANDOM_NUMBER", random.toString())
+      await SaveItemInStorage("HOROSCOPE_RANDOM_NUMBER_Taurus", random.toString())
       await setRandomHoroscope(getRandomHoroscope(random));
       
     }else{
@@ -5784,11 +5786,11 @@ function HoroscopeTaurus({}) {
         let random = Math.floor((Math.random() * horoscopeArray.length))
         console.log("One day has passed, getting new horoscope")
         await setRandomHoroscope(getRandomHoroscope(random));
-        await SaveItemInStorage("HOROSCOPE_RANDOM_TIMER", currentDate.toString())
-        await SaveItemInStorage("HOROSCOPE_RANDOM_NUMBER", random.toString())
+        await SaveItemInStorage("HOROSCOPE_RANDOM_TIMER_Taurus", currentDate.toString())
+        await SaveItemInStorage("HOROSCOPE_RANDOM_NUMBER_Taurus", random.toString())
       }else{
         console.log("One day has not passed, will not reset the current horoscope")
-        let getOldRandomNumber = await GetItemInStorage("HOROSCOPE_RANDOM_NUMBER")
+        let getOldRandomNumber = await GetItemInStorage("HOROSCOPE_RANDOM_NUMBER_Taurus")
         await setRandomHoroscope(getRandomHoroscope(parseInt(getOldRandomNumber)));
         // Display previous horoscope.
       }
@@ -5801,12 +5803,12 @@ function HoroscopeTaurus({}) {
   const NumberRandomizer = async () =>{
 
       // Async storage, Key , Date
-    const randomNumber = await GetItemInStorage("NUMBER_RANDOM_TIMER");
+    const randomNumber = await GetItemInStorage("NUMBER_RANDOM_TIMER_Taurus");
     if(!randomNumber){
-      await SaveItemInStorage("NUMBER_RANDOM_TIMER", new Date().getTime().toString())
+      await SaveItemInStorage("NUMBER_RANDOM_TIMER_Taurus", new Date().getTime().toString())
       let random = Math.floor((Math.random() * numbersArray.length))
-      await SaveItemInStorage("NUMBER_RANDOM_NUMBER", random.toString())
-      await setRandomnNumber(getRandomNumber(random));
+      await SaveItemInStorage("NUMBER_RANDOM_NUMBER_Taurus", random.toString())
+      await setRandomNumber(getRandomNumber(random));
 
     }else{
       let currentDate = parseInt(new Date().getTime().toString());
@@ -5822,12 +5824,12 @@ function HoroscopeTaurus({}) {
         let random = Math.floor((Math.random() * numbersArray.length))
         console.log("One day has passed, getting new horoscope")
         await setRandomNumber(getRandomNumber(random));
-        await SaveItemInStorage("NUMBER_RANDOM_TIMER", currentDate.toString())
-        await SaveItemInStorage("NUMBER_RANDOM_NUMBER", random.toString())
+        await SaveItemInStorage("NUMBER_RANDOM_TIMER_Taurus", currentDate.toString())
+        await SaveItemInStorage("NUMBER_RANDOM_NUMBER_Taurus", random.toString())
       }
       else{
         console.log("One day has not passed, will not reset the current horoscope")
-        let getOldRandomNumber = await GetItemInStorage("NUMBER_RANDOM_NUMBER")
+        let getOldRandomNumber = await GetItemInStorage("NUMBER_RANDOM_NUMBER_Taurus")
         await setRandomNumber(getRandomNumber(getOldRandomNumber));
         // Display previous horoscope.
       }
@@ -5839,12 +5841,12 @@ function HoroscopeTaurus({}) {
   const Word2Randomizer = async () =>{
 
         // Async storage, Key , Date
-      const randomWord2 = await GetItemInStorage("WORD2_RANDOM_TIMER");
+      const randomWord2 = await GetItemInStorage("WORD2_RANDOM_TIMER_Taurus");
       console.log(randomWord2)
       if(!randomWord2){
-        await SaveItemInStorage("WORD2_RANDOM_TIMER", new Date().getTime().toString())
+        await SaveItemInStorage("WORD2_RANDOM_TIMER_Taurus", new Date().getTime().toString())
         let random = Math.floor((Math.random() * wordsArray.length))
-        await SaveItemInStorage("WORD2_RANDOM_NUMBER", random.toString())
+        await SaveItemInStorage("WORD2_RANDOM_NUMBER_Taurus", random.toString())
         await setRandomWord2(getRandomWord2(random));
 
       }else{
@@ -5862,12 +5864,12 @@ function HoroscopeTaurus({}) {
         // Grab a random number
         let random = Math.floor((Math.random() * wordsArray.length))
         console.log("One day has passed, getting new horoscope")
-        await SaveItemInStorage("WORD2_RANDOM_TIMER", currentDate.toString())
-        await SaveItemInStorage("WORD2_RANDOM_NUMBER", random.toString())
+        await SaveItemInStorage("WORD2_RANDOM_TIMER_Taurus", currentDate.toString())
+        await SaveItemInStorage("WORD2_RANDOM_NUMBER_Taurus", random.toString())
         await setRandomWord2(getRandomWord2(random));
       }else{
         console.log("One day has not passed, will not reset the current horoscope")
-        let getOldRandomNumber = await GetItemInStorage("WORD2_RANDOM_NUMBER")
+        let getOldRandomNumber = await GetItemInStorage("WORD2_RANDOM_NUMBER_Taurus")
         await setRandomWord2(getRandomWord2(getOldRandomNumber));
       // Display previous horoscope.
       }
@@ -5878,12 +5880,12 @@ function HoroscopeTaurus({}) {
   const Word3Randomizer = async () =>{
 
       // Async storage, Key , Date
-    const randomWord3 = await GetItemInStorage("WORD3_RANDOM_TIMER");
+    const randomWord3 = await GetItemInStorage("WORD3_RANDOM_TIMER_Taurus");
     console.log(randomWord3)
     if(!randomWord3){
-      await SaveItemInStorage("WORD3_RANDOM_TIMER", new Date().getTime().toString())
+      await SaveItemInStorage("WORD3_RANDOM_TIMER_Taurus", new Date().getTime().toString())
       let random = Math.floor((Math.random() * wordsArray.length))
-      await SaveItemInStorage("WORD3_RANDOM_NUMBER", random.toString())
+      await SaveItemInStorage("WORD3_RANDOM_NUMBER_Taurus", random.toString())
       await setRandomWord3(getRandomWord3(random));
 
     }else{
@@ -5902,11 +5904,11 @@ function HoroscopeTaurus({}) {
       let random = Math.floor((Math.random() * wordsArray.length))
       console.log("One day has passed, getting new horoscope")
       await setRandomWord2(getRandomWord3(random));
-      await SaveItemInStorage("WORD3_RANDOM_TIMER", currentDate.toString())
-      await SaveItemInStorage("WORD3_RANDOM_NUMBER", random.toString())
+      await SaveItemInStorage("WORD3_RANDOM_TIMER_Taurus", currentDate.toString())
+      await SaveItemInStorage("WORD3_RANDOM_NUMBER_Taurus", random.toString())
     }else{
       console.log("One day has not passed, will not reset the current horoscope")
-      let getOldRandomNumber = await GetItemInStorage("WORD3_RANDOM_NUMBER")
+      let getOldRandomNumber = await GetItemInStorage("WORD3_RANDOM_NUMBER_Taurus")
       await setRandomWord3(getRandomWord3(getOldRandomNumber));
       // Display previous horoscope.
       }
@@ -5916,12 +5918,12 @@ function HoroscopeTaurus({}) {
   const Word4Randomizer = async () =>{
 
       // Async storage, Key , Date
-    const randomWord4 = await GetItemInStorage("WORD4_RANDOM_TIMER");
+    const randomWord4 = await GetItemInStorage("WORD4_RANDOM_TIMER_Taurus");
     console.log(randomWord4)
     if(!randomWord4){
-      await SaveItemInStorage("WORD4_RANDOM_TIMER", new Date().getTime().toString())
+      await SaveItemInStorage("WORD4_RANDOM_TIMER_Taurus", new Date().getTime().toString())
       let random = Math.floor((Math.random() * wordsArray.length))
-      await SaveItemInStorage("WORD4_RANDOM_NUMBER", random.toString())
+      await SaveItemInStorage("WORD4_RANDOM_NUMBER_Taurus", random.toString())
       await setRandomWord4(getRandomWord4(random));
 
     }else{
@@ -5940,11 +5942,11 @@ function HoroscopeTaurus({}) {
       let random = Math.floor((Math.random() * wordsArray.length))
       console.log("One day has passed, getting new horoscope")
       await setRandomWord4(getRandomWord4(random));
-      await SaveItemInStorage("WORD4_RANDOM_TIMER", currentDate.toString())
-      await SaveItemInStorage("WORD4_RANDOM_NUMBER", random.toString())
+      await SaveItemInStorage("WORD4_RANDOM_TIMER_Taurus", currentDate.toString())
+      await SaveItemInStorage("WORD4_RANDOM_NUMBER_Taurus", random.toString())
     }else{
       console.log("One day has not passed, will not reset the current horoscope")
-      let getOldRandomNumber = await GetItemInStorage("WORD4_RANDOM_NUMBER")
+      let getOldRandomNumber = await GetItemInStorage("WORD4_RANDOM_NUMBER_Taurus")
       await setRandomWord4(getRandomWord4(getOldRandomNumber));
     // Display previous horoscope.
       }
@@ -5955,13 +5957,13 @@ function HoroscopeTaurus({}) {
   const LetterRandomizer = async () =>{
 
     // Async storage, Key , Date
-  const randomLetter = await GetItemInStorage("Letter_RANDOM_TIMER");
+  const randomLetter = await GetItemInStorage("Letter_RANDOM_TIMER_Taurus");
     console.log(randomLetter)
     if(!randomLetter){
-      await SaveItemInStorage("Letter_RANDOM_TIMER", new Date().getTime().toString())
+      await SaveItemInStorage("Letter_RANDOM_TIMER_Taurus", new Date().getTime().toString())
       let random = Math.floor((Math.random() * lettersArray.length))
-      await SaveItemInStorage("Letter_RANDOM_NUMBER", random.toString())
-      await setLetter(getLetter(random));
+      await SaveItemInStorage("Letter_RANDOM_NUMBER_Taurus", random.toString())
+      await setRandomLetter(getRandomLetter(random));
 
     }else{
 
@@ -5978,11 +5980,11 @@ function HoroscopeTaurus({}) {
         let random = Math.floor((Math.random() * lettersArray.length))
         console.log("One day has passed, getting new horoscope")
         await setRandomLetter(getRandomLetter(random));
-        await SaveItemInStorage("Letter_RANDOM_TIMER", currentDate.toString())
-        await SaveItemInStorage("Letter_RANDOM_NUMBER", random.toString())
+        await SaveItemInStorage("Letter_RANDOM_TIMER_Taurus", currentDate.toString())
+        await SaveItemInStorage("Letter_RANDOM_NUMBER_Taurus", random.toString())
       }else{
         console.log("One day has not passed, will not reset the current horoscope")
-        let getOldRandomNumber = await GetItemInStorage("Letter_RANDOM_NUMBER")
+        let getOldRandomNumber = await GetItemInStorage("Letter_RANDOM_NUMBER_Taurus")
         await setRandomLetter(getRandomLetter(getOldRandomNumber));
     // Display previous horoscope.
       }
@@ -5992,12 +5994,12 @@ function HoroscopeTaurus({}) {
   const ThanksRandomizer = async () =>{
 
         // Async storage, Key , Date
-      const randomThanks = await GetItemInStorage("Thanks_RANDOM_TIMER");
+      const randomThanks = await GetItemInStorage("Thanks_RANDOM_TIMER_Taurus");
       console.log(randomThanks)
       if(!randomThanks){
-        await SaveItemInStorage("Thanks_RANDOM_TIMER", new Date().getTime().toString())
+        await SaveItemInStorage("Thanks_RANDOM_TIMER_Taurus", new Date().getTime().toString())
         let random = Math.floor((Math.random() * thanksArray.length))
-        await SaveItemInStorage("Thanks_RANDOM_NUMBER", random.toString())
+        await SaveItemInStorage("Thanks_RANDOM_NUMBER_Taurus", random.toString())
         await setRandomThanks(getRandomThanks(random));
 
       }else{
@@ -6015,11 +6017,11 @@ function HoroscopeTaurus({}) {
         let random = Math.floor((Math.random() * thanksArray.length))
         console.log("One day has passed, getting new horoscope")
         await setRandomThanks(getRandomThanks(random));
-        await SaveItemInStorage("Thanks_RANDOM_TIMER", currentDate.toString())
-        await SaveItemInStorage("Thanks_RANDOM_NUMBER", random.toString())
+        await SaveItemInStorage("Thanks_RANDOM_TIMER_Taurus", currentDate.toString())
+        await SaveItemInStorage("Thanks_RANDOM_NUMBER_Taurus", random.toString())
       }else{
         console.log("One day has not passed, will not reset the current horoscope")
-        let getOldRandomNumber = await GetItemInStorage("Thanks_RANDOM_NUMBER")
+        let getOldRandomNumber = await GetItemInStorage("Thanks_RANDOM_NUMBER_Taurus")
         await setRandomThanks(getRandomThanks(getOldRandomNumber));
         // Display previous horoscope.
       }
@@ -6028,12 +6030,12 @@ function HoroscopeTaurus({}) {
 
   const AdviceRandomizer = async () =>{
     // Async storage, Key , Date
-      const randomAdvice = await GetItemInStorage("Advice_RANDOM_TIMER");
+      const randomAdvice = await GetItemInStorage("Advice_RANDOM_TIMER_Taurus");
       console.log(randomAdvice)
       if(!randomAdvice){
-        await SaveItemInStorage("Advice_RANDOM_TIMER", new Date().getTime().toString())
+        await SaveItemInStorage("Advice_RANDOM_TIMER_Taurus", new Date().getTime().toString())
         let random = Math.floor((Math.random() * adviceArray.length))
-        await SaveItemInStorage("Advice_RANDOM_NUMBER", random.toString())
+        await SaveItemInStorage("Advice_RANDOM_NUMBER_Taurus", random.toString())
         await setRandomAdvice(getRandomAdvice(random));
 
       }else{
@@ -6051,11 +6053,11 @@ function HoroscopeTaurus({}) {
         let random = Math.floor((Math.random() * adviceArray.length))
         console.log("One day has passed, getting new horoscope")
         await setRandomAdvice(getRandomAdvice(random));
-        await SaveItemInStorage("Advice_RANDOM_TIMER", currentDate.toString())
-        await SaveItemInStorage("Advice_RANDOM_NUMBER", random.toString())
+        await SaveItemInStorage("Advice_RANDOM_TIMER_Taurus", currentDate.toString())
+        await SaveItemInStorage("Advice_RANDOM_NUMBER_Taurus", random.toString())
       }else{
         console.log("One day has not passed, will not reset the current horoscope")
-        let getOldRandomNumber = await GetItemInStorage("Advice_RANDOM_NUMBER")
+        let getOldRandomNumber = await GetItemInStorage("Advice_RANDOM_NUMBER_Taurus")
         await setRandomAdvice(getRandomAdvice(getOldRandomNumber));
         // Display previous horoscope.
       }
@@ -6198,8 +6200,8 @@ function HoroscopeTaurus({}) {
 
 } 
 }
-//horoscope Virgo
 
+//horoscope Virgo
 function HoroscopeVirgo({}) {
   const navigation = useNavigation();
   const [randHoroscope, setRandomHoroscope] = useState('');
@@ -6238,12 +6240,12 @@ function HoroscopeVirgo({}) {
   const HoroscopeRandomizer = async () =>{
 
               // Async storage, Key , Date
-    const randomHoroscope = await GetItemInStorage("HOROSCOPE_RANDOM_TIMER");
+    const randomHoroscope = await GetItemInStorage("HOROSCOPE_RANDOM_TIMER_Virgo");
     console.log(randomHoroscope)
     if(!randomHoroscope){
-      await SaveItemInStorage("HOROSCOPE_RANDOM_TIMER", new Date().getTime().toString())
+      await SaveItemInStorage("HOROSCOPE_RANDOM_TIMER_Virgo", new Date().getTime().toString())
       let random = Math.floor((Math.random() * horoscopeArray.length))
-      await SaveItemInStorage("HOROSCOPE_RANDOM_NUMBER", random.toString())
+      await SaveItemInStorage("HOROSCOPE_RANDOM_NUMBER_Virgo", random.toString())
       await setRandomHoroscope(getRandomHoroscope(random));
       
     }else{
@@ -6262,11 +6264,11 @@ function HoroscopeVirgo({}) {
         let random = Math.floor((Math.random() * horoscopeArray.length))
         console.log("One day has passed, getting new horoscope")
         await setRandomHoroscope(getRandomHoroscope(random));
-        await SaveItemInStorage("HOROSCOPE_RANDOM_TIMER", currentDate.toString())
-        await SaveItemInStorage("HOROSCOPE_RANDOM_NUMBER", random.toString())
+        await SaveItemInStorage("HOROSCOPE_RANDOM_TIMER_Virgo", currentDate.toString())
+        await SaveItemInStorage("HOROSCOPE_RANDOM_NUMBER_Virgo", random.toString())
       }else{
         console.log("One day has not passed, will not reset the current horoscope")
-        let getOldRandomNumber = await GetItemInStorage("HOROSCOPE_RANDOM_NUMBER")
+        let getOldRandomNumber = await GetItemInStorage("HOROSCOPE_RANDOM_NUMBER_Virgo")
         await setRandomHoroscope(getRandomHoroscope(parseInt(getOldRandomNumber)));
         // Display previous horoscope.
       }
@@ -6279,12 +6281,12 @@ function HoroscopeVirgo({}) {
   const NumberRandomizer = async () =>{
 
       // Async storage, Key , Date
-    const randomNumber = await GetItemInStorage("NUMBER_RANDOM_TIMER");
+    const randomNumber = await GetItemInStorage("NUMBER_RANDOM_TIMER_Virgo");
     if(!randomNumber){
-      await SaveItemInStorage("NUMBER_RANDOM_TIMER", new Date().getTime().toString())
+      await SaveItemInStorage("NUMBER_RANDOM_TIMER_Virgo", new Date().getTime().toString())
       let random = Math.floor((Math.random() * numbersArray.length))
-      await SaveItemInStorage("NUMBER_RANDOM_NUMBER", random.toString())
-      await setRandomnNumber(getRandomNumber(random));
+      await SaveItemInStorage("NUMBER_RANDOM_NUMBER_Virgo", random.toString())
+      await setRandomNumber(getRandomNumber(random));
 
     }else{
       let currentDate = parseInt(new Date().getTime().toString());
@@ -6300,12 +6302,12 @@ function HoroscopeVirgo({}) {
         let random = Math.floor((Math.random() * numbersArray.length))
         console.log("One day has passed, getting new horoscope")
         await setRandomNumber(getRandomNumber(random));
-        await SaveItemInStorage("NUMBER_RANDOM_TIMER", currentDate.toString())
-        await SaveItemInStorage("NUMBER_RANDOM_NUMBER", random.toString())
+        await SaveItemInStorage("NUMBER_RANDOM_TIMER_Virgo", currentDate.toString())
+        await SaveItemInStorage("NUMBER_RANDOM_NUMBER_Virgo", random.toString())
       }
       else{
         console.log("One day has not passed, will not reset the current horoscope")
-        let getOldRandomNumber = await GetItemInStorage("NUMBER_RANDOM_NUMBER")
+        let getOldRandomNumber = await GetItemInStorage("NUMBER_RANDOM_NUMBER_Virgo")
         await setRandomNumber(getRandomNumber(getOldRandomNumber));
         // Display previous horoscope.
       }
@@ -6317,12 +6319,12 @@ function HoroscopeVirgo({}) {
   const Word2Randomizer = async () =>{
 
         // Async storage, Key , Date
-      const randomWord2 = await GetItemInStorage("WORD2_RANDOM_TIMER");
+      const randomWord2 = await GetItemInStorage("WORD2_RANDOM_TIMER_Virgo");
       console.log(randomWord2)
       if(!randomWord2){
-        await SaveItemInStorage("WORD2_RANDOM_TIMER", new Date().getTime().toString())
+        await SaveItemInStorage("WORD2_RANDOM_TIMER_Virgo", new Date().getTime().toString())
         let random = Math.floor((Math.random() * wordsArray.length))
-        await SaveItemInStorage("WORD2_RANDOM_NUMBER", random.toString())
+        await SaveItemInStorage("WORD2_RANDOM_NUMBER_Virgo", random.toString())
         await setRandomWord2(getRandomWord2(random));
 
       }else{
@@ -6340,12 +6342,12 @@ function HoroscopeVirgo({}) {
         // Grab a random number
         let random = Math.floor((Math.random() * wordsArray.length))
         console.log("One day has passed, getting new horoscope")
-        await SaveItemInStorage("WORD2_RANDOM_TIMER", currentDate.toString())
-        await SaveItemInStorage("WORD2_RANDOM_NUMBER", random.toString())
+        await SaveItemInStorage("WORD2_RANDOM_TIMER_Virgo", currentDate.toString())
+        await SaveItemInStorage("WORD2_RANDOM_NUMBER_Virgo", random.toString())
         await setRandomWord2(getRandomWord2(random));
       }else{
         console.log("One day has not passed, will not reset the current horoscope")
-        let getOldRandomNumber = await GetItemInStorage("WORD2_RANDOM_NUMBER")
+        let getOldRandomNumber = await GetItemInStorage("WORD2_RANDOM_NUMBER_Virgo")
         await setRandomWord2(getRandomWord2(getOldRandomNumber));
       // Display previous horoscope.
       }
@@ -6356,12 +6358,12 @@ function HoroscopeVirgo({}) {
   const Word3Randomizer = async () =>{
 
       // Async storage, Key , Date
-    const randomWord3 = await GetItemInStorage("WORD3_RANDOM_TIMER");
+    const randomWord3 = await GetItemInStorage("WORD3_RANDOM_TIMER_Virgo");
     console.log(randomWord3)
     if(!randomWord3){
-      await SaveItemInStorage("WORD3_RANDOM_TIMER", new Date().getTime().toString())
+      await SaveItemInStorage("WORD3_RANDOM_TIMER_Virgo", new Date().getTime().toString())
       let random = Math.floor((Math.random() * wordsArray.length))
-      await SaveItemInStorage("WORD3_RANDOM_NUMBER", random.toString())
+      await SaveItemInStorage("WORD3_RANDOM_NUMBER_Virgo", random.toString())
       await setRandomWord3(getRandomWord3(random));
 
     }else{
@@ -6380,11 +6382,11 @@ function HoroscopeVirgo({}) {
       let random = Math.floor((Math.random() * wordsArray.length))
       console.log("One day has passed, getting new horoscope")
       await setRandomWord2(getRandomWord3(random));
-      await SaveItemInStorage("WORD3_RANDOM_TIMER", currentDate.toString())
-      await SaveItemInStorage("WORD3_RANDOM_NUMBER", random.toString())
+      await SaveItemInStorage("WORD3_RANDOM_TIMER_Virgo", currentDate.toString())
+      await SaveItemInStorage("WORD3_RANDOM_NUMBER_Virgo", random.toString())
     }else{
       console.log("One day has not passed, will not reset the current horoscope")
-      let getOldRandomNumber = await GetItemInStorage("WORD3_RANDOM_NUMBER")
+      let getOldRandomNumber = await GetItemInStorage("WORD3_RANDOM_NUMBER_Virgo")
       await setRandomWord3(getRandomWord3(getOldRandomNumber));
       // Display previous horoscope.
       }
@@ -6394,12 +6396,12 @@ function HoroscopeVirgo({}) {
   const Word4Randomizer = async () =>{
 
       // Async storage, Key , Date
-    const randomWord4 = await GetItemInStorage("WORD4_RANDOM_TIMER");
+    const randomWord4 = await GetItemInStorage("WORD4_RANDOM_TIMER_Virgo");
     console.log(randomWord4)
     if(!randomWord4){
-      await SaveItemInStorage("WORD4_RANDOM_TIMER", new Date().getTime().toString())
+      await SaveItemInStorage("WORD4_RANDOM_TIMER_Virgo", new Date().getTime().toString())
       let random = Math.floor((Math.random() * wordsArray.length))
-      await SaveItemInStorage("WORD4_RANDOM_NUMBER", random.toString())
+      await SaveItemInStorage("WORD4_RANDOM_NUMBER_Virgo", random.toString())
       await setRandomWord4(getRandomWord4(random));
 
     }else{
@@ -6418,11 +6420,11 @@ function HoroscopeVirgo({}) {
       let random = Math.floor((Math.random() * wordsArray.length))
       console.log("One day has passed, getting new horoscope")
       await setRandomWord4(getRandomWord4(random));
-      await SaveItemInStorage("WORD4_RANDOM_TIMER", currentDate.toString())
-      await SaveItemInStorage("WORD4_RANDOM_NUMBER", random.toString())
+      await SaveItemInStorage("WORD4_RANDOM_TIMER_Virgo", currentDate.toString())
+      await SaveItemInStorage("WORD4_RANDOM_NUMBER_Virgo", random.toString())
     }else{
       console.log("One day has not passed, will not reset the current horoscope")
-      let getOldRandomNumber = await GetItemInStorage("WORD4_RANDOM_NUMBER")
+      let getOldRandomNumber = await GetItemInStorage("WORD4_RANDOM_NUMBER_Virgo")
       await setRandomWord4(getRandomWord4(getOldRandomNumber));
     // Display previous horoscope.
       }
@@ -6433,13 +6435,13 @@ function HoroscopeVirgo({}) {
   const LetterRandomizer = async () =>{
 
     // Async storage, Key , Date
-  const randomLetter = await GetItemInStorage("Letter_RANDOM_TIMER");
+  const randomLetter = await GetItemInStorage("Letter_RANDOM_TIMER_Virgo");
     console.log(randomLetter)
     if(!randomLetter){
-      await SaveItemInStorage("Letter_RANDOM_TIMER", new Date().getTime().toString())
+      await SaveItemInStorage("Letter_RANDOM_TIMER_Virgo", new Date().getTime().toString())
       let random = Math.floor((Math.random() * lettersArray.length))
-      await SaveItemInStorage("Letter_RANDOM_NUMBER", random.toString())
-      await setLetter(getLetter(random));
+      await SaveItemInStorage("Letter_RANDOM_NUMBER_Virgo", random.toString())
+      await setRandomLetter(getRandomLetter(random));
 
     }else{
 
@@ -6456,11 +6458,11 @@ function HoroscopeVirgo({}) {
         let random = Math.floor((Math.random() * lettersArray.length))
         console.log("One day has passed, getting new horoscope")
         await setRandomLetter(getRandomLetter(random));
-        await SaveItemInStorage("Letter_RANDOM_TIMER", currentDate.toString())
-        await SaveItemInStorage("Letter_RANDOM_NUMBER", random.toString())
+        await SaveItemInStorage("Letter_RANDOM_TIMER_Virgo", currentDate.toString())
+        await SaveItemInStorage("Letter_RANDOM_NUMBER_Virgo", random.toString())
       }else{
         console.log("One day has not passed, will not reset the current horoscope")
-        let getOldRandomNumber = await GetItemInStorage("Letter_RANDOM_NUMBER")
+        let getOldRandomNumber = await GetItemInStorage("Letter_RANDOM_NUMBER_Virgo")
         await setRandomLetter(getRandomLetter(getOldRandomNumber));
     // Display previous horoscope.
       }
@@ -6470,12 +6472,12 @@ function HoroscopeVirgo({}) {
   const ThanksRandomizer = async () =>{
 
         // Async storage, Key , Date
-      const randomThanks = await GetItemInStorage("Thanks_RANDOM_TIMER");
+      const randomThanks = await GetItemInStorage("Thanks_RANDOM_TIMER_Virgo");
       console.log(randomThanks)
       if(!randomThanks){
-        await SaveItemInStorage("Thanks_RANDOM_TIMER", new Date().getTime().toString())
+        await SaveItemInStorage("Thanks_RANDOM_TIMER_Virgo", new Date().getTime().toString())
         let random = Math.floor((Math.random() * thanksArray.length))
-        await SaveItemInStorage("Thanks_RANDOM_NUMBER", random.toString())
+        await SaveItemInStorage("Thanks_RANDOM_NUMBER_Virgo", random.toString())
         await setRandomThanks(getRandomThanks(random));
 
       }else{
@@ -6493,11 +6495,11 @@ function HoroscopeVirgo({}) {
         let random = Math.floor((Math.random() * thanksArray.length))
         console.log("One day has passed, getting new horoscope")
         await setRandomThanks(getRandomThanks(random));
-        await SaveItemInStorage("Thanks_RANDOM_TIMER", currentDate.toString())
-        await SaveItemInStorage("Thanks_RANDOM_NUMBER", random.toString())
+        await SaveItemInStorage("Thanks_RANDOM_TIMER_Virgo", currentDate.toString())
+        await SaveItemInStorage("Thanks_RANDOM_NUMBER_Virgo", random.toString())
       }else{
         console.log("One day has not passed, will not reset the current horoscope")
-        let getOldRandomNumber = await GetItemInStorage("Thanks_RANDOM_NUMBER")
+        let getOldRandomNumber = await GetItemInStorage("Thanks_RANDOM_NUMBER_Virgo")
         await setRandomThanks(getRandomThanks(getOldRandomNumber));
         // Display previous horoscope.
       }
@@ -6506,12 +6508,12 @@ function HoroscopeVirgo({}) {
 
   const AdviceRandomizer = async () =>{
     // Async storage, Key , Date
-      const randomAdvice = await GetItemInStorage("Advice_RANDOM_TIMER");
+      const randomAdvice = await GetItemInStorage("Advice_RANDOM_TIMER_Virgo");
       console.log(randomAdvice)
       if(!randomAdvice){
-        await SaveItemInStorage("Advice_RANDOM_TIMER", new Date().getTime().toString())
+        await SaveItemInStorage("Advice_RANDOM_TIMER_Virgo", new Date().getTime().toString())
         let random = Math.floor((Math.random() * adviceArray.length))
-        await SaveItemInStorage("Advice_RANDOM_NUMBER", random.toString())
+        await SaveItemInStorage("Advice_RANDOM_NUMBER_Virgo", random.toString())
         await setRandomAdvice(getRandomAdvice(random));
 
       }else{
@@ -6529,11 +6531,11 @@ function HoroscopeVirgo({}) {
         let random = Math.floor((Math.random() * adviceArray.length))
         console.log("One day has passed, getting new horoscope")
         await setRandomAdvice(getRandomAdvice(random));
-        await SaveItemInStorage("Advice_RANDOM_TIMER", currentDate.toString())
-        await SaveItemInStorage("Advice_RANDOM_NUMBER", random.toString())
+        await SaveItemInStorage("Advice_RANDOM_TIMER_Virgo", currentDate.toString())
+        await SaveItemInStorage("Advice_RANDOM_NUMBER_Virgo", random.toString())
       }else{
         console.log("One day has not passed, will not reset the current horoscope")
-        let getOldRandomNumber = await GetItemInStorage("Advice_RANDOM_NUMBER")
+        let getOldRandomNumber = await GetItemInStorage("Advice_RANDOM_NUMBER_Virgo")
         await setRandomAdvice(getRandomAdvice(getOldRandomNumber));
         // Display previous horoscope.
       }
@@ -6679,7 +6681,6 @@ function HoroscopeVirgo({}) {
 
 
 //horoscope Gemini
-
 function HoroscopeGemini({}) {
   const navigation = useNavigation();
   const [randHoroscope, setRandomHoroscope] = useState('');
@@ -6718,12 +6719,12 @@ function HoroscopeGemini({}) {
   const HoroscopeRandomizer = async () =>{
 
               // Async storage, Key , Date
-    const randomHoroscope = await GetItemInStorage("HOROSCOPE_RANDOM_TIMER");
+    const randomHoroscope = await GetItemInStorage("HOROSCOPE_RANDOM_TIMER_Gemini");
     console.log(randomHoroscope)
     if(!randomHoroscope){
-      await SaveItemInStorage("HOROSCOPE_RANDOM_TIMER", new Date().getTime().toString())
+      await SaveItemInStorage("HOROSCOPE_RANDOM_TIMER_Gemini", new Date().getTime().toString())
       let random = Math.floor((Math.random() * horoscopeArray.length))
-      await SaveItemInStorage("HOROSCOPE_RANDOM_NUMBER", random.toString())
+      await SaveItemInStorage("HOROSCOPE_RANDOM_NUMBER_Gemini", random.toString())
       await setRandomHoroscope(getRandomHoroscope(random));
       
     }else{
@@ -6742,11 +6743,11 @@ function HoroscopeGemini({}) {
         let random = Math.floor((Math.random() * horoscopeArray.length))
         console.log("One day has passed, getting new horoscope")
         await setRandomHoroscope(getRandomHoroscope(random));
-        await SaveItemInStorage("HOROSCOPE_RANDOM_TIMER", currentDate.toString())
-        await SaveItemInStorage("HOROSCOPE_RANDOM_NUMBER", random.toString())
+        await SaveItemInStorage("HOROSCOPE_RANDOM_TIMER_Gemini", currentDate.toString())
+        await SaveItemInStorage("HOROSCOPE_RANDOM_NUMBER_Gemini", random.toString())
       }else{
         console.log("One day has not passed, will not reset the current horoscope")
-        let getOldRandomNumber = await GetItemInStorage("HOROSCOPE_RANDOM_NUMBER")
+        let getOldRandomNumber = await GetItemInStorage("HOROSCOPE_RANDOM_NUMBER_Gemini")
         await setRandomHoroscope(getRandomHoroscope(parseInt(getOldRandomNumber)));
         // Display previous horoscope.
       }
@@ -6759,12 +6760,12 @@ function HoroscopeGemini({}) {
   const NumberRandomizer = async () =>{
 
       // Async storage, Key , Date
-    const randomNumber = await GetItemInStorage("NUMBER_RANDOM_TIMER");
+    const randomNumber = await GetItemInStorage("NUMBER_RANDOM_TIMER_Gemini");
     if(!randomNumber){
-      await SaveItemInStorage("NUMBER_RANDOM_TIMER", new Date().getTime().toString())
+      await SaveItemInStorage("NUMBER_RANDOM_TIMER_Gemini", new Date().getTime().toString())
       let random = Math.floor((Math.random() * numbersArray.length))
-      await SaveItemInStorage("NUMBER_RANDOM_NUMBER", random.toString())
-      await setRandomnNumber(getRandomNumber(random));
+      await SaveItemInStorage("NUMBER_RANDOM_NUMBER_Gemini", random.toString())
+      await setRandomNumber(getRandomNumber(random));
 
     }else{
       let currentDate = parseInt(new Date().getTime().toString());
@@ -6780,12 +6781,12 @@ function HoroscopeGemini({}) {
         let random = Math.floor((Math.random() * numbersArray.length))
         console.log("One day has passed, getting new horoscope")
         await setRandomNumber(getRandomNumber(random));
-        await SaveItemInStorage("NUMBER_RANDOM_TIMER", currentDate.toString())
-        await SaveItemInStorage("NUMBER_RANDOM_NUMBER", random.toString())
+        await SaveItemInStorage("NUMBER_RANDOM_TIMER_Gemini", currentDate.toString())
+        await SaveItemInStorage("NUMBER_RANDOM_NUMBER_Gemini", random.toString())
       }
       else{
         console.log("One day has not passed, will not reset the current horoscope")
-        let getOldRandomNumber = await GetItemInStorage("NUMBER_RANDOM_NUMBER")
+        let getOldRandomNumber = await GetItemInStorage("NUMBER_RANDOM_NUMBER_Gemini")
         await setRandomNumber(getRandomNumber(getOldRandomNumber));
         // Display previous horoscope.
       }
@@ -6797,12 +6798,12 @@ function HoroscopeGemini({}) {
   const Word2Randomizer = async () =>{
 
         // Async storage, Key , Date
-      const randomWord2 = await GetItemInStorage("WORD2_RANDOM_TIMER");
+      const randomWord2 = await GetItemInStorage("WORD2_RANDOM_TIMER_Gemini");
       console.log(randomWord2)
       if(!randomWord2){
-        await SaveItemInStorage("WORD2_RANDOM_TIMER", new Date().getTime().toString())
+        await SaveItemInStorage("WORD2_RANDOM_TIMER_Gemini", new Date().getTime().toString())
         let random = Math.floor((Math.random() * wordsArray.length))
-        await SaveItemInStorage("WORD2_RANDOM_NUMBER", random.toString())
+        await SaveItemInStorage("WORD2_RANDOM_NUMBER_Gemini", random.toString())
         await setRandomWord2(getRandomWord2(random));
 
       }else{
@@ -6820,12 +6821,12 @@ function HoroscopeGemini({}) {
         // Grab a random number
         let random = Math.floor((Math.random() * wordsArray.length))
         console.log("One day has passed, getting new horoscope")
-        await SaveItemInStorage("WORD2_RANDOM_TIMER", currentDate.toString())
-        await SaveItemInStorage("WORD2_RANDOM_NUMBER", random.toString())
+        await SaveItemInStorage("WORD2_RANDOM_TIMER_Gemini", currentDate.toString())
+        await SaveItemInStorage("WORD2_RANDOM_NUMBER_Gemini", random.toString())
         await setRandomWord2(getRandomWord2(random));
       }else{
         console.log("One day has not passed, will not reset the current horoscope")
-        let getOldRandomNumber = await GetItemInStorage("WORD2_RANDOM_NUMBER")
+        let getOldRandomNumber = await GetItemInStorage("WORD2_RANDOM_NUMBER_Gemini")
         await setRandomWord2(getRandomWord2(getOldRandomNumber));
       // Display previous horoscope.
       }
@@ -6836,12 +6837,12 @@ function HoroscopeGemini({}) {
   const Word3Randomizer = async () =>{
 
       // Async storage, Key , Date
-    const randomWord3 = await GetItemInStorage("WORD3_RANDOM_TIMER");
+    const randomWord3 = await GetItemInStorage("WORD3_RANDOM_TIMER_Gemini");
     console.log(randomWord3)
     if(!randomWord3){
-      await SaveItemInStorage("WORD3_RANDOM_TIMER", new Date().getTime().toString())
+      await SaveItemInStorage("WORD3_RANDOM_TIMER_Gemini", new Date().getTime().toString())
       let random = Math.floor((Math.random() * wordsArray.length))
-      await SaveItemInStorage("WORD3_RANDOM_NUMBER", random.toString())
+      await SaveItemInStorage("WORD3_RANDOM_NUMBER_Gemini", random.toString())
       await setRandomWord3(getRandomWord3(random));
 
     }else{
@@ -6860,11 +6861,11 @@ function HoroscopeGemini({}) {
       let random = Math.floor((Math.random() * wordsArray.length))
       console.log("One day has passed, getting new horoscope")
       await setRandomWord2(getRandomWord3(random));
-      await SaveItemInStorage("WORD3_RANDOM_TIMER", currentDate.toString())
-      await SaveItemInStorage("WORD3_RANDOM_NUMBER", random.toString())
+      await SaveItemInStorage("WORD3_RANDOM_TIMER_Gemini", currentDate.toString())
+      await SaveItemInStorage("WORD3_RANDOM_NUMBER_Gemini", random.toString())
     }else{
       console.log("One day has not passed, will not reset the current horoscope")
-      let getOldRandomNumber = await GetItemInStorage("WORD3_RANDOM_NUMBER")
+      let getOldRandomNumber = await GetItemInStorage("WORD3_RANDOM_NUMBER_Gemini")
       await setRandomWord3(getRandomWord3(getOldRandomNumber));
       // Display previous horoscope.
       }
@@ -6874,12 +6875,12 @@ function HoroscopeGemini({}) {
   const Word4Randomizer = async () =>{
 
       // Async storage, Key , Date
-    const randomWord4 = await GetItemInStorage("WORD4_RANDOM_TIMER");
+    const randomWord4 = await GetItemInStorage("WORD4_RANDOM_TIMER_Gemini");
     console.log(randomWord4)
     if(!randomWord4){
-      await SaveItemInStorage("WORD4_RANDOM_TIMER", new Date().getTime().toString())
+      await SaveItemInStorage("WORD4_RANDOM_TIMER_Gemini", new Date().getTime().toString())
       let random = Math.floor((Math.random() * wordsArray.length))
-      await SaveItemInStorage("WORD4_RANDOM_NUMBER", random.toString())
+      await SaveItemInStorage("WORD4_RANDOM_NUMBER_Gemini", random.toString())
       await setRandomWord4(getRandomWord4(random));
 
     }else{
@@ -6898,11 +6899,11 @@ function HoroscopeGemini({}) {
       let random = Math.floor((Math.random() * wordsArray.length))
       console.log("One day has passed, getting new horoscope")
       await setRandomWord4(getRandomWord4(random));
-      await SaveItemInStorage("WORD4_RANDOM_TIMER", currentDate.toString())
-      await SaveItemInStorage("WORD4_RANDOM_NUMBER", random.toString())
+      await SaveItemInStorage("WORD4_RANDOM_TIMER_Gemini", currentDate.toString())
+      await SaveItemInStorage("WORD4_RANDOM_NUMBER_Gemini", random.toString())
     }else{
       console.log("One day has not passed, will not reset the current horoscope")
-      let getOldRandomNumber = await GetItemInStorage("WORD4_RANDOM_NUMBER")
+      let getOldRandomNumber = await GetItemInStorage("WORD4_RANDOM_NUMBER_Gemini")
       await setRandomWord4(getRandomWord4(getOldRandomNumber));
     // Display previous horoscope.
       }
@@ -6913,13 +6914,13 @@ function HoroscopeGemini({}) {
   const LetterRandomizer = async () =>{
 
     // Async storage, Key , Date
-  const randomLetter = await GetItemInStorage("Letter_RANDOM_TIMER");
+  const randomLetter = await GetItemInStorage("Letter_RANDOM_TIMER_Gemini");
     console.log(randomLetter)
     if(!randomLetter){
-      await SaveItemInStorage("Letter_RANDOM_TIMER", new Date().getTime().toString())
+      await SaveItemInStorage("Letter_RANDOM_TIMER_Gemini", new Date().getTime().toString())
       let random = Math.floor((Math.random() * lettersArray.length))
-      await SaveItemInStorage("Letter_RANDOM_NUMBER", random.toString())
-      await setLetter(getLetter(random));
+      await SaveItemInStorage("Letter_RANDOM_NUMBER_Gemini", random.toString())
+      await setRandomLetter(getRandomLetter(random));
 
     }else{
 
@@ -6936,11 +6937,11 @@ function HoroscopeGemini({}) {
         let random = Math.floor((Math.random() * lettersArray.length))
         console.log("One day has passed, getting new horoscope")
         await setRandomLetter(getRandomLetter(random));
-        await SaveItemInStorage("Letter_RANDOM_TIMER", currentDate.toString())
-        await SaveItemInStorage("Letter_RANDOM_NUMBER", random.toString())
+        await SaveItemInStorage("Letter_RANDOM_TIMER_Gemini", currentDate.toString())
+        await SaveItemInStorage("Letter_RANDOM_NUMBER_Gemini", random.toString())
       }else{
         console.log("One day has not passed, will not reset the current horoscope")
-        let getOldRandomNumber = await GetItemInStorage("Letter_RANDOM_NUMBER")
+        let getOldRandomNumber = await GetItemInStorage("Letter_RANDOM_NUMBER_Gemini")
         await setRandomLetter(getRandomLetter(getOldRandomNumber));
     // Display previous horoscope.
       }
@@ -6950,12 +6951,12 @@ function HoroscopeGemini({}) {
   const ThanksRandomizer = async () =>{
 
         // Async storage, Key , Date
-      const randomThanks = await GetItemInStorage("Thanks_RANDOM_TIMER");
+      const randomThanks = await GetItemInStorage("Thanks_RANDOM_TIMER_Gemini");
       console.log(randomThanks)
       if(!randomThanks){
-        await SaveItemInStorage("Thanks_RANDOM_TIMER", new Date().getTime().toString())
+        await SaveItemInStorage("Thanks_RANDOM_TIMER_Gemini", new Date().getTime().toString())
         let random = Math.floor((Math.random() * thanksArray.length))
-        await SaveItemInStorage("Thanks_RANDOM_NUMBER", random.toString())
+        await SaveItemInStorage("Thanks_RANDOM_NUMBER_Gemini", random.toString())
         await setRandomThanks(getRandomThanks(random));
 
       }else{
@@ -6973,11 +6974,11 @@ function HoroscopeGemini({}) {
         let random = Math.floor((Math.random() * thanksArray.length))
         console.log("One day has passed, getting new horoscope")
         await setRandomThanks(getRandomThanks(random));
-        await SaveItemInStorage("Thanks_RANDOM_TIMER", currentDate.toString())
-        await SaveItemInStorage("Thanks_RANDOM_NUMBER", random.toString())
+        await SaveItemInStorage("Thanks_RANDOM_TIMER_Gemini", currentDate.toString())
+        await SaveItemInStorage("Thanks_RANDOM_NUMBER_Gemini", random.toString())
       }else{
         console.log("One day has not passed, will not reset the current horoscope")
-        let getOldRandomNumber = await GetItemInStorage("Thanks_RANDOM_NUMBER")
+        let getOldRandomNumber = await GetItemInStorage("Thanks_RANDOM_NUMBER_Gemini")
         await setRandomThanks(getRandomThanks(getOldRandomNumber));
         // Display previous horoscope.
       }
@@ -6986,12 +6987,12 @@ function HoroscopeGemini({}) {
 
   const AdviceRandomizer = async () =>{
     // Async storage, Key , Date
-      const randomAdvice = await GetItemInStorage("Advice_RANDOM_TIMER");
+      const randomAdvice = await GetItemInStorage("Advice_RANDOM_TIMER_Gemini");
       console.log(randomAdvice)
       if(!randomAdvice){
-        await SaveItemInStorage("Advice_RANDOM_TIMER", new Date().getTime().toString())
+        await SaveItemInStorage("Advice_RANDOM_TIMER_Gemini", new Date().getTime().toString())
         let random = Math.floor((Math.random() * adviceArray.length))
-        await SaveItemInStorage("Advice_RANDOM_NUMBER", random.toString())
+        await SaveItemInStorage("Advice_RANDOM_NUMBER_Gemini", random.toString())
         await setRandomAdvice(getRandomAdvice(random));
 
       }else{
@@ -7009,11 +7010,11 @@ function HoroscopeGemini({}) {
         let random = Math.floor((Math.random() * adviceArray.length))
         console.log("One day has passed, getting new horoscope")
         await setRandomAdvice(getRandomAdvice(random));
-        await SaveItemInStorage("Advice_RANDOM_TIMER", currentDate.toString())
-        await SaveItemInStorage("Advice_RANDOM_NUMBER", random.toString())
+        await SaveItemInStorage("Advice_RANDOM_TIMER_Gemini", currentDate.toString())
+        await SaveItemInStorage("Advice_RANDOM_NUMBER_Gemini", random.toString())
       }else{
         console.log("One day has not passed, will not reset the current horoscope")
-        let getOldRandomNumber = await GetItemInStorage("Advice_RANDOM_NUMBER")
+        let getOldRandomNumber = await GetItemInStorage("Advice_RANDOM_NUMBER_Gemini")
         await setRandomAdvice(getRandomAdvice(getOldRandomNumber));
         // Display previous horoscope.
       }
@@ -7160,12 +7161,7 @@ function HoroscopeGemini({}) {
 }
 
 
-
-
-
-
 //horoscope Capricorn
-
 function HoroscopeCapricorn({}) {
   const navigation = useNavigation();
   const [randHoroscope, setRandomHoroscope] = useState('');
@@ -7204,12 +7200,12 @@ function HoroscopeCapricorn({}) {
   const HoroscopeRandomizer = async () =>{
 
               // Async storage, Key , Date
-    const randomHoroscope = await GetItemInStorage("HOROSCOPE_RANDOM_TIMER");
+    const randomHoroscope = await GetItemInStorage("HOROSCOPE_RANDOM_TIMER_Capricorn");
     console.log(randomHoroscope)
     if(!randomHoroscope){
-      await SaveItemInStorage("HOROSCOPE_RANDOM_TIMER", new Date().getTime().toString())
+      await SaveItemInStorage("HOROSCOPE_RANDOM_TIMER_Capricorn", new Date().getTime().toString())
       let random = Math.floor((Math.random() * horoscopeArray.length))
-      await SaveItemInStorage("HOROSCOPE_RANDOM_NUMBER", random.toString())
+      await SaveItemInStorage("HOROSCOPE_RANDOM_NUMBER_Capricorn", random.toString())
       await setRandomHoroscope(getRandomHoroscope(random));
       
     }else{
@@ -7228,11 +7224,11 @@ function HoroscopeCapricorn({}) {
         let random = Math.floor((Math.random() * horoscopeArray.length))
         console.log("One day has passed, getting new horoscope")
         await setRandomHoroscope(getRandomHoroscope(random));
-        await SaveItemInStorage("HOROSCOPE_RANDOM_TIMER", currentDate.toString())
-        await SaveItemInStorage("HOROSCOPE_RANDOM_NUMBER", random.toString())
+        await SaveItemInStorage("HOROSCOPE_RANDOM_TIMER_Capricorn", currentDate.toString())
+        await SaveItemInStorage("HOROSCOPE_RANDOM_NUMBER_Capricorn", random.toString())
       }else{
         console.log("One day has not passed, will not reset the current horoscope")
-        let getOldRandomNumber = await GetItemInStorage("HOROSCOPE_RANDOM_NUMBER")
+        let getOldRandomNumber = await GetItemInStorage("HOROSCOPE_RANDOM_NUMBER_Capricorn")
         await setRandomHoroscope(getRandomHoroscope(parseInt(getOldRandomNumber)));
         // Display previous horoscope.
       }
@@ -7245,12 +7241,12 @@ function HoroscopeCapricorn({}) {
   const NumberRandomizer = async () =>{
 
       // Async storage, Key , Date
-    const randomNumber = await GetItemInStorage("NUMBER_RANDOM_TIMER");
+    const randomNumber = await GetItemInStorage("NUMBER_RANDOM_TIMER_Capricorn");
     if(!randomNumber){
-      await SaveItemInStorage("NUMBER_RANDOM_TIMER", new Date().getTime().toString())
+      await SaveItemInStorage("NUMBER_RANDOM_TIMER_Capricorn", new Date().getTime().toString())
       let random = Math.floor((Math.random() * numbersArray.length))
-      await SaveItemInStorage("NUMBER_RANDOM_NUMBER", random.toString())
-      await setRandomnNumber(getRandomNumber(random));
+      await SaveItemInStorage("NUMBER_RANDOM_NUMBER_Capricorn", random.toString())
+      await setRandomNumber(getRandomNumber(random));
 
     }else{
       let currentDate = parseInt(new Date().getTime().toString());
@@ -7266,12 +7262,12 @@ function HoroscopeCapricorn({}) {
         let random = Math.floor((Math.random() * numbersArray.length))
         console.log("One day has passed, getting new horoscope")
         await setRandomNumber(getRandomNumber(random));
-        await SaveItemInStorage("NUMBER_RANDOM_TIMER", currentDate.toString())
-        await SaveItemInStorage("NUMBER_RANDOM_NUMBER", random.toString())
+        await SaveItemInStorage("NUMBER_RANDOM_TIMER_Capricorn", currentDate.toString())
+        await SaveItemInStorage("NUMBER_RANDOM_NUMBER_Capricorn", random.toString())
       }
       else{
         console.log("One day has not passed, will not reset the current horoscope")
-        let getOldRandomNumber = await GetItemInStorage("NUMBER_RANDOM_NUMBER")
+        let getOldRandomNumber = await GetItemInStorage("NUMBER_RANDOM_NUMBER_Capricorn")
         await setRandomNumber(getRandomNumber(getOldRandomNumber));
         // Display previous horoscope.
       }
@@ -7283,12 +7279,12 @@ function HoroscopeCapricorn({}) {
   const Word2Randomizer = async () =>{
 
         // Async storage, Key , Date
-      const randomWord2 = await GetItemInStorage("WORD2_RANDOM_TIMER");
+      const randomWord2 = await GetItemInStorage("WORD2_RANDOM_TIMER_Capricorn");
       console.log(randomWord2)
       if(!randomWord2){
-        await SaveItemInStorage("WORD2_RANDOM_TIMER", new Date().getTime().toString())
+        await SaveItemInStorage("WORD2_RANDOM_TIMER_Capricorn", new Date().getTime().toString())
         let random = Math.floor((Math.random() * wordsArray.length))
-        await SaveItemInStorage("WORD2_RANDOM_NUMBER", random.toString())
+        await SaveItemInStorage("WORD2_RANDOM_NUMBER_Capricorn", random.toString())
         await setRandomWord2(getRandomWord2(random));
 
       }else{
@@ -7306,12 +7302,12 @@ function HoroscopeCapricorn({}) {
         // Grab a random number
         let random = Math.floor((Math.random() * wordsArray.length))
         console.log("One day has passed, getting new horoscope")
-        await SaveItemInStorage("WORD2_RANDOM_TIMER", currentDate.toString())
-        await SaveItemInStorage("WORD2_RANDOM_NUMBER", random.toString())
+        await SaveItemInStorage("WORD2_RANDOM_TIMER_Capricorn", currentDate.toString())
+        await SaveItemInStorage("WORD2_RANDOM_NUMBER_Capricorn", random.toString())
         await setRandomWord2(getRandomWord2(random));
       }else{
         console.log("One day has not passed, will not reset the current horoscope")
-        let getOldRandomNumber = await GetItemInStorage("WORD2_RANDOM_NUMBER")
+        let getOldRandomNumber = await GetItemInStorage("WORD2_RANDOM_NUMBER_Capricorn")
         await setRandomWord2(getRandomWord2(getOldRandomNumber));
       // Display previous horoscope.
       }
@@ -7322,12 +7318,12 @@ function HoroscopeCapricorn({}) {
   const Word3Randomizer = async () =>{
 
       // Async storage, Key , Date
-    const randomWord3 = await GetItemInStorage("WORD3_RANDOM_TIMER");
+    const randomWord3 = await GetItemInStorage("WORD3_RANDOM_TIMER_Capricorn");
     console.log(randomWord3)
     if(!randomWord3){
-      await SaveItemInStorage("WORD3_RANDOM_TIMER", new Date().getTime().toString())
+      await SaveItemInStorage("WORD3_RANDOM_TIMER_Capricorn", new Date().getTime().toString())
       let random = Math.floor((Math.random() * wordsArray.length))
-      await SaveItemInStorage("WORD3_RANDOM_NUMBER", random.toString())
+      await SaveItemInStorage("WORD3_RANDOM_NUMBER_Capricorn", random.toString())
       await setRandomWord3(getRandomWord3(random));
 
     }else{
@@ -7346,11 +7342,11 @@ function HoroscopeCapricorn({}) {
       let random = Math.floor((Math.random() * wordsArray.length))
       console.log("One day has passed, getting new horoscope")
       await setRandomWord2(getRandomWord3(random));
-      await SaveItemInStorage("WORD3_RANDOM_TIMER", currentDate.toString())
-      await SaveItemInStorage("WORD3_RANDOM_NUMBER", random.toString())
+      await SaveItemInStorage("WORD3_RANDOM_TIMER_Capricorn", currentDate.toString())
+      await SaveItemInStorage("WORD3_RANDOM_NUMBER_Capricorn", random.toString())
     }else{
       console.log("One day has not passed, will not reset the current horoscope")
-      let getOldRandomNumber = await GetItemInStorage("WORD3_RANDOM_NUMBER")
+      let getOldRandomNumber = await GetItemInStorage("WORD3_RANDOM_NUMBER_Capricorn")
       await setRandomWord3(getRandomWord3(getOldRandomNumber));
       // Display previous horoscope.
       }
@@ -7360,12 +7356,12 @@ function HoroscopeCapricorn({}) {
   const Word4Randomizer = async () =>{
 
       // Async storage, Key , Date
-    const randomWord4 = await GetItemInStorage("WORD4_RANDOM_TIMER");
+    const randomWord4 = await GetItemInStorage("WORD4_RANDOM_TIMER_Capricorn");
     console.log(randomWord4)
     if(!randomWord4){
-      await SaveItemInStorage("WORD4_RANDOM_TIMER", new Date().getTime().toString())
+      await SaveItemInStorage("WORD4_RANDOM_TIMER_Capricorn", new Date().getTime().toString())
       let random = Math.floor((Math.random() * wordsArray.length))
-      await SaveItemInStorage("WORD4_RANDOM_NUMBER", random.toString())
+      await SaveItemInStorage("WORD4_RANDOM_NUMBER_Capricorn", random.toString())
       await setRandomWord4(getRandomWord4(random));
 
     }else{
@@ -7384,11 +7380,11 @@ function HoroscopeCapricorn({}) {
       let random = Math.floor((Math.random() * wordsArray.length))
       console.log("One day has passed, getting new horoscope")
       await setRandomWord4(getRandomWord4(random));
-      await SaveItemInStorage("WORD4_RANDOM_TIMER", currentDate.toString())
-      await SaveItemInStorage("WORD4_RANDOM_NUMBER", random.toString())
+      await SaveItemInStorage("WORD4_RANDOM_TIMER_Capricorn", currentDate.toString())
+      await SaveItemInStorage("WORD4_RANDOM_NUMBER_Capricorn", random.toString())
     }else{
       console.log("One day has not passed, will not reset the current horoscope")
-      let getOldRandomNumber = await GetItemInStorage("WORD4_RANDOM_NUMBER")
+      let getOldRandomNumber = await GetItemInStorage("WORD4_RANDOM_NUMBER_Capricorn")
       await setRandomWord4(getRandomWord4(getOldRandomNumber));
     // Display previous horoscope.
       }
@@ -7399,13 +7395,13 @@ function HoroscopeCapricorn({}) {
   const LetterRandomizer = async () =>{
 
     // Async storage, Key , Date
-  const randomLetter = await GetItemInStorage("Letter_RANDOM_TIMER");
+  const randomLetter = await GetItemInStorage("Letter_RANDOM_TIMER_Capricorn");
     console.log(randomLetter)
     if(!randomLetter){
-      await SaveItemInStorage("Letter_RANDOM_TIMER", new Date().getTime().toString())
+      await SaveItemInStorage("Letter_RANDOM_TIMER_Capricorn", new Date().getTime().toString())
       let random = Math.floor((Math.random() * lettersArray.length))
-      await SaveItemInStorage("Letter_RANDOM_NUMBER", random.toString())
-      await setLetter(getLetter(random));
+      await SaveItemInStorage("Letter_RANDOM_NUMBER_Capricorn", random.toString())
+      await setRandomLetter(getRandomLetter(random));
 
     }else{
 
@@ -7422,11 +7418,11 @@ function HoroscopeCapricorn({}) {
         let random = Math.floor((Math.random() * lettersArray.length))
         console.log("One day has passed, getting new horoscope")
         await setRandomLetter(getRandomLetter(random));
-        await SaveItemInStorage("Letter_RANDOM_TIMER", currentDate.toString())
-        await SaveItemInStorage("Letter_RANDOM_NUMBER", random.toString())
+        await SaveItemInStorage("Letter_RANDOM_TIMER_Capricorn", currentDate.toString())
+        await SaveItemInStorage("Letter_RANDOM_NUMBER_Capricorn", random.toString())
       }else{
         console.log("One day has not passed, will not reset the current horoscope")
-        let getOldRandomNumber = await GetItemInStorage("Letter_RANDOM_NUMBER")
+        let getOldRandomNumber = await GetItemInStorage("Letter_RANDOM_NUMBER_Capricorn")
         await setRandomLetter(getRandomLetter(getOldRandomNumber));
     // Display previous horoscope.
       }
@@ -7436,12 +7432,12 @@ function HoroscopeCapricorn({}) {
   const ThanksRandomizer = async () =>{
 
         // Async storage, Key , Date
-      const randomThanks = await GetItemInStorage("Thanks_RANDOM_TIMER");
+      const randomThanks = await GetItemInStorage("Thanks_RANDOM_TIMER_Capricorn");
       console.log(randomThanks)
       if(!randomThanks){
-        await SaveItemInStorage("Thanks_RANDOM_TIMER", new Date().getTime().toString())
+        await SaveItemInStorage("Thanks_RANDOM_TIMER_Capricorn", new Date().getTime().toString())
         let random = Math.floor((Math.random() * thanksArray.length))
-        await SaveItemInStorage("Thanks_RANDOM_NUMBER", random.toString())
+        await SaveItemInStorage("Thanks_RANDOM_NUMBER_Capricorn", random.toString())
         await setRandomThanks(getRandomThanks(random));
 
       }else{
@@ -7459,11 +7455,11 @@ function HoroscopeCapricorn({}) {
         let random = Math.floor((Math.random() * thanksArray.length))
         console.log("One day has passed, getting new horoscope")
         await setRandomThanks(getRandomThanks(random));
-        await SaveItemInStorage("Thanks_RANDOM_TIMER", currentDate.toString())
-        await SaveItemInStorage("Thanks_RANDOM_NUMBER", random.toString())
+        await SaveItemInStorage("Thanks_RANDOM_TIMER_Capricorn", currentDate.toString())
+        await SaveItemInStorage("Thanks_RANDOM_NUMBER_Capricorn", random.toString())
       }else{
         console.log("One day has not passed, will not reset the current horoscope")
-        let getOldRandomNumber = await GetItemInStorage("Thanks_RANDOM_NUMBER")
+        let getOldRandomNumber = await GetItemInStorage("Thanks_RANDOM_NUMBER_Capricorn")
         await setRandomThanks(getRandomThanks(getOldRandomNumber));
         // Display previous horoscope.
       }
@@ -7472,12 +7468,12 @@ function HoroscopeCapricorn({}) {
 
   const AdviceRandomizer = async () =>{
     // Async storage, Key , Date
-      const randomAdvice = await GetItemInStorage("Advice_RANDOM_TIMER");
+      const randomAdvice = await GetItemInStorage("Advice_RANDOM_TIMER_Capricorn");
       console.log(randomAdvice)
       if(!randomAdvice){
-        await SaveItemInStorage("Advice_RANDOM_TIMER", new Date().getTime().toString())
+        await SaveItemInStorage("Advice_RANDOM_TIMER_Capricorn", new Date().getTime().toString())
         let random = Math.floor((Math.random() * adviceArray.length))
-        await SaveItemInStorage("Advice_RANDOM_NUMBER", random.toString())
+        await SaveItemInStorage("Advice_RANDOM_NUMBER_Capricorn", random.toString())
         await setRandomAdvice(getRandomAdvice(random));
 
       }else{
@@ -7495,11 +7491,11 @@ function HoroscopeCapricorn({}) {
         let random = Math.floor((Math.random() * adviceArray.length))
         console.log("One day has passed, getting new horoscope")
         await setRandomAdvice(getRandomAdvice(random));
-        await SaveItemInStorage("Advice_RANDOM_TIMER", currentDate.toString())
-        await SaveItemInStorage("Advice_RANDOM_NUMBER", random.toString())
+        await SaveItemInStorage("Advice_RANDOM_TIMER_Capricorn", currentDate.toString())
+        await SaveItemInStorage("Advice_RANDOM_NUMBER_Capricorn", random.toString())
       }else{
         console.log("One day has not passed, will not reset the current horoscope")
-        let getOldRandomNumber = await GetItemInStorage("Advice_RANDOM_NUMBER")
+        let getOldRandomNumber = await GetItemInStorage("Advice_RANDOM_NUMBER_Capricorn")
         await setRandomAdvice(getRandomAdvice(getOldRandomNumber));
         // Display previous horoscope.
       }
@@ -7645,11 +7641,7 @@ function HoroscopeCapricorn({}) {
 
 }
 
-
-
-
 //horoscope pisces
-
 function Horoscopepisces({}) {
   const navigation = useNavigation();
   const [randHoroscope, setRandomHoroscope] = useState('');
@@ -7688,12 +7680,12 @@ function Horoscopepisces({}) {
   const HoroscopeRandomizer = async () =>{
 
               // Async storage, Key , Date
-    const randomHoroscope = await GetItemInStorage("HOROSCOPE_RANDOM_TIMER");
+    const randomHoroscope = await GetItemInStorage("HOROSCOPE_RANDOM_TIMER_pisces");
     console.log(randomHoroscope)
     if(!randomHoroscope){
-      await SaveItemInStorage("HOROSCOPE_RANDOM_TIMER", new Date().getTime().toString())
+      await SaveItemInStorage("HOROSCOPE_RANDOM_TIMER_pisces", new Date().getTime().toString())
       let random = Math.floor((Math.random() * horoscopeArray.length))
-      await SaveItemInStorage("HOROSCOPE_RANDOM_NUMBER", random.toString())
+      await SaveItemInStorage("HOROSCOPE_RANDOM_NUMBER_pisces", random.toString())
       await setRandomHoroscope(getRandomHoroscope(random));
       
     }else{
@@ -7712,11 +7704,11 @@ function Horoscopepisces({}) {
         let random = Math.floor((Math.random() * horoscopeArray.length))
         console.log("One day has passed, getting new horoscope")
         await setRandomHoroscope(getRandomHoroscope(random));
-        await SaveItemInStorage("HOROSCOPE_RANDOM_TIMER", currentDate.toString())
-        await SaveItemInStorage("HOROSCOPE_RANDOM_NUMBER", random.toString())
+        await SaveItemInStorage("HOROSCOPE_RANDOM_TIMER_pisces", currentDate.toString())
+        await SaveItemInStorage("HOROSCOPE_RANDOM_NUMBER_pisces", random.toString())
       }else{
         console.log("One day has not passed, will not reset the current horoscope")
-        let getOldRandomNumber = await GetItemInStorage("HOROSCOPE_RANDOM_NUMBER")
+        let getOldRandomNumber = await GetItemInStorage("HOROSCOPE_RANDOM_NUMBER_pisces")
         await setRandomHoroscope(getRandomHoroscope(parseInt(getOldRandomNumber)));
         // Display previous horoscope.
       }
@@ -7729,12 +7721,12 @@ function Horoscopepisces({}) {
   const NumberRandomizer = async () =>{
 
       // Async storage, Key , Date
-    const randomNumber = await GetItemInStorage("NUMBER_RANDOM_TIMER");
+    const randomNumber = await GetItemInStorage("NUMBER_RANDOM_TIMER_pisces");
     if(!randomNumber){
-      await SaveItemInStorage("NUMBER_RANDOM_TIMER", new Date().getTime().toString())
+      await SaveItemInStorage("NUMBER_RANDOM_TIMER_pisces", new Date().getTime().toString())
       let random = Math.floor((Math.random() * numbersArray.length))
-      await SaveItemInStorage("NUMBER_RANDOM_NUMBER", random.toString())
-      await setRandomnNumber(getRandomNumber(random));
+      await SaveItemInStorage("NUMBER_RANDOM_NUMBER_pisces", random.toString())
+      await setRandomNumber(getRandomNumber(random));
 
     }else{
       let currentDate = parseInt(new Date().getTime().toString());
@@ -7750,12 +7742,12 @@ function Horoscopepisces({}) {
         let random = Math.floor((Math.random() * numbersArray.length))
         console.log("One day has passed, getting new horoscope")
         await setRandomNumber(getRandomNumber(random));
-        await SaveItemInStorage("NUMBER_RANDOM_TIMER", currentDate.toString())
-        await SaveItemInStorage("NUMBER_RANDOM_NUMBER", random.toString())
+        await SaveItemInStorage("NUMBER_RANDOM_TIMER_pisces", currentDate.toString())
+        await SaveItemInStorage("NUMBER_RANDOM_NUMBER_pisces", random.toString())
       }
       else{
         console.log("One day has not passed, will not reset the current horoscope")
-        let getOldRandomNumber = await GetItemInStorage("NUMBER_RANDOM_NUMBER")
+        let getOldRandomNumber = await GetItemInStorage("NUMBER_RANDOM_NUMBER_pisces")
         await setRandomNumber(getRandomNumber(getOldRandomNumber));
         // Display previous horoscope.
       }
@@ -7767,12 +7759,12 @@ function Horoscopepisces({}) {
   const Word2Randomizer = async () =>{
 
         // Async storage, Key , Date
-      const randomWord2 = await GetItemInStorage("WORD2_RANDOM_TIMER");
+      const randomWord2 = await GetItemInStorage("WORD2_RANDOM_TIMER_pisces");
       console.log(randomWord2)
       if(!randomWord2){
-        await SaveItemInStorage("WORD2_RANDOM_TIMER", new Date().getTime().toString())
+        await SaveItemInStorage("WORD2_RANDOM_TIMER_pisces", new Date().getTime().toString())
         let random = Math.floor((Math.random() * wordsArray.length))
-        await SaveItemInStorage("WORD2_RANDOM_NUMBER", random.toString())
+        await SaveItemInStorage("WORD2_RANDOM_NUMBER_pisces", random.toString())
         await setRandomWord2(getRandomWord2(random));
 
       }else{
@@ -7790,12 +7782,12 @@ function Horoscopepisces({}) {
         // Grab a random number
         let random = Math.floor((Math.random() * wordsArray.length))
         console.log("One day has passed, getting new horoscope")
-        await SaveItemInStorage("WORD2_RANDOM_TIMER", currentDate.toString())
-        await SaveItemInStorage("WORD2_RANDOM_NUMBER", random.toString())
+        await SaveItemInStorage("WORD2_RANDOM_TIMER_pisces", currentDate.toString())
+        await SaveItemInStorage("WORD2_RANDOM_NUMBER_pisces", random.toString())
         await setRandomWord2(getRandomWord2(random));
       }else{
         console.log("One day has not passed, will not reset the current horoscope")
-        let getOldRandomNumber = await GetItemInStorage("WORD2_RANDOM_NUMBER")
+        let getOldRandomNumber = await GetItemInStorage("WORD2_RANDOM_NUMBER_pisces")
         await setRandomWord2(getRandomWord2(getOldRandomNumber));
       // Display previous horoscope.
       }
@@ -7806,12 +7798,12 @@ function Horoscopepisces({}) {
   const Word3Randomizer = async () =>{
 
       // Async storage, Key , Date
-    const randomWord3 = await GetItemInStorage("WORD3_RANDOM_TIMER");
+    const randomWord3 = await GetItemInStorage("WORD3_RANDOM_TIMER_pisces");
     console.log(randomWord3)
     if(!randomWord3){
-      await SaveItemInStorage("WORD3_RANDOM_TIMER", new Date().getTime().toString())
+      await SaveItemInStorage("WORD3_RANDOM_TIMER_pisces", new Date().getTime().toString())
       let random = Math.floor((Math.random() * wordsArray.length))
-      await SaveItemInStorage("WORD3_RANDOM_NUMBER", random.toString())
+      await SaveItemInStorage("WORD3_RANDOM_NUMBER_pisces", random.toString())
       await setRandomWord3(getRandomWord3(random));
 
     }else{
@@ -7830,11 +7822,11 @@ function Horoscopepisces({}) {
       let random = Math.floor((Math.random() * wordsArray.length))
       console.log("One day has passed, getting new horoscope")
       await setRandomWord2(getRandomWord3(random));
-      await SaveItemInStorage("WORD3_RANDOM_TIMER", currentDate.toString())
-      await SaveItemInStorage("WORD3_RANDOM_NUMBER", random.toString())
+      await SaveItemInStorage("WORD3_RANDOM_TIMER_pisces", currentDate.toString())
+      await SaveItemInStorage("WORD3_RANDOM_NUMBER_pisces", random.toString())
     }else{
       console.log("One day has not passed, will not reset the current horoscope")
-      let getOldRandomNumber = await GetItemInStorage("WORD3_RANDOM_NUMBER")
+      let getOldRandomNumber = await GetItemInStorage("WORD3_RANDOM_NUMBER_pisces")
       await setRandomWord3(getRandomWord3(getOldRandomNumber));
       // Display previous horoscope.
       }
@@ -7844,12 +7836,12 @@ function Horoscopepisces({}) {
   const Word4Randomizer = async () =>{
 
       // Async storage, Key , Date
-    const randomWord4 = await GetItemInStorage("WORD4_RANDOM_TIMER");
+    const randomWord4 = await GetItemInStorage("WORD4_RANDOM_TIMER_pisces");
     console.log(randomWord4)
     if(!randomWord4){
-      await SaveItemInStorage("WORD4_RANDOM_TIMER", new Date().getTime().toString())
+      await SaveItemInStorage("WORD4_RANDOM_TIMER_pisces", new Date().getTime().toString())
       let random = Math.floor((Math.random() * wordsArray.length))
-      await SaveItemInStorage("WORD4_RANDOM_NUMBER", random.toString())
+      await SaveItemInStorage("WORD4_RANDOM_NUMBER_pisces", random.toString())
       await setRandomWord4(getRandomWord4(random));
 
     }else{
@@ -7868,11 +7860,11 @@ function Horoscopepisces({}) {
       let random = Math.floor((Math.random() * wordsArray.length))
       console.log("One day has passed, getting new horoscope")
       await setRandomWord4(getRandomWord4(random));
-      await SaveItemInStorage("WORD4_RANDOM_TIMER", currentDate.toString())
-      await SaveItemInStorage("WORD4_RANDOM_NUMBER", random.toString())
+      await SaveItemInStorage("WORD4_RANDOM_TIMER_pisces", currentDate.toString())
+      await SaveItemInStorage("WORD4_RANDOM_NUMBER_pisces", random.toString())
     }else{
       console.log("One day has not passed, will not reset the current horoscope")
-      let getOldRandomNumber = await GetItemInStorage("WORD4_RANDOM_NUMBER")
+      let getOldRandomNumber = await GetItemInStorage("WORD4_RANDOM_NUMBER_pisces")
       await setRandomWord4(getRandomWord4(getOldRandomNumber));
     // Display previous horoscope.
       }
@@ -7883,13 +7875,13 @@ function Horoscopepisces({}) {
   const LetterRandomizer = async () =>{
 
     // Async storage, Key , Date
-  const randomLetter = await GetItemInStorage("Letter_RANDOM_TIMER");
+  const randomLetter = await GetItemInStorage("Letter_RANDOM_TIMER_pisces");
     console.log(randomLetter)
     if(!randomLetter){
-      await SaveItemInStorage("Letter_RANDOM_TIMER", new Date().getTime().toString())
+      await SaveItemInStorage("Letter_RANDOM_TIMER_pisces", new Date().getTime().toString())
       let random = Math.floor((Math.random() * lettersArray.length))
-      await SaveItemInStorage("Letter_RANDOM_NUMBER", random.toString())
-      await setLetter(getLetter(random));
+      await SaveItemInStorage("Letter_RANDOM_NUMBER_pisces", random.toString())
+      await setRandomLetter(getRandomLetter(random));
 
     }else{
 
@@ -7906,11 +7898,11 @@ function Horoscopepisces({}) {
         let random = Math.floor((Math.random() * lettersArray.length))
         console.log("One day has passed, getting new horoscope")
         await setRandomLetter(getRandomLetter(random));
-        await SaveItemInStorage("Letter_RANDOM_TIMER", currentDate.toString())
-        await SaveItemInStorage("Letter_RANDOM_NUMBER", random.toString())
+        await SaveItemInStorage("Letter_RANDOM_TIMER_pisces", currentDate.toString())
+        await SaveItemInStorage("Letter_RANDOM_NUMBER_pisces", random.toString())
       }else{
         console.log("One day has not passed, will not reset the current horoscope")
-        let getOldRandomNumber = await GetItemInStorage("Letter_RANDOM_NUMBER")
+        let getOldRandomNumber = await GetItemInStorage("Letter_RANDOM_NUMBER_pisces")
         await setRandomLetter(getRandomLetter(getOldRandomNumber));
     // Display previous horoscope.
       }
@@ -7920,12 +7912,12 @@ function Horoscopepisces({}) {
   const ThanksRandomizer = async () =>{
 
         // Async storage, Key , Date
-      const randomThanks = await GetItemInStorage("Thanks_RANDOM_TIMER");
+      const randomThanks = await GetItemInStorage("Thanks_RANDOM_TIMER_pisces");
       console.log(randomThanks)
       if(!randomThanks){
-        await SaveItemInStorage("Thanks_RANDOM_TIMER", new Date().getTime().toString())
+        await SaveItemInStorage("Thanks_RANDOM_TIMER_pisces", new Date().getTime().toString())
         let random = Math.floor((Math.random() * thanksArray.length))
-        await SaveItemInStorage("Thanks_RANDOM_NUMBER", random.toString())
+        await SaveItemInStorage("Thanks_RANDOM_NUMBER_pisces", random.toString())
         await setRandomThanks(getRandomThanks(random));
 
       }else{
@@ -7943,11 +7935,11 @@ function Horoscopepisces({}) {
         let random = Math.floor((Math.random() * thanksArray.length))
         console.log("One day has passed, getting new horoscope")
         await setRandomThanks(getRandomThanks(random));
-        await SaveItemInStorage("Thanks_RANDOM_TIMER", currentDate.toString())
-        await SaveItemInStorage("Thanks_RANDOM_NUMBER", random.toString())
+        await SaveItemInStorage("Thanks_RANDOM_TIMER_pisces", currentDate.toString())
+        await SaveItemInStorage("Thanks_RANDOM_NUMBER_pisces", random.toString())
       }else{
         console.log("One day has not passed, will not reset the current horoscope")
-        let getOldRandomNumber = await GetItemInStorage("Thanks_RANDOM_NUMBER")
+        let getOldRandomNumber = await GetItemInStorage("Thanks_RANDOM_NUMBER_pisces")
         await setRandomThanks(getRandomThanks(getOldRandomNumber));
         // Display previous horoscope.
       }
@@ -7956,12 +7948,12 @@ function Horoscopepisces({}) {
 
   const AdviceRandomizer = async () =>{
     // Async storage, Key , Date
-      const randomAdvice = await GetItemInStorage("Advice_RANDOM_TIMER");
+      const randomAdvice = await GetItemInStorage("Advice_RANDOM_TIMER_pisces");
       console.log(randomAdvice)
       if(!randomAdvice){
-        await SaveItemInStorage("Advice_RANDOM_TIMER", new Date().getTime().toString())
+        await SaveItemInStorage("Advice_RANDOM_TIMER_pisces", new Date().getTime().toString())
         let random = Math.floor((Math.random() * adviceArray.length))
-        await SaveItemInStorage("Advice_RANDOM_NUMBER", random.toString())
+        await SaveItemInStorage("Advice_RANDOM_NUMBER_pisces", random.toString())
         await setRandomAdvice(getRandomAdvice(random));
 
       }else{
@@ -7979,11 +7971,11 @@ function Horoscopepisces({}) {
         let random = Math.floor((Math.random() * adviceArray.length))
         console.log("One day has passed, getting new horoscope")
         await setRandomAdvice(getRandomAdvice(random));
-        await SaveItemInStorage("Advice_RANDOM_TIMER", currentDate.toString())
-        await SaveItemInStorage("Advice_RANDOM_NUMBER", random.toString())
+        await SaveItemInStorage("Advice_RANDOM_TIMER_pisces", currentDate.toString())
+        await SaveItemInStorage("Advice_RANDOM_NUMBER_pisces", random.toString())
       }else{
         console.log("One day has not passed, will not reset the current horoscope")
-        let getOldRandomNumber = await GetItemInStorage("Advice_RANDOM_NUMBER")
+        let getOldRandomNumber = await GetItemInStorage("Advice_RANDOM_NUMBER_pisces")
         await setRandomAdvice(getRandomAdvice(getOldRandomNumber));
         // Display previous horoscope.
       }
