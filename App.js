@@ -1277,7 +1277,7 @@ function Payment({navigation, route}) {
   const [cvc, setCvc] = useState('')
 
 
-  {/*function toStripe(name, email, phone, address, city, country, postal, cityState, cardNumber, exp_month, exp_year, cvc) {
+  function toStripe(name, email, phone, address, city, country, postal, cityState, cardNumber, exp_month, exp_year, cvc) {
     fetch('https://peaceful-woodland-13730.herokuapp.com/api/customer', {
       method: 'POST',
       headers: {
@@ -1315,7 +1315,7 @@ function Payment({navigation, route}) {
         }).catch(error => console.log(error))
       });
   }
-*/}
+
 
   return (
  
@@ -1436,7 +1436,7 @@ function SubscriptionScreen() {
   return (
     <View style={styles.virtualContainer}>
       <ImageBackground source={subBackground} style={styles.virtualOne}>
-       {/* <View style={{justifyContent: 'center', alignItems: 'center'}}>
+        <View style={{justifyContent: 'center', alignItems: 'center'}}>
           <TouchableOpacity onPress={()=>navigation.navigate('Home')} style={styles.backButtonStyle}>
             <Image source={backButton} />
           </TouchableOpacity>
@@ -1463,7 +1463,7 @@ function SubscriptionScreen() {
  
             <Image source={sub3} />
           </TouchableOpacity>
-        </View>*/}
+        </View>
         <NavBar/>
       </ImageBackground>
       
