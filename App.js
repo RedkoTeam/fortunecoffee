@@ -1004,7 +1004,7 @@ function NavBar(){
   return(
     <View style={{flex:1, backgroundColor:'#070631', height:'30%', alignItems:'center', alignContent:'center'}}>
       <Image source={Ellipse1} style={styles.ellipse} />
-      <View style={{flexDirection:'row', width:'80%', justifyContent: 'space-between', position:'absolute', bottom: 0, paddingBottom:10}}>
+      <View style={{flexDirection:'row', width:'80%', justifyContent: 'space-between', position:'absolute', bottom: "0%", paddingBottom:10}}>
         <TouchableOpacity onPress={() => navigation.navigate('Horoscopemain')}>
         <Image source={Horosbtn}  />
           </TouchableOpacity>
@@ -1012,13 +1012,13 @@ function NavBar(){
            <Image source={Psychicbtn} style={{ marginRight:30, bottom:'80%'}}  />
         </TouchableOpacity>
         <TouchableOpacity onPress={() => navigation.navigate('Home')}>
-            <Image source={Home} style={{ bottom:'100%'}}/>
+            <Image source={Home} style={{ bottom:'120%'}}/>
           </TouchableOpacity>
           <TouchableOpacity onPress={() => navigation.navigate('Favorites')}>
-            <Image source={Favorites} style={{ marginLeft:30, bottom:'80%'}} />
+            <Image source={Favorites} style={{ marginLeft:30, bottom:'65%'}} />
         </TouchableOpacity>
         <TouchableOpacity onPress={() => navigation.navigate('Profile')}>
-            <Image source={Profilebtn} style={{ bottom:'-20%'}} />
+            <Image source={Profilebtn} style={{ bottom:'0%',paddingBottom:10}} />
         </TouchableOpacity>
       </View>
     </View>
@@ -1030,7 +1030,7 @@ function NavBar_psyc(){
   return(
     <View style={{flex:1, backgroundColor:'#070631', height:'30%', alignItems:'center', alignContent:'center'}}>
       <Image source={Ellipse1} style={styles.ellipse} />
-      <View style={{flexDirection:'row', width:'80%', justifyContent: 'space-between', position:'absolute', bottom: 0, paddingBottom:10}}>
+      <View style={{flexDirection:'row', width:'80%', justifyContent: 'space-between', position:'absolute', bottom: "0%", paddingBottom:10}}>
         <TouchableOpacity onPress={() => navigation.navigate('Horoscopemain')}>
         <Image source={Horosbtn}  />
           </TouchableOpacity>
@@ -1038,13 +1038,13 @@ function NavBar_psyc(){
            <Image source={PsychicbtnW} style={{ marginRight:30, bottom:'80%'}}  />
         </TouchableOpacity>
         <TouchableOpacity onPress={() => navigation.navigate('Home')}>
-            <Image source={HomeB} style={{ bottom:'100%'}}/>
+            <Image source={HomeB} style={{ bottom:'120%'}}/>
           </TouchableOpacity>
           <TouchableOpacity onPress={() => navigation.navigate('Favorites')}>
-            <Image source={Favorites} style={{ marginLeft:30, bottom:'80%'}} />
+            <Image source={Favorites} style={{ marginLeft:30, bottom:'65%'}} />
         </TouchableOpacity>
         <TouchableOpacity onPress={() => navigation.navigate('Profile')}>
-            <Image source={Profilebtn} style={{ bottom:'-20%'}} />
+            <Image source={Profilebtn} style={{ bottom: "0%", paddingBottom:10}} />
         </TouchableOpacity>
       </View>
     </View>
@@ -1056,7 +1056,7 @@ function NavBar_hor(){
   return(
     <View style={{flex:1, backgroundColor:'#070631', height:'30%', alignItems:'center', alignContent:'center'}}>
       <Image source={Ellipse1} style={styles.ellipse} />
-      <View style={{flexDirection:'row', width:'80%', justifyContent: 'space-between', position:'absolute', bottom: 0, paddingBottom:10}}>
+      <View style={{flexDirection:'row', width:'80%', justifyContent: 'space-between', position:'absolute', bottom: "0%", paddingBottom:10}}>
         <TouchableOpacity onPress={() => navigation.navigate('Horoscopemain')}>
         <Image source={HorosbtnW}  />
           </TouchableOpacity>
@@ -1064,13 +1064,13 @@ function NavBar_hor(){
            <Image source={Psychicbtn} style={{ marginRight:30, bottom:'80%'}}  />
         </TouchableOpacity>
         <TouchableOpacity onPress={() => navigation.navigate('Home')}>
-            <Image source={HomeB} style={{ bottom:'100%'}}/>
+            <Image source={HomeB} style={{ bottom:'120%'}}/>
           </TouchableOpacity>
           <TouchableOpacity onPress={() => navigation.navigate('Favorites')}>
-            <Image source={Favorites} style={{ marginLeft:30, bottom:'80%'}} />
+            <Image source={Favorites} style={{ marginLeft:30, bottom:'65%'}} />
         </TouchableOpacity>
         <TouchableOpacity onPress={() => navigation.navigate('Profile')}>
-            <Image source={Profilebtn} style={{ bottom:'-20%'}} />
+            <Image source={Profilebtn} style={{ bottom: "0%", paddingBottom:10}} />
         </TouchableOpacity>
       </View>
     </View>
@@ -1084,7 +1084,7 @@ const navigation = useNavigation();
 return(
   <View style={{flex:1, backgroundColor:'#070631', height:'30%', alignItems:'center', alignContent:'center'}}>
     <Image source={Ellipse1} style={styles.ellipse} />
-    <View style={{flexDirection:'row', width:'80%', justifyContent: 'space-between', position:'absolute', bottom: 0, paddingBottom:10}}>
+    <View style={{flexDirection:'row', width:'80%', justifyContent: 'space-between', position:'absolute', bottom: "0%", paddingBottom:10}}>
       <TouchableOpacity onPress={() => navigation.navigate('Horoscopemain')}>
       <Image source={Horosbtn}  />
         </TouchableOpacity>
@@ -1092,13 +1092,13 @@ return(
          <Image source={Psychicbtn} style={{ marginRight:30, bottom:'80%'}}  />
       </TouchableOpacity>
       <TouchableOpacity onPress={() => navigation.navigate('Home')}>
-          <Image source={HomeB} style={{ bottom:'100%'}}/>
+          <Image source={HomeB} style={{ bottom:'120%'}}/>
         </TouchableOpacity>
         <TouchableOpacity onPress={() => navigation.navigate('Favorites')}>
-          <Image source={Favorites} style={{ marginLeft:30, bottom:'80%'}} />
+          <Image source={Favorites} style={{ marginLeft:30, bottom:'65%'}} />
       </TouchableOpacity>
       <TouchableOpacity onPress={() => navigation.navigate('Profile')}>
-          <Image source={ProfilebtnW} style={{ bottom:'-20%'}} />
+          <Image source={ProfilebtnW} style={{ bottom: "0%", paddingBottom:10}} />
       </TouchableOpacity>
     </View>
   </View>
@@ -1110,7 +1110,7 @@ function NavBar_fav(){
   return(
     <View style={{flex:1, backgroundColor:'#070631', height:'30%', alignItems:'center', alignContent:'center'}}>
       <Image source={Ellipse1} style={styles.ellipse} />
-      <View style={{flexDirection:'row', width:'80%', justifyContent: 'space-between', position:'absolute', bottom: 0, paddingBottom:10}}>
+      <View style={{flexDirection:'row', width:'80%', justifyContent: 'space-between', position:'absolute', bottom: "0%", paddingBottom:10}}>
         <TouchableOpacity onPress={() => navigation.navigate('Horoscopemain')}>
         <Image source={Horosbtn}  />
           </TouchableOpacity>
@@ -1118,13 +1118,13 @@ function NavBar_fav(){
            <Image source={Psychicbtn} style={{ marginRight:30, bottom:'80%'}}  />
         </TouchableOpacity>
         <TouchableOpacity onPress={() => navigation.navigate('Home')}>
-            <Image source={HomeB} style={{ bottom:'100%'}}/>
+            <Image source={HomeB} style={{ bottom:'120%'}}/>
           </TouchableOpacity>
           <TouchableOpacity onPress={() => navigation.navigate('Favorites')}>
-            <Image source={FavoritesW} style={{ marginLeft:30, bottom:'80%'}} />
+            <Image source={FavoritesW} style={{ marginLeft:30, bottom:'65%'}} />
         </TouchableOpacity>
         <TouchableOpacity onPress={() => navigation.navigate('Profile')}>
-            <Image source={Profilebtn} style={{ bottom:'-20%'}} />
+            <Image source={Profilebtn} style={{ bottom: "0%", paddingBottom:10}} />
         </TouchableOpacity>
       </View>
     </View>
@@ -1277,7 +1277,7 @@ function Payment({navigation, route}) {
   const [cvc, setCvc] = useState('')
 
 
-  function toStripe(name, email, phone, address, city, country, postal, cityState, cardNumber, exp_month, exp_year, cvc) {
+  {/*function toStripe(name, email, phone, address, city, country, postal, cityState, cardNumber, exp_month, exp_year, cvc) {
     fetch('https://peaceful-woodland-13730.herokuapp.com/api/customer', {
       method: 'POST',
       headers: {
@@ -1315,6 +1315,7 @@ function Payment({navigation, route}) {
         }).catch(error => console.log(error))
       });
   }
+*/}
 
   return (
  
@@ -1435,7 +1436,7 @@ function SubscriptionScreen() {
   return (
     <View style={styles.virtualContainer}>
       <ImageBackground source={subBackground} style={styles.virtualOne}>
-        <View style={{justifyContent: 'center', alignItems: 'center'}}>
+       {/* <View style={{justifyContent: 'center', alignItems: 'center'}}>
           <TouchableOpacity onPress={()=>navigation.navigate('Home')} style={styles.backButtonStyle}>
             <Image source={backButton} />
           </TouchableOpacity>
@@ -1462,7 +1463,7 @@ function SubscriptionScreen() {
  
             <Image source={sub3} />
           </TouchableOpacity>
-        </View>
+        </View>*/}
         <NavBar/>
       </ImageBackground>
       
@@ -1540,7 +1541,7 @@ function VirtualCoffeeReadingScreen() {
           </TouchableOpacity>
         </View>
       {image && <Image source={{uri: image}} style={{marginTop:20, height: '40%', width: '80%', borderWidth:5, borderColor: '#FFF'}} />}
-      <Image source={virtualImage} />
+      <Image source={virtualImage} style={{marginTop:10}}/>
       {image && <View>
         <TouchableOpacity onPress={() => navigation.navigate('ReadingAnimation')}>
           <Image source={submitPhoto} style={{marginTop:30}} />
@@ -8194,7 +8195,7 @@ function Reading({}){
               <Image source={saveButton} />
             </TouchableOpacity>
             <View>
-              <Text style={styles.helloUserTextContainer}> Your Fortune Is Ready {userName} </Text>
+              <Text style={styles.helloUserTextContainer}> Your Fortune{userName} </Text>
               <Image source={coffeeImg} style={{ marginTop: 20 }} />
             </View>
             <TouchableOpacity onPress={() => console.log("SHARE")}>
