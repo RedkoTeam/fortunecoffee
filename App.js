@@ -317,6 +317,7 @@ import SignUpValidationSchema from './util/validators/SignUpValidationSchema';
 import LoginValidationSchema from './util/validators/LoginValidationSchema'
 import { Formik } from 'formik'
 import LoginChecker from './util/LoginChecker'
+import AsyncStorage from '@react-native-community/async-storage';
 
 
 ////////////////////
@@ -658,6 +659,8 @@ function HomeScreen({ navigation }) {
     setModalVisible(!isModalVisible);
   };
 
+  // clearDatabase Uncomment here
+
   // Fortune Modal
 
   const toggleFortuneModal = () =>{
@@ -889,17 +892,19 @@ function HomeScreen({ navigation }) {
   return (
     <View style={styles.mainContainer}>
       <ImageBackground source={bgstars} style={styles.bgfull}>
-        
-        
         {/* <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-between', padding: 25, marginTop: 18 }}> */}
           {isLoggedIn ? (
-            <View>
-            <TouchableOpacity onPress={ () => { LogOutUser(); navigation.navigate('Home')}}>
+            <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-between', padding: 25, marginTop: 18 }}>
+            <TouchableOpacity onPress={ () => { 
+              LogOutUser(); 
+              setIsLoggedIn(false);
+              }}>
                <Image source={Logoutbtn} />
             </TouchableOpacity>
            </View>
           ) : 
-            <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-between', padding: 25, marginTop: 18 }}><TouchableOpacity onPress={() => navigation.navigate('SignUp')}>
+            <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-between', padding: 25, marginTop: 18 }}>
+              <TouchableOpacity onPress={() => navigation.navigate('SignUp')}>
             <Image source={SignUpButton} />
           </TouchableOpacity>
           <TouchableOpacity onPress={() => navigation.navigate('SignIn')}>
@@ -956,7 +961,7 @@ function NavBar(){
           <TouchableOpacity onPress={() => navigation.navigate('Favorites')}>
             <Image source={Favorites} style={{ marginLeft:30, bottom:'65%'}} />
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => navigation.navigate('Profile')}>
+        <TouchableOpacity onPress={() => navigation.navigate('ProfileLoggedIn')}>
             <Image source={Profilebtn} style={{ bottom:'0%',paddingBottom:10}} />
         </TouchableOpacity>
       </View>
@@ -982,7 +987,7 @@ function NavBar_psyc(){
           <TouchableOpacity onPress={() => navigation.navigate('Favorites')}>
             <Image source={Favorites} style={{ marginLeft:30, bottom:'65%'}} />
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => navigation.navigate('Profile')}>
+        <TouchableOpacity onPress={() => navigation.navigate('ProfileLoggedIn')}>
             <Image source={Profilebtn} style={{ bottom: "0%", paddingBottom:10}} />
         </TouchableOpacity>
       </View>
@@ -1008,7 +1013,7 @@ function NavBar_hor(){
           <TouchableOpacity onPress={() => navigation.navigate('Favorites')}>
             <Image source={Favorites} style={{ marginLeft:30, bottom:'65%'}} />
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => navigation.navigate('Profile')}>
+        <TouchableOpacity onPress={() => navigation.navigate('ProfileLoggedIn')}>
             <Image source={Profilebtn} style={{ bottom: "0%", paddingBottom:10}} />
         </TouchableOpacity>
       </View>
@@ -1036,7 +1041,7 @@ return(
         <TouchableOpacity onPress={() => navigation.navigate('Favorites')}>
           <Image source={Favorites} style={{ marginLeft:30, bottom:'65%'}} />
       </TouchableOpacity>
-      <TouchableOpacity onPress={() => navigation.navigate('Profile')}>
+      <TouchableOpacity onPress={() => navigation.navigate('ProfileLoggedIn')}>
           <Image source={ProfilebtnW} style={{ bottom: "0%", paddingBottom:10}} />
       </TouchableOpacity>
     </View>
@@ -1062,7 +1067,7 @@ function NavBar_fav(){
           <TouchableOpacity onPress={() => navigation.navigate('Favorites')}>
             <Image source={FavoritesW} style={{ marginLeft:30, bottom:'65%'}} />
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => navigation.navigate('Profile')}>
+        <TouchableOpacity onPress={() => navigation.navigate('ProfileLoggedIn')}>
             <Image source={Profilebtn} style={{ bottom: "0%", paddingBottom:10}} />
         </TouchableOpacity>
       </View>
@@ -1541,13 +1546,7 @@ function Psychic() {
       <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-between', padding: 25, marginTop: 18 }}>
           {isLoggedIn ? (
             <View style={{zIndex: 100}}>
-               <TouchableOpacity onPress={ () => { 
-                 LogOutUser();
-                 navigation.navigate('Home');
-
-               }}>
-                  <Image source={Logoutbtn} />
-              </TouchableOpacity>
+               <></>
             </View>
           ) : 
           <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-between' }}>
@@ -2133,18 +2132,38 @@ function Profile({navigation}) {
 //TODO REPLACE WITH DOB AND NAME FROM FIREBASE
 function ProfileLoggedIn() {
   const navigation = useNavigation();
-  return (
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(()=>{
+    let mounted = true;
+    const unsubscribe = navigation.addListener('focus', () => {
+      // Login Checker
+      LoginChecker().then((results) =>{
+        console.log("USER IS LOGGED IN : " , results)
+        setIsLoggedIn(results)
+      });
+    });
+    return unsubscribe;
+    
+  },[navigation])
+
+
+  return isLoggedIn? (
     <ImageBackground source={profilebg} style={styles.bgfull}>
       <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-between', padding: 25, marginTop: 18 }}>
         <TouchableOpacity onPress={() => navigation.navigate('Shop')}>
           <Image source={Shopbtn} />
         </TouchableOpacity>
-        <TouchableOpacity onPress={ () => { LogOutUser();}}>
+        <TouchableOpacity onPress={ () => { 
+          LogOutUser();
+          navigation.navigate('Home')
+          }}>
           <Image source={Logoutbtn} />
         </TouchableOpacity>
       </View>
       {/* <Text style={{fontSize: 30}}>Hi</Text>
       <Button title="console" onPress={ () => console.log(favRef)} /> */}
+      {/* STILL NEED TO BE PULLED FORM FIRESTORE */}
       <Image source={UserNametxt} style={{marginTop:"50%",marginRight:"60%"}}/>
       <Image source={UserNametxt} style={{marginTop:20, marginRight:"60%",marginBottom:20}}/>
       <Image source={proline} />
@@ -2154,6 +2173,31 @@ function ProfileLoggedIn() {
    <NavBar_pro></NavBar_pro>
     </ImageBackground>
     
+  ): (
+    <>
+      <ImageBackground source={profilebgnotlogged} style={styles.bgfull}>
+        {isLoggedIn ? (
+              <View>
+              <TouchableOpacity onPress={ () => { LogOutUser();}}>
+                  <Image source={Logoutbtn} />
+              </TouchableOpacity>
+            </View>
+            ) : 
+              <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-between', padding: 25, marginTop: 18 }}><TouchableOpacity onPress={() => navigation.navigate('SignUp')}>
+              <Image source={SignUpButton} />
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => navigation.navigate('SignIn')}>
+              <Image source={SignInButton} />
+            </TouchableOpacity>
+              </View>
+              
+        }
+        {/* <Text style={{fontSize: 30}}>Hi</Text>
+        <Button title="console" onPress={ () => console.log(favRef)} /> */}
+        
+    <NavBar_pro></NavBar_pro>
+      </ImageBackground>
+    </>
   )
 }
 
@@ -2283,7 +2327,7 @@ function SignInScreen() {
             console.log('User signed in!');
             SetTokenInLocalStorage(values.email, values.password)
             // Store to firebase
-            navigation.navigate('Profile')
+            navigation.navigate('ProfileLoggedIn')
           })
           .catch(async (error) => {
             console.log(error)
