@@ -285,7 +285,7 @@ import someonetxt from './assets/FortuneCoffeePNGassets/Psychic/someonetxt.png';
 import profileImage from './assets/FortuneCoffeePNGassets/Profile.png';
 import skipImage from './assets/FortuneCoffeePNGassets/Skip.png';
 import continueImage from './assets/FortuneCoffeePNGassets/Continue.png';
-import { Input } from 'react-native-elements';
+import { Input, Overlay } from 'react-native-elements';
 import pencil from './assets/pencil.png';
 import pageButton from './assets/pageButton.png';
 import profilebgnotlogged from './assets/FortuneCoffeePNGassets/profile_login.png';
@@ -308,9 +308,16 @@ import CheckLoginToken from './util/CheckLoginToken'
 import RegularCardCounter from './util/cardCounters/RegularCardCounter.js'
 import FortuneCardCounter from './util/cardCounters/FortuneCardCounter.js'
 
-// Protypes
-import prototype from './util/prototypes/ProtoTypes'
-import AsyncStorage from '@react-native-community/async-storage';
+// Async storage
+import SaveItemInStorage from './util/SaveItemInStorage'
+import GetItemInStorage from './util/GetItemInStorage'
+
+// Form & Validator 
+import SignUpValidationSchema from './util/validators/SignUpValidationSchema';
+import LoginValidationSchema from './util/validators/LoginValidationSchema'
+import { Formik } from 'formik'
+import LoginChecker from './util/LoginChecker'
+
 
 ////////////////////
 // Styling  //
@@ -320,6 +327,15 @@ const styles = StyleSheet.create({
   defaultFont: {
     fontFamily: 'Montserrat-Regular',
     fontSize: 17
+  },
+  overlay:{
+    position: 'absolute',
+    top: 0,
+    right: 0,
+    bottom: 0,
+    left: 0,
+    backgroundColor: 'red',
+    opacity: 0.3
   },
   mainContainer: {
     flex:1,
@@ -651,8 +667,7 @@ function HomeScreen({ navigation }) {
 
   /// Modal Viewer based on date. 
   const [userCanViewCard, setUserCanViewCard] = useState(false);
-  const [cardCheckTimeRemaining, setCardCheckTimeRemaining] = useState("00:00:00")
-    
+
   // UseEffect for checking the card before each trigger
   // Rather than putting it inside the function, we put it on the useeffect for checking
   useEffect(()=>{
@@ -670,7 +685,6 @@ function HomeScreen({ navigation }) {
           setUserCanViewCard(result.userCanView)
           console.log("Time Remaining in seconds : ", result.timeRemaining)
           // update time remaining onto modal, must pass seconds ! .toHHMMSS = custom prototype
-            setCardCheckTimeRemaining(result.timeRemaining.toString().toHHMMSS());
           }
         });
       }
@@ -684,23 +698,31 @@ function HomeScreen({ navigation }) {
   // This use Effect is only called when the navigation lands here, This will reduce the amount of times
   // it will run on this page.
   useEffect(()=>{
-    let mounted = true;
-    if(mounted)
-    {
+    const unsubscribe = navigation.addListener('focus', () => {
+      _CheckOnboarding().then(r => console.log("Checked on Boarding"));
       // Checks the login upon opening App
       CheckLoginToken().then(async (result)=>{
         console.log("User TYPE  : " , result)
         // Navigate the user's based off of results
         // TODO, log the user in via firestore
-        if(result === "User"){
-          navigation.navigate("HomeLoggedIn")
+        if(result === "USER"){
+          console.log("THE USER IS A USER")
+          // Login The user
+          LoginChecker().then((results) =>{
+            console.log("USER IS LOGGED IN : " , results)
+            setIsLoggedIn(results)
+          });
+        }
+        if(result === "GUEST"){
+          LoginChecker().then((results) =>{
+            console.log("USER IS LOGGED IN : " , results)
+            setIsLoggedIn(results)
+          });
         }
       });
-      _CheckOnboarding().then(r => console.log("Checked on Boarding"));
-    }
-    return ()=>{
-      mounted = false;
-    }
+    });
+    return unsubscribe;
+    
   },[navigation])
 
   const _CheckOnboarding = async () => {
@@ -872,8 +894,10 @@ function HomeScreen({ navigation }) {
         {/* <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-between', padding: 25, marginTop: 18 }}> */}
           {isLoggedIn ? (
             <View>
-              <Text></Text>
-            </View>
+            <TouchableOpacity onPress={ () => { LogOutUser(); navigation.navigate('Home')}}>
+               <Image source={Logoutbtn} />
+            </TouchableOpacity>
+           </View>
           ) : 
             <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-between', padding: 25, marginTop: 18 }}><TouchableOpacity onPress={() => navigation.navigate('SignUp')}>
             <Image source={SignUpButton} />
@@ -910,91 +934,6 @@ function HomeScreen({ navigation }) {
     </ImageBackground>
     </View>
     
-  );
-}
-
-function HomeScreenLoggedIn({ navigation }) {
-  const [isModalVisible, setModalVisible] = useState(false);
-  const [front, setFront] = useState(dummyPath);
-  const [meaning, setMeaning] = useState(dummyPath);
-  const toggleModal = () => {
-    setModalVisible(!isModalVisible);
-  };
-  const toggleModal2 = () => {
-    setModalVisible(!isModalVisible);
-    let random = Math.floor((Math.random() * cardsAndMeaning.length));
-    setFront(cardsAndMeaning[random][0]);
-    setMeaning(cardsAndMeaning[random][1]);
-  }
-
-
-  return (
-    <View style={styles.mainContainer}>
-      <View style={{ flex: 1, alignItems: 'center' }}>
-        <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-between', padding: 35 }}>
-          <Text></Text>
-        </View>
-        <Image source={LargeTitleApp} style={{ width: '100%' }} />
-        <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-evenly' }}>
-          <TouchableOpacity onPress={() => navigation.navigate('VirtualOne')}>
-            <Image source={VirtualCoffee} />
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => navigation.navigate('Virtual')}>
-            <Image source={TakePhoto} />
-          </TouchableOpacity>
-        </View>
-        <Image source={PickCard} style={{ margin: 8 }} />
-        <TouchableOpacity onPress={toggleModal2} style={styles.cards}>
-          <Image source={Cards} />
-          <Modal isVisible={isModalVisible} style={{ alignItems: "center", flex: 1 }}>
-            <View>
-              <Text style={styles.tapCard}>Tap card to flip</Text>
-              <Button title="Hide Card" onPress={toggleModal} />
-              <View style={{ marginBottom: 500 }}>
-                <FlipCard
-                  flipHorizontal={true}
-                  flipVertical={false}>
-                  <View style={styles.face}>
-                    {/* <Text>The Face</Text> */}
-                    <Image source={front} style={styles.cardStyle} />
-                  </View>
-                  <View>
-                    {/* <Text>The Back</Text> */}
-                    <Image source={meaning} style={styles.cardStyle} />
-                  </View>
-                </FlipCard>
-              </View>
-            </View>
-          </Modal>
-        </TouchableOpacity>
-        {/*<View>
-        <TouchableOpacity onPress={toggleModal} style={styles.cards}>
-          <Image source={Cards} />
-           <Modal isVisible={isModalVisible} style = {{alignItems: "center"}}>
-            <View>
-              <Text style = {styles.tapCard}>Tap card to flip</Text>
-              <Button title="Hide modal" onPress={toggleModal} />
-              <View style={{marginBottom:500}}>
-                <FlipCard
-                  flipHorizontal={true}
-                  flipVertical={false}>
-                  <View style={styles.face}>
-                    <Text>The Face</Text>
-                    <Image source={arr[0]} style={styles.cardStyle} />
-                  </View>
-                  <View>
-                    <Text>The Back</Text>
-                    <Image source={arr[2]} style={styles.cardStyle} />
-                  </View>
-                </FlipCard>
-              </View>
-            </View>
-          </Modal> 
-        </TouchableOpacity>
-      </View>*/}
-        <NavBar />
-      </View>
-    </View>
   );
 }
 
@@ -1110,7 +1049,7 @@ function NavBar_fav(){
   return(
     <View style={{flex:1, backgroundColor:'#070631', height:'30%', alignItems:'center', alignContent:'center'}}>
       <Image source={Ellipse1} style={styles.ellipse} />
-      <View style={{flexDirection:'row', width:'80%', justifyContent: 'space-between', position:'absolute', bottom: "0%", paddingBottom:10}}>
+      <View style={{flexDirection:'row', width:'80%', justifyContent: 'space-between', position:'absolute', bottom: "0%", paddingBottom:30}}>
         <TouchableOpacity onPress={() => navigation.navigate('Horoscopemain')}>
         <Image source={Horosbtn}  />
           </TouchableOpacity>
@@ -1133,6 +1072,7 @@ function NavBar_fav(){
   
 
 
+
 let favoriteDatabase = [
   {
     date: 'October 13, 2020',
@@ -1147,23 +1087,33 @@ let favoriteDatabase = [
 function FavoritesScreen() {
   const navigation = useNavigation();
   const [favoritesData, setFavoritesData] = useState([{"fortune" : "You're not logged in. Please come back and check after logging in"}]);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  useEffect( () => {
-    CheckLoginToken().then(async (result) => {
-      console.log('Favorites Screen Populated. Fetching data from firestore');
-      console.log("Login Status: ", result)
-      if(result === "User"){
-        db.collection('users').doc(firebase.auth().currentUser.uid).get()
-        .then(uData => {
-          const userData = uData.data().favorites;
-          setFavoritesData(userData);
-          console.log(`USER DATA  ${JSON.stringify(favoritesData)}`);
-        })
-        .catch(error => console.log(error));
-      }
-    })
-  })
-                    
+  useEffect(()=>{
+    let mounted = true;
+    const unsubscribe = navigation.addListener('focus', () => {
+      // Login Checker
+      LoginChecker().then((results) =>{
+        console.log("USER IS LOGGED IN : " , results)
+        setIsLoggedIn(results)
+        if(results){
+          //Default to logins, if the user is logged in but no favoruits are selected
+          setFavoritesData([{"fortune": "You are logged in, but you haven't selected a favorite!"}])
+          db.collection('users').doc(firebase.auth().currentUser.uid).get()
+          .then(uData => {
+            const userData = uData.data().favorites;
+            setFavoritesData(userData);
+            console.log(`USER DATA  ${JSON.stringify(favoritesData)}`);
+          })
+          .catch(error => console.log(error));
+        }
+      });
+    });
+    return unsubscribe;
+    
+  },[navigation])
+
+
 
   return (
     <View style={{flexGrow:1, justifyContent:'space-between'}}>
@@ -1568,18 +1518,47 @@ function FortuneModal() {
 
 function Psychic() {
   const navigation = useNavigation();
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(()=>{
+    let mounted = true;
+    const unsubscribe = navigation.addListener('focus', () => {
+      // Login Checker
+      LoginChecker().then((results) =>{
+        console.log("USER IS LOGGED IN : " , results)
+        setIsLoggedIn(results)
+      });
+    });
+    return unsubscribe;
+    
+  },[navigation])
+
+
   return (
     
     <View style={styles.virtualContainer}>
       <ImageBackground source={psychicbg} style={styles.bgfull}>
       <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-between', padding: 25, marginTop: 18 }}>
-            <TouchableOpacity onPress={() => navigation.navigate('SignUp')}>
-              <Image source={SignUpButton} />
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => navigation.navigate('SignIn')}>
-              <Image source={SignInButton} />
-            </TouchableOpacity>
+          {isLoggedIn ? (
+            <View style={{zIndex: 100}}>
+               <TouchableOpacity onPress={ () => { 
+                 LogOutUser();
+                 navigation.navigate('Home');
 
+               }}>
+                  <Image source={Logoutbtn} />
+              </TouchableOpacity>
+            </View>
+          ) : 
+          <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-between' }}>
+            <TouchableOpacity onPress={() => navigation.navigate('SignUp')}>
+            <Image source={SignUpButton} />
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => navigation.navigate('SignIn')}>
+            <Image source={SignInButton} />
+          </TouchableOpacity>
+            </View>
+          }
 
           </View>
           <View style={{marginTop:'25%'}}>
@@ -1957,10 +1936,65 @@ function PhotoReadingScreen() {
 }
 
 function SignUpScreen({ navigation }) {
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
+  const [visible, setVisible] = useState(false);
+  const [currentError, setCurrentError] = useState("");
+
+  
+
+  const toggleOverlay = () => {
+    setVisible(!visible);
+  };
+
+  // FIRESTORE
+  const SignUp = async (values) => {
+      try{
+        firebase.
+        auth()
+          .createUserWithEmailAndPassword(values.email, values.password)
+          .then(() => {
+            console.log('User account created & signed in!');
+            navigation.navigate('HomeLoggedIn')
+          })
+          .catch(async (error) => {
+            console.log(error)
+            if (error.code === 'auth/email-already-in-use') {
+              console.log(error.code)
+              setCurrentError(error.code)
+              toggleOverlay();
+            }
+            if (error.code === 'auth/invalid-email') {
+              console.log(error.code)
+              setCurrentError(error.code)
+              toggleOverlay();
+            }
+            console.log(error.code)
+            setCurrentError(error.code)
+            toggleOverlay();
+          });
+      }catch(e){
+        console.log(e)
+      }
+  }
+
+  const render_ShowError = () =>{
+    return visible ? (
+      <View>
+        <Overlay isVisible={visible} onBackdropPress={toggleOverlay} >
+          {/* PLEASE CHANGE ME TO WHATEVER YOU GUYS WANT */}
+        <TouchableOpacity onPress={() => console.log("Understood")} style={{alignItems: 'center'}}>
+         <Text style={{color: 'red', fontSize: 20}} >ERROR</Text>
+         <Text >{currentError}</Text>
+         <Button title={'Understood'} onPress={toggleOverlay} style={styles.button}></Button>
+        </TouchableOpacity>
+        </Overlay>
+      </View>
+    ):<></>;
+  }
 
   return (
+    <>
+    {/* ERROR SHOWING */}
+    {render_ShowError()}
     <KeyboardAvoidingView style={styles.virtualContainer} behavior='padding'>
       <ImageBackground source={signBackground} style={styles.virtualOne}>
         <TouchableOpacity onPress={() => navigation.navigate('Home')} style={styles.backButtonStyle}>
@@ -1977,33 +2011,62 @@ function SignUpScreen({ navigation }) {
           </TouchableOpacity>*/}
         </View>
         <Image source={signEmailText} style={{marginBottom:8}}/>
-        <TextInput style={styles.textBox}
-          label="Email"
-          placeholder="    Email address"
-          placeholderTextColor='#DCDCDC'
-          autoCapitalize='none'
-          keyboardType='email-address'
-          onChangeText={email => setEmail(email)}
-        />
-        <TextInput style={styles.textBox} secureTextEntry={true}
-          label="Password"
-          placeholder="    Password"
-          placeholderTextColor='#DCDCDC'
-          autoCapitalize='none'
-          passwordRules='required: lower; required: upper; required: digit; required: [-], minlength:5'
-          onChangeText={password => setPassword(password)}
-          secureTextEntry={true}
-        />
-        <TextInput style={styles.textBox} secureTextEntry={true}
-          label="Re-enter Password"
-          placeholder="    Re-enter Password"
-          placeholderTextColor='#DCDCDC'
-          autoCapitalize='none'
-          secureTextEntry={true}
-        />
-        <TouchableOpacity onPress={() => { SignUp(email, password), navigation.navigate('HomeLoggedIn') }}>
-          <Image source={signUpButton} style={styles.buttonImage}  />
-        </TouchableOpacity>
+        <Formik
+          validationSchema={SignUpValidationSchema}
+          initialValues={{ email: '', password: '', confirmPassword: ''}}
+          onSubmit={values => SignUp(values)}
+        >
+          {({
+            handleChange,
+            handleBlur,
+            handleSubmit,
+            values,
+            errors,
+            isValid,
+          }) => (
+            <>
+            <TextInput style={styles.textBox}
+            label="Email"
+            placeholder="    Email address"
+            placeholderTextColor='#DCDCDC'
+            autoCapitalize='none'
+            keyboardType='email-address'
+            onChangeText={handleChange('email')}
+            />
+             {/* THIS SHOWS THE ERRORS NEEDED TO BE RESOLVED */}
+              {errors.email &&
+                <Text style={{ fontSize: 13, color: 'red' }}>{errors.email}</Text>
+              }
+              <TextInput style={styles.textBox} secureTextEntry={true}
+                label="Password"
+                placeholder="    Password"
+                placeholderTextColor='#DCDCDC'
+                autoCapitalize='none'
+                passwordRules='required: lower; required: upper; required: digit; required: [-], minlength:5'
+                onChangeText={handleChange('password')}
+                secureTextEntry
+              />
+               {errors.password &&
+                <Text style={{ fontSize: 13, color: 'red' }}>{errors.password}</Text>
+              }
+              <TextInput style={styles.textBox} secureTextEntry={true}
+                label="Re-enter Password"
+                placeholder="    Re-enter Password"
+                placeholderTextColor='#DCDCDC'
+                autoCapitalize='none'
+                onChangeText={handleChange('confirmPassword')}
+                secureTextEntry={true}
+              /> 
+              {errors.confirmPassword && 
+                <Text style={{ fontSize: 13, color: 'red', paddingTop: 5 }}>{errors.confirmPassword}</Text>
+              }
+                <TouchableOpacity style={{paddingTop: 8}} disabled={!isValid} onPress={handleSubmit}>
+                <Image source={signUpButton} style={styles.buttonImage}  />
+                </TouchableOpacity>
+            </>
+          )}
+        </Formik>
+
         <View style={{flexDirection:'row', marginTop:20}} >
           <Image source={haveAcctText} style={{marginRight:10}}/>
           <TouchableOpacity onPress={() => navigation.navigate('SignIn')}>
@@ -2012,57 +2075,56 @@ function SignUpScreen({ navigation }) {
         </View>
       </ImageBackground>
     </KeyboardAvoidingView>
+    </>
   )
 
-  // FIRESTORE
-  function SignUp() {
-    firebase.auth().createUserWithEmailAndPassword(email, password)
-      .then(data => {
-        return db.collection('users').doc(data.user.uid).set({
-          userName: email,
-          subscriptionLevel: 0,
-          totalGems: 0
-        })
-          .catch(error => console.log(error))
-      })
-  }
+ 
 }
 
 // TODO need to hook this up to a button after signed in
-function Profile() {
-  const navigation = useNavigation();
-  // const [favoritesData, setFavoritesData] = useState([{"fortune" : "You're not logged in. Please come back and check after logging in"}]);
-  // useEffect( () => {
-  //   CheckLoginToken().then(async (result) => {
-  //     console.log('Favorites Screen Populated. Fetching data from firestore');
-  //     console.log("Login Status: ", result)
-  //     if(result === "User"){
-  //       db.collection('users').doc(firebase.auth().currentUser.uid).get()
-  //       .then(uData => {
-  //         const userData = uData.data().favorites;
-  //         setFavoritesData(userData);
-  //         console.log(`USER DATA  ${JSON.stringify(favoritesData)}`);
-  //       })
-  //       .catch(error => console.log(error));
-  //     }
-  //   })
-  // })
+function Profile({navigation}) {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(()=>{
+    let mounted = true;
+    if(mounted)
+    {
+      // Login Checker
+      LoginChecker().then((results) =>{
+        console.log("USER IS LOGGED IN : " , results)
+        setIsLoggedIn(results)
+      });
+    }
+    return ()=>{
+      mounted = false;
+    }
+  },[navigation])
   return (
+    <>
     <ImageBackground source={profilebgnotlogged} style={styles.bgfull}>
-      <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-between', padding: 25, marginTop: 18 }}>
-        <TouchableOpacity onPress={() => navigation.navigate('SignUp')}>
-          <Image source={SignUpButton} />
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => navigation.navigate('SignIn')}>
-          <Image source={SignInButton} />
-        </TouchableOpacity>
-      </View>
+      {isLoggedIn ? (
+            <View>
+             <TouchableOpacity onPress={ () => { LogOutUser();}}>
+                <Image source={Logoutbtn} />
+            </TouchableOpacity>
+          </View>
+          ) : 
+            <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-between', padding: 25, marginTop: 18 }}><TouchableOpacity onPress={() => navigation.navigate('SignUp')}>
+            <Image source={SignUpButton} />
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => navigation.navigate('SignIn')}>
+            <Image source={SignInButton} />
+          </TouchableOpacity>
+            </View>
+            
+      }
       {/* <Text style={{fontSize: 30}}>Hi</Text>
       <Button title="console" onPress={ () => console.log(favRef)} /> */}
       
    <NavBar_pro></NavBar_pro>
     </ImageBackground>
     
+    </>
   )
 }
 
@@ -2077,7 +2139,7 @@ function ProfileLoggedIn() {
         <TouchableOpacity onPress={() => navigation.navigate('Shop')}>
           <Image source={Shopbtn} />
         </TouchableOpacity>
-        <TouchableOpacity onPress={ () => { console.log("User Sign Out"); firebase.auth().signOut()}}>
+        <TouchableOpacity onPress={ () => { LogOutUser();}}>
           <Image source={Logoutbtn} />
         </TouchableOpacity>
       </View>
@@ -2173,22 +2235,95 @@ function ProfileDetails() {
 
 function SignInScreen() {
   const navigation = useNavigation();
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const [error, setError] = useState("")
+  const [visible, setVisible] = useState(false);
+  const [currentError, setCurrentError] = useState("");
 
-  function onLogin() {
-      firebase.auth().signInWithEmailAndPassword(email, password)
-        .then(function (firebaseUser) {
-          Alert.alert("Success", "You are Logged In")
-          navigation.navigate('HomeLoggedIn')
-        })
-        .catch(function (error) {
-          setError("Invalid Email/Password")
-        });
+  
+
+  const toggleOverlay = () => {
+    setVisible(!visible);
+  };
+
+  const SetTokenInLocalStorage = async (email, pass) => {
+    try{
+
+      // THIS IS A BAD WAY OF DOING THIS. But due to time constraint, we just do it like this for now
+      // IN the future need to implement a token based login, should never expose user's credentials like so
+      await SaveItemInStorage("AUTH_EMAIL", email)
+      await SaveItemInStorage("AUTH_PASSWORD", pass)
+      console.log("Stored New Credentials")
+
+    }catch(e){
+      console.log(e);
+
+    }
+
+    await RetrieveData('ONBOARDING').then( async (val) => {
+      if(val !== 'DONE') { // if onboarding 
+        await StoreData("ONBOARDING", 'PENDING');
+        //console.log(`Onboarding State 1: ${RetrieveData('ONBOARDING')}`);
+        await StoreData("ONBOARDING", "DONE");
+        navigation.navigate('Onboarding');
       }
+      else {
+        console.log(`Onboarding State: ${JSON.stringify(val)}`);
+      }
+    }
+    )
+  }
 
+  // FIRESTORE
+  const Signin = async (values) => {
+      try{
+        firebase.
+        auth()
+          .signInWithEmailAndPassword(values.email, values.password)
+          .then((data) => {
+            console.log(data)
+            console.log('User signed in!');
+            SetTokenInLocalStorage(values.email, values.password)
+            // Store to firebase
+            navigation.navigate('Profile')
+          })
+          .catch(async (error) => {
+            console.log(error)
+            if (error.code === 'auth/email-already-in-use') {
+              console.log(error.code)
+              setCurrentError(error.code)
+              toggleOverlay();
+            }
+            if (error.code === 'auth/invalid-email') {
+              console.log(error.code)
+              setCurrentError(error.code)
+              toggleOverlay();
+            }
+            console.log(error.code)
+            setCurrentError(error.code)
+            toggleOverlay();
+          });
+      }catch(e){
+        console.log(e)
+      }
+  }
+
+  const render_ShowError = () =>{
+    // Display errors
+    return visible ? (
+      <View>
+        <Overlay isVisible={visible} onBackdropPress={toggleOverlay} >
+          {/* PLEASE CHANGE ME TO WHATEVER YOU GUYS WANT */}
+        <TouchableOpacity onPress={() => console.log("Understood")} style={{alignItems: 'center'}}>
+         <Text style={{color: 'red', fontSize: 20}} >ERROR</Text>
+         <Text >{currentError}</Text>
+         <Button title={'Understood'} onPress={toggleOverlay} style={styles.button}></Button>
+        </TouchableOpacity>
+        </Overlay>
+      </View>
+    ):<></>;
+  }
   return (
+    <>
+    {render_ShowError()}
     <KeyboardAvoidingView style={styles.virtualContainer} behavior='padding'>
       <ImageBackground source={signBackground} style={styles.virtualOne}>
         <TouchableOpacity onPress={() => navigation.navigate('Home')} style={styles.backButtonStyle}>
@@ -2204,34 +2339,53 @@ function SignInScreen() {
           </TouchableOpacity>*/}
         </View>
         <Image source={signEmailText} style={{marginBottom:8}}/>
-        <TextInput style={styles.textBox}
-          label="Email"
-          placeholder="    Email address"
-          placeholderTextColor='#DCDCDC'
-          autoCapitalize='none'
-          keyboardType='email-address'
-          onChangeText={email => {
-            setEmail(email)
-          }}
-        />
-        <TextInput style={styles.textBox} secureTextEntry={true}
-          label="Password"
-          placeholder="    Password"
-          placeholderTextColor='#DCDCDC'
-          autoCapitalize='none'
-          passwordRules='required: lower; required: upper; required: digit; required: [-], minlength:5'
-          onChangeText={password => setPassword(password)}
-          secureTextEntry={true}
-        />
-
-      {error ? (
-        <View>
-          <Text>{error}</Text>
-        </View>
-      ) : null}
-        <TouchableOpacity onPress={() => { onLogin(email, password) } }>
+        <Formik
+          validationSchema={LoginValidationSchema}
+          initialValues={{ email: '', password: ''}}
+          onSubmit={values => Signin(values)}
+        >
+          {({
+            handleChange,
+            handleBlur,
+            handleSubmit,
+            values,
+            errors,
+            isValid,
+          }) => (
+            <>
+            <TextInput style={styles.textBox}
+            label="Email"
+            placeholder="    Email address"
+            placeholderTextColor='#DCDCDC'
+            autoCapitalize='none'
+            keyboardType='email-address'
+            onChangeText={handleChange('email')}
+            />
+             {/* THIS SHOWS THE ERRORS NEEDED TO BE RESOLVED */}
+              {errors.email &&
+                <Text style={{ fontSize: 13, color: 'red' }}>{errors.email}</Text>
+              }
+              <TextInput style={styles.textBox}
+                label="Password"
+                placeholder="    Password"
+                placeholderTextColor='#DCDCDC'
+                autoCapitalize='none'
+                passwordRules='required: lower; required: upper; required: digit; required: [-], minlength:5'
+                onChangeText={handleChange('password')}
+                secureTextEntry
+              />
+               {errors.password &&
+                <Text style={{ fontSize: 13, color: 'red' }}>{errors.password}</Text>
+              }
+                <TouchableOpacity style={{paddingTop: 8}} disabled={!isValid} onPress={handleSubmit}>
+                <Image source={loginButton} style={styles.buttonImage}  />
+                </TouchableOpacity>
+            </>
+          )}
+        </Formik>
+        {/* <TouchableOpacity onPress={() => { onLogin(email, password) } }>
           <Image source={loginButton} style={styles.buttonImage} />
-        </TouchableOpacity>
+        </TouchableOpacity> */}
         <Image source={forgotPasswordText} style={{marginTop:20}}/>
         <View style={{flexDirection:'row', marginTop:12}}>
           <Image source={createNewText} style={{marginRight:4}}/>
@@ -2242,6 +2396,7 @@ function SignInScreen() {
       </ImageBackground>
 
     </KeyboardAvoidingView>
+    </>
   )
   
 }
@@ -8244,6 +8399,21 @@ function Reading({}){
   }
 }
 
+const LogOutUser = async () =>{
+  // sign the user out of firebase.
+  await firebase.auth().signOut().then(async (results)=>{
+    await SaveItemInStorage("AUTH_EMAIL", "GUEST")
+    await SaveItemInStorage("AUTH_PASSWORD", "GUEST")
+  }).catch(async(e) =>{
+    console.log(e);
+    // REPLACE THE LOGINS WITH GUEST
+    await SaveItemInStorage("AUTH_EMAIL", "GUEST")
+    await SaveItemInStorage("AUTH_PASSWORD", "GUEST")
+  });
+  console.log("Logged user out!")
+
+}
+
 ////////////////////
 // Navigation Stack //
 ////////////////////
@@ -8251,25 +8421,6 @@ const Stack = createStackNavigator();
 
 function App() {
   const forFade = ({ current }) => ({ cardStyle: { opacity: current.progress }});
-
-  const _CheckOnboarding = () => {
-    RetrieveData('ONBOARDING').then( (val) => {
-      if(val !== 'DONE') { // if onboarding 
-        StoreData("ONBOARDING", 'PENDING');
-        console.log(`Onboarding State 1: ${RetrieveData('ONBOARDING')}`);
-        StoreData("ONBOARDING", "DONE");
-        return ( <Stack.Screen name="Onboarding" component={Onboarding} /> );
-      }
-      else {
-        console.log(`Onboarding State: ${JSON.stringify(val)}`);
-      }
-    }
-    )
-  }
-
-  
-  
-  
   
   return (
     <NavigationContainer>
@@ -8278,8 +8429,7 @@ function App() {
           headerShown: false
         }}
       >
-        {<Stack.Screen name="Home" component={HomeScreen} />}
-        <Stack.Screen name="HomeLoggedIn" component={HomeScreenLoggedIn} />
+        <Stack.Screen name="Home" component={HomeScreen} />
         <Stack.Screen name="Favorites" component={FavoritesScreen} />
         <Stack.Screen name="Shop" component={ShopScreen} />
         <Stack.Screen name="Virtual" component={VirtualCoffeeReadingScreen} />
