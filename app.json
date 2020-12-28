@@ -2,14 +2,9 @@
   "expo": {
     "name": "Fortune Coffee",
     "slug": "FortuneCoffee",
-    "version": "1.0.11",
+    "version": "1.0.12",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
-    "splash": {
-      "image": "./assets/10.png",
-      "resizeMode": "cover",
-      "backgroundColor": "#ffffff"
-    },
     "updates": {
       "fallbackToCacheTimeout": 0
     },
