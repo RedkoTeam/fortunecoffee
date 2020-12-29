@@ -1114,6 +1114,9 @@ function FavoritesScreen() {
           })
           .catch(error => console.log(error));
         }
+        else{
+          navigation.navigate('SignUp');
+        }
       });
     });
     return unsubscribe;
@@ -8423,7 +8426,16 @@ function Reading({}){
           </TouchableOpacity>
         </View>
         <View style={styles.flexInRowsCoffee}>
-          <TouchableOpacity onPress={() => onSave()}>
+          <TouchableOpacity onPress={() => {
+            LoginChecker().then((results) => {
+              if(results){
+                onSave()
+              }
+              else{
+                navigation.navigate('SignUp');
+              }
+            })
+          }}>
               <Image source={saveButton} />
             </TouchableOpacity>
             <View>
