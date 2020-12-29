@@ -295,6 +295,8 @@ import Shopbtn from './assets/FortuneCoffeePNGassets/Profile/shopbtn.png';
 import DOB from './assets/FortuneCoffeePNGassets/Profile/DateofBirth.png';
 import UserNametxt from './assets/FortuneCoffeePNGassets/Profile/Name.png';
 import proline from './assets/FortuneCoffeePNGassets/Profile/Line2.png';
+import appcredsbtn from './assets/FortuneCoffeePNGassets/Profile/appcredits.png';
+import Creditsbg from './assets/FortuneCoffeePNGassets/Profile/Credits.png';
 
 //random cards
 import {cardsAndMeaning} from './fortunesCardArray';
@@ -2116,17 +2118,43 @@ function Profile({navigation}) {
             <Image source={SignInButton} />
           </TouchableOpacity>
             </View>
+
             
       }
       {/* <Text style={{fontSize: 30}}>Hi</Text>
       <Button title="console" onPress={ () => console.log(favRef)} /> */}
-      
+         <View >
+          <TouchableOpacity onPress={() => navigation.navigate('Credits')}>
+            <Image source={appcredsbtn}  />
+          </TouchableOpacity>
+        </View>
    <NavBar_pro></NavBar_pro>
     </ImageBackground>
     
     </>
   )
 }
+
+function Credits() {
+  const navigation = useNavigation();
+ return (
+    <ImageBackground source={Creditsbg} style={styles.bgfull}>
+          <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+      <View style={ styles.flexInRows}>
+        <TouchableOpacity onPress={()=>navigation.navigate('ProfileLoggedIn')} style = {{top: 50, marginLeft: 30}}>
+          <Image source={backButton} />
+        </TouchableOpacity>
+      </View>
+      </View>
+
+    <View style={{marginBottom:"10%"}}>
+
+    </View>
+  
+    </ImageBackground>
+      )
+}
+
 
 
 
@@ -2195,7 +2223,11 @@ function ProfileLoggedIn() {
         }
         {/* <Text style={{fontSize: 30}}>Hi</Text>
         <Button title="console" onPress={ () => console.log(favRef)} /> */}
-        
+                  <View style={{justifyContent: 'center', marginBottom:30}}>
+          <TouchableOpacity onPress={() => navigation.navigate('Credits')}>
+            <Image source={appcredsbtn} />
+          </TouchableOpacity>
+        </View>
     <NavBar_pro></NavBar_pro>
       </ImageBackground>
     </>
@@ -8496,6 +8528,7 @@ function App() {
         <Stack.Screen name="SubscriptionScreen" component={SubscriptionScreen} />
         <Stack.Screen name="Fortune" component={FortuneModal} />
         <Stack.Screen name="Profile" component={Profile} />
+        <Stack.Screen name="Credits" component={Credits} />
         <Stack.Screen name="ProfileLoggedIn" component={ProfileLoggedIn} />
         <Stack.Screen name="ProfileDetails" component={ProfileDetails} />
         <Stack.Screen name="Horoscopepisces" component={Horoscopepisces} />
