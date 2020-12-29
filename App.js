@@ -2171,9 +2171,41 @@ function Credits() {
 function ProfileLoggedIn({route}) {
   const navigation = useNavigation();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [name, setName] = useState('')
+  const [rStatus, setRStatus] = useState('')
+  const [employment, setEmployment] = useState('')
+  const [gender, setGender] = useState('')
+  const [month, setMonth] = useState('')
+  const [day, setDay] = useState('')
+  const [year, setYear] = useState('')
+
+  const pullProfileInfo = () => {
+    db.collection('users').doc(firebase.auth().currentUser.uid)
+      .get()
+      .then((doc) => {
+        if (doc.exists) {
+          console.log("Document data:", doc.data());
+          let data = doc.data()
+          setName(data.name)
+          setRStatus(data.relationshipStatus)
+          setEmployment(data.employmentStatus)
+          setGender(data.gender)
+          setMonth(data.month)
+          setDay(data.day)
+          setYear(data.year)
+        } else {
+          // doc.data() will be undefined in this case
+          console.log("No such document!");
+        }
+      }).catch(function (error) {
+        console.log("Error getting document:", error);
+      })
+  }
 
   useEffect(()=>{
     let mounted = true;
+    pullProfileInfo()
+
     const unsubscribe = navigation.addListener('focus', () => {
       // Login Checker
       LoginChecker().then((results) =>{
@@ -2202,6 +2234,11 @@ function ProfileLoggedIn({route}) {
       {/* <Text style={{fontSize: 30}}>Hi</Text>
       <Button title="console" onPress={ () => console.log(favRef)} /> */}
       {/* STILL NEED TO BE PULLED FORM FIRESTORE */}
+      <Text>{name}</Text>
+      <Text>{rStatus}</Text>
+      <Text>{employment}</Text>
+      <Text>{gender}</Text>
+      <Text>{month}/{day}/{year}</Text>
       <Image source={UserNametxt} style={{marginTop:"50%",marginRight:"60%"}}/>
       <Image source={UserNametxt} style={{marginTop:20, marginRight:"60%",marginBottom:20}}/>
       <Image source={proline} />
