@@ -47,6 +47,7 @@ file:////Users/anyaozmen/Desktop/cof/fortunecoffee/android/gradlew
 file:////Users/anyaozmen/Desktop/cof/fortunecoffee/android/gradlew.bat
 file:////Users/anyaozmen/Desktop/cof/fortunecoffee/android/settings.gradle
 file:////Users/anyaozmen/Desktop/cof/fortunecoffee/app.json
+file:////Users/anyaozmen/Desktop/cof/fortunecoffee/assets/.DS_Store
 file:////Users/anyaozmen/Desktop/cof/fortunecoffee/assets/Bgstars.png
 file:////Users/anyaozmen/Desktop/cof/fortunecoffee/assets/Cards/CardsFront/King_of_Wands.png
 file:////Users/anyaozmen/Desktop/cof/fortunecoffee/assets/Cards/CardsFront/Knight_of_Wands.png
@@ -122,7 +123,6 @@ file:////Users/anyaozmen/Desktop/cof/fortunecoffee/assets/FortuneCoffeePNGassets
 file:////Users/anyaozmen/Desktop/cof/fortunecoffee/assets/FortuneCoffeePNGassets/SignUp.png
 file:////Users/anyaozmen/Desktop/cof/fortunecoffee/assets/FortuneCoffeePNGassets/Symbol.png
 file:////Users/anyaozmen/Desktop/cof/fortunecoffee/assets/FortuneCoffeePNGassets/Union.png
-file:////Users/anyaozmen/Desktop/cof/fortunecoffee/assets/FortuneCoffeePNGassets/Vector 2.png
 file:////Users/anyaozmen/Desktop/cof/fortunecoffee/assets/FortuneCoffeePNGassets/Vector-1.png
 file:////Users/anyaozmen/Desktop/cof/fortunecoffee/assets/FortuneCoffeePNGassets/Vector-10.png
 file:////Users/anyaozmen/Desktop/cof/fortunecoffee/assets/FortuneCoffeePNGassets/Vector-11.png
@@ -157,6 +157,7 @@ file:////Users/anyaozmen/Desktop/cof/fortunecoffee/assets/Middle Card.png
 file:////Users/anyaozmen/Desktop/cof/fortunecoffee/assets/Right card.png
 file:////Users/anyaozmen/Desktop/cof/fortunecoffee/assets/fonts/Montserrat-Regular.ttf
 file:////Users/anyaozmen/Desktop/cof/fortunecoffee/assets/photo-camera 4.png
+file:////Users/anyaozmen/Desktop/cof/fortunecoffee/assets/removebtn.png
 file:////Users/anyaozmen/Desktop/cof/fortunecoffee/assets/splash.png
 file:////Users/anyaozmen/Desktop/cof/fortunecoffee/babel.config.js
 file:////Users/anyaozmen/Desktop/cof/fortunecoffee/components/Loading.js
