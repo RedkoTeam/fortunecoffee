@@ -1963,7 +1963,7 @@ function SignUpScreen({ navigation }) {
               totalGems: 0
             }).then( () => {
               console.log('User account created & signed in!');
-              navigation.navigate('Home')
+              navigation.navigate('ProfileDetails')
             })
           })
           .catch(async (error) => {
@@ -2168,7 +2168,7 @@ function Credits() {
 
 
 //TODO REPLACE WITH DOB AND NAME FROM FIREBASE
-function ProfileLoggedIn() {
+function ProfileLoggedIn({route}) {
   const navigation = useNavigation();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
@@ -2243,8 +2243,31 @@ function ProfileLoggedIn() {
   )
 }
 
-function ProfileDetails() {
+function ProfileDetails({route}) {
   const navigation = useNavigation();
+  const [name, setName] = useState('')
+  const [rStatus, setRStatus] = useState('')
+  const [employment, setEmployment] = useState('')
+  const [gender, setGender] = useState('')
+  const [month, setMonth] = useState('')
+  const [day, setDay] = useState('')
+  const [year, setYear] = useState('')
+
+  const profileUpload = () => {
+    db.collection('users').doc(firebase.auth().currentUser.uid).set({
+      name: name,
+      relationshipStatus: rStatus,
+      employmentStatus: employment,
+      gender: gender,
+      month: month,
+      day: day,
+      year: year,
+    }, {merge: true})
+    .then(() => {
+      navigation.navigate('ProfileLoggedIn')
+    })
+  }
+
   return (
     <ImageBackground source={bgstars} style={styles.bgfull}>
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
@@ -2259,6 +2282,7 @@ function ProfileDetails() {
           label="Name"
           placeholder="   Enter name here"
           placeholderTextColor='#DCDCDC'
+          onChangeText={name => setName(name)}
         />
       </View>
       <Text style={{ color: '#FFFFFF', fontSize: 18, marginTop: 20, textAlign: 'left', alignSelf: 'stretch', marginLeft: 20}}>Relationship Status</Text>
@@ -2267,6 +2291,7 @@ function ProfileDetails() {
           label="Relationship Status"
           placeholder="   Enter relationship status here"
           placeholderTextColor='#DCDCDC'
+          onChangeText={rStatus => setRStatus(rStatus)}
         />
       </View>
       <Text style={{ color: '#FFFFFF', fontSize: 18, marginTop: 20, textAlign: 'left', alignSelf: 'stretch', marginLeft: 20}}>Employment Status</Text>
@@ -2275,6 +2300,8 @@ function ProfileDetails() {
           label="EmploymentStatus"
           placeholder="   Enter employment status here"
           placeholderTextColor='#DCDCDC'
+            onChangeText={employment => setEmployment(employment)}
+          
         />
       </View>
       <Text style={{ color: '#FFFFFF', fontSize: 18, marginTop: 20, textAlign: 'left', alignSelf: 'stretch', marginLeft: 20}}>Gender</Text>
@@ -2283,6 +2310,7 @@ function ProfileDetails() {
           label="Gender"
           placeholder="   Enter gender here"
           placeholderTextColor='#DCDCDC'
+          onChangeText={gender => setGender(gender)}
         />
       </View>  
       <Text style={{ color: '#FFFFFF', fontSize: 18, marginTop: 20, textAlign: 'left', alignSelf: 'stretch', marginLeft: 20}}>Birthday</Text>
@@ -2291,25 +2319,28 @@ function ProfileDetails() {
           label="Month"
           placeholder="      00"
           placeholderTextColor='#DCDCDC'
+          onChangeText={month => setMonth(month)}
         />
         <TextInput style={styles.savedFortuneTextBox2}
           label="Day"
           placeholder="      00"
           placeholderTextColor='#DCDCDC'
+          onChangeText={day => setDay(day)}
         />
         <TextInput style={styles.savedFortuneTextBox3}
           label="Year"
           placeholder="      00"
           placeholderTextColor='#DCDCDC'
+          onChangeText={year => setYear(year)}
         />
       </View>
       <Text></Text>
-      <TouchableOpacity onPress={() => console.log('log in pressed')}>
+        <TouchableOpacity onPress={() => profileUpload()}>
         <Image source={continueImage} />
       </TouchableOpacity>
       <Text></Text>
       <Text></Text>
-      <TouchableOpacity onPress={() => console.log('log in pressed')}>
+      <TouchableOpacity onPress={() => console.log('Skip')}>
         <Image source={skipImage} />
       </TouchableOpacity>
     </View>
