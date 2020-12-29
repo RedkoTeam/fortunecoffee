@@ -1,4 +1,4 @@
-export const words4Array = ["["Above and Beyond",
+export const words4Array = ["Above and Beyond",
 "Acceptance",
 "Accessibility",
 "Accomplishment",
