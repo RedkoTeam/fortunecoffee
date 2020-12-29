@@ -282,12 +282,12 @@ import someonetxt from './assets/FortuneCoffeePNGassets/Psychic/someonetxt.png';
 
 
 //Profile //
-import profileImage from './assets/FortuneCoffeePNGassets/Profile.png';
+// import profileImage from './assets/FortuneCoffeePNGassets/Profile.png';
 import skipImage from './assets/FortuneCoffeePNGassets/Skip.png';
 import continueImage from './assets/FortuneCoffeePNGassets/Continue.png';
 import { Input, Overlay } from 'react-native-elements';
-import pencil from './assets/pencil.png';
-import pageButton from './assets/pageButton.png';
+// import pencil from './assets/pencil.png';
+// import pageButton from './assets/pageButton.png';
 import profilebgnotlogged from './assets/FortuneCoffeePNGassets/profile_login.png';
 import profilebg from './assets/FortuneCoffeePNGassets/Profile/Profile.png';
 import Logoutbtn from './assets/FortuneCoffeePNGassets/Profile/BtnPrimary.png';
@@ -1956,9 +1956,15 @@ function SignUpScreen({ navigation }) {
         firebase.
         auth()
           .createUserWithEmailAndPassword(values.email, values.password)
-          .then(() => {
-            console.log('User account created & signed in!');
-            navigation.navigate('HomeLoggedIn')
+          .then(data => {
+            return db.collection('users').doc(data.user.uid).set({
+              userName: values.email,
+              subscriptionLevel: 0,
+              totalGems: 0
+            }).then( () => {
+              console.log('User account created & signed in!');
+              navigation.navigate('Home')
+            })
           })
           .catch(async (error) => {
             console.log(error)
