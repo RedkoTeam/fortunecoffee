@@ -1054,21 +1054,21 @@ function NavBar_fav(){
   return(
     <View style={{flex:1, backgroundColor:'#070631', height:'30%', alignItems:'center', alignContent:'center'}}>
       <Image source={Ellipse1} style={styles.ellipse} />
-      <View style={{flexDirection:'row', width:'80%', justifyContent: 'space-between', position:'absolute', bottom: "0%", paddingBottom:30}}>
+      <View style={{flexDirection:'row', width:'80%', justifyContent: 'space-between', position:'absolute', bottom: "0%", paddingBottom:5}}>
         <TouchableOpacity onPress={() => navigation.navigate('Horoscopemain')}>
         <Image source={Horosbtn}  />
           </TouchableOpacity>
           <TouchableOpacity onPress={() => navigation.navigate('Psychic')}>
-           <Image source={Psychicbtn} style={{ marginRight:30, bottom:'80%'}}  />
+           <Image source={Psychicbtn} style={{ marginRight:30, bottom:'75%'}}  />
         </TouchableOpacity>
         <TouchableOpacity onPress={() => navigation.navigate('Home')}>
-            <Image source={HomeB} style={{ bottom:'120%'}}/>
+            <Image source={HomeB} style={{ bottom:'130%'}}/>
           </TouchableOpacity>
           <TouchableOpacity onPress={() => navigation.navigate('Favorites')}>
-            <Image source={FavoritesW} style={{ marginLeft:30, bottom:'65%'}} />
+            <Image source={FavoritesW} style={{ marginLeft:30, bottom:'75%'}} />
         </TouchableOpacity>
         <TouchableOpacity onPress={() => navigation.navigate('ProfileLoggedIn')}>
-            <Image source={Profilebtn} style={{ bottom: "0%", paddingBottom:10}} />
+            <Image source={Profilebtn} style={{ bottom: "0%", paddingBottom:5}} />
         </TouchableOpacity>
       </View>
     </View>
@@ -1125,9 +1125,9 @@ function FavoritesScreen() {
       <ScrollView contentContainerStyle={styles.shopContainer}>
         <Image source={ galaxy } style={styles.shopBackgroundContainer} />
         <View style={{position:'absolute', top:0, flexDirection:'row', width:'100%', margin:16}}>
-        <TouchableOpacity onPress={()=>{navigation.navigate('Home')}}>
+       {/*} <TouchableOpacity onPress={()=>{navigation.navigate('Home')}}>
           <Image source={backButton} style={styles.backButtonStyle}/>
-        </TouchableOpacity>
+        </TouchableOpacity>*/}
         <Image source={savedFortunesTitle} style={{position:'absolute', alignSelf:'center', right:'28%', top: 100}} />
       </View>
         <View style={{paddingTop: 130}}></View>
@@ -1150,8 +1150,9 @@ function FavoritesScreen() {
           })
         }
         <View style={{paddingBottom:180}}></View>
-        <NavBar_fav/>
+        
       </ScrollView>
+      <NavBar_fav/>
     </View>
   )
 
@@ -1433,7 +1434,7 @@ function ShopScreen() {
     <ScrollView contentContainerStyle={styles.shopContainer}>
       <Image source={ galaxy } style={styles.shopBackgroundContainer} />
       <View style={{position:'absolute', top:0, flexDirection:'row', width:'100%', margin:16}}>
-        <TouchableOpacity onPress={()=>{navigation.navigate('Home')}}>
+        <TouchableOpacity onPress={()=>{navigation.navigate('ProfileLoggedIn')}}>
           <Image source={backButton} style={styles.backButtonStyle}/>
         </TouchableOpacity>
         <Image source={shop} style={{position:'absolute', alignSelf:'center', right:'43%', top: 60}} />
@@ -3005,20 +3006,20 @@ function HoroscopeAries({}) {
         <View style={{  alignItems: 'center' }}>
         <Image source={hottxt} style={{ alignItems: 'center', marginTop: 30 }} />
         <View style={styles.readingTableContainer2}>
-            <View>
+            <ScrollView>
             <Text style={{fontSize:17, color:'white'}}> {randHoroscope}  </Text>
-            </View>
+            </ScrollView>
           
             </View>
           
           
         <Image source={advicetxt} style={{ alignItems: 'center', marginTop:30}} />
         <View style={styles.readingTableContainer2}>
-            <View>
+            <ScrollView>
             <Text style={{fontSize:17, color:'white'}}> {randAdvice}  </Text>
     
             
-            </View>
+            </ScrollView>
        
           </View>
 
@@ -3483,20 +3484,20 @@ function HoroscopeAquarius({}) {
         <View style={{  alignItems: 'center' }}>
         <Image source={hottxt} style={{ alignItems: 'center', marginTop: 30 }} />
         <View style={styles.readingTableContainer2}>
-            <View>
+            <ScrollView>
             <Text style={{fontSize:17, color:'white'}}> {randHoroscope}  </Text>
-            </View>
+            </ScrollView>
           
             </View>
           
           
         <Image source={advicetxt} style={{ alignItems: 'center', marginTop:30}} />
         <View style={styles.readingTableContainer2}>
-            <View>
+            <ScrollView>
             <Text style={{fontSize:17, color:'white'}}> {randAdvice}  </Text>
     
             
-            </View>
+            </ScrollView>
        
           </View>
 
@@ -3962,20 +3963,20 @@ function HoroscopeCancer({}) {
         <View style={{  alignItems: 'center' }}>
         <Image source={hottxt} style={{ alignItems: 'center', marginTop: 30 }} />
         <View style={styles.readingTableContainer2}>
-            <View>
+            <ScrollView>
             <Text style={{fontSize:17, color:'white'}}> {randHoroscope}  </Text>
-            </View>
+            </ScrollView>
           
             </View>
           
           
         <Image source={advicetxt} style={{ alignItems: 'center', marginTop:30}} />
         <View style={styles.readingTableContainer2}>
-            <View>
+            <ScrollView>
             <Text style={{fontSize:17, color:'white'}}> {randAdvice}  </Text>
     
             
-            </View>
+            </ScrollView>
        
           </View>
 
@@ -4440,20 +4441,20 @@ function HoroscopeLibra({}) {
         <View style={{  alignItems: 'center' }}>
         <Image source={hottxt} style={{ alignItems: 'center', marginTop: 30 }} />
         <View style={styles.readingTableContainer2}>
-            <View>
+            <ScrollView>
             <Text style={{fontSize:17, color:'white'}}> {randHoroscope}  </Text>
-            </View>
+            </ScrollView>
           
             </View>
           
           
         <Image source={advicetxt} style={{ alignItems: 'center', marginTop:30}} />
         <View style={styles.readingTableContainer2}>
-            <View>
+            <ScrollView>
             <Text style={{fontSize:17, color:'white'}}> {randAdvice}  </Text>
     
             
-            </View>
+            </ScrollView>
        
           </View>
 
@@ -4918,20 +4919,20 @@ function HoroscopeLeo({}) {
         <View style={{  alignItems: 'center' }}>
         <Image source={hottxt} style={{ alignItems: 'center', marginTop: 30 }} />
         <View style={styles.readingTableContainer2}>
-            <View>
+            <ScrollView>
             <Text style={{fontSize:17, color:'white'}}> {randHoroscope}  </Text>
-            </View>
+            </ScrollView>
           
             </View>
           
           
         <Image source={advicetxt} style={{ alignItems: 'center', marginTop:30}} />
         <View style={styles.readingTableContainer2}>
-            <View>
+            <ScrollView>
             <Text style={{fontSize:17, color:'white'}}> {randAdvice}  </Text>
     
             
-            </View>
+            </ScrollView>
        
           </View>
 
@@ -5395,20 +5396,20 @@ function HoroscopeScorpio({}) {
         <View style={{  alignItems: 'center' }}>
         <Image source={hottxt} style={{ alignItems: 'center', marginTop: 30 }} />
         <View style={styles.readingTableContainer2}>
-            <View>
+            <ScrollView>
             <Text style={{fontSize:17, color:'white'}}> {randHoroscope}  </Text>
-            </View>
+            </ScrollView>
           
             </View>
           
           
         <Image source={advicetxt} style={{ alignItems: 'center', marginTop:30}} />
         <View style={styles.readingTableContainer2}>
-            <View>
+            <ScrollView>
             <Text style={{fontSize:17, color:'white'}}> {randAdvice}  </Text>
     
             
-            </View>
+            </ScrollView>
        
           </View>
 
@@ -5874,20 +5875,20 @@ function HoroscopeSagittarius({}) {
         <View style={{  alignItems: 'center' }}>
         <Image source={hottxt} style={{ alignItems: 'center', marginTop: 30 }} />
         <View style={styles.readingTableContainer2}>
-            <View>
+            <ScrollView>
             <Text style={{fontSize:17, color:'white'}}> {randHoroscope}  </Text>
-            </View>
+            </ScrollView>
           
             </View>
           
           
         <Image source={advicetxt} style={{ alignItems: 'center', marginTop:30}} />
         <View style={styles.readingTableContainer2}>
-            <View>
+            <ScrollView>
             <Text style={{fontSize:17, color:'white'}}> {randAdvice}  </Text>
     
             
-            </View>
+            </ScrollView>
        
           </View>
 
@@ -6353,20 +6354,20 @@ function HoroscopeTaurus({}) {
         <View style={{  alignItems: 'center' }}>
         <Image source={hottxt} style={{ alignItems: 'center', marginTop: 30 }} />
         <View style={styles.readingTableContainer2}>
-            <View>
+            <ScrollView>
             <Text style={{fontSize:17, color:'white'}}> {randHoroscope}  </Text>
-            </View>
+            </ScrollView>
           
             </View>
           
           
         <Image source={advicetxt} style={{ alignItems: 'center', marginTop:30}} />
         <View style={styles.readingTableContainer2}>
-            <View>
+            <ScrollView>
             <Text style={{fontSize:17, color:'white'}}> {randAdvice}  </Text>
     
             
-            </View>
+            </ScrollView>
        
           </View>
 
@@ -6831,20 +6832,20 @@ function HoroscopeVirgo({}) {
         <View style={{  alignItems: 'center' }}>
         <Image source={hottxt} style={{ alignItems: 'center', marginTop: 30 }} />
         <View style={styles.readingTableContainer2}>
-            <View>
+            <ScrollView>
             <Text style={{fontSize:17, color:'white'}}> {randHoroscope}  </Text>
-            </View>
+            </ScrollView>
           
             </View>
           
           
         <Image source={advicetxt} style={{ alignItems: 'center', marginTop:30}} />
         <View style={styles.readingTableContainer2}>
-            <View>
+            <ScrollView>
             <Text style={{fontSize:17, color:'white'}}> {randAdvice}  </Text>
     
             
-            </View>
+            </ScrollView>
        
           </View>
 
@@ -7310,20 +7311,20 @@ function HoroscopeGemini({}) {
         <View style={{  alignItems: 'center' }}>
         <Image source={hottxt} style={{ alignItems: 'center', marginTop: 30 }} />
         <View style={styles.readingTableContainer2}>
-            <View>
+            <ScrollView>
             <Text style={{fontSize:17, color:'white'}}> {randHoroscope}  </Text>
-            </View>
+            </ScrollView>
           
             </View>
           
           
         <Image source={advicetxt} style={{ alignItems: 'center', marginTop:30}} />
         <View style={styles.readingTableContainer2}>
-            <View>
+            <ScrollView>
             <Text style={{fontSize:17, color:'white'}}> {randAdvice}  </Text>
     
             
-            </View>
+            </ScrollView>
        
           </View>
 
@@ -7791,20 +7792,20 @@ function HoroscopeCapricorn({}) {
         <View style={{  alignItems: 'center' }}>
         <Image source={hottxt} style={{ alignItems: 'center', marginTop: 30 }} />
         <View style={styles.readingTableContainer2}>
-            <View>
+            <ScrollView>
             <Text style={{fontSize:17, color:'white'}}> {randHoroscope}  </Text>
-            </View>
+            </ScrollView>
           
             </View>
           
           
         <Image source={advicetxt} style={{ alignItems: 'center', marginTop:30}} />
         <View style={styles.readingTableContainer2}>
-            <View>
+            <ScrollView>
             <Text style={{fontSize:17, color:'white'}}> {randAdvice}  </Text>
     
             
-            </View>
+            </ScrollView>
        
           </View>
 
@@ -8271,20 +8272,20 @@ function Horoscopepisces({}) {
         <View style={{  alignItems: 'center' }}>
         <Image source={hottxt} style={{ alignItems: 'center', marginTop: 30 }} />
         <View style={styles.readingTableContainer2}>
-            <View>
+            <ScrollView>
             <Text style={{fontSize:17, color:'white'}}> {randHoroscope}  </Text>
-            </View>
+            </ScrollView>
           
             </View>
           
           
         <Image source={advicetxt} style={{ alignItems: 'center', marginTop:30}} />
         <View style={styles.readingTableContainer2}>
-            <View>
+            <ScrollView>
             <Text style={{fontSize:17, color:'white'}}> {randAdvice}  </Text>
     
             
-            </View>
+            </ScrollView>
        
           </View>
 
@@ -8397,9 +8398,9 @@ function Reading({}){
               <Text style={styles.helloUserTextContainer}> Your Fortune{userName} </Text>
               <Image source={coffeeImg} style={{ marginTop: 20 }} />
             </View>
-            <TouchableOpacity onPress={() => console.log("SHARE")}>
+            {/*<TouchableOpacity onPress={() => console.log("SHARE")}>
               <Image source={shareButton} style={{ alignSelf: 'flex-end' }} />
-            </TouchableOpacity>
+            </TouchableOpacity>*/}
         </View>
           <View style={styles.readingTableContainer}>
             <Image source={yourFortune} style={{marginBottom:12}} />

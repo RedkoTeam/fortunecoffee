@@ -1,4 +1,4 @@
-rootProject.name = 'coffee'
+rootProject.name = 'Fortune Coffee'
 
 apply from: '../node_modules/react-native-unimodules/gradle.groovy'
 includeUnimodulesProjects()
