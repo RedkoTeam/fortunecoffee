@@ -1,4 +1,3 @@
-
 import React, { useRef, useEffect, useState, useCallback, Componenet, useFocusEffect } from 'react';
 
 import './fixtimerbug';
