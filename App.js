@@ -1,4 +1,3 @@
-
 import React, { useRef, useEffect, useState, useCallback, Componenet, useFocusEffect } from 'react';
 
 import './fixtimerbug';
@@ -298,6 +297,11 @@ import UserNametxt from './assets/FortuneCoffeePNGassets/Profile/Name.png';
 import proline from './assets/FortuneCoffeePNGassets/Profile/Line2.png';
 import appcredsbtn from './assets/FortuneCoffeePNGassets/Profile/appcredits.png';
 import Creditsbg from './assets/FortuneCoffeePNGassets/Profile/Credits.png';
+import iconsmadeby from './assets/FortuneCoffeePNGassets/Profile/Icons_made_by.png';
+import fromImg from './assets/FortuneCoffeePNGassets/Profile/From.png';
+import Freepik from './assets/FortuneCoffeePNGassets/Profile/Freepik.png';
+import Flaticon from './assets/FortuneCoffeePNGassets/Profile/Flaticon.png';
+
 
 //random cards
 import {cardsAndMeaning} from './fortunesCardArray';
@@ -322,6 +326,9 @@ import MagicGlobeValidationSchema from './util/validators/MagicGlobeValidationSc
 import { Formik } from 'formik'
 import LoginChecker from './util/LoginChecker'
 import AsyncStorage from '@react-native-community/async-storage';
+
+// Web Broswer for payment
+import * as WebBrowser from 'expo-web-browser';
 
 
 ////////////////////
@@ -789,7 +796,7 @@ function HomeScreen({ navigation }) {
     <Modal isVisible={isModalVisible} style={{ alignItems: "center", flex: 1 }}>
         <View>
           <View style={{alignItems: 'center',justifyContent: 'center',}}>
-            <Image source={crystalBackground} style={{alignItems:'center'}} />
+            <Image source={submodfo} style={{alignItems:'center'}} />
             <TouchableOpacity style={{ 
                 flexDirection: 'row',
                 position: 'absolute',
@@ -924,7 +931,7 @@ function HomeScreen({ navigation }) {
         <Image source={LargeTitleApp} style={{ marginBottom:20 }} />
         {RenderTheFortuneButtons()}
 
-        {/* <Button title="camera" onPress={ () => navigation.navigate('Virtual')} /> */}
+        {/* <Button title="credits" onPress={() => navigation.navigate('Credits')} /> */}
         
         <Image source={PickCard} style={{ marginTop:20, margin: 8 }} />
           {/* Pick a card  */}
@@ -1242,171 +1249,68 @@ let ShopDatabase = [
   }
 ]
 
+
 function Payment({navigation, route}) {
-  const [name, setName] = useState('')
-  const [email, setEmail] = useState('')
-  const [phone, setPhone] = useState('')
-  const [address, setAddress] = useState('')
-  const [city, setCity] = useState('')
-  const [country, setCountry] = useState('')
-  const [postal, setPostal] = useState('')
-  const [cityState, setCityState] = useState('')
-  const [cardNumber, setCardNumber] = useState('')
-  const [exp_month, setExp_Month] = useState('')
-  const [exp_year, setExp_Year] = useState('')
-  const [cvc, setCvc] = useState('')
+  const [result, setResult] = useState(null);
 
+  console.log(route)
 
-  function toStripe(name, email, phone, address, city, country, postal, cityState, cardNumber, exp_month, exp_year, cvc) {
-    fetch('https://peaceful-woodland-13730.herokuapp.com/api/customer', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        name: name,
-        email: email,
-        phone: phone,
-        address: {
-          line1: address,
-          city: city,
-          country: country,
-          postal_code: postal,
-          state: cityState
-        },
-        subscription: route.params.subscription,
-        card: {
-          number: cardNumber,
-          exp_month: exp_month,
-          exp_year: exp_year,
-          cvc: cvc
-        }
-      })
-    }).then(response => response.json())
-      .then(data => {
-        console.log(data)
-        db.collection('users').doc(firebase.auth().currentUser.uid)
-        .set({
-          subscriptionLevel: route.params.subscription,
-          stripeId: data.subscription.customer,
-          subscriptionActive: true
-        }).then(() => {
-          console.log('yes')
-        }).catch(error => console.log(error))
-      });
-  }
+  const _handlePressButtonAsync = async () => {
+    console.log(route.params.subscription)
+    let subscriptionRoute = route.params.subscription;
+    // Switch cases for each subscription location 
+    switch(subscriptionRoute){
+      case "Amethyst": {
+        console.log("Amethyst selected")
+        let result = await WebBrowser.openBrowserAsync('https://payment-fortune-coffee.herokuapp.com');
+        setResult(result);
+        break;
+      }
+      case "Rose Quartz": {
+        console.log("Amethyst selected")
+        let result = await WebBrowser.openBrowserAsync('https://payment-fortune-coffee.herokuapp.com/rose');
+        setResult(result);
+        break;
+      } 
+      case "Sapphire": {
+        console.log("Amethyst selected")
+        let result = await WebBrowser.openBrowserAsync('https://payment-fortune-coffee.herokuapp.com/sapphire');
+        setResult(result);
+        break;
+      } 
+      case "Tiger's Eye": {
+        console.log("Amethyst selected")
+        let result = await WebBrowser.openBrowserAsync('https://payment-fortune-coffee.herokuapp.com/tiger');
+        setResult(result);
+        break;
+      }
+      default:{
+        
+      }
+    }
+    
+  };
 
+  useEffect(()=>{
+    const unsubscribe = navigation.addListener('focus', () => {
+      _handlePressButtonAsync();
+    });
+    return unsubscribe;
+  },[navigation])
 
   return (
- 
-    <View style={{  alignItems: 'center', height: '100%' ,justifyContent: 'center'}}>
-      <ImageBackground source={bgstars} style={styles.bgfull}>
-      <View style={styles.flexInRows}>
-          <TouchableOpacity onPress={() => navigation.navigate('Home')} style={{ top: 40, marginLeft: 10 }}>
+    <View style={styles.container}>
+       <TouchableOpacity onPress={()=>navigation.navigate('Home')} style={styles.backButtonStyle}>
             <Image source={backButton} />
-          </TouchableOpacity>
-      </View>
-        <Text></Text>
-        <Text style={{ color: '#FFFFFF', fontSize: 15, textAlign: 'left', alignSelf: 'stretch', marginLeft: 20, marginTop: 60 }}>Name</Text>
-        <TextInput style={styles.savedFortuneTextBox}
-          label="Name"
-          placeholder="   Enter name here"
-          placeholderTextColor='#DCDCDC'
-          onChangeText={name => setName(name)}
-        />
-        <Text style={{ color: '#FFFFFF', fontSize: 15, marginTop: 10, textAlign: 'left', alignSelf: 'stretch', marginLeft: 15 }}>Email</Text>
-        <TextInput style={styles.savedFortuneTextBox}
-          label="Email"
-          placeholder="   Enter Email Here"
-          placeholderTextColor='#DCDCDC'
-          onChangeText={email => setEmail(email)}
-        />
-        <Text style={{ color: '#FFFFFF', fontSize: 15, marginTop: 10, textAlign: 'left', alignSelf: 'stretch', marginLeft: 15 }}>Phone</Text>
-        <TextInput style={styles.savedFortuneTextBox}
-          label="Phone"
-          placeholder="   Enter Phone # Here"
-          placeholderTextColor='#DCDCDC'
-          onChangeText={phone => setPhone(phone)}
-        />
-        <Text style={{ color: '#FFFFFF', fontSize: 15, marginTop: 10, textAlign: 'left', alignSelf: 'stretch', marginLeft: 15 }}>Address</Text>
-        <TextInput style={styles.savedFortuneTextBox}
-          label="Address"
-          placeholder="   Address"
-          placeholderTextColor='#DCDCDC'
-          onChangeText={address => setAddress(address)}
-        />
-        <Text style={{ color: '#FFFFFF', fontSize: 15, marginTop: 10, textAlign: 'left', alignSelf: 'stretch', marginLeft: 15 }}>City</Text>
-        <TextInput style={styles.savedFortuneTextBox}
-          label="City"
-          placeholder="   City"
-          placeholderTextColor='#DCDCDC'
-          onChangeText={city => setCity(city)}
-        />
-        <Text style={{ color: '#FFFFFF', fontSize: 15, marginTop: 10, textAlign: 'left', alignSelf: 'stretch', marginLeft: 15 }}>Country</Text>
-        <TextInput style={styles.savedFortuneTextBox}
-          label="Country"
-          placeholder="   Country"
-          placeholderTextColor='#DCDCDC'
-          onChangeText={country => setCountry(country)}
-        />
-      <View style={{ flexDirection: 'row', justifyContent:'space-between' , width: '90%', height: '5%' ,marginTop:15}}>
-        <Text style={{ color: '#FFFFFF', fontSize: 15, marginTop: 10, textAlign: 'left', alignSelf: 'stretch' }}>Postal</Text>
-        <TextInput style={styles.savedFortuneTextBox2}
-          label="Postal"
-          placeholder="   Postal"
-          placeholderTextColor='#DCDCDC'
-          onChangeText={postal => setPostal(postal)}
-        />
-        <Text style={{ color: '#FFFFFF', fontSize: 15, marginTop: 10, textAlign: 'left', alignSelf: 'stretch'}}>State</Text>
-        <TextInput style={styles.savedFortuneTextBox2}
-          label="State"
-          placeholder="   State"
-          placeholderTextColor='#DCDCDC'
-          onChangeText={cityState => setCityState(cityState)}
-        />
-        </View>
-        <Text style={{ color: '#FFFFFF', fontSize: 15, marginTop: 10, textAlign: 'left', alignSelf: 'stretch', marginLeft: 15 }}>Credit Card</Text>
-        <TextInput style={styles.savedFortuneTextBox}
-          label="Credit Card"
-          placeholder="   Card Number"
-          placeholderTextColor='#DCDCDC'
-          onChangeText={cardNumber => setCardNumber(cardNumber)}
-        />
+        </TouchableOpacity> 
+      <Text>{result && JSON.stringify(result)}</Text>
+      
+      <TouchableOpacity onPress={()=>navigation.navigate('Home')} style={styles.backButtonStyle}>
+            <Text> Nice! You recieved fortunes and gems!</Text>
 
-        <Text style={{ color: '#FFFFFF', fontSize: 15, marginTop: 10, textAlign: 'left', alignSelf: 'stretch', marginLeft: 15 }}>Credit Card</Text>
-        <View style={{ flexDirection: 'row', width: '90%', height: '6%' }}>
-
-          <TextInput style={styles.savedFortuneTextBox2}
-            label="Month"
-            placeholder="      Month"
-            placeholderTextColor='#DCDCDC'
-          onChangeText={exp_month => setExp_Month(exp_month)}
-          />
-          <TextInput style={styles.savedFortuneTextBox2}
-            label="Year"
-            placeholder="      Year"
-            placeholderTextColor='#DCDCDC'
-            onChangeText={exp_year => setExp_Year(exp_year)}
-          />
-          <TextInput style={styles.savedFortuneTextBox3}
-            label="CVC"
-            placeholder="      CVC"
-            placeholderTextColor='#DCDCDC'
-            onChangeText={cvc => setCvc(cvc)}
-          />
-        </View>
-        <Text></Text>
-      <TouchableOpacity onPress={() => { 
-        toStripe(name, email, phone, address, city, country, postal, cityState, cardNumber, exp_month, exp_year, cvc)
-
-        }}>
-          <Image style={{marginTop:10 }} source={continueImage} />
-        </TouchableOpacity>
-      <Text></Text>
-   </ImageBackground>
+        </TouchableOpacity> 
     </View>
-    
-  )
+  );
   
 }
 
@@ -1974,7 +1878,7 @@ function SignUpScreen({ navigation }) {
               totalGems: 0
             }).then( () => {
               console.log('User account created & signed in!');
-              navigation.navigate('Home')
+              navigation.navigate('ProfileDetails')
             })
           })
           .catch(async (error) => {
@@ -2106,7 +2010,7 @@ function SignUpScreen({ navigation }) {
 // TODO need to hook this up to a button after signed in
 function Profile({navigation}) {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-
+  
   useEffect(()=>{
     let mounted = true;
     if(mounted)
@@ -2121,32 +2025,34 @@ function Profile({navigation}) {
       mounted = false;
     }
   },[navigation])
+
+  
+
   return (
     <>
-    <ImageBackground source={profilebgnotlogged} style={styles.bgfull}>
+    <ImageBackground source={profilebg} style={styles.bgfull}>
+      <View style={{flex:1, justifyContent: 'center', alignContent: 'center'}}>
       {isLoggedIn ? (
-            <View>
-             <TouchableOpacity onPress={ () => { LogOutUser();}}>
-                <Image source={Logoutbtn} />
+          <View>
+            <TouchableOpacity onPress={ () => { LogOutUser();}}>
+              <Image source={Logoutbtn} />
             </TouchableOpacity>
           </View>
           ) : 
-            <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-between', padding: 25, marginTop: 18 }}><TouchableOpacity onPress={() => navigation.navigate('SignUp')}>
-            <Image source={SignUpButton} />
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => navigation.navigate('SignIn')}>
-            <Image source={SignInButton} />
-          </TouchableOpacity>
+            <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-between', padding: 25, marginTop: 18 }}>
+              <TouchableOpacity onPress={() => navigation.navigate('SignUp')}>
+                <Image source={SignUpButton} />
+              </TouchableOpacity>
+              <TouchableOpacity onPress={() => navigation.navigate('SignIn')}>
+                <Image source={SignInButton} />
+              </TouchableOpacity>
             </View>
-
-            
       }
-      {/* <Text style={{fontSize: 30}}>Hi</Text>
-      <Button title="console" onPress={ () => console.log(favRef)} /> */}
-         <View >
-          <TouchableOpacity onPress={() => navigation.navigate('Credits')}>
+         <View>
+          <TouchableOpacity onPress={() => navigation.navigate('Credits')} style={{position: "absolute", bottom: 50}}>
             <Image source={appcredsbtn}  />
           </TouchableOpacity>
+        </View>
         </View>
    <NavBar_pro></NavBar_pro>
     </ImageBackground>
@@ -2157,6 +2063,9 @@ function Profile({navigation}) {
 
 function Credits() {
   const navigation = useNavigation();
+  useEffect(()=>{
+    let mounted = true;
+  })
  return (
     <ImageBackground source={Creditsbg} style={styles.bgfull}>
           <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
@@ -2165,6 +2074,17 @@ function Credits() {
           <Image source={backButton} />
         </TouchableOpacity>
       </View>
+      <View style={{flexDirection:'row', marginTop: 550}} >
+          <Image source={iconsmadeby} style={{marginRight:10}}/>
+          <TouchableOpacity style = {{marginRight: 5}} onPress={()=>{Linking.openURL('https://www.flaticon.com/authors/freepik')}}>
+            <Image source={Freepik} />
+          </TouchableOpacity>
+          <Image source={fromImg} style={{marginRight:10}}/>
+          <TouchableOpacity onPress={()=>{Linking.openURL('https://www.flaticon.com/')}}>
+            <Image source={Flaticon} />
+          </TouchableOpacity>
+      </View>
+      
       </View>
 
     <View style={{marginBottom:"10%"}}>
@@ -2179,12 +2099,44 @@ function Credits() {
 
 
 //TODO REPLACE WITH DOB AND NAME FROM FIREBASE
-function ProfileLoggedIn() {
+function ProfileLoggedIn({route}) {
   const navigation = useNavigation();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [name, setName] = useState('')
+  const [rStatus, setRStatus] = useState('')
+  const [employment, setEmployment] = useState('')
+  const [gender, setGender] = useState('')
+  const [month, setMonth] = useState('')
+  const [day, setDay] = useState('')
+  const [year, setYear] = useState('')
+
+  const pullProfileInfo = () => {
+    db.collection('users').doc(firebase.auth().currentUser.uid)
+      .get()
+      .then((doc) => {
+        if (doc.exists) {
+          console.log("Document data:", doc.data());
+          let data = doc.data()
+          setName(data.name)
+          setRStatus(data.relationshipStatus)
+          setEmployment(data.employmentStatus)
+          setGender(data.gender)
+          setMonth(data.month)
+          setDay(data.day)
+          setYear(data.year)
+        } else {
+          // doc.data() will be undefined in this case
+          console.log("No such document!");
+        }
+      }).catch(function (error) {
+        console.log("Error getting document:", error);
+      })
+  }
 
   useEffect(()=>{
     let mounted = true;
+    pullProfileInfo()
+
     const unsubscribe = navigation.addListener('focus', () => {
       // Login Checker
       LoginChecker().then((results) =>{
@@ -2213,6 +2165,11 @@ function ProfileLoggedIn() {
       {/* <Text style={{fontSize: 30}}>Hi</Text>
       <Button title="console" onPress={ () => console.log(favRef)} /> */}
       {/* STILL NEED TO BE PULLED FORM FIRESTORE */}
+      <Text>{name}</Text>
+      <Text>{rStatus}</Text>
+      <Text>{employment}</Text>
+      <Text>{gender}</Text>
+      <Text>{month}/{day}/{year}</Text>
       <Image source={UserNametxt} style={{marginTop:"50%",marginRight:"60%"}}/>
       <Image source={UserNametxt} style={{marginTop:20, marginRight:"60%",marginBottom:20}}/>
       <Image source={proline} />
@@ -2243,8 +2200,8 @@ function ProfileLoggedIn() {
         }
         {/* <Text style={{fontSize: 30}}>Hi</Text>
         <Button title="console" onPress={ () => console.log(favRef)} /> */}
-                  <View style={{justifyContent: 'center', marginBottom:30}}>
-          <TouchableOpacity onPress={() => navigation.navigate('Credits')}>
+        <View style={{justifyContent: 'center', marginBottom:30}}>
+          <TouchableOpacity onPress={() => navigation.navigate('Credits')} >
             <Image source={appcredsbtn} />
           </TouchableOpacity>
         </View>
@@ -2254,8 +2211,31 @@ function ProfileLoggedIn() {
   )
 }
 
-function ProfileDetails() {
+function ProfileDetails({route}) {
   const navigation = useNavigation();
+  const [name, setName] = useState('')
+  const [rStatus, setRStatus] = useState('')
+  const [employment, setEmployment] = useState('')
+  const [gender, setGender] = useState('')
+  const [month, setMonth] = useState('')
+  const [day, setDay] = useState('')
+  const [year, setYear] = useState('')
+
+  const profileUpload = () => {
+    db.collection('users').doc(firebase.auth().currentUser.uid).set({
+      name: name,
+      relationshipStatus: rStatus,
+      employmentStatus: employment,
+      gender: gender,
+      month: month,
+      day: day,
+      year: year,
+    }, {merge: true})
+    .then(() => {
+      navigation.navigate('ProfileLoggedIn')
+    })
+  }
+
   return (
     <ImageBackground source={bgstars} style={styles.bgfull}>
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
@@ -2270,6 +2250,7 @@ function ProfileDetails() {
           label="Name"
           placeholder="   Enter name here"
           placeholderTextColor='#DCDCDC'
+          onChangeText={name => setName(name)}
         />
       </View>
       <Text style={{ color: '#FFFFFF', fontSize: 18, marginTop: 20, textAlign: 'left', alignSelf: 'stretch', marginLeft: 20}}>Relationship Status</Text>
@@ -2278,6 +2259,7 @@ function ProfileDetails() {
           label="Relationship Status"
           placeholder="   Enter relationship status here"
           placeholderTextColor='#DCDCDC'
+          onChangeText={rStatus => setRStatus(rStatus)}
         />
       </View>
       <Text style={{ color: '#FFFFFF', fontSize: 18, marginTop: 20, textAlign: 'left', alignSelf: 'stretch', marginLeft: 20}}>Employment Status</Text>
@@ -2286,6 +2268,8 @@ function ProfileDetails() {
           label="EmploymentStatus"
           placeholder="   Enter employment status here"
           placeholderTextColor='#DCDCDC'
+            onChangeText={employment => setEmployment(employment)}
+          
         />
       </View>
       <Text style={{ color: '#FFFFFF', fontSize: 18, marginTop: 20, textAlign: 'left', alignSelf: 'stretch', marginLeft: 20}}>Gender</Text>
@@ -2294,6 +2278,7 @@ function ProfileDetails() {
           label="Gender"
           placeholder="   Enter gender here"
           placeholderTextColor='#DCDCDC'
+          onChangeText={gender => setGender(gender)}
         />
       </View>  
       <Text style={{ color: '#FFFFFF', fontSize: 18, marginTop: 20, textAlign: 'left', alignSelf: 'stretch', marginLeft: 20}}>Birthday</Text>
@@ -2302,25 +2287,28 @@ function ProfileDetails() {
           label="Month"
           placeholder="      00"
           placeholderTextColor='#DCDCDC'
+          onChangeText={month => setMonth(month)}
         />
         <TextInput style={styles.savedFortuneTextBox2}
           label="Day"
           placeholder="      00"
           placeholderTextColor='#DCDCDC'
+          onChangeText={day => setDay(day)}
         />
         <TextInput style={styles.savedFortuneTextBox3}
           label="Year"
           placeholder="      00"
           placeholderTextColor='#DCDCDC'
+          onChangeText={year => setYear(year)}
         />
       </View>
       <Text></Text>
-      <TouchableOpacity onPress={() => console.log('log in pressed')}>
+        <TouchableOpacity onPress={() => profileUpload()}>
         <Image source={continueImage} />
       </TouchableOpacity>
       <Text></Text>
       <Text></Text>
-      <TouchableOpacity onPress={() => console.log('log in pressed')}>
+      <TouchableOpacity onPress={() => console.log('Skip')}>
         <Image source={skipImage} />
       </TouchableOpacity>
     </View>
