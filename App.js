@@ -1576,7 +1576,7 @@ function Psychic() {
 
 
           <TouchableOpacity onPress={()=>{navigation.navigate('Psychic')}}>
-           <Image source={backButton} style={styles.backButtonStyle} />
+           <Image source={backButton} style={styles.backButtonStyle1} />
          </TouchableOpacity>
      
            </ImageBackground>
@@ -8577,7 +8577,6 @@ function App() {
         <Stack.Screen name="LunaChat" component={LunaChat} />
         <Stack.Screen name="Manifest" component={Manifest} />
         <Stack.Screen name="SendingUni" component={SendingUni} />
-
         <Stack.Screen name="SomeoneFortune" component={SomeoneFortune} />
         <Stack.Screen name="SomeoneFortune1" component={SomeoneFortune1} />
       </Stack.Navigator>
