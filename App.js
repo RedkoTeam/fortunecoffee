@@ -282,12 +282,12 @@ import someonetxt from './assets/FortuneCoffeePNGassets/Psychic/someonetxt.png';
 
 
 //Profile //
-import profileImage from './assets/FortuneCoffeePNGassets/Profile.png';
+// import profileImage from './assets/FortuneCoffeePNGassets/Profile.png';
 import skipImage from './assets/FortuneCoffeePNGassets/Skip.png';
 import continueImage from './assets/FortuneCoffeePNGassets/Continue.png';
 import { Input, Overlay } from 'react-native-elements';
-import pencil from './assets/pencil.png';
-import pageButton from './assets/pageButton.png';
+// import pencil from './assets/pencil.png';
+// import pageButton from './assets/pageButton.png';
 import profilebgnotlogged from './assets/FortuneCoffeePNGassets/profile_login.png';
 import profilebg from './assets/FortuneCoffeePNGassets/Profile/Profile.png';
 import Logoutbtn from './assets/FortuneCoffeePNGassets/Profile/BtnPrimary.png';
@@ -1961,9 +1961,15 @@ function SignUpScreen({ navigation }) {
         firebase.
         auth()
           .createUserWithEmailAndPassword(values.email, values.password)
-          .then(() => {
-            console.log('User account created & signed in!');
-            navigation.navigate('HomeLoggedIn')
+          .then(data => {
+            return db.collection('users').doc(data.user.uid).set({
+              userName: values.email,
+              subscriptionLevel: 0,
+              totalGems: 0
+            }).then( () => {
+              console.log('User account created & signed in!');
+              navigation.navigate('ProfileDetails')
+            })
           })
           .catch(async (error) => {
             console.log(error)
@@ -2180,12 +2186,44 @@ function Credits() {
 
 
 //TODO REPLACE WITH DOB AND NAME FROM FIREBASE
-function ProfileLoggedIn() {
+function ProfileLoggedIn({route}) {
   const navigation = useNavigation();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [name, setName] = useState('')
+  const [rStatus, setRStatus] = useState('')
+  const [employment, setEmployment] = useState('')
+  const [gender, setGender] = useState('')
+  const [month, setMonth] = useState('')
+  const [day, setDay] = useState('')
+  const [year, setYear] = useState('')
+
+  const pullProfileInfo = () => {
+    db.collection('users').doc(firebase.auth().currentUser.uid)
+      .get()
+      .then((doc) => {
+        if (doc.exists) {
+          console.log("Document data:", doc.data());
+          let data = doc.data()
+          setName(data.name)
+          setRStatus(data.relationshipStatus)
+          setEmployment(data.employmentStatus)
+          setGender(data.gender)
+          setMonth(data.month)
+          setDay(data.day)
+          setYear(data.year)
+        } else {
+          // doc.data() will be undefined in this case
+          console.log("No such document!");
+        }
+      }).catch(function (error) {
+        console.log("Error getting document:", error);
+      })
+  }
 
   useEffect(()=>{
     let mounted = true;
+    pullProfileInfo()
+
     const unsubscribe = navigation.addListener('focus', () => {
       // Login Checker
       LoginChecker().then((results) =>{
@@ -2214,6 +2252,11 @@ function ProfileLoggedIn() {
       {/* <Text style={{fontSize: 30}}>Hi</Text>
       <Button title="console" onPress={ () => console.log(favRef)} /> */}
       {/* STILL NEED TO BE PULLED FORM FIRESTORE */}
+      <Text>{name}</Text>
+      <Text>{rStatus}</Text>
+      <Text>{employment}</Text>
+      <Text>{gender}</Text>
+      <Text>{month}/{day}/{year}</Text>
       <Image source={UserNametxt} style={{marginTop:"50%",marginRight:"60%"}}/>
       <Image source={UserNametxt} style={{marginTop:20, marginRight:"60%",marginBottom:20}}/>
       <Image source={proline} />
@@ -2255,8 +2298,31 @@ function ProfileLoggedIn() {
   )
 }
 
-function ProfileDetails() {
+function ProfileDetails({route}) {
   const navigation = useNavigation();
+  const [name, setName] = useState('')
+  const [rStatus, setRStatus] = useState('')
+  const [employment, setEmployment] = useState('')
+  const [gender, setGender] = useState('')
+  const [month, setMonth] = useState('')
+  const [day, setDay] = useState('')
+  const [year, setYear] = useState('')
+
+  const profileUpload = () => {
+    db.collection('users').doc(firebase.auth().currentUser.uid).set({
+      name: name,
+      relationshipStatus: rStatus,
+      employmentStatus: employment,
+      gender: gender,
+      month: month,
+      day: day,
+      year: year,
+    }, {merge: true})
+    .then(() => {
+      navigation.navigate('ProfileLoggedIn')
+    })
+  }
+
   return (
     <ImageBackground source={bgstars} style={styles.bgfull}>
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
@@ -2271,6 +2337,7 @@ function ProfileDetails() {
           label="Name"
           placeholder="   Enter name here"
           placeholderTextColor='#DCDCDC'
+          onChangeText={name => setName(name)}
         />
       </View>
       <Text style={{ color: '#FFFFFF', fontSize: 18, marginTop: 20, textAlign: 'left', alignSelf: 'stretch', marginLeft: 20}}>Relationship Status</Text>
@@ -2279,6 +2346,7 @@ function ProfileDetails() {
           label="Relationship Status"
           placeholder="   Enter relationship status here"
           placeholderTextColor='#DCDCDC'
+          onChangeText={rStatus => setRStatus(rStatus)}
         />
       </View>
       <Text style={{ color: '#FFFFFF', fontSize: 18, marginTop: 20, textAlign: 'left', alignSelf: 'stretch', marginLeft: 20}}>Employment Status</Text>
@@ -2287,6 +2355,8 @@ function ProfileDetails() {
           label="EmploymentStatus"
           placeholder="   Enter employment status here"
           placeholderTextColor='#DCDCDC'
+            onChangeText={employment => setEmployment(employment)}
+          
         />
       </View>
       <Text style={{ color: '#FFFFFF', fontSize: 18, marginTop: 20, textAlign: 'left', alignSelf: 'stretch', marginLeft: 20}}>Gender</Text>
@@ -2295,6 +2365,7 @@ function ProfileDetails() {
           label="Gender"
           placeholder="   Enter gender here"
           placeholderTextColor='#DCDCDC'
+          onChangeText={gender => setGender(gender)}
         />
       </View>  
       <Text style={{ color: '#FFFFFF', fontSize: 18, marginTop: 20, textAlign: 'left', alignSelf: 'stretch', marginLeft: 20}}>Birthday</Text>
@@ -2303,25 +2374,28 @@ function ProfileDetails() {
           label="Month"
           placeholder="      00"
           placeholderTextColor='#DCDCDC'
+          onChangeText={month => setMonth(month)}
         />
         <TextInput style={styles.savedFortuneTextBox2}
           label="Day"
           placeholder="      00"
           placeholderTextColor='#DCDCDC'
+          onChangeText={day => setDay(day)}
         />
         <TextInput style={styles.savedFortuneTextBox3}
           label="Year"
           placeholder="      00"
           placeholderTextColor='#DCDCDC'
+          onChangeText={year => setYear(year)}
         />
       </View>
       <Text></Text>
-      <TouchableOpacity onPress={() => console.log('log in pressed')}>
+        <TouchableOpacity onPress={() => profileUpload()}>
         <Image source={continueImage} />
       </TouchableOpacity>
       <Text></Text>
       <Text></Text>
-      <TouchableOpacity onPress={() => console.log('log in pressed')}>
+      <TouchableOpacity onPress={() => console.log('Skip')}>
         <Image source={skipImage} />
       </TouchableOpacity>
     </View>
