@@ -272,6 +272,7 @@ import LunaSc from './assets/FortuneCoffeePNGassets/Psychic/askluna/LunaSc.png';
 import ComingLuna from './assets/FortuneCoffeePNGassets/Psychic/askluna/ComingLuna.png';
 import transparent from './assets/FortuneCoffeePNGassets/Psychic/askluna/transparent.png';
 import manifestbg from './assets/FortuneCoffeePNGassets/Psychic/manifest/manifestbg.png';
+import sendingbg from './assets/FortuneCoffeePNGassets/Psychic/manifest/Phone.gif';
 import sendtouni from './assets/FortuneCoffeePNGassets/Psychic/manifest/sendtouni.png';
 import magicglobetxt from './assets/FortuneCoffeePNGassets/Psychic/magicglobetxt.png';
 import magicbtn from './assets/FortuneCoffeePNGassets/Psychic/magicbtn.png';
@@ -1555,7 +1556,7 @@ function Psychic() {
       />
       </View>
 
-         <TouchableOpacity onPress={()=>{navigation.navigate('Psychic')}}>
+         <TouchableOpacity onPress={()=>{navigation.navigate('SendingUni')}}>
            <Image source={sendtouni}  style={{ alignItems: 'center', marginTop: 38 }} />
          </TouchableOpacity> 
        </View>
@@ -1564,6 +1565,25 @@ function Psychic() {
        </View>
       )
     }
+
+
+
+    function SendingUni() {
+      const navigation = useNavigation(); 
+        return (
+       
+          <ImageBackground source={sendingbg} style={styles.bgfull}>
+
+
+          <TouchableOpacity onPress={()=>{navigation.navigate('Psychic')}}>
+           <Image source={backButton} style={styles.backButtonStyle} />
+         </TouchableOpacity>
+     
+           </ImageBackground>
+       
+  
+        )
+      }
 
     function SomeoneFortune1() {
       const navigation = useNavigation();
@@ -8556,6 +8576,8 @@ function App() {
         <Stack.Screen name="LunaChatComing" component={LunaChatComing} />
         <Stack.Screen name="LunaChat" component={LunaChat} />
         <Stack.Screen name="Manifest" component={Manifest} />
+        <Stack.Screen name="SendingUni" component={SendingUni} />
+
         <Stack.Screen name="SomeoneFortune" component={SomeoneFortune} />
         <Stack.Screen name="SomeoneFortune1" component={SomeoneFortune1} />
       </Stack.Navigator>
