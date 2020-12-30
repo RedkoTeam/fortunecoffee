@@ -656,14 +656,6 @@ function HomeScreen({ navigation }) {
   const [front, setFront] = useState(dummyPath);
   const [meaning, setMeaning] = useState(dummyPath);
 
-  // const checkLoggedIn = () => {
-  //   if(db.collection('users').doc(firebase.auth().currentUser.uid)) {
-  //     return true
-  //   } else {
-  //     return false
-  //   }
-  // }
-
   const toggleModal = () => {
     setModalVisible(!isModalVisible);
   };
@@ -1167,18 +1159,6 @@ function FavoritesScreen() {
       <NavBar_fav/>
     </View>
   )
-
-  // FIRESTORE not populating when mapped above. 
-//   async function getFavorites() {
-//     await db.collection('users').doc(firebase.auth().currentUser.uid)
-//       .get()
-//       .then(documentSnapshot => {
-//         const userData = documentSnapshot.data();
-//         console.log(`Retrieved data: ${JSON.stringify(userData.favorites)}`)
-//         setFavoritesData(userData.favorites)
-//       })
-//       .catch(error => console.log(error))
-//   }
  }
 
 function ReadMore(){
