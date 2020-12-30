@@ -792,7 +792,7 @@ function HomeScreen({ navigation }) {
     <Modal isVisible={isModalVisible} style={{ alignItems: "center", flex: 1 }}>
         <View>
           <View style={{alignItems: 'center',justifyContent: 'center',}}>
-            <Image source={crystalBackground} style={{alignItems:'center'}} />
+            <Image source={submodfo} style={{alignItems:'center'}} />
             <TouchableOpacity style={{ 
                 flexDirection: 'row',
                 position: 'absolute',
@@ -927,7 +927,7 @@ function HomeScreen({ navigation }) {
         <Image source={LargeTitleApp} style={{ marginBottom:20 }} />
         {RenderTheFortuneButtons()}
 
-        <Button title="credits" onPress={() => navigation.navigate('Credits')} />
+        {/* <Button title="credits" onPress={() => navigation.navigate('Credits')} /> */}
         
         <Image source={PickCard} style={{ marginTop:20, margin: 8 }} />
           {/* Pick a card  */}
@@ -2121,25 +2121,28 @@ function Profile({navigation}) {
   return (
     <>
     <ImageBackground source={profilebg} style={styles.bgfull}>
+      <View style={{flex:1, justifyContent: 'center', alignContent: 'center'}}>
       {isLoggedIn ? (
-            <View>
-             <TouchableOpacity onPress={ () => { LogOutUser();}}>
-                <Image source={Logoutbtn} />
+          <View>
+            <TouchableOpacity onPress={ () => { LogOutUser();}}>
+              <Image source={Logoutbtn} />
             </TouchableOpacity>
           </View>
           ) : 
-            <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-between', padding: 25, marginTop: 18 }}><TouchableOpacity onPress={() => navigation.navigate('SignUp')}>
-            <Image source={SignUpButton} />
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => navigation.navigate('SignIn')}>
-            <Image source={SignInButton} />
-          </TouchableOpacity>
+            <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-between', padding: 25, marginTop: 18 }}>
+              <TouchableOpacity onPress={() => navigation.navigate('SignUp')}>
+                <Image source={SignUpButton} />
+              </TouchableOpacity>
+              <TouchableOpacity onPress={() => navigation.navigate('SignIn')}>
+                <Image source={SignInButton} />
+              </TouchableOpacity>
             </View>
       }
-         <View >
-          <TouchableOpacity onPress={() => navigation.navigate('Credits')}>
+         <View>
+          <TouchableOpacity onPress={() => navigation.navigate('Credits')} style={{position: "absolute", bottom: 50}}>
             <Image source={appcredsbtn}  />
           </TouchableOpacity>
+        </View>
         </View>
    <NavBar_pro></NavBar_pro>
     </ImageBackground>
@@ -2163,7 +2166,7 @@ function Credits() {
       </View>
       <View style={{flexDirection:'row', marginTop: 550}} >
           <Image source={iconsmadeby} style={{marginRight:10}}/>
-          <TouchableOpacity onPress={()=>{Linking.openURL('https://www.flaticon.com/authors/freepik')}}>
+          <TouchableOpacity style = {{marginRight: 5}} onPress={()=>{Linking.openURL('https://www.flaticon.com/authors/freepik')}}>
             <Image source={Freepik} />
           </TouchableOpacity>
           <Image source={fromImg} style={{marginRight:10}}/>
@@ -2287,8 +2290,8 @@ function ProfileLoggedIn({route}) {
         }
         {/* <Text style={{fontSize: 30}}>Hi</Text>
         <Button title="console" onPress={ () => console.log(favRef)} /> */}
-                  <View style={{justifyContent: 'center', marginBottom:30}}>
-          <TouchableOpacity onPress={() => navigation.navigate('Credits')}>
+        <View style={{justifyContent: 'center', marginBottom:30}}>
+          <TouchableOpacity onPress={() => navigation.navigate('Credits')} >
             <Image source={appcredsbtn} />
           </TouchableOpacity>
         </View>
