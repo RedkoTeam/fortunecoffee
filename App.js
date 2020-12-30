@@ -222,6 +222,7 @@ import yourFortune from './assets/FortuneCoffeePNGassets/reading/yourFortune.png
 // backButton
 import fortuneBox from './assets/FortuneCoffeePNGassets/savedFortunes/Box.png';
 import etcButton from './assets/FortuneCoffeePNGassets/savedFortunes/etcButton.png';
+import XButton from './assets/FortuneCoffeePNGassets/savedFortunes/XButton.png';
 import savedFortunesTitle from './assets/FortuneCoffeePNGassets/savedFortunes/savedFortuneTitle.png';
 
 
@@ -316,7 +317,8 @@ import GetItemInStorage from './util/GetItemInStorage'
 
 // Form & Validator 
 import SignUpValidationSchema from './util/validators/SignUpValidationSchema';
-import LoginValidationSchema from './util/validators/LoginValidationSchema'
+import LoginValidationSchema from './util/validators/LoginValidationSchema';
+import MagicGlobeValidationSchema from './util/validators/MagicGlobeValidationSchema';
 import { Formik } from 'formik'
 import LoginChecker from './util/LoginChecker'
 import AsyncStorage from '@react-native-community/async-storage';
@@ -593,8 +595,8 @@ const styles = StyleSheet.create({
     backgroundColor: "rgba(255,255,255,0.4)",
   },
   savedFortuneTextBox0: {
-    height: "100%",
-    width: "100%",
+    width: "90%",
+    height: '10%',
     borderWidth: 1,
     borderRadius: 10,
     backgroundColor: "rgba(255,255,255,0.4)",
@@ -917,8 +919,8 @@ function HomeScreen({ navigation }) {
             
           }
           <View style={{ flex: 1, alignItems: 'center' }}>
-        {/* <Button title="Clear Async" onPress={ () => { console.log("Async Storage Cleared"); AsyncStorage.clear();}}></Button>
-        <Button title="Sign out" onPress={ () => { console.log("User Sign Out"); firebase.auth().signOut()}}></Button> */}
+        <Button title="Clear Async" onPress={ () => { console.log("Async Storage Cleared"); AsyncStorage.clear();}}></Button>
+        <Button title="Sign out" onPress={ () => { console.log("User Sign Out"); firebase.auth().signOut()}}></Button>
         <Image source={LargeTitleApp} style={{ marginBottom:20 }} />
         {RenderTheFortuneButtons()}
 
@@ -1095,6 +1097,7 @@ function FavoritesScreen() {
   const navigation = useNavigation();
   const [favoritesData, setFavoritesData] = useState([{"fortune" : "You're not logged in. Please come back and check after logging in"}]);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const favRef = db.collection('users').doc(firebase.auth().currentUser.uid);
 
   useEffect(()=>{
     let mounted = true;
@@ -1123,7 +1126,19 @@ function FavoritesScreen() {
     
   },[navigation])
 
-
+  useEffect(()=>{
+    let mounted = true;
+    if(mounted){
+      favRef.get()
+      .then(uData => {
+        const userData = uData.data().favorites;
+        setFavoritesData(userData);
+        console.log(`USER DATA  ${JSON.stringify(favoritesData)}`);
+      })
+      .catch(error => console.log(error));
+    }
+    return () => { mounted = false; }
+  }, [favoritesData])
 
   return (
     <View style={{flexGrow:1, justifyContent:'space-between'}}>
@@ -1138,14 +1153,18 @@ function FavoritesScreen() {
         <View style={{paddingTop: 130}}></View>
         {
           favoritesData.map((item, index) => {
-            // favorites data is showing up in the console.log but not populating on the screen
-            // this needs to be changed from a map to something else to correctly access the fortunes. 
             return(
               <View key={index} style={{padding:30}}>
                 <Image source={fortuneBox} />
-                <View style={{flexDirection:'row', position: 'absolute', bottom:500, right:0, alignItems:'center', padding:12}}>
+                <View style={{flexDirection:'row', position: 'absolute', bottom:490, right:0, alignItems:'center', padding:12}}>
                   <Text style={{color:'white', fontWeight:'bold', fontSize: 21, right: 75}}>{item.date}</Text>
-                    <Image source={etcButton} style={{right:50}}/>
+                  <TouchableOpacity onPress={() => {
+                    favRef.update({
+                      'favorites' : firebase.firestore.FieldValue.arrayRemove(...[{'date':item.date, 'fortune':item.fortune}])
+                    })
+                  }}>
+                    <Image source={XButton} style={{right:50, bottom:-5}}/>
+                  </TouchableOpacity> 
                 </View>
                 <View style={{position:'absolute', top:150, left: 60, width:'90%'}}>
                   <Text style={{fontSize:17}}>{item.fortune}</Text>
@@ -1663,58 +1682,60 @@ function Psychic() {
 
     function SomeoneFortune1() {
       const navigation = useNavigation();
-      const [nameS, setNameS] = useState('')
-      const [bdayS, setbdayS] = useState('')
       var userName = 'user';
     
       const [buttonClicked, setButtonClicked] = useState(false);
       
       return (
         <View style={styles.mainContainer}>
-        <ImageBackground source={bgstars} style={styles.bgfull}>
-         <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-between', padding: 25,marginTop:30 }}>
-         <View style={{position:'absolute', top:0, flexDirection:'row', width:'100%', margin:10}}>
-         <TouchableOpacity onPress={()=>{navigation.navigate('Psychic')}}>
-           <Image source={backButton} style={styles.backButtonStyle}/>
-         </TouchableOpacity>
-         </View>
-         </View>
-         <View style={{  alignItems: 'center', marginTop:60 }}>
-         
-         <Image source={magicglobetxt} style={{ alignItems: 'center', marginTop: 18 }} />
-     
-         <Image source={linehors} style={{  marginTop: 25 }} />
-         <Image source={someonetxt} style={{  marginTop: 25 }} />
-
-       
-<Text style={{ color: '#FFFFFF', fontSize: 17, textAlign: 'left', alignSelf: 'stretch', marginLeft: 20, marginTop:20}}>Name</Text>
-      <View style={{flexDirection: 'row',width:'80%', height: '10%',marginTop:5}}>
-        <TextInput style={styles.savedFortuneTextBox0}
-       onChangeText={nameS => setNameS(nameS)}
-      value={nameS}
-      placeholder="    Enter The Name of The Person"
-      placeholderTextColor='#DCDCDC'
-      autoCapitalize='none'
-      />
-      </View>
-      <Text style={{ color: '#FFFFFF', fontSize: 17, textAlign: 'left', alignSelf: 'stretch', marginLeft: 20, marginTop:20}}>Birthday</Text>
-      <View style={{flexDirection: 'row',width:'80%', height: '10%',marginTop:5}}>
-        <TextInput style={styles.savedFortuneTextBox0}
-      onChangeText={bdayS => setbdayS(bdayS)}
-      value={bdayS}
-      placeholder="    Their Birthday"
-      placeholderTextColor='#DCDCDC'
-      autoCapitalize='none'
-      />
-      </View>
-
-         <TouchableOpacity onPress={()=>{navigation.navigate('SomeoneFortune')}}>
-           <Image source={magicbtn}  style={{ alignItems: 'center', marginTop: 28 }} />
-         </TouchableOpacity> 
-       </View>
-       <NavBar_psyc/>
-       </ImageBackground>
-       </View>
+          <ImageBackground source={bgstars} style={styles.bgfull}>
+            <TouchableOpacity onPress={()=>{navigation.navigate('Psychic')}} style={styles.backButtonStyle}>
+              <Image source={backButton}/>
+            </TouchableOpacity>
+            <View style={{ alignItems: 'center', marginTop: 130 }}>
+              <Image source={magicglobetxt} style={{ alignItems: 'center', marginTop: 18 }} />
+              <Image source={linehors} style={{  marginTop: 25 }} />
+              <Image source={someonetxt} style={{  marginTop: 25 }} />
+            </View>
+              <Formik
+                validationSchema={MagicGlobeValidationSchema}
+                initialValues={{name:'', birthDate:''}}
+                onSubmit={values => {
+                                      console.log(values);
+                                      navigation.navigate('SomeoneFortune')
+                                    }
+                          }
+              >
+                {({ handleChange, errors, isValid, handleSubmit }) => (
+                  <View style={{width:'100%', alignItems:'center'}}>
+                  <Text style={{ color: '#FFFFFF', fontSize: 17, textAlign: 'left', alignSelf: 'stretch', marginLeft: 20, marginTop:20}}>Name</Text>
+                  <TextInput style={styles.savedFortuneTextBox0}
+                    placeholder="    Enter The Name of The Person"
+                    placeholderTextColor='#DCDCDC'
+                    onChangeText={handleChange('name')}
+                  />
+                  {errors.name && 
+                    <Text style={{fontSize:13, color:'red', marginTop:3}}>{errors.name}</Text>
+                  }
+                  <Text style={{ color: '#FFFFFF', fontSize: 17, textAlign: 'left', alignSelf: 'stretch', marginLeft: 20, marginTop:20}}>Birthday</Text>
+                  <TextInput style={styles.savedFortuneTextBox0}
+                    placeholder="    MMDDYYYY"
+                    placeholderTextColor='#DCDCDC'
+                    autoCapitalize='none'
+                    onChangeText={handleChange('birthDate')}
+                  />
+                  {errors.birthDate && 
+                    <Text style={{fontSize:13, color:'red', marginTop:3}}>{errors.birthDate}</Text>
+                  }
+                <TouchableOpacity style={{ alignItems: 'center', marginTop: 28 }} disabled={!isValid} onPress={handleSubmit}>
+                  <Image source={magicbtn} />
+                </TouchableOpacity> 
+                  </View>
+                )}
+              </Formik>
+          <NavBar_psyc/>
+          </ImageBackground>
+        </View>
       )
     }
     
@@ -1786,16 +1807,13 @@ function Psychic() {
       
       <View style={styles.virtualContainer}>
         <ImageBackground source={LunaSc} style={styles.bgfull}>
-        <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-between', padding: 25, marginTop: 18 }}>
-        <View style={{position:'absolute', top:0, flexDirection:'row', width:'100%', margin:10}}>
-          <TouchableOpacity onPress={()=>{navigation.navigate('LunaChatComing')}}>
-            <Image source={transparent} style={styles.backButtonStyle}/>
-          </TouchableOpacity>
+          <View style={{position:'absolute', top:0, flexDirection:'row', width:'100%', margin:10}}>
+            <TouchableOpacity onPress={()=>{navigation.navigate('LunaChatComing')}}>
+              <Image source={transparent} style={styles.backButtonStyle}/>
+            </TouchableOpacity>
           </View>
-            </View>
-      
         </ImageBackground>
-        </View>
+      </View>
        
     )
     
@@ -1808,16 +1826,13 @@ function Psychic() {
       
       <View style={styles.virtualContainer}>
         <ImageBackground source={ComingLuna} style={styles.bgfull}>
-        <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-between', padding: 25, marginTop: 18 }}>
-        <View style={{position:'absolute', top:0, flexDirection:'row', width:'100%', margin:10}}>
-          <TouchableOpacity onPress={()=>{navigation.navigate('Psychic')}}>
-            <Image source={backButton} style={styles.backButtonStyle}/>
-          </TouchableOpacity>
-          </View>
+            <View style={{position:'absolute', top:0, flexDirection:'row', width:'100%', margin:10}}>
+              <TouchableOpacity onPress={()=>{navigation.navigate('Psychic')}}>
+                <Image source={backButton} style={styles.backButtonStyle}/>
+              </TouchableOpacity>
             </View>
-        <NavBar_psyc/>
         </ImageBackground>
-        </View>
+      </View>
        
     )
     
@@ -1826,19 +1841,15 @@ function Psychic() {
   function PsychicComingSoon() {
     const navigation = useNavigation();
     return (
-      
       <View style={styles.virtualContainer}>
         <ImageBackground source={bgcoming} style={styles.bgfull}>
-        <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-between', padding: 25, marginTop: 18 }}>
-        <View style={{position:'absolute', top:0, flexDirection:'row', width:'100%', margin:10}}>
-          <TouchableOpacity onPress={()=>{navigation.navigate('Psychic')}}>
-            <Image source={backButton} style={styles.backButtonStyle}/>
-          </TouchableOpacity>
+          <View style={{position:'absolute', top:0, flexDirection:'row', width:'100%', margin:10}}>
+            <TouchableOpacity onPress={()=>{navigation.navigate('Psychic')}}>
+              <Image source={backButton} style={styles.backButtonStyle}/>
+            </TouchableOpacity>
           </View>
-            </View>
-        <NavBar_psyc/>
         </ImageBackground>
-        </View>
+      </View>
        
     )
     
@@ -8431,26 +8442,28 @@ function Reading({}){
             <Image source={userImg} />
           </TouchableOpacity>
         </View>
-        <View style={styles.flexInRowsCoffee}>
+        <View style={{flexDirection:'row', alignItems:'flex-end', width:'90%', justifyContent:'space-between'}}> 
+        {/*styles.flexInRowsCoffee when 'Share' button up and left:-50 from View*/}
           <TouchableOpacity onPress={() => {
-            LoginChecker().then((results) => {
-              if(results){
-                onSave()
-              }
-              else{
-                navigation.navigate('SignUp');
-              }
-            })
-          }}>
-              <Image source={saveButton} />
-            </TouchableOpacity>
-            <View>
-              <Text style={styles.helloUserTextContainer}> Your Fortune{userName} </Text>
-              <Image source={coffeeImg} style={{ marginTop: 20 }} />
-            </View>
-            {/*<TouchableOpacity onPress={() => console.log("SHARE")}>
-              <Image source={shareButton} style={{ alignSelf: 'flex-end' }} />
-            </TouchableOpacity>*/}
+                                              LoginChecker().then((results) => {
+                                                if(results){
+                                                  onSave()
+                                                }
+                                                else{
+                                                  navigation.navigate('SignUp');
+                                                }
+                                              })
+                                            }
+                                      }>
+            <Image source={saveButton} />
+          </TouchableOpacity>
+          <View style={{left:-50}}>
+            <Text style={styles.helloUserTextContainer}> Your Fortune{userName} </Text>
+            <Image source={coffeeImg} style={{ marginTop: 20}} />
+          </View>
+          {/*<TouchableOpacity onPress={() => console.log("SHARE")}>
+            <Image source={shareButton} style={{ alignSelf: 'flex-end' }} />
+                                    </TouchableOpacity>*/}
         </View>
           <View style={styles.readingTableContainer}>
             <Image source={yourFortune} style={{marginBottom:12}} />
@@ -8536,7 +8549,6 @@ function App() {
         <Stack.Screen name="VirtualFive" component={VirtualFive} options={{ cardStyleInterpolator:forFade}}/>
         }
         <Stack.Screen name="VirtualLoading" component={VirtualLoadingScreen} />
-        <Stack.Screen name="Payment" component={Payment} />
         <Stack.Screen name="PhotoReading" component={PhotoReadingScreen} />
         <Stack.Screen name="SignUp" component={SignUpScreen} />
         <Stack.Screen name="SignIn" component={SignInScreen} />
