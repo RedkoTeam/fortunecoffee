@@ -297,6 +297,11 @@ import UserNametxt from './assets/FortuneCoffeePNGassets/Profile/Name.png';
 import proline from './assets/FortuneCoffeePNGassets/Profile/Line2.png';
 import appcredsbtn from './assets/FortuneCoffeePNGassets/Profile/appcredits.png';
 import Creditsbg from './assets/FortuneCoffeePNGassets/Profile/Credits.png';
+import iconsmadeby from './assets/FortuneCoffeePNGassets/Profile/Icons_made_by.png';
+import fromImg from './assets/FortuneCoffeePNGassets/Profile/From.png';
+import Freepik from './assets/FortuneCoffeePNGassets/Profile/Freepik.png';
+import Flaticon from './assets/FortuneCoffeePNGassets/Profile/Flaticon.png';
+
 
 //random cards
 import {cardsAndMeaning} from './fortunesCardArray';
@@ -922,7 +927,7 @@ function HomeScreen({ navigation }) {
         <Image source={LargeTitleApp} style={{ marginBottom:20 }} />
         {RenderTheFortuneButtons()}
 
-        {/* <Button title="camera" onPress={ () => navigation.navigate('Virtual')} /> */}
+        <Button title="credits" onPress={() => navigation.navigate('Credits')} />
         
         <Image source={PickCard} style={{ marginTop:20, margin: 8 }} />
           {/* Pick a card  */}
@@ -2089,7 +2094,7 @@ function SignUpScreen({ navigation }) {
 // TODO need to hook this up to a button after signed in
 function Profile({navigation}) {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-
+  
   useEffect(()=>{
     let mounted = true;
     if(mounted)
@@ -2104,9 +2109,12 @@ function Profile({navigation}) {
       mounted = false;
     }
   },[navigation])
+
+  
+
   return (
     <>
-    <ImageBackground source={profilebgnotlogged} style={styles.bgfull}>
+    <ImageBackground source={profilebg} style={styles.bgfull}>
       {isLoggedIn ? (
             <View>
              <TouchableOpacity onPress={ () => { LogOutUser();}}>
@@ -2121,11 +2129,7 @@ function Profile({navigation}) {
             <Image source={SignInButton} />
           </TouchableOpacity>
             </View>
-
-            
       }
-      {/* <Text style={{fontSize: 30}}>Hi</Text>
-      <Button title="console" onPress={ () => console.log(favRef)} /> */}
          <View >
           <TouchableOpacity onPress={() => navigation.navigate('Credits')}>
             <Image source={appcredsbtn}  />
@@ -2140,6 +2144,9 @@ function Profile({navigation}) {
 
 function Credits() {
   const navigation = useNavigation();
+  useEffect(()=>{
+    let mounted = true;
+  })
  return (
     <ImageBackground source={Creditsbg} style={styles.bgfull}>
           <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
@@ -2148,6 +2155,17 @@ function Credits() {
           <Image source={backButton} />
         </TouchableOpacity>
       </View>
+      <View style={{flexDirection:'row', marginTop: 550}} >
+          <Image source={iconsmadeby} style={{marginRight:10}}/>
+          <TouchableOpacity onPress={()=>{Linking.openURL('https://www.flaticon.com/authors/freepik')}}>
+            <Image source={Freepik} />
+          </TouchableOpacity>
+          <Image source={fromImg} style={{marginRight:10}}/>
+          <TouchableOpacity onPress={()=>{Linking.openURL('https://www.flaticon.com/')}}>
+            <Image source={Flaticon} />
+          </TouchableOpacity>
+      </View>
+      
       </View>
 
     <View style={{marginBottom:"10%"}}>
