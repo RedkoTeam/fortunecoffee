@@ -16,11 +16,12 @@ function Credits() {
     })
     return (
         <ImageBackground source={Creditsbg} style={styles.bgfull}>
-            <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-                <View style={ styles.flexInRows}>
-                    <TouchableOpacity onPress={()=>navigation.navigate('ProfileLoggedIn')} style = {{top: 50, marginLeft: 30}}>
-                        <Image source={backButton} />
-                    </TouchableOpacity>
+                <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-between', padding: 25, marginBottom:"60%" }}>
+                    <View style={{position:'absolute', top:0, flexDirection:'row', width:'100%', margin:10}}>
+                        <TouchableOpacity onPress={()=>{navigation.navigate('Psychic')}}>
+                            <Image source={backButton} style={styles.backButtonStyle}/>
+                        </TouchableOpacity>
+                    </View>
                 </View>
                 <View style={{flexDirection:'row', marginTop: 550}} >
                     <Image source={iconsmadeby} style={{marginRight:10}}/>
@@ -31,7 +32,7 @@ function Credits() {
                     <TouchableOpacity onPress={()=>{Linking.openURL('https://www.flaticon.com/')}}>
                         <Image source={Flaticon} />
                     </TouchableOpacity>
-                </View>
+           
 
             </View>
 
