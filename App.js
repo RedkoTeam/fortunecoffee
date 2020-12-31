@@ -1,4 +1,3 @@
-
 import React, { useRef, useEffect, useState, useCallback, Componenet, useFocusEffect } from 'react';
 
 import './fixtimerbug';
@@ -273,6 +272,7 @@ import LunaSc from './assets/FortuneCoffeePNGassets/Psychic/askluna/LunaSc.png';
 import ComingLuna from './assets/FortuneCoffeePNGassets/Psychic/askluna/ComingLuna.png';
 import transparent from './assets/FortuneCoffeePNGassets/Psychic/askluna/transparent.png';
 import manifestbg from './assets/FortuneCoffeePNGassets/Psychic/manifest/manifestbg.png';
+import sendingbg from './assets/FortuneCoffeePNGassets/Psychic/manifest/Phone.gif';
 import sendtouni from './assets/FortuneCoffeePNGassets/Psychic/manifest/sendtouni.png';
 import magicglobetxt from './assets/FortuneCoffeePNGassets/Psychic/magicglobetxt.png';
 import magicbtn from './assets/FortuneCoffeePNGassets/Psychic/magicbtn.png';
@@ -297,6 +297,11 @@ import UserNametxt from './assets/FortuneCoffeePNGassets/Profile/Name.png';
 import proline from './assets/FortuneCoffeePNGassets/Profile/Line2.png';
 import appcredsbtn from './assets/FortuneCoffeePNGassets/Profile/appcredits.png';
 import Creditsbg from './assets/FortuneCoffeePNGassets/Profile/Credits.png';
+import iconsmadeby from './assets/FortuneCoffeePNGassets/Profile/Icons_made_by.png';
+import fromImg from './assets/FortuneCoffeePNGassets/Profile/From.png';
+import Freepik from './assets/FortuneCoffeePNGassets/Profile/Freepik.png';
+import Flaticon from './assets/FortuneCoffeePNGassets/Profile/Flaticon.png';
+
 
 //random cards
 import {cardsAndMeaning} from './fortunesCardArray';
@@ -790,7 +795,7 @@ function HomeScreen({ navigation }) {
     <Modal isVisible={isModalVisible} style={{ alignItems: "center", flex: 1 }}>
         <View>
           <View style={{alignItems: 'center',justifyContent: 'center',}}>
-            <Image source={crystalBackground} style={{alignItems:'center'}} />
+            <Image source={submodfo} style={{alignItems:'center'}} />
             <TouchableOpacity style={{ 
                 flexDirection: 'row',
                 position: 'absolute',
@@ -925,7 +930,7 @@ function HomeScreen({ navigation }) {
         <Image source={LargeTitleApp} style={{ marginBottom:20 }} />
         {RenderTheFortuneButtons()}
 
-        {/* <Button title="camera" onPress={ () => navigation.navigate('Virtual')} /> */}
+        {/* <Button title="credits" onPress={() => navigation.navigate('Credits')} /> */}
         
         <Image source={PickCard} style={{ marginTop:20, margin: 8 }} />
           {/* Pick a card  */}
@@ -1098,6 +1103,8 @@ function FavoritesScreen() {
   const navigation = useNavigation();
   const [favoritesData, setFavoritesData] = useState([{"fortune" : "You're not logged in. Please come back and check after logging in"}]);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [resetTriggered, setReset] = useState(false);
+  const favRef = db.collection('users').doc(firebase.auth().currentUser.uid);
 
   useEffect(()=>{
     let mounted = true;
@@ -1126,7 +1133,21 @@ function FavoritesScreen() {
     
   },[navigation])
 
-
+  useEffect(()=>{
+    let mounted = true;
+    setFavoritesData([])
+    if(mounted){
+      favRef.get()
+      .then(uData => {
+        const userData = uData.data().favorites;
+        setFavoritesData(userData);
+        console.log(`USER DATA  ${JSON.stringify(favoritesData)}`);
+      })
+      .catch(error => console.log(error));
+    }
+    setReset(false);
+    return () => { mounted = false; }
+  }, [resetTriggered])
 
   return (
     <View style={{flexGrow:1, justifyContent:'space-between'}}>
@@ -1148,7 +1169,14 @@ function FavoritesScreen() {
                 <Image source={fortuneBox} />
                 <View style={{flexDirection:'row', position: 'absolute', bottom:500, right:0, alignItems:'center', padding:12}}>
                   <Text style={{color:'white', fontWeight:'bold', fontSize: 21, right: 75}}>{item.date}</Text>
-                    <Image source={etcButton} style={{right:50}}/>
+                  <TouchableOpacity onPress={() => {
+                    favRef.update({
+                      'favorites' : firebase.firestore.FieldValue.arrayRemove(...[{'date':item.date, 'fortune':item.fortune}])
+                    })
+                    setReset(true);
+                  }}>
+                    <Image source={XButton} style={{right:50, bottom:-5}}/>
+                  </TouchableOpacity> 
                 </View>
                 <View style={{position:'absolute', top:150, left: 60, width:'90%'}}>
                   <Text style={{fontSize:17}}>{item.fortune}</Text>
@@ -1239,25 +1267,25 @@ function Payment({navigation, route}) {
     switch(subscriptionRoute){
       case "Amethyst": {
         console.log("Amethyst selected")
-        let result = await WebBrowser.openBrowserAsync('https://29987dd53fb7.ngrok.io/');
+        let result = await WebBrowser.openBrowserAsync('https://payment-fortune-coffee.herokuapp.com');
         setResult(result);
         break;
       }
       case "Rose Quartz": {
         console.log("Amethyst selected")
-        let result = await WebBrowser.openBrowserAsync('https://29987dd53fb7.ngrok.io/rose');
+        let result = await WebBrowser.openBrowserAsync('https://payment-fortune-coffee.herokuapp.com/rose');
         setResult(result);
         break;
       } 
       case "Sapphire": {
         console.log("Amethyst selected")
-        let result = await WebBrowser.openBrowserAsync('https://29987dd53fb7.ngrok.io/sapphire');
+        let result = await WebBrowser.openBrowserAsync('https://payment-fortune-coffee.herokuapp.com/sapphire');
         setResult(result);
         break;
       } 
       case "Tiger's Eye": {
         console.log("Amethyst selected")
-        let result = await WebBrowser.openBrowserAsync('https://29987dd53fb7.ngrok.io/tiger');
+        let result = await WebBrowser.openBrowserAsync('https://payment-fortune-coffee.herokuapp.com/tiger');
         setResult(result);
         break;
       }
@@ -1281,6 +1309,11 @@ function Payment({navigation, route}) {
             <Image source={backButton} />
         </TouchableOpacity> 
       <Text>{result && JSON.stringify(result)}</Text>
+      
+      <TouchableOpacity onPress={()=>navigation.navigate('Home')} style={styles.backButtonStyle}>
+            <Text> Nice! You recieved fortunes and gems!</Text>
+
+        </TouchableOpacity> 
     </View>
   );
   
@@ -1546,7 +1579,7 @@ function Psychic() {
       />
       </View>
 
-         <TouchableOpacity onPress={()=>{navigation.navigate('Psychic')}}>
+         <TouchableOpacity onPress={()=>{navigation.navigate('SendingUni')}}>
            <Image source={sendtouni}  style={{ alignItems: 'center', marginTop: 38 }} />
          </TouchableOpacity> 
        </View>
@@ -1555,6 +1588,25 @@ function Psychic() {
        </View>
       )
     }
+
+
+
+    function SendingUni() {
+      const navigation = useNavigation(); 
+        return (
+       
+          <ImageBackground source={sendingbg} style={styles.bgfull}>
+
+
+          <TouchableOpacity onPress={()=>{navigation.navigate('Psychic')}}>
+           <Image source={backButton} style={styles.backButtonStyle1} />
+         </TouchableOpacity>
+     
+           </ImageBackground>
+       
+  
+        )
+      }
 
     function SomeoneFortune1() {
       const navigation = useNavigation();
@@ -1990,7 +2042,7 @@ function SignUpScreen({ navigation }) {
 // TODO need to hook this up to a button after signed in
 function Profile({navigation}) {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-
+  
   useEffect(()=>{
     let mounted = true;
     if(mounted)
@@ -2005,32 +2057,34 @@ function Profile({navigation}) {
       mounted = false;
     }
   },[navigation])
+
+  
+
   return (
     <>
-    <ImageBackground source={profilebgnotlogged} style={styles.bgfull}>
+    <ImageBackground source={profilebg} style={styles.bgfull}>
+      <View style={{flex:1, justifyContent: 'center', alignContent: 'center'}}>
       {isLoggedIn ? (
-            <View>
-             <TouchableOpacity onPress={ () => { LogOutUser();}}>
-                <Image source={Logoutbtn} />
+          <View>
+            <TouchableOpacity onPress={ () => { LogOutUser();}}>
+              <Image source={Logoutbtn} />
             </TouchableOpacity>
           </View>
           ) : 
-            <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-between', padding: 25, marginTop: 18 }}><TouchableOpacity onPress={() => navigation.navigate('SignUp')}>
-            <Image source={SignUpButton} />
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => navigation.navigate('SignIn')}>
-            <Image source={SignInButton} />
-          </TouchableOpacity>
+            <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-between', padding: 25, marginTop: 18 }}>
+              <TouchableOpacity onPress={() => navigation.navigate('SignUp')}>
+                <Image source={SignUpButton} />
+              </TouchableOpacity>
+              <TouchableOpacity onPress={() => navigation.navigate('SignIn')}>
+                <Image source={SignInButton} />
+              </TouchableOpacity>
             </View>
-
-            
       }
-      {/* <Text style={{fontSize: 30}}>Hi</Text>
-      <Button title="console" onPress={ () => console.log(favRef)} /> */}
-         <View >
-          <TouchableOpacity onPress={() => navigation.navigate('Credits')}>
+         <View>
+          <TouchableOpacity onPress={() => navigation.navigate('Credits')} style={{position: "absolute", bottom: 50}}>
             <Image source={appcredsbtn}  />
           </TouchableOpacity>
+        </View>
         </View>
    <NavBar_pro></NavBar_pro>
     </ImageBackground>
@@ -2041,6 +2095,9 @@ function Profile({navigation}) {
 
 function Credits() {
   const navigation = useNavigation();
+  useEffect(()=>{
+    let mounted = true;
+  })
  return (
     <ImageBackground source={Creditsbg} style={styles.bgfull}>
           <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
@@ -2049,6 +2106,17 @@ function Credits() {
           <Image source={backButton} />
         </TouchableOpacity>
       </View>
+      <View style={{flexDirection:'row', marginTop: 550}} >
+          <Image source={iconsmadeby} style={{marginRight:10}}/>
+          <TouchableOpacity style = {{marginRight: 5}} onPress={()=>{Linking.openURL('https://www.flaticon.com/authors/freepik')}}>
+            <Image source={Freepik} />
+          </TouchableOpacity>
+          <Image source={fromImg} style={{marginRight:10}}/>
+          <TouchableOpacity onPress={()=>{Linking.openURL('https://www.flaticon.com/')}}>
+            <Image source={Flaticon} />
+          </TouchableOpacity>
+      </View>
+      
       </View>
 
     <View style={{marginBottom:"10%"}}>
@@ -2164,8 +2232,8 @@ function ProfileLoggedIn({route}) {
         }
         {/* <Text style={{fontSize: 30}}>Hi</Text>
         <Button title="console" onPress={ () => console.log(favRef)} /> */}
-                  <View style={{justifyContent: 'center', marginBottom:30}}>
-          <TouchableOpacity onPress={() => navigation.navigate('Credits')}>
+        <View style={{justifyContent: 'center', marginBottom:30}}>
+          <TouchableOpacity onPress={() => navigation.navigate('Credits')} >
             <Image source={appcredsbtn} />
           </TouchableOpacity>
         </View>
@@ -8531,6 +8599,7 @@ function App() {
         <Stack.Screen name="LunaChatComing" component={LunaChatComing} />
         <Stack.Screen name="LunaChat" component={LunaChat} />
         <Stack.Screen name="Manifest" component={Manifest} />
+        <Stack.Screen name="SendingUni" component={SendingUni} />
         <Stack.Screen name="SomeoneFortune" component={SomeoneFortune} />
         <Stack.Screen name="SomeoneFortune1" component={SomeoneFortune1} />
       </Stack.Navigator>
