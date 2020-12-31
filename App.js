@@ -1104,6 +1104,7 @@ function FavoritesScreen() {
   const navigation = useNavigation();
   const [favoritesData, setFavoritesData] = useState([{"fortune" : "You're not logged in. Please come back and check after logging in"}]);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [resetTriggered, setReset] = useState(false);
   const favRef = db.collection('users').doc(firebase.auth().currentUser.uid);
 
   useEffect(()=>{
@@ -1135,6 +1136,7 @@ function FavoritesScreen() {
 
   useEffect(()=>{
     let mounted = true;
+    setFavoritesData([])
     if(mounted){
       favRef.get()
       .then(uData => {
@@ -1144,8 +1146,9 @@ function FavoritesScreen() {
       })
       .catch(error => console.log(error));
     }
+    setReset(false);
     return () => { mounted = false; }
-  }, [favoritesData])
+  }, [resetTriggered])
 
   return (
     <View style={{flexGrow:1, justifyContent:'space-between'}}>
@@ -1169,6 +1172,7 @@ function FavoritesScreen() {
                     favRef.update({
                       'favorites' : firebase.firestore.FieldValue.arrayRemove(...[{'date':item.date, 'fortune':item.fortune}])
                     })
+                    setReset(true);
                   }}>
                     <Image source={XButton} style={{right:50, bottom:-5}}/>
                   </TouchableOpacity> 
