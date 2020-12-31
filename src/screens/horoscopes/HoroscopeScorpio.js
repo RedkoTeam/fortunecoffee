@@ -370,8 +370,8 @@ function HoroscopeScorpio({}) {
     return (
         <View style={styles.mainContainer}>
             <ImageBackground source={bgstars} style={styles.bgfull}>
-                <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-between', padding: 25 }}>
-                    <View style={{position:'absolute', top:0, flexDirection:'row', width:'100%', margin:10}}>
+            <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-between', padding: 20 }}>
+                    <View style={{  flexDirection:'row', width:'100%', marginBottom:15}}>
                         <TouchableOpacity onPress={()=>{navigation.navigate('HoroscopeMain')}}>
                             <Image source={backButton} style={styles.backButtonStyle}/>
                         </TouchableOpacity>
