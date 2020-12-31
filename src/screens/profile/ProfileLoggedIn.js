@@ -11,6 +11,9 @@ import Logoutbtn from "../../../assets/FortuneCoffeePNGassets/Profile/BtnPrimary
 import UserNametxt from "../../../assets/FortuneCoffeePNGassets/Profile/Name.png";
 import proline from "../../../assets/FortuneCoffeePNGassets/Profile/Line2.png";
 import DOB from "../../../assets/FortuneCoffeePNGassets/Profile/DateofBirth.png";
+import Emp from "../../../assets/FortuneCoffeePNGassets/Profile/Employement.png";
+import Gen from "../../../assets/FortuneCoffeePNGassets/Profile/Gender.png";
+import Rel from "../../../assets/FortuneCoffeePNGassets/Profile/Relationship_Status.png";
 import NavBar_pro from "../../navbars/NavBar_pro";
 import profilebgnotlogged from "../../../assets/FortuneCoffeePNGassets/profile_login.png";
 import SignUpButton from "../../../assets/FortuneCoffeePNGassets/HomePage/SignUpButton.png";
@@ -86,16 +89,20 @@ function ProfileLoggedIn({route}) {
             {/* <Text style={{fontSize: 30}}>Hi</Text>
       <Button title="console" onPress={ () => console.log(favRef)} /> */}
             {/* STILL NEED TO BE PULLED FORM FIRESTORE */}
-            <Text>{name}</Text>
-            <Text>{rStatus}</Text>
-            <Text>{employment}</Text>
-            <Text>{gender}</Text>
-            <Text>{month}/{day}/{year}</Text>
-            <Image source={UserNametxt} style={{marginTop:"50%",marginRight:"60%"}}/>
-            <Image source={UserNametxt} style={{marginTop:20, marginRight:"60%",marginBottom:20}}/>
+            <Image source={UserNametxt} style={{marginTop:"10%",marginRight:"60%"}}/>
+            <Text style={{marginTop:20, marginRight:"50%",marginBottom:20, fontSize:15,color:'#FFFFFF'}}>{name} </Text >  
             <Image source={proline} />
             <Image source={DOB} style={{marginTop:30,marginRight:"50%"}}/>
-            <Image source={DOB} style={{marginTop:20, marginRight:"50%",marginBottom:20}}/>
+            <Text style={{marginTop:20, marginRight:"50%",marginBottom:20, fontSize:15,color:'#FFFFFF'}}>{month}/{day}/{year}</Text>
+            <Image source={proline} />
+            <Image source={Gen} style={{marginTop:30,marginRight:"50%"}}/>
+            <Text style={{marginTop:20, marginRight:"50%",marginBottom:20, fontSize:15,color:'#FFFFFF'}}>{gender} </Text> 
+            <Image source={proline} />
+            <Image source={Rel} style={{marginTop:30,marginRight:"50%"}}/>
+            <Text style={{marginTop:20, marginRight:"50%",marginBottom:20, fontSize:15,color:'#FFFFFF'}}>{rStatus} </Text>
+            <Image source={proline} />
+            <Image source={Emp} style={{marginTop:30,marginRight:"50%"}}/>
+            <Text style={{marginTop:20, marginRight:"50%",marginBottom:20, fontSize:15,color:'#FFFFFF'}}> {employment} </Text>
             <Image source={proline} />
             <NavBar_pro/>
         </ImageBackground>

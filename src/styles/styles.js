@@ -200,7 +200,6 @@ const styles = StyleSheet.create({
 
     helloUserTextContainer: {     
         justifyContent:'center',
-
         fontSize:35,
         fontStyle:'normal',
         fontWeight:'bold',
