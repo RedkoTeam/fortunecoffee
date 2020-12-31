@@ -1,7 +1,7 @@
 // Async Storage
 import AsyncStorage from '@react-native-community/async-storage'
-import SaveItemInStorage from './SaveItemInStorage'
-import GetItemInStorage from './GetItemInStorage'
+import SaveItemInStorage from '../SaveItemInStorage'
+import GetItemInStorage from '../GetItemInStorage'
 import LoginChecker from './LoginChecker';
 
 
@@ -15,7 +15,7 @@ import 'firebase/firebase-firestore'
 
 
 // Users will be checked with each login for token, if not set it
-export default CheckLoginToken = async () =>{
+const CheckLoginToken = async () =>{
     //Automatically try and get the user's token
       try{
         // Just need to pass in a Key for storage, need to await the promise
@@ -54,4 +54,4 @@ export default CheckLoginToken = async () =>{
         console.log("Error Occured : " , e)
       }
   }
-  
+export default  CheckLoginToken

@@ -8,11 +8,10 @@ import 'firebase/firebase-firestore'
 
 
 // Async storage
-import SaveItemInStorage from './SaveItemInStorage'
-import GetItemInStorage from './GetItemInStorage'
+import SaveItemInStorage from '../SaveItemInStorage'
+import GetItemInStorage from '../GetItemInStorage'
 
-
-export default LoginChecker = async () =>{
+const LoginChecker = async () =>{
     try{
         const user = await firebase.auth().currentUser;
         console.log(user)
@@ -53,7 +52,7 @@ export default LoginChecker = async () =>{
                     return false;
 
                     }
-            }      
+            }
         }else{
             console.log("The User is already logged in!")
             return true;
@@ -77,3 +76,5 @@ export default LoginChecker = async () =>{
   
 
 }
+
+export default LoginChecker
