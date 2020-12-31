@@ -7,6 +7,7 @@ import RetrieveData from "../../util/GetItemInStorage";
 import StoreData from "../../util/SaveItemInStorage";
 import {cardsAndMeaning} from "../arrays/fortunesCardArray";
 import Modal from "react-native-modal";
+import AsyncStorage from '@react-native-community/async-storage';
 import {Button, Image, ImageBackground, Text, TouchableOpacity, View} from "react-native";
 import styles from "../styles/styles";
 import FlipCard from "react-native-flip-card";
@@ -245,7 +246,7 @@ function HomeScreen({ navigation }) {
             </View>
           </Modal>
 
-
+          {/*<Button title="Clear Async" onPress={ () => { console.log("Async Storage Cleared"); AsyncStorage.clear();}}></Button>*/}
 
           <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-evenly' }}>
             <TouchableOpacity onPress={() => {
