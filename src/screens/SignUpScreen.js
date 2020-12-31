@@ -77,7 +77,7 @@ function SignUpScreen({ navigation }) {
                 <Overlay isVisible={visible} onBackdropPress={toggleOverlay} >
                     {/* PLEASE CHANGE ME TO WHATEVER YOU GUYS WANT */}
                     <TouchableOpacity onPress={() => console.log("Understood")} style={{alignItems: 'center'}}>
-                        <Text style={{color: 'red', fontSize: 20}} >ERROR</Text>
+                        <Text style={{color: 'red', fontSize: '20rem'}} >ERROR</Text>
                         <Text >{currentError}</Text>
                         <Button title={'Understood'} onPress={toggleOverlay} style={styles.button}/>
                     </TouchableOpacity>
@@ -130,7 +130,7 @@ function SignUpScreen({ navigation }) {
                                 />
                                 {/* THIS SHOWS THE ERRORS NEEDED TO BE RESOLVED */}
                                 {errors.email &&
-                                <Text style={{ fontSize: 13, color: 'red' }}>{errors.email}</Text>
+                                <Text style={{ fontSize: '13rem', color: 'red' }}>{errors.email}</Text>
                                 }
                                 <TextInput style={styles.textBox} secureTextEntry={true}
                                            label="Password"
@@ -141,7 +141,7 @@ function SignUpScreen({ navigation }) {
                                            onChangeText={handleChange('password')}
                                 />
                                 {errors.password &&
-                                <Text style={{ fontSize: 13, color: 'red' }}>{errors.password}</Text>
+                                <Text style={{ fontSize: '13rem', color: 'red' }}>{errors.password}</Text>
                                 }
                                 <TextInput style={styles.textBox} secureTextEntry={true}
                                            label="Re-enter Password"
@@ -151,7 +151,7 @@ function SignUpScreen({ navigation }) {
                                            onChangeText={handleChange('confirmPassword')}
                                 />
                                 {errors.confirmPassword &&
-                                <Text style={{ fontSize: 13, color: 'red', paddingTop: 5 }}>{errors.confirmPassword}</Text>
+                                <Text style={{ fontSize: '13rem', color: 'red', paddingTop: 5 }}>{errors.confirmPassword}</Text>
                                 }
                                 <TouchableOpacity style={{paddingTop: 8}} disabled={!isValid} onPress={handleSubmit}>
                                     <Image source={signUpButton} style={styles.buttonImage}  />

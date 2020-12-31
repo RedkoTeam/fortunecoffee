@@ -111,10 +111,10 @@ function HomeScreen({ navigation }) {
             await StoreData("ONBOARDING", 'PENDING');
             //console.log(`OnBoarding State 1: ${RetrieveData('ONBOARDING')}`);
             await StoreData("ONBOARDING", "DONE");
-            navigation.navigate('Onboarding');
+            navigation.navigate('OnBoarding');
           }
           else {
-            console.log(`Onboarding State: ${JSON.stringify(val)}`);
+            console.log(`OnBoarding State: ${JSON.stringify(val)}`);
           }
         }
     )
@@ -209,7 +209,7 @@ function HomeScreen({ navigation }) {
       console.log("THe user can go to next screen : ", result)
       if(result){
         // Continue to photo navigation page.
-        navigation.navigate('virtual')
+        navigation.navigate('Virtual')
       }else{
         // dont navigate
         console.log("User, maxed out the time, not navigating")
@@ -246,7 +246,7 @@ function HomeScreen({ navigation }) {
             </View>
           </Modal>
 
-          {/*<Button title="Clear Async" onPress={ () => { console.log("Async Storage Cleared"); AsyncStorage.clear();}}></Button>*/}
+          <Button title="Clear Async" onPress={ () => { console.log("Async Storage Cleared"); AsyncStorage.clear();}}></Button>
 
           <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-evenly' }}>
             <TouchableOpacity onPress={() => {

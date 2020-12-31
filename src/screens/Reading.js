@@ -16,7 +16,7 @@ import * as firebase from "firebase";
 
 function Reading({}){
     const navigation = useNavigation();
-    var userName = '!';
+   
 
     const [buttonClicked, setButtonClicked] = useState(false);
     const [randomFortune, setRandomFortune] = useState('');
@@ -44,9 +44,8 @@ function Reading({}){
                     }}>
                         <Image source={saveButton} />
                     </TouchableOpacity>
-                    <View>
-                        <Text style={styles.helloUserTextContainer}> Your Fortune{userName} </Text>
-                        <Image source={coffeeImg} style={{ marginTop: 20 }} />
+                    <View >
+                        <Image source={coffeeImg} style={{ marginTop: 20, justifyContent:'center', marginRight:'15%'}} />
                     </View>
                     {/*<TouchableOpacity onPress={() => console.log("SHARE")}>
               <Image source={shareButton} style={{ alignSelf: 'flex-end' }} />
@@ -55,7 +54,7 @@ function Reading({}){
                 <View style={styles.readingTableContainer}>
                     <Image source={yourFortune} style={{marginBottom:12}} />
                     <ScrollView>
-                        <Text style={{fontSize:17, color:'white'}}> {randomFortune}  </Text>
+                        <Text style={{fontSize: "17rem", color:'white'}}> {randomFortune}  </Text>
 
                         {!buttonClicked ? (
                             <Button

@@ -21,8 +21,8 @@ function SomeoneFortune1() {
     return (
         <View style={styles.mainContainer}>
             <ImageBackground source={bgstars} style={styles.bgfull}>
-                <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-between', padding: 25,marginTop:30 }}>
-                    <View style={{position:'absolute', top:0, flexDirection:'row', width:'100%', margin:10}}>
+            <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-between', padding: 20 }}>
+                    <View style={{  flexDirection:'row', width:'100%', marginBottom:15}}>
                         <TouchableOpacity onPress={()=>{navigation.navigate('Psychic')}}>
                             <Image source={backButton} style={styles.backButtonStyle}/>
                         </TouchableOpacity>
@@ -46,7 +46,7 @@ function SomeoneFortune1() {
                                    autoCapitalize='none'
                         />
                     </View>
-                    <Text style={{ color: '#FFFFFF', fontSize: 17, textAlign: 'left', alignSelf: 'stretch', marginLeft: 20, marginTop:20}}>Birthday</Text>
+                    <Text style={{ color: '#FFFFFF', fontSize: 16, textAlign: 'left', alignSelf: 'stretch', marginLeft: 20, marginTop:20}}>Birthday</Text>
                     <View style={{flexDirection: 'row',width:'80%', height: '10%',marginTop:5}}>
                         <TextInput style={styles.savedFortuneTextBox0}
                                    onChangeText={bdayS => setbdayS(bdayS)}

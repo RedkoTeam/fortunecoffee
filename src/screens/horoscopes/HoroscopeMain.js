@@ -85,7 +85,7 @@ function HoroscopeMain({}) {
                         <TouchableOpacity onPress={() => navigation.navigate('HoroscopeAquarius')}>
                             <Image source={Aquariusbttn} />
                         </TouchableOpacity>
-                        <TouchableOpacity onPress={() => navigation.navigate('Horoscopepisces')}>
+                        <TouchableOpacity onPress={() => navigation.navigate('HoroscopePisces')}>
                             <Image source={Piscesbttn} />
                         </TouchableOpacity>
                     </View>

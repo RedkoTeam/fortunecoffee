@@ -1,5 +1,5 @@
 import {useNavigation} from "@react-navigation/native";
-import {Image, ImageBackground, TouchableOpacity, View} from "react-native";
+import {Image, ImageBackground, TouchableOpacity, View, ViewPagerAndroidBase} from "react-native";
 import styles from "../../styles/styles";
 import ComingLuna from "../../../assets/FortuneCoffeePNGassets/Psychic/askluna/ComingLuna.png";
 import backButton from "../../../assets/FortuneCoffeePNGassets/reading/backButton.png";
@@ -13,14 +13,14 @@ function LunaChatComing() {
 
         <View style={styles.virtualContainer}>
             <ImageBackground source={ComingLuna} style={styles.bgfull}>
-                <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-between', padding: 25, marginTop: 18 }}>
-                    <View style={{position:'absolute', top:0, flexDirection:'row', width:'100%', margin:10}}>
+            <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-between', padding: 20 }}>
+                    <View style={{  flexDirection:'row', width:'100%', marginBottom:"200%"}}>
                         <TouchableOpacity onPress={()=>{navigation.navigate('Psychic')}}>
-                            <Image source={backButton} style={styles.backButtonStyle}/>
+                            <Image source={backButton} />
                         </TouchableOpacity>
                     </View>
                 </View>
-                <NavBar_psyc/>
+
             </ImageBackground>
         </View>
 

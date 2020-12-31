@@ -1,3 +1,33 @@
+//horoscope sagittarius
+import {useNavigation} from "@react-navigation/native";
+import React, {useEffect, useState} from "react";
+import GetItemInStorage from "../../../util/GetItemInStorage";
+import SaveItemInStorage from "../../../util/SaveItemInStorage";
+import {horoscopeArray} from "../../arrays/horoscopeArray";
+import {numbersArray} from "../../arrays/numbersArray";
+import {wordsArray} from "../../arrays/wordsArray";
+import {lettersArray} from "../../arrays/lettersArray";
+import {thanksArray} from "../../arrays/thanksArray";
+import {adviceArray} from "../../arrays/adviceArray";
+import {Image, ImageBackground, ScrollView, Text, TouchableOpacity, View} from "react-native";
+import styles from "../../styles/styles";
+import bgstars from "../../../assets/Bgstar.png";
+import backButton from "../../../assets/FortuneCoffeePNGassets/reading/backButton.png";
+import number from "../../../assets/FortuneCoffeePNGassets/horoscopes/Number.png";
+import letter from "../../../assets/FortuneCoffeePNGassets/horoscopes/Letter.png";
+import appre from "../../../assets/FortuneCoffeePNGassets/horoscopes/Appreciate.png";
+import SagittariusCard from "../../../assets/FortuneCoffeePNGassets/horoscopes/horoscopebtns/Sagittarius.png";
+import love from "../../../assets/FortuneCoffeePNGassets/horoscopes/Love.png";
+import career from "../../../assets/FortuneCoffeePNGassets/horoscopes/Career.png";
+import luck from "../../../assets/FortuneCoffeePNGassets/horoscopes/Luck.png";
+import SagittariusTxt from "../../../assets/FortuneCoffeePNGassets/horoscopes/SAGITTARIUS.png";
+import linehors from "../../../assets/FortuneCoffeePNGassets/horoscopes/Line_57.png";
+import hottxt from "../../../assets/FortuneCoffeePNGassets/horoscopes/hottxt.png";
+import advicetxt from "../../../assets/FortuneCoffeePNGassets/horoscopes/ADVICE.png";
+import NavBar_hor from "../../navbars/NavBar_hor";
+
+
+
 function HoroscopeSagittarius({}) {
     const navigation = useNavigation();
     const [randHoroscope, setRandomHoroscope] = useState('');

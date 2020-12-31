@@ -168,7 +168,7 @@ const styles = StyleSheet.create({
     },
 
     flexInRows: {
-        position:'absolute',
+        position:'relative',
         top: 0,
         flexDirection: 'row',
         justifyContent: 'space-between',
@@ -179,7 +179,7 @@ const styles = StyleSheet.create({
         flex: 1,
         paddingTop: '20%',
         flexDirection: 'row',
-        justifyContent: 'space-evenly',
+        justifyContent: 'center',
         width:'100%',
         alignItems:'flex-end',
     },
@@ -198,7 +198,9 @@ const styles = StyleSheet.create({
     },
 
 
-    helloUserTextContainer: {
+    helloUserTextContainer: {     
+        justifyContent:'center',
+
         fontSize:35,
         fontStyle:'normal',
         fontWeight:'bold',

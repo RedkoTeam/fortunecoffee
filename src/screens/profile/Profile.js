@@ -50,7 +50,7 @@ function Profile({navigation}) {
                         </View>
                     }
                     <View>
-                        <TouchableOpacity onPress={() => navigation.navigate('Credits')} style={{position: "absolute", bottom: 50}}>
+                        <TouchableOpacity onPress={() => navigation.navigate('Credits')} style={{ bottom: "5%"}}>
                             <Image source={appcredsbtn}  />
                         </TouchableOpacity>
                     </View>
