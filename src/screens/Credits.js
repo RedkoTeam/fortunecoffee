@@ -16,7 +16,7 @@ function Credits() {
     })
     return (
         <ImageBackground source={Creditsbg} style={styles.bgfull}>
-                <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-between', padding: 25, marginBottom:"60%" }}>
+                <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-between', padding: 25, marginBottom:"50%" }}>
                     <View style={{position:'absolute', top:0, flexDirection:'row', width:'100%', margin:10}}>
                         <TouchableOpacity onPress={()=>{navigation.navigate('Psychic')}}>
                             <Image source={backButton} style={styles.backButtonStyle}/>
