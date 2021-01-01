@@ -49,10 +49,6 @@
     "react-native-elements": "^3.0.0-alpha.1",
     "react-native-flip-card": "^3.5.6",
     "react-native-formik": "^1.7.8",
-<<<<<<< HEAD
-    "react-native-gesture-handler": "^1.8.0",
-=======
->>>>>>> f854aa68703e2d424e4c009c8640e2139311fcd5
     "react-native-modal": "^11.5.6",
     "react-native-safe-area-context": "3.1.9",
     "sentry-expo": "^3.0.4",
