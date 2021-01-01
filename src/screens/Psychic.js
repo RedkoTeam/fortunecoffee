@@ -1,7 +1,8 @@
 import {useNavigation} from "@react-navigation/native";
 import React, {useEffect, useState} from "react";
 import LoginChecker from "../../util/validators/LoginChecker";
-import {Image, ImageBackground, TouchableOpacity, View} from "react-native";
+import {Image, ImageBackground, View} from "react-native";
+import {TouchableOpacity} from 'react-native-gesture-handler';
 import styles from "../styles/styles";
 import psychicbg from "../../assets/FortuneCoffeePNGassets/Psychic/psychbg.png";
 import SignUpButton from "../../assets/FortuneCoffeePNGassets/HomePage/SignUpButton.png";

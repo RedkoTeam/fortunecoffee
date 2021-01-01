@@ -1,7 +1,8 @@
 
 // Home button changed
 import {useNavigation} from "@react-navigation/native";
-import {Image, TouchableOpacity, View} from "react-native";
+import {Image, View} from "react-native";
+import {TouchableOpacity} from 'react-native-gesture-handler';
 import Ellipse1 from "../../assets/FortuneCoffeePNGassets/HomePage/ellipse.png";
 import styles from "../styles/styles";
 import Horosbtn from "../../assets/FortuneCoffeePNGassets/HomePage/horosbtn.png";

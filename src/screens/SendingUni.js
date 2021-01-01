@@ -1,5 +1,6 @@
 import {useNavigation} from "@react-navigation/native";
-import {Image, ImageBackground, TouchableOpacity} from "react-native";
+import {Image, ImageBackground} from "react-native";
+import {TouchableOpacity} from 'react-native-gesture-handler';
 import sendingbg from "../../assets/FortuneCoffeePNGassets/Psychic/manifest/Phone.gif";
 import styles from "../styles/styles";
 import backButton from "../../assets/FortuneCoffeePNGassets/reading/backButton.png";

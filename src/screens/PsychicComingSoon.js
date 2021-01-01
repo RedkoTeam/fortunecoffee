@@ -1,5 +1,6 @@
 import {useNavigation} from "@react-navigation/native";
-import {Image, ImageBackground, TouchableOpacity, View} from "react-native";
+import {Image, ImageBackground, View} from "react-native";
+import {TouchableOpacity} from 'react-native-gesture-handler';
 import styles from "../styles/styles";
 import bgcoming from "../../assets/bgcoming.png";
 import backButton from "../../assets/FortuneCoffeePNGassets/reading/backButton.png";

@@ -1,6 +1,7 @@
 import {useNavigation} from "@react-navigation/native";
 import React, {useState} from "react";
-import {Image, ImageBackground, Text, TextInput, TouchableOpacity, View} from "react-native";
+import {Image, ImageBackground, Text, TextInput, View} from "react-native";
+import {TouchableOpacity} from 'react-native-gesture-handler';
 import styles from "../styles/styles";
 import manifestbg from "../../assets/FortuneCoffeePNGassets/Psychic/manifest/manifestbg.png";
 import backButton from "../../assets/FortuneCoffeePNGassets/reading/backButton.png";

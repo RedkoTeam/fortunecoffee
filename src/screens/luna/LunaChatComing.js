@@ -1,5 +1,6 @@
 import {useNavigation} from "@react-navigation/native";
-import {Image, ImageBackground, TouchableOpacity, View, ViewPagerAndroidBase} from "react-native";
+import {Image, ImageBackground, View, ViewPagerAndroidBase} from "react-native";
+import {TouchableOpacity} from 'react-native-gesture-handler';
 import styles from "../../styles/styles";
 import ComingLuna from "../../../assets/FortuneCoffeePNGassets/Psychic/askluna/ComingLuna.png";
 import backButton from "../../../assets/FortuneCoffeePNGassets/reading/backButton.png";

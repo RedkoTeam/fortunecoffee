@@ -17,7 +17,6 @@ const styles = StyleSheet.create({
     mainContainer: {
         flex:1,
         backgroundColor: '#070631',
-        width:'100%'
     },
     shopContainer: {
         justifyContent: 'center',

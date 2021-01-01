@@ -1,5 +1,6 @@
 import {useNavigation} from "@react-navigation/native";
-import {Image, ImageBackground, TouchableOpacity, View} from "react-native";
+import {Image, ImageBackground, View} from "react-native";
+import {TouchableOpacity} from 'react-native-gesture-handler';
 import styles from "../../styles/styles";
 import LunaSc from "../../../assets/FortuneCoffeePNGassets/Psychic/askluna/LunaSc.png";
 import transparent from "../../../assets/FortuneCoffeePNGassets/Psychic/askluna/transparent.png";

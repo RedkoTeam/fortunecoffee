@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from "react";
 import LoginChecker from "../../../util/validators/LoginChecker";
-import {Image, ImageBackground, TouchableOpacity, View} from "react-native";
+import {Image, ImageBackground, View} from "react-native";
+import {TouchableOpacity} from 'react-native-gesture-handler';
 import profilebg from "../../../assets/FortuneCoffeePNGassets/Profile/Profile.png";
 import styles from "../../styles/styles";
 import Logoutbtn from "../../../assets/FortuneCoffeePNGassets/Profile/BtnPrimary.png";
@@ -34,13 +35,13 @@ function Profile({navigation}) {
             <ImageBackground source={profilebg} style={styles.bgfull}>
                 <View style={{flex:1, justifyContent: 'center', alignContent: 'center'}}>
                     {isLoggedIn ? (
-                            <View>
+                            <View  style={{ flex: 0.9, flexDirection: 'row', width: '100%', justifyContent: 'space-between', padding: 25, marginTop: 18 }}>
                                 <TouchableOpacity onPress={ () => { LogOutUser();}}>
                                     <Image source={Logoutbtn} />
                                 </TouchableOpacity>
                             </View>
                         ) :
-                        <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-between', padding: 25, marginTop: 18 }}>
+                        <View style={{ flex: 0.9, flexDirection: 'row', width: '100%', justifyContent: 'space-between', padding: 25, marginTop: 18 }}>
                             <TouchableOpacity onPress={() => navigation.navigate('SignUp')}>
                                 <Image source={SignUpButton} />
                             </TouchableOpacity>
@@ -49,8 +50,8 @@ function Profile({navigation}) {
                             </TouchableOpacity>
                         </View>
                     }
-                    <View>
-                        <TouchableOpacity onPress={() => navigation.navigate('Credits')} style={{ bottom: "5%"}}>
+                    <View style={{flex: 0.1}}>
+                        <TouchableOpacity onPress={() => navigation.navigate('Credits')} >
                             <Image source={appcredsbtn}  />
                         </TouchableOpacity>
                     </View>

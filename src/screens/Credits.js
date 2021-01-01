@@ -1,6 +1,7 @@
 import {useNavigation} from "@react-navigation/native";
 import React, {useEffect} from "react";
-import {Image, ImageBackground, Linking, TouchableOpacity, View} from "react-native";
+import {Image, ImageBackground, Linking, View} from "react-native";
+import {TouchableOpacity} from 'react-native-gesture-handler';
 import Creditsbg from "../../assets/FortuneCoffeePNGassets/Profile/Credits.png";
 import styles from "../styles/styles";
 import backButton from "../../assets/FortuneCoffeePNGassets/reading/backButton.png";
@@ -16,14 +17,14 @@ function Credits() {
     })
     return (
         <ImageBackground source={Creditsbg} style={styles.bgfull}>
-                <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-between', padding: 25, marginBottom:"50%" }}>
+                <View style={{ flex: 0.7, flexDirection: 'row', width: '100%', justifyContent: 'space-between', padding: 25, marginBottom:"50%" }}>
                     <View style={{position:'absolute', top:0, flexDirection:'row', width:'100%', margin:10}}>
                         <TouchableOpacity onPress={()=>{navigation.navigate('Psychic')}}>
                             <Image source={backButton} style={styles.backButtonStyle}/>
                         </TouchableOpacity>
                     </View>
                 </View>
-                <View style={{flexDirection:'row', marginTop: 550}} >
+                <View style={{flexDirection:'row', flex: 0.3}} >
                     <Image source={iconsmadeby} style={{marginRight:10}}/>
                     <TouchableOpacity style = {{marginRight: 5}} onPress={()=>{Linking.openURL('https://www.flaticon.com/authors/freepik')}}>
                         <Image source={Freepik} />
@@ -32,14 +33,7 @@ function Credits() {
                     <TouchableOpacity onPress={()=>{Linking.openURL('https://www.flaticon.com/')}}>
                         <Image source={Flaticon} />
                     </TouchableOpacity>
-           
-
-            </View>
-
-            <View style={{marginBottom:"10%"}}>
-
-            </View>
-
+                </View>
         </ImageBackground>
     )
 }

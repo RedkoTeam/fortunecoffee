@@ -11,9 +11,9 @@ import {
     KeyboardAvoidingView,
     Text,
     TextInput,
-    TouchableOpacity,
     View
 } from "react-native";
+import {TouchableOpacity} from 'react-native-gesture-handler';
 import {Overlay} from "react-native-elements";
 import styles from "../styles/styles";
 import signBackground from "../../assets/FortuneCoffeePNGassets/Sign/SignBackground.png";

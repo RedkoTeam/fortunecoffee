@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from "react";
 import * as WebBrowser from "expo-web-browser";
-import {Image, Text, TouchableOpacity, View} from "react-native";
+import {Image, Text, View} from "react-native";
+import {TouchableOpacity} from 'react-native-gesture-handler';
 import styles from "../styles/styles";
 import backButton from "../../assets/FortuneCoffeePNGassets/reading/backButton.png";
 

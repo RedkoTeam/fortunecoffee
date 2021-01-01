@@ -1,7 +1,8 @@
 import React, {useState} from "react";
 import * as ImagePicker from "expo-image-picker";
 import {useNavigation} from "@react-navigation/native";
-import {Image, TouchableOpacity, View} from "react-native";
+import {Image, View} from "react-native";
+import {TouchableOpacity} from 'react-native-gesture-handler';
 import backButton from "../../../assets/FortuneCoffeePNGassets/reading/backButton.png";
 import useAVirtualCoffee from "../../../assets/useAVirtualCoffee.png";
 import virtualImage from "../../../assets/virtualImage.png";

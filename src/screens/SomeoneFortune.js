@@ -1,6 +1,7 @@
 import {useNavigation} from "@react-navigation/native";
 import React, {useState} from "react";
-import {Button, Image, ImageBackground, ScrollView, Text, TouchableOpacity, View} from "react-native";
+import {Button, Image, ImageBackground, ScrollView, Text, View} from "react-native";
+import {TouchableOpacity} from 'react-native-gesture-handler';
 import styles from "../styles/styles";
 import bgstars from "../../assets/Bgstar.png";
 import backButton from "../../assets/FortuneCoffeePNGassets/reading/backButton.png";

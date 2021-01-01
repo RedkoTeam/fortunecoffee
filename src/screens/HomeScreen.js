@@ -8,7 +8,8 @@ import StoreData from "../../util/SaveItemInStorage";
 import {cardsAndMeaning} from "../arrays/fortunesCardArray";
 import Modal from "react-native-modal";
 import AsyncStorage from '@react-native-community/async-storage';
-import {Button, Image, ImageBackground, Text, TouchableOpacity, View} from "react-native";
+import {Button, Image, ImageBackground, Text, View} from "react-native";
+import {TouchableOpacity} from 'react-native-gesture-handler';
 import styles from "../styles/styles";
 import FlipCard from "react-native-flip-card";
 import submodfo from "../../assets/submodfo.png";
@@ -273,7 +274,7 @@ function HomeScreen({ navigation }) {
         <ImageBackground source={bgstars} style={styles.bgfull}>
           {/* <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-between', padding: 25, marginTop: 18 }}> */}
           {isLoggedIn ? (
-                  <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-between', padding: 25, marginTop: 18 }}>
+                  <View style={{ flex: 0.03, flexDirection: 'row', width: '100%', justifyContent: 'space-between', padding: 25, marginTop: 18 }}>
                     <TouchableOpacity onPress={ () => {
                       LogOutUser();
                       setIsLoggedIn(false);
@@ -282,7 +283,7 @@ function HomeScreen({ navigation }) {
                     </TouchableOpacity>
                   </View>
               ) :
-              <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-between', padding: 25, marginTop: 18 }}>
+              <View style={{  flex: 0.03, flexDirection: 'row', width: '100%', justifyContent: 'space-between', padding: 25, marginTop: 18 }}>
                 <TouchableOpacity onPress={() => navigation.navigate('SignUp')}>
                   <Image source={SignUpButton} />
                 </TouchableOpacity>
@@ -293,7 +294,7 @@ function HomeScreen({ navigation }) {
 
 
           }
-          <View style={{ flex: 1, alignItems: 'center' }}>
+          <View style={{ flex: 0.97, alignItems: 'center' }}>
             {/* <Button title="Clear Async" onPress={ () => { console.log("Async Storage Cleared"); AsyncStorage.clear();}}></Button>
         <Button title="Sign out" onPress={ () => { console.log("User Sign Out"); firebase.auth().signOut()}}></Button> */}
             <Image source={LargeTitleApp} style={{ marginBottom:20 }} />
