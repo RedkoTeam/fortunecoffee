@@ -15,11 +15,11 @@
     <key>CFBundlePackageType</key>
     <string>APPL</string>
     <key>CFBundleShortVersionString</key>
-    <string>1.0.17</string>
+    <string>1.0.19</string>
     <key>CFBundleSignature</key>
     <string>????</string>
     <key>CFBundleVersion</key>
-    <string>1</string>
+    <string>3</string>
     <key>LSRequiresIPhoneOS</key>
     <true/>
     <key>NSAppTransportSecurity</key>
@@ -61,6 +61,10 @@
     </array>
     <key>UIRequiresFullScreen</key>
     <true/>
+    <key>NSPhotoLibraryUsageDescription</key>
+    <string>This app requires access to the photo library.</string>
+    <key>NSCameraUsageDescription</key>
+    <string>This app requires access to the camera.</string>
     <key>CFBundleDisplayName</key>
     <string>Fortune Coffee</string>
   </dict>
