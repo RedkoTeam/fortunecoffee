@@ -20,6 +20,8 @@ import profilebgnotlogged from "../../../assets/FortuneCoffeePNGassets/profile_l
 import SignUpButton from "../../../assets/FortuneCoffeePNGassets/HomePage/SignUpButton.png";
 import SignInButton from "../../../assets/FortuneCoffeePNGassets/HomePage/SignInButton.png";
 import appcredsbtn from "../../../assets/FortuneCoffeePNGassets/Profile/appcredits.png";
+import { Dimensions } from 'react-native';
+import {widthPercentageToDP,heightPercentageToDP,} from '../../../util/scaler'
 
 
 function ProfileLoggedIn({route}) {
@@ -76,7 +78,7 @@ function ProfileLoggedIn({route}) {
 
     return isLoggedIn? (
         <ImageBackground source={profilebg} style={styles.bgfull}>
-            <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-between', padding: 25, marginTop: 18 }}>
+            <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-between', padding: 25, marginTop: 18, marginTop: heightPercentageToDP() }}>
                 <TouchableOpacity onPress={() => navigation.navigate('Shop')}>
                     <Image source={Shopbtn} />
                 </TouchableOpacity>

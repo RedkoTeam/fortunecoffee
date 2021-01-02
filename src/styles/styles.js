@@ -1,4 +1,6 @@
 import {StyleSheet} from "react-native";
+import { Dimensions } from 'react-native';
+import {widthPercentageToDP,heightPercentageToDP,} from '../../util/scaler'
 
 const styles = StyleSheet.create({
     defaultFont: {
@@ -297,14 +299,19 @@ const styles = StyleSheet.create({
     },
     backButtonStyle: {
         position: 'absolute',
-        top: 40,
-        left: 15
+        top: 17,
+        left: 10,
+        width :widthPercentageToDP('13'),
+        height :heightPercentageToDP('6')
     },
 
     backButtonStyle1: {
         marginTop:50,
         marginRight: 300,
-        padding:25
+        padding:25,
+        width :widthPercentageToDP('5'),
+        height :heightPercentageToDP('5')
+    
     }
 });
 
