@@ -1,6 +1,6 @@
 import {useNavigation} from "@react-navigation/native";
 import {Image, View} from "react-native";
-import {TouchableOpacity} from 'react-native-gesture-handler';
+import {TouchableOpacity} from 'react-native';
 import Ellipse1 from "../../assets/FortuneCoffeePNGassets/HomePage/ellipse.png";
 import styles from "../styles/styles";
 import HorosbtnW from "../../assets/FortuneCoffeePNGassets/HomePage/horW.png";
