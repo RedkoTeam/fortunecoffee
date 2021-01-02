@@ -46,7 +46,7 @@ function HoroscopeMain({}) {
                         </TouchableOpacity>
                     </View>
                     <Image source={Horoscopetxt} style={{ }} />
-                    <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'center', padding:2, marginTop:30}}>
+                    <View style={{ flexDirection: 'row', justifyContent: 'center', padding:2, marginTop:30}}>
                         <TouchableOpacity onPress={() => navigation.navigate('HoroscopeAries')}>
                             <Image source={Ariesbttn} />
                         </TouchableOpacity>
@@ -57,7 +57,7 @@ function HoroscopeMain({}) {
                             <Image source={Geminibttn} />
                         </TouchableOpacity>
                     </View>
-                    <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'center', padding:2, marginTop:2}}>
+                    <View style={{ flexDirection: 'row', justifyContent: 'center', padding:2, marginTop:2}}>
                         <TouchableOpacity onPress={() => navigation.navigate('HoroscopeCancer')}>
                             <Image source={Cancerbttn} />
                         </TouchableOpacity>
@@ -68,7 +68,7 @@ function HoroscopeMain({}) {
                             <Image source={Virgobttn} />
                         </TouchableOpacity>
                     </View>
-                    <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'center', padding:2, marginTop:2}}>
+                    <View style={{ flexDirection: 'row', justifyContent: 'center', padding:2, marginTop:2}}>
                         <TouchableOpacity onPress={() => navigation.navigate('HoroscopeLibra')}>
                             <Image source={Librabttn} />
                         </TouchableOpacity>
@@ -79,7 +79,7 @@ function HoroscopeMain({}) {
                             <Image source={Sagittariusbttn} />
                         </TouchableOpacity>
                     </View>
-                    <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'center', padding:2, marginTop:2}}>
+                    <View style={{ flexDirection: 'row', justifyContent: 'center', padding:2, marginTop:2}}>
                         <TouchableOpacity onPress={() => navigation.navigate('HoroscopeCapricorn')}>
                             <Image source={Capribttn} />
                         </TouchableOpacity>

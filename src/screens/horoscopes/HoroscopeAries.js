@@ -364,7 +364,7 @@ function HoroscopeAries({}) {
 
 
     return (
-        <View style={styles.mainContainer}>
+        <ScrollView style={styles.mainContainer}>
             <ImageBackground source={bgstars} style={styles.bgfull}>
             <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-between', padding: 20 }}>
                     <View style={{  flexDirection:'row', width:'100%', marginBottom:15}}>
@@ -434,7 +434,7 @@ function HoroscopeAries({}) {
                 </View>
                 <NavBar_hor/>
             </ImageBackground>
-        </View>
+        </ScrollView>
 
     );
 
