@@ -22,6 +22,11 @@ import Aquariusbttn from "../../../assets/FortuneCoffeePNGassets/horoscopes/horo
 import Piscesbttn from "../../../assets/FortuneCoffeePNGassets/horoscopes/horoscopebtns/Pisces-bttn.png";
 import NavBar_hor from "../../navbars/NavBar";
 import React from "react";
+import { Dimensions } from 'react-native';
+import {widthPercentageToDP,heightPercentageToDP,} from '../../../util/scaler'
+
+
+
 
 function HoroscopeMain({}) {
     const navigation = useNavigation();

@@ -28,6 +28,11 @@ import linehors from "../../../assets/FortuneCoffeePNGassets/horoscopes/Line_57.
 import hottxt from "../../../assets/FortuneCoffeePNGassets/horoscopes/hottxt.png";
 import advicetxt from "../../../assets/FortuneCoffeePNGassets/horoscopes/ADVICE.png";
 import NavBar_hor from "../../navbars/NavBar";
+import { Dimensions } from 'react-native';
+import {widthPercentageToDP,heightPercentageToDP,} from '../../../util/scaler'
+
+
+
 
 function HoroscopePisces({}) {
     const navigation = useNavigation();

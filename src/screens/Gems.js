@@ -5,6 +5,8 @@ import {TouchableOpacity} from 'react-native-gesture-handler';
 import styles from "../styles/styles";
 import backButton from "../../assets/FortuneCoffeePNGassets/reading/backButton.png";
 import gemsbg from "../../assets/FortuneCoffeePNGassets/Subscription/Gemsbg.png";
+import { Dimensions } from 'react-native';
+import {widthPercentageToDP,heightPercentageToDP,} from '../../util/scaler'
 
 function Gems() {
     const navigation = useNavigation();
