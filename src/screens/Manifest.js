@@ -6,7 +6,7 @@ import styles from "../styles/styles";
 import manifestbg from "../../assets/FortuneCoffeePNGassets/Psychic/manifest/manifestbg.png";
 import backButton from "../../assets/FortuneCoffeePNGassets/reading/backButton.png";
 import sendtouni from "../../assets/FortuneCoffeePNGassets/Psychic/manifest/sendtouni.png";
-import NavBar_psyc from "../navbars/NavBar_psyc";
+import NavBar_psyc from "../navbars/NavBar";
 
 function Manifest() {
     const navigation = useNavigation();

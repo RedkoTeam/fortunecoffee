@@ -9,7 +9,7 @@ import {cardsAndMeaning} from "../arrays/fortunesCardArray";
 import Modal from "react-native-modal";
 import AsyncStorage from '@react-native-community/async-storage';
 import {Button, Image, ImageBackground, Text, View} from "react-native";
-import {TouchableOpacity} from 'react-native-gesture-handler';
+import {TouchableOpacity} from 'react-native';
 import styles from "../styles/styles";
 import FlipCard from "react-native-flip-card";
 import submodfo from "../../assets/submodfo.png";
@@ -30,6 +30,8 @@ import NavBar from "../navbars/NavBar";
 import * as firebase from "firebase";
 import SaveItemInStorage from "../../util/SaveItemInStorage";
 import LogOutUser from "../../util/LogOutUser";
+import { Dimensions } from 'react-native';
+import {widthPercentageToDP,heightPercentageToDP,} from '../../util/scaler'
 
 function HomeScreen({ navigation }) {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -48,6 +50,14 @@ function HomeScreen({ navigation }) {
 
   /// Modal Viewer based on date. 
   const [userCanViewCard, setUserCanViewCard] = useState(false);
+
+  const {
+    width: SCREEN_WIDTH,
+    height: SCREEN_HEIGHT,
+  } = Dimensions.get('window');
+
+  console.log("Current Window Width" ,SCREEN_WIDTH)
+  console.log("Current Window Height" ,SCREEN_HEIGHT)
 
   // UseEffect for checking the card before each trigger
   // Rather than putting it inside the function, we put it on the useeffect for checking
@@ -160,28 +170,25 @@ function HomeScreen({ navigation }) {
         </>
     ) : <>
       {/* What to show iff the user is over the max setting.*/}
-      <Modal isVisible={isModalVisible} style={{ alignItems: "center", flex: 1 }}>
-        <View>
-          <View style={{alignItems: 'center',justifyContent: 'center',}}>
-            <Image source={submodfo} style={{alignItems:'center'}} />
-            <TouchableOpacity style={{
-              flexDirection: 'row',
-              position: 'absolute',
-              top: 10,
-              right: 15
-            }} onPress={()=>{
-              toggleModal();
-            }}>
-              <Image source={xButton} style={{width: 30, height: 30,}} />
+      <Modal isVisible={isModalVisible}>
+        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center',  alignSelf: 'center'}}>
+              {/* X */}
+            <TouchableOpacity style={{width: 50, height: 50,}} onPress={()=>{
+                toggleModal();
+              }}>
+                <Image source={xButton} style={{}} />
             </TouchableOpacity>
 
-            <TouchableOpacity onPress={() => {
+              {/* IMAGE */}
+            <Image source={submodfo} style={{ }} />
+
+              {/* GET CRYTSTALS */}
+            <TouchableOpacity style={{ marginBottom: 20}} onPress={() => {
               toggleModal();
               navigation.navigate('SubscriptionScreen');
-            }} style={{position: 'absolute', bottom: 65}}>
-              <Image source={getCrystals}/>
+            }} >
+              <Image source={getCrystals} style={{marginBottom: 20}}/>
             </TouchableOpacity>
-          </View>
         </View>
       </Modal>
     </>;
@@ -220,47 +227,55 @@ function HomeScreen({ navigation }) {
 
   }
 
+  
+
   const RenderTheFortuneButtons = () =>{
     return (
         <>
-          <Modal isVisible={isFortuneModalVisible} style={{ alignItems: "center", flex: 1 }}>
+          <Modal isVisible={isFortuneModalVisible} style={{ alignItems: "center", flex: 1,  }}>
             <View style={{alignItems: 'center',justifyContent: 'center',}}>
-              <Image source={crystalBackground} style={{alignItems:'center'}} />
+
+              {/* IMAGE BACKGROUND */}
+              <Image source={crystalBackground} style={{alignItems:'center', width: widthPercentageToDP('50%')}} />
+              {/* X BUTTON */}
               <TouchableOpacity style={{
                 flexDirection: 'row',
-                position: 'absolute',
                 top: 10,
                 right: 15
               }} onPress={()=>{
                 toggleFortuneModal();
               }}>
-                <Image source={xButton} style={{width: 30, height: 30,}} />
+                <Image source={xButton} style={{width :widthPercentageToDP('19')}} />
               </TouchableOpacity>
 
-              {/* Change to correct image please. */}
+              {/* GET CRYSTALS BUTTON */}
               <TouchableOpacity onPress={() => {
                 toggleFortuneModal();
                 navigation.navigate('SubscriptionScreen');
-              }} style={{position: 'absolute', bottom: 65}}>
-                <Image source={getCrystals}/>
+              }} style={{width: widthPercentageToDP('40%'), height: heightPercentageToDP('20%')}}>
+                <Image style={{ width: widthPercentageToDP('40%'), height: heightPercentageToDP('20%')}}source={getCrystals}/>
               </TouchableOpacity>
+
+
             </View>
           </Modal>
 
-          <Button title="Clear Async" onPress={ () => { console.log("Async Storage Cleared"); AsyncStorage.clear();}}></Button>
+          {/* <Button title="Clear Async" onPress={ () => { console.log("Async Storage Cleared"); AsyncStorage.clear();}}></Button> */}
 
-          <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-evenly' }}>
-            <TouchableOpacity onPress={() => {
+          <View style={{ flexDirection: 'row', justifyContent: 'space-evenly',marginHorizontal: 10 }}>
+            <TouchableOpacity 
+            onPress={() => {
               CheckFortuneCountCoffeeReading()
             }}>
               {/* virtual Coffee Reading */}
-              <Image source={VirtualCoffee} />
+              <Image source={VirtualCoffee} style={{resizeMode: 'stretch'}}   />
             </TouchableOpacity>
             {/* Take a photo for reading */}
-            <TouchableOpacity onPress={() => {
+            <TouchableOpacity 
+            onPress={() => {
               CheckFortuneCountPhoto()
             }}>
-              <Image source={TakePhoto} />
+              <Image source={TakePhoto}  style={{resizeMode: 'stretch',}}  />
             </TouchableOpacity>
           </View>
         </>
@@ -270,55 +285,51 @@ function HomeScreen({ navigation }) {
 
 
   return (
-      <View style={styles.mainContainer}>
+      <View style={{flex: 1}}>
         <ImageBackground source={bgstars} style={styles.bgfull}>
-          {/* <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-between', padding: 25, marginTop: 18 }}> */}
-          {isLoggedIn ? (
-                  <View style={{ flex: 0.03, flexDirection: 'row', width: '100%', justifyContent: 'space-between', padding: 25, marginTop: 18 }}>
-                    <TouchableOpacity onPress={ () => {
-                      LogOutUser();
-                      setIsLoggedIn(false);
-                    }}>
-                      <Image source={Logoutbtn} />
-                    </TouchableOpacity>
-                  </View>
-              ) :
-              <View style={{  flex: 0.03, flexDirection: 'row', width: '100%', justifyContent: 'space-between', padding: 25, marginTop: 18 }}>
-                <TouchableOpacity onPress={() => navigation.navigate('SignUp')}>
-                  <Image source={SignUpButton} />
-                </TouchableOpacity>
-                <TouchableOpacity onPress={() => navigation.navigate('SignIn')}>
-                  <Image source={SignInButton} />
-                </TouchableOpacity>
-              </View>
-
-
-          }
-          <View style={{ flex: 0.97, alignItems: 'center' }}>
-            {/* <Button title="Clear Async" onPress={ () => { console.log("Async Storage Cleared"); AsyncStorage.clear();}}></Button>
-        <Button title="Sign out" onPress={ () => { console.log("User Sign Out"); firebase.auth().signOut()}}></Button> */}
-            <Image source={LargeTitleApp} style={{ marginBottom:20 }} />
-            {RenderTheFortuneButtons()}
-
-            {/* <Button title="credits" onPress={() => navigation.navigate('Credits')} /> */}
-
-            <Image source={PickCard} style={{ marginTop:20, margin: 8 }} />
-            {/* Pick a card  */}
-            <TouchableOpacity onPress={toggleModal2} style={styles.cards}>
-              <Image source={Cards} />
-              <Modal isVisible={isModalVisible} style={{ alignItems: "center", flex: 1 }}>
-                <View>
-                  <View style={{ marginBottom: 500 }}>
-                    {Render_CardModule()}
-                  </View>
+            {isLoggedIn ? (
+                <View style={{ flex: 0.03, flexDirection: 'row', width: '100%', justifyContent: 'space-between', padding: 25, marginTop: heightPercentageToDP() }}>
+                  <TouchableOpacity onPress={ () => {
+                    LogOutUser();
+                    setIsLoggedIn(false);
+                  }}>
+                    <Image source={Logoutbtn} />
+                  </TouchableOpacity>
                 </View>
-              </Modal>
-            </TouchableOpacity>
+                ) :
+                <View style={{  flex: 0.03, flexDirection: 'row', width: '100%', justifyContent: 'space-between', padding: 25, marginTop: 18 }}>
+                  <TouchableOpacity onPress={() => navigation.navigate('SignUp')}>
+                    <Image source={SignUpButton} />
+                  </TouchableOpacity>
+                  <TouchableOpacity onPress={() => navigation.navigate('SignIn')}>
+                    <Image source={SignInButton} />
+                  </TouchableOpacity>
+                </View>
+            }
+            <View style={{ flex: 1, alignItems: 'center' }}>
+              {/* <Button title="Clear Async" onPress={ () => { console.log("Async Storage Cleared"); AsyncStorage.clear();}}></Button>
+          <Button title="Sign out" onPress={ () => { console.log("User Sign Out"); firebase.auth().signOut()}}></Button> */}
+              <Image source={LargeTitleApp} style={{resizeMode: 'stretch', width: widthPercentageToDP('80'), height: heightPercentageToDP('8.5')}}/>
+              {RenderTheFortuneButtons()}
+
+              {/* <Button title="credits" onPress={() => navigation.navigate('Credits')} /> */}
+              <Image source={PickCard} style={{ marginTop:20, margin: 8 }} />
+              {/* Pick a card  */}
+              <TouchableOpacity onPress={toggleModal2} style={styles.cards}>
+                <Image source={Cards} style={{resizeMode: 'stretch', width: widthPercentageToDP('95')}}/>
+                <Modal isVisible={isModalVisible} style={{ alignItems: "center", flex: 1 }}>
+                  <View>
+                    <View style={{ }}>
+                      {Render_CardModule()}
+                    </View>
+                  </View>
+                </Modal>
+              </TouchableOpacity>
+            </View>
             <NavBar />
-          </View>
+
         </ImageBackground>
       </View>
-
   );
 }
 

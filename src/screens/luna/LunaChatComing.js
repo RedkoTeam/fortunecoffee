@@ -4,7 +4,7 @@ import {TouchableOpacity} from 'react-native-gesture-handler';
 import styles from "../../styles/styles";
 import ComingLuna from "../../../assets/FortuneCoffeePNGassets/Psychic/askluna/ComingLuna.png";
 import backButton from "../../../assets/FortuneCoffeePNGassets/reading/backButton.png";
-import NavBar_psyc from "../../navbars/NavBar_psyc";
+import NavBar_psyc from "../../navbars/NavBar";
 import React from "react";
 
 

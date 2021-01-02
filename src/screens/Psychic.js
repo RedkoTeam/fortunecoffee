@@ -10,7 +10,7 @@ import SignInButton from "../../assets/FortuneCoffeePNGassets/HomePage/SignInBut
 import asklunabtn from "../../assets/FortuneCoffeePNGassets/Psychic/asklunabtn.png";
 import someonebtn from "../../assets/FortuneCoffeePNGassets/Psychic/someonebtn.png";
 import manifestbtn from "../../assets/FortuneCoffeePNGassets/Psychic/manifestbtn.png";
-import NavBar_psyc from "../navbars/NavBar_psyc";
+import NavBar_psyc from "../navbars/NavBar";
 
 function Psychic() {
     const navigation = useNavigation();
@@ -31,29 +31,31 @@ function Psychic() {
 
 
     return (
-
         <View style={styles.virtualContainer}>
-            <ImageBackground source={psychicbg} style={styles.bgfull}>
-                <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-between', padding: 25, marginTop: 18 }}>
+            <ImageBackground source={psychicbg} style={{flex: 1, }}>
                     {isLoggedIn ? (
-                            <View style={{zIndex: 100}}>
-                                <></>
-                            </View>
+                        <View style={{ flex: 0.03, flexDirection: 'row', width: '100%', justifyContent: 'space-between', padding: 25, marginTop: heightPercentageToDP('20') }}>
+                        <TouchableOpacity onPress={ () => {
+                            LogOutUser();
+                            setIsLoggedIn(false);
+                        }}>
+                            <Image source={Logoutbtn} />
+                        </TouchableOpacity>
+                        </View>
                         ) :
-                        <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-between' }}>
-                            <TouchableOpacity onPress={() => navigation.navigate('SignUp')}>
-                                <Image source={SignUpButton} />
-                            </TouchableOpacity>
-                            <TouchableOpacity onPress={() => navigation.navigate('SignIn')}>
-                                <Image source={SignInButton} />
-                            </TouchableOpacity>
+                        <View style={{  flex: 0.03, flexDirection: 'row', width: '100%', justifyContent: 'space-between', padding: 25, marginTop: 18 }}>
+                        <TouchableOpacity onPress={() => navigation.navigate('SignUp')}>
+                            <Image source={SignUpButton} />
+                        </TouchableOpacity>
+                        <TouchableOpacity onPress={() => navigation.navigate('SignIn')}>
+                            <Image source={SignInButton} />
+                        </TouchableOpacity>
                         </View>
                     }
 
-                </View>
-                <View style={{marginTop:'25%'}}>
+                <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
                     <TouchableOpacity onPress={() => navigation.navigate('LunaChat')}>
-                        <Image source={asklunabtn} style={{marginTop:15}} />
+                        <Image source={asklunabtn} />
                     </TouchableOpacity>
                     <TouchableOpacity onPress={() => navigation.navigate('SomeoneFortune1')}>
                         <Image source={someonebtn} style={{marginTop:15}}  />
@@ -63,8 +65,8 @@ function Psychic() {
                     </TouchableOpacity>
 
                 </View>
-                <NavBar_psyc/>
             </ImageBackground>
+            <NavBar_psyc />
         </View>
 
     )

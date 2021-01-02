@@ -8,7 +8,7 @@ import backButton from "../../assets/FortuneCoffeePNGassets/reading/backButton.p
 import magicglobetxt from "../../assets/FortuneCoffeePNGassets/Psychic/magicglobetxt.png";
 import linehors from "../../assets/FortuneCoffeePNGassets/horoscopes/Line_57.png";
 import someonetxt from "../../assets/FortuneCoffeePNGassets/Psychic/someonetxt.png";
-import NavBar_psyc from "../navbars/NavBar_psyc";
+import NavBar_psyc from "../navbars/NavBar";
 import {someoneArray} from "../arrays/someoneArray";
 
 function SomeoneFortune() {

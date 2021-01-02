@@ -9,7 +9,7 @@ import magicglobetxt from "../../assets/FortuneCoffeePNGassets/Psychic/magicglob
 import linehors from "../../assets/FortuneCoffeePNGassets/horoscopes/Line_57.png";
 import someonetxt from "../../assets/FortuneCoffeePNGassets/Psychic/someonetxt.png";
 import magicbtn from "../../assets/FortuneCoffeePNGassets/Psychic/magicbtn.png";
-import NavBar_psyc from "../navbars/NavBar_psyc";
+import NavBar_psyc from "../navbars/NavBar";
 
 function SomeoneFortune1() {
     const navigation = useNavigation();
