@@ -8,7 +8,7 @@ import styles from "../styles/styles";
 import galaxy from "../../assets/FortuneCoffeePNGassets/shopPage/galaxy.png";
 import savedFortunesTitle from "../../assets/FortuneCoffeePNGassets/savedFortunes/savedFortuneTitle.png";
 import fortuneBox from "../../assets/FortuneCoffeePNGassets/savedFortunes/Box.png";
-import NavBar_fav from "../navbars/NavBar_fab";
+import NavBar_fav from "../navbars/NavBar";
 import XButton from '../../assets/FortuneCoffeePNGassets/bi_x.png'
 // FIRESTORE
 import db from '../../util/firestore/firestore'

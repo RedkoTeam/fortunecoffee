@@ -171,9 +171,7 @@ function HomeScreen({ navigation }) {
     ) : <>
       {/* What to show iff the user is over the max setting.*/}
       <Modal isVisible={isModalVisible}>
-        <View style={{ flex: 1, 
-          alignItems: 'center', justifyContent: 'center',
-           alignContent: 'center', alignSelf: 'center'}}>
+        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center',  alignSelf: 'center'}}>
               {/* X */}
             <TouchableOpacity style={{width: 50, height: 50,}} onPress={()=>{
                 toggleModal();
@@ -185,11 +183,11 @@ function HomeScreen({ navigation }) {
             <Image source={submodfo} style={{ }} />
 
               {/* GET CRYTSTALS */}
-            <TouchableOpacity style={{ }} onPress={() => {
+            <TouchableOpacity style={{ marginBottom: 20}} onPress={() => {
               toggleModal();
               navigation.navigate('SubscriptionScreen');
             }} >
-              <Image source={getCrystals} style={{alignItems:'flex-start'}}/>
+              <Image source={getCrystals} style={{marginBottom: 20}}/>
             </TouchableOpacity>
         </View>
       </Modal>
@@ -234,7 +232,7 @@ function HomeScreen({ navigation }) {
   const RenderTheFortuneButtons = () =>{
     return (
         <>
-          <Modal isVisible={isFortuneModalVisible} style={{ alignItems: "center", flex: 1 }}>
+          <Modal isVisible={isFortuneModalVisible} style={{ alignItems: "center", flex: 1,  }}>
             <View style={{alignItems: 'center',justifyContent: 'center',}}>
 
               {/* IMAGE BACKGROUND */}
@@ -264,18 +262,20 @@ function HomeScreen({ navigation }) {
 
           {/* <Button title="Clear Async" onPress={ () => { console.log("Async Storage Cleared"); AsyncStorage.clear();}}></Button> */}
 
-          <View style={{ flexDirection: 'row', justifyContent: 'space-evenly' ,}}>
-            <TouchableOpacity onPress={() => {
+          <View style={{ flexDirection: 'row', justifyContent: 'space-evenly',marginHorizontal: 10 }}>
+            <TouchableOpacity 
+            onPress={() => {
               CheckFortuneCountCoffeeReading()
             }}>
               {/* virtual Coffee Reading */}
-              <Image source={VirtualCoffee} />
+              <Image source={VirtualCoffee} style={{resizeMode: 'stretch'}}   />
             </TouchableOpacity>
             {/* Take a photo for reading */}
-            <TouchableOpacity onPress={() => {
+            <TouchableOpacity 
+            onPress={() => {
               CheckFortuneCountPhoto()
             }}>
-              <Image source={TakePhoto} />
+              <Image source={TakePhoto}  style={{resizeMode: 'stretch',}}  />
             </TouchableOpacity>
           </View>
         </>

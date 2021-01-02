@@ -28,7 +28,7 @@ import CapricornTxt from "../../../assets/FortuneCoffeePNGassets/horoscopes/CAPR
 import linehors from "../../../assets/FortuneCoffeePNGassets/horoscopes/Line_57.png";
 import hottxt from "../../../assets/FortuneCoffeePNGassets/horoscopes/hottxt.png";
 import advicetxt from "../../../assets/FortuneCoffeePNGassets/horoscopes/ADVICE.png";
-import NavBar_hor from "../../navbars/NavBar_hor";
+import NavBar_hor from "../../navbars/NavBar";
 
 function HoroscopeCapricorn({}) {
     const navigation = useNavigation();

@@ -27,7 +27,7 @@ import PiscesTxt from "../../../assets/FortuneCoffeePNGassets/horoscopes/PISCES.
 import linehors from "../../../assets/FortuneCoffeePNGassets/horoscopes/Line_57.png";
 import hottxt from "../../../assets/FortuneCoffeePNGassets/horoscopes/hottxt.png";
 import advicetxt from "../../../assets/FortuneCoffeePNGassets/horoscopes/ADVICE.png";
-import NavBar_hor from "../../navbars/NavBar_hor";
+import NavBar_hor from "../../navbars/NavBar";
 
 function HoroscopePisces({}) {
     const navigation = useNavigation();

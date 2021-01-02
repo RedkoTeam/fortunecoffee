@@ -13,7 +13,7 @@ import {
     TextInput,
     View
 } from "react-native";
-import {TouchableOpacity} from 'react-native-gesture-handler';
+import {TouchableOpacity} from 'react-native';
 import {Overlay} from "react-native-elements";
 import styles from "../styles/styles";
 import signBackground from "../../assets/FortuneCoffeePNGassets/Sign/SignBackground.png";
@@ -26,6 +26,7 @@ import loginButton from "../../assets/FortuneCoffeePNGassets/Sign/LogInButton.pn
 import forgotPasswordText from "../../assets/FortuneCoffeePNGassets/Sign/forgotPasswordText.png";
 import createNewText from "../../assets/FortuneCoffeePNGassets/Sign/createaNewText.png";
 import accoutText from "../../assets/FortuneCoffeePNGassets/Sign/accountText.png";
+import {widthPercentageToDP,heightPercentageToDP,} from '../../util/scaler'
 
 function SignInScreen() {
     const navigation = useNavigation();
@@ -169,7 +170,7 @@ function SignInScreen() {
                                 <Text style={{ fontSize: 13, color: 'red' }}>{errors.password}</Text>
                                 }
                                 <TouchableOpacity style={{paddingTop: 8}} disabled={!isValid} onPress={handleSubmit}>
-                                    <Image source={loginButton} style={styles.buttonImage}  />
+                                    <Image source={loginButton} style={{resizeMode: 'stretch',width: widthPercentageToDP('80')}} />
                                 </TouchableOpacity>
                             </>
                         )}

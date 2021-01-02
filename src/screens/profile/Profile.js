@@ -8,7 +8,7 @@ import Logoutbtn from "../../../assets/FortuneCoffeePNGassets/Profile/BtnPrimary
 import SignUpButton from "../../../assets/FortuneCoffeePNGassets/HomePage/SignUpButton.png";
 import SignInButton from "../../../assets/FortuneCoffeePNGassets/HomePage/SignInButton.png";
 import appcredsbtn from "../../../assets/FortuneCoffeePNGassets/Profile/appcredits.png";
-import NavBar_pro from "../../navbars/NavBar_pro";
+import NavBar_pro from "../../navbars/NavBar";
 
 function Profile({navigation}) {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -32,16 +32,17 @@ function Profile({navigation}) {
 
     return (
         <>
-            <ImageBackground source={profilebg} style={styles.bgfull}>
+         <View style={{flex: 1}}>
+             <ImageBackground source={profilebg} style={styles.bgfull}>
                 <View style={{flex:1, justifyContent: 'center', alignContent: 'center'}}>
                     {isLoggedIn ? (
-                            <View  style={{ flex: 0.9, flexDirection: 'row', width: '100%', justifyContent: 'space-between', padding: 25, marginTop: 18 }}>
+                            <View  style={{ flex: 1, flexDirection: 'row', width: '100%', justifyContent: 'space-between', padding: 25, marginTop: 18 }}>
                                 <TouchableOpacity onPress={ () => { LogOutUser();}}>
                                     <Image source={Logoutbtn} />
                                 </TouchableOpacity>
                             </View>
                         ) :
-                        <View style={{ flex: 0.9, flexDirection: 'row', width: '100%', justifyContent: 'space-between', padding: 25, marginTop: 18 }}>
+                        <View style={{ flex: 1, flexDirection: 'row', width: '100%', justifyContent: 'space-between', padding: 25, marginTop: 18 }}>
                             <TouchableOpacity onPress={() => navigation.navigate('SignUp')}>
                                 <Image source={SignUpButton} />
                             </TouchableOpacity>
@@ -50,15 +51,15 @@ function Profile({navigation}) {
                             </TouchableOpacity>
                         </View>
                     }
-                    <View style={{flex: 0.1}}>
+                    <View style={{flex: 1}}>
                         <TouchableOpacity onPress={() => navigation.navigate('Credits')} >
                             <Image source={appcredsbtn}  />
                         </TouchableOpacity>
                     </View>
                 </View>
-                <NavBar_pro></NavBar_pro>
+                <NavBar_pro />
             </ImageBackground>
-
+        </View>
         </>
     )
 }
