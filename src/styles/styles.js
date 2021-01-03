@@ -158,7 +158,6 @@ const styles = StyleSheet.create({
         opacity: 1,
     },
 
-
     bgfull2: {
         flex: 1,
         resizeMode:'cover',
@@ -197,8 +196,9 @@ const styles = StyleSheet.create({
     },
     readingTableContainer: {
         flex: 1,
-        width:'100%',
-        alignContent:'stretch',
+        width:'95%',
+        alignSelf:'center',
+        alignItems:'center',
         padding: 15,
     },
 
@@ -280,8 +280,8 @@ const styles = StyleSheet.create({
         backgroundColor: "rgba(255,255,255,0.4)",
     },
     savedFortuneTextBox0: {
-        height: "100%",
-        width: "100%",
+        height: '11%',
+        width: "90%",
         borderWidth: 1,
         borderRadius: 10,
         backgroundColor: "rgba(255,255,255,0.4)",
@@ -309,11 +309,8 @@ const styles = StyleSheet.create({
         padding: 12,
     },
     backButtonStyle: {
-        position: 'absolute',
-        top: 40,
-        left: 15,
-        width :widthPercentageToDP('13'),
-        height :heightPercentageToDP('6')
+        left:widthPercentageToDP(5),
+        top:heightPercentageToDP(5),
     },
 
     backButtonStyle1: {
