@@ -23,7 +23,7 @@ function SomeoneFortune() {
         <View style={styles.bgfull}>
             <ImageBackground source={bgstars} style={styles.bgfull}>
                 <TouchableOpacity onPress={()=>{navigation.navigate('SomeoneFortune1')}}>
-                    <Image source={backButton} style={styles.backButtonStyle1}/>
+                    <Image source={backButton} style={styles.backButtonStyle}/>
                 </TouchableOpacity>
 
 

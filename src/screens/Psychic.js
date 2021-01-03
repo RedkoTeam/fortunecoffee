@@ -11,6 +11,8 @@ import asklunabtn from "../../assets/FortuneCoffeePNGassets/Psychic/asklunabtn.p
 import someonebtn from "../../assets/FortuneCoffeePNGassets/Psychic/someonebtn.png";
 import manifestbtn from "../../assets/FortuneCoffeePNGassets/Psychic/manifestbtn.png";
 import NavBar_psyc from "../navbars/NavBar";
+import { Dimensions } from 'react-native';
+import {widthPercentageToDP,heightPercentageToDP,} from '../../util/scaler';
 
 function Psychic() {
     const navigation = useNavigation();

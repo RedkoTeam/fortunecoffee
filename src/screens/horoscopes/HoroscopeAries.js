@@ -27,7 +27,7 @@ import advicetxt from "../../../assets/FortuneCoffeePNGassets/horoscopes/ADVICE.
 import NavBar_hor from "../../navbars/NavBar";
 import { Dimensions } from 'react-native';
 import { actuatedNormalize } from '../../../util/fontScaler';
-import {widthPercentageToDP,heightPercentageToDP,} from '../../../util/scaler'
+import {widthPercentageToDP,heightPercentageToDP,} from '../../../util/scaler';
 
 function HoroscopeAries({}) {
     const navigation = useNavigation();

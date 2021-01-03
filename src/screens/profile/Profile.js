@@ -9,6 +9,8 @@ import SignUpButton from "../../../assets/FortuneCoffeePNGassets/HomePage/SignUp
 import SignInButton from "../../../assets/FortuneCoffeePNGassets/HomePage/SignInButton.png";
 import appcredsbtn from "../../../assets/FortuneCoffeePNGassets/Profile/appcredits.png";
 import NavBar_pro from "../../navbars/NavBar";
+import { Dimensions } from 'react-native';
+import {widthPercentageToDP,heightPercentageToDP,} from '../../../util/scaler'
 
 function Profile({navigation}) {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
