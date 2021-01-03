@@ -44,7 +44,7 @@ function Profile({navigation}) {
                                 </TouchableOpacity>
                             </View>
                         ) :
-                        <View style={{ flex: 1, flexDirection: 'row', width: '100%', justifyContent: 'space-between', padding: 25, marginTop: 18 }}>
+                        <View style={{ flex: 1, flexDirection: 'row', width: '10%', justifyContent: 'space-between', padding: 25, marginTop: 18 }}>
                             <TouchableOpacity onPress={() => navigation.navigate('SignUp')}>
                                 <Image source={SignUpButton} />
                             </TouchableOpacity>

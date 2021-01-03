@@ -77,8 +77,8 @@ function ProfileLoggedIn({route}) {
 
 
     return isLoggedIn? (
-        <ImageBackground source={profilebg} style={styles.bgfull}>
-            <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-between', padding: 25, marginTop: 18, marginTop: heightPercentageToDP() }}>
+        <ImageBackground source={profilebg} style={styles.bgfull2}>
+            <View style={{ flexDirection: 'row', width: '10%', justifyContent: 'space-between', padding: 25, marginTop: 18, marginTop: heightPercentageToDP() }}>
                 <TouchableOpacity onPress={() => navigation.navigate('Shop')}>
                     <Image source={Shopbtn} />
                 </TouchableOpacity>
@@ -113,7 +113,7 @@ function ProfileLoggedIn({route}) {
     ): (
         <>
         <View style={{flex: 1}}>
-                <ImageBackground source={profilebgnotlogged} style={styles.bgfull}>
+                <ImageBackground source={profilebgnotlogged} style={styles.bgfull1}>
                     {isLoggedIn ? (
                             <View>
                                 <TouchableOpacity onPress={ () => { LogOutUser();}}>
@@ -121,7 +121,7 @@ function ProfileLoggedIn({route}) {
                                 </TouchableOpacity>
                             </View>
                         ) :
-                        <View style={{  flex: .9, flexDirection: 'row', width: '100%', justifyContent: 'space-between', padding: 25 }}>
+                        <View style={{  flex: .9, flexDirection: 'row', width: '100%', justifyContent: 'space-between', padding: 25, marginTop:15 }}>
                         <TouchableOpacity onPress={() => navigation.navigate('SignUp')}>
                             <Image source={SignUpButton} />
                         </TouchableOpacity>
