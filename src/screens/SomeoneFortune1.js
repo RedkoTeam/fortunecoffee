@@ -1,7 +1,7 @@
 import {useNavigation} from "@react-navigation/native";
 import React, {useState} from "react";
-import {Image, ImageBackground, Text, TextInput, View} from "react-native";
-import {TouchableOpacity} from 'react-native-gesture-handler';
+import {Image, ImageBackground, Text, TextInput, View, SafeAreaView, TouchableOpacity} from "react-native";
+import { Formik } from 'formik';
 import styles from "../styles/styles";
 import bgstars from "../../assets/Bgstar.png";
 import backButton from "../../assets/FortuneCoffeePNGassets/reading/backButton.png";
@@ -10,6 +10,8 @@ import linehors from "../../assets/FortuneCoffeePNGassets/horoscopes/Line_57.png
 import someonetxt from "../../assets/FortuneCoffeePNGassets/Psychic/someonetxt.png";
 import magicbtn from "../../assets/FortuneCoffeePNGassets/Psychic/magicbtn.png";
 import NavBar_psyc from "../navbars/NavBar";
+import MagicGlobeValidationSchema from "../../util/validators/MagicGlobeValidationSchema";
+import {widthPercentageToDP,heightPercentageToDP,} from '../../util/scaler';
 
 function SomeoneFortune1() {
     const navigation = useNavigation();
@@ -21,50 +23,50 @@ function SomeoneFortune1() {
 
     return (
         <View style={styles.mainContainer}>
-            <ImageBackground source={bgstars} style={styles.bgfull}>
-            <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-between', padding: 20 }}>
-                    <View style={{  flexDirection:'row', width:'100%', marginBottom:15}}>
-                        <TouchableOpacity onPress={()=>{navigation.navigate('Psychic')}}>
-                            <Image source={backButton} style={styles.backButtonStyle}/>
-                        </TouchableOpacity>
-                    </View>
+            <ImageBackground source={bgstars} style={{flex:1, resizeMode:'cover'}}>
+                <TouchableOpacity onPress={()=>navigation.navigate('Psychic')} style={{alignSelf:'flex-start', top: heightPercentageToDP('5'), left: widthPercentageToDP('5')}}>
+                    <Image source={backButton}/>
+                </TouchableOpacity>
+                <View style={{marginTop: heightPercentageToDP('10'), marginBottom: heightPercentageToDP('5'), alignSelf:'center', alignItems:'center'}}>
+                    <Image source={magicglobetxt} />
+                    <Image source={linehors} style={{marginTop: heightPercentageToDP(5), marginBottom: heightPercentageToDP(5)}} />
+                    <Image source={someonetxt}  />
                 </View>
-                <View style={{  alignItems: 'center', marginTop:60 }}>
-
-                    <Image source={magicglobetxt} style={{ alignItems: 'center', marginTop: 18 }} />
-
-                    <Image source={linehors} style={{  marginTop: 25 }} />
-                    <Image source={someonetxt} style={{  marginTop: 25 }} />
-
-
-                    <Text style={{ color: '#FFFFFF', fontSize: 17, textAlign: 'left', alignSelf: 'stretch', marginLeft: 20, marginTop:20}}>Name</Text>
-                    <View style={{flexDirection: 'row',width:'80%', height: '10%',marginTop:5}}>
-                        <TextInput style={styles.savedFortuneTextBox0}
-                                   onChangeText={nameS => setNameS(nameS)}
-                                   value={nameS}
-                                   placeholder="    Enter The Name of The Person"
-                                   placeholderTextColor='#DCDCDC'
-                                   autoCapitalize='none'
-                        />
-                    </View>
-                    <Text style={{ color: '#FFFFFF', fontSize: 16, textAlign: 'left', alignSelf: 'stretch', marginLeft: 20, marginTop:20}}>Birthday</Text>
-                    <View style={{flexDirection: 'row',width:'80%', height: '10%',marginTop:5}}>
-                        <TextInput style={styles.savedFortuneTextBox0}
-                                   onChangeText={bdayS => setbdayS(bdayS)}
-                                   value={bdayS}
-                                   placeholder="    Their Birthday"
-                                   placeholderTextColor='#DCDCDC'
-                                   autoCapitalize='none'
-                        />
-                    </View>
-
-                    <TouchableOpacity onPress={()=>{navigation.navigate('SomeoneFortune')}}>
-                        <Image source={magicbtn}  style={{ alignItems: 'center', marginTop: 28 }} />
-                    </TouchableOpacity>
-                </View>
-                <NavBar_psyc/>
+                <Formik 
+                    validationSchema={MagicGlobeValidationSchema}
+                    initialValues={{name:'', birthDate:''}}
+                    onSubmit={ values => {
+                        console.log(values);
+                        navigation.navigate('SomeoneFortune');
+                    }}
+                >
+                    { ({ handleChange, errors, isValid, handleSubmit }) => (
+                            <View style={{width:'100%', alignContent:'center', alignItems:'center'}}>
+                                <Text style={{ color: '#FFFFFF', fontSize: 17, textAlign: 'left', alignSelf: 'stretch', marginLeft: 20, marginTop:20}}>Name</Text>
+                                <TextInput style={styles.savedFortuneTextBox0}
+                                    placeholder="    Enter The Name of The Person"
+                                    placeholderTextColor='#DCDCDC'
+                                    onChangeText={handleChange('name')}
+                                />
+                                { errors.name &&  <Text style={{fontSize:13, color:'red', marginTop:3}}>{errors.name}</Text> }
+                                <Text style={{ color: '#FFFFFF', fontSize: 17, textAlign: 'left', alignSelf: 'stretch', marginLeft: 20, marginTop:20}}>Birthday</Text>
+                                <TextInput style={styles.savedFortuneTextBox0}
+                                    placeholder="    MMDDYYYY"
+                                    placeholderTextColor='#DCDCDC'
+                                    autoCapitalize='none'
+                                    onChangeText={handleChange('birthDate')}
+                                /> 
+                                { errors.birthDate && <Text style={{fontSize:13, color:'red', marginTop:3}}>{errors.birthDate}</Text> }
+                                <TouchableOpacity style={{ alignItems: 'center', marginTop: 28 }} disabled={!isValid} onPress={handleSubmit}>
+                                    <Image source={magicbtn} />
+                                </TouchableOpacity>           
+                            </View>
+                        )
+                    }
+                </Formik>
             </ImageBackground>
         </View>
+
     )
 }
 

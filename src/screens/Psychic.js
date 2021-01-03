@@ -1,8 +1,7 @@
 import {useNavigation} from "@react-navigation/native";
 import React, {useEffect, useState} from "react";
 import LoginChecker from "../../util/validators/LoginChecker";
-import {Image, ImageBackground, View} from "react-native";
-import {TouchableOpacity} from 'react-native-gesture-handler';
+import {Image, ImageBackground, View, TouchableOpacity} from "react-native";
 import styles from "../styles/styles";
 import psychicbg from "../../assets/FortuneCoffeePNGassets/Psychic/psychbg.png";
 import SignUpButton from "../../assets/FortuneCoffeePNGassets/HomePage/SignUpButton.png";
@@ -11,6 +10,8 @@ import asklunabtn from "../../assets/FortuneCoffeePNGassets/Psychic/asklunabtn.p
 import someonebtn from "../../assets/FortuneCoffeePNGassets/Psychic/someonebtn.png";
 import manifestbtn from "../../assets/FortuneCoffeePNGassets/Psychic/manifestbtn.png";
 import NavBar_psyc from "../navbars/NavBar";
+
+import {widthPercentageToDP,heightPercentageToDP,} from '../../util/scaler';
 
 function Psychic() {
     const navigation = useNavigation();
@@ -39,7 +40,8 @@ function Psychic() {
                             LogOutUser();
                             setIsLoggedIn(false);
                         }}>
-                            <Image source={Logoutbtn} />
+                            {/*<Image source={Logoutbtn} />*/}
+                            
                         </TouchableOpacity>
                         </View>
                         ) :

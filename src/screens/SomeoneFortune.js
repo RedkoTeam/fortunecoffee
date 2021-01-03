@@ -1,7 +1,6 @@
 import {useNavigation} from "@react-navigation/native";
 import React, {useState} from "react";
-import {Button, Image, ImageBackground, ScrollView, Text, View} from "react-native";
-import {TouchableOpacity} from 'react-native-gesture-handler';
+import {Button, Image, ImageBackground, ScrollView, Text, View, TouchableOpacity} from "react-native";
 import styles from "../styles/styles";
 import bgstars from "../../assets/Bgstar.png";
 import backButton from "../../assets/FortuneCoffeePNGassets/reading/backButton.png";
@@ -10,6 +9,7 @@ import linehors from "../../assets/FortuneCoffeePNGassets/horoscopes/Line_57.png
 import someonetxt from "../../assets/FortuneCoffeePNGassets/Psychic/someonetxt.png";
 import NavBar_psyc from "../navbars/NavBar";
 import {someoneArray} from "../arrays/someoneArray";
+import {widthPercentageToDP,heightPercentageToDP,} from '../../util/scaler';
 
 function SomeoneFortune() {
     const navigation = useNavigation();
@@ -20,22 +20,19 @@ function SomeoneFortune() {
     const [randomFortuneS, setRandomFortuneS] = useState('');
 
     return (
-        <View style={styles.bgfull}>
-            <ImageBackground source={bgstars} style={styles.bgfull}>
-                <TouchableOpacity onPress={()=>{navigation.navigate('SomeoneFortune1')}}>
-                    <Image source={backButton} style={styles.backButtonStyle1}/>
+        <View style={styles.mainContainer}>
+            <ImageBackground source={bgstars} style={{flex:1, resizeMode:'cover'}}>
+                <TouchableOpacity onPress={()=>navigation.navigate('Psychic')} style={{alignSelf:'flex-start', top: heightPercentageToDP('5'), left: widthPercentageToDP('5')}}>
+                    <Image source={backButton}/>
                 </TouchableOpacity>
-
-
-                <Image source={magicglobetxt} style={{ alignItems: 'center', marginTop: 18 }} />
-
-                <Image source={linehors} style={{  marginTop: 25 }} />
-                <Image source={someonetxt} style={{  marginTop: 25 }} />
+                <View style={{marginTop: heightPercentageToDP('10'), marginBottom: heightPercentageToDP('5'), alignSelf:'center', alignItems:'center'}}>
+                    <Image source={magicglobetxt} />
+                    <Image source={linehors} style={{marginTop: heightPercentageToDP(5), marginBottom: heightPercentageToDP(5)}} />
+                    <Image source={someonetxt}  />
+                </View>
                 <View style={styles.readingTableContainer}>
-
                     <ScrollView>
-                        <Text style={{fontSize:20, color:'white', marginTop:30, alignItems: 'center', marginLeft:15 }}> {randomFortuneS}  </Text>
-
+                        <Text style={{fontSize:18, color:'#F1F1F1', marginTop:heightPercentageToDP(5)}}> {randomFortuneS}  </Text>
                         {!buttonClicked ? (
                             <Button
                                 onPress={() => {
@@ -43,7 +40,6 @@ function SomeoneFortune() {
                                     setButtonClicked(true)
                                 }}
                                 title='Tap To See Magic Globe'
-
                             >
                             </Button>
                         ) : null}
