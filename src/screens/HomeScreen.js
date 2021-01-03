@@ -33,6 +33,8 @@ import LogOutUser from "../../util/LogOutUser";
 import { Dimensions } from 'react-native';
 import {widthPercentageToDP,heightPercentageToDP,} from '../../util/scaler'
 
+
+
 function HomeScreen({ navigation }) {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isModalVisible, setModalVisible] = useState(false);
@@ -309,7 +311,7 @@ function HomeScreen({ navigation }) {
             <View style={{ flex: 1, alignItems: 'center' }}>
               {/* <Button title="Clear Async" onPress={ () => { console.log("Async Storage Cleared"); AsyncStorage.clear();}}></Button>
           <Button title="Sign out" onPress={ () => { console.log("User Sign Out"); firebase.auth().signOut()}}></Button> */}
-              <Image source={LargeTitleApp} style={{resizeMode: 'stretch', width: widthPercentageToDP('80'), height: heightPercentageToDP('8.5')}}/>
+              <Image source={LargeTitleApp} style={{resizeMode: 'stretch', width: widthPercentageToDP('80'), height: heightPercentageToDP('7.5')}}/>
               {RenderTheFortuneButtons()}
 
               {/* <Button title="credits" onPress={() => navigation.navigate('Credits')} /> */}

@@ -20,6 +20,8 @@ import profilebgnotlogged from "../../../assets/FortuneCoffeePNGassets/profile_l
 import SignUpButton from "../../../assets/FortuneCoffeePNGassets/HomePage/SignUpButton.png";
 import SignInButton from "../../../assets/FortuneCoffeePNGassets/HomePage/SignInButton.png";
 import appcredsbtn from "../../../assets/FortuneCoffeePNGassets/Profile/appcredits.png";
+import { Dimensions } from 'react-native';
+import {widthPercentageToDP,heightPercentageToDP,} from '../../../util/scaler'
 
 
 function ProfileLoggedIn({route}) {
@@ -76,7 +78,7 @@ function ProfileLoggedIn({route}) {
 
     return isLoggedIn? (
         <ImageBackground source={profilebg} style={styles.bgfull}>
-            <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-between', padding: 25, marginTop: 18 }}>
+            <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-between', padding: 25, marginTop: 18, marginTop: heightPercentageToDP() }}>
                 <TouchableOpacity onPress={() => navigation.navigate('Shop')}>
                     <Image source={Shopbtn} />
                 </TouchableOpacity>
@@ -110,32 +112,34 @@ function ProfileLoggedIn({route}) {
 
     ): (
         <>
-            <ImageBackground source={profilebgnotlogged} style={styles.bgfull}>
-                {isLoggedIn ? (
-                        <View>
-                            <TouchableOpacity onPress={ () => { LogOutUser();}}>
-                                <Image source={Logoutbtn} />
-                            </TouchableOpacity>
-                        </View>
-                    ) :
-                    <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-between', padding: 25, marginTop: 18 }}><TouchableOpacity onPress={() => navigation.navigate('SignUp')}>
-                        <Image source={SignUpButton} />
-                    </TouchableOpacity>
+        <View style={{flex: 1}}>
+                <ImageBackground source={profilebgnotlogged} style={styles.bgfull}>
+                    {isLoggedIn ? (
+                            <View>
+                                <TouchableOpacity onPress={ () => { LogOutUser();}}>
+                                    <Image source={Logoutbtn} />
+                                </TouchableOpacity>
+                            </View>
+                        ) :
+                        <View style={{  flex: .9, flexDirection: 'row', width: '100%', justifyContent: 'space-between', padding: 25 }}>
+                        <TouchableOpacity onPress={() => navigation.navigate('SignUp')}>
+                            <Image source={SignUpButton} />
+                        </TouchableOpacity>
                         <TouchableOpacity onPress={() => navigation.navigate('SignIn')}>
                             <Image source={SignInButton} />
                         </TouchableOpacity>
-                    </View>
+                        
+                        </View>
 
-                }
-                {/* <Text style={{fontSize: 30}}>Hi</Text>
-        <Button title="console" onPress={ () => console.log(favRef)} /> */}
-                <View style={{justifyContent: 'center', marginBottom:30}}>
-                    <TouchableOpacity onPress={() => navigation.navigate('Credits')} >
-                        <Image source={appcredsbtn} />
-                    </TouchableOpacity>
-                </View>
-                <NavBar_pro></NavBar_pro>
-            </ImageBackground>
+                    }
+                    <View style={{flex: 1, justifyContent: 'center'}}>
+                        <TouchableOpacity onPress={() => navigation.navigate('Credits')} >
+                            <Image source={appcredsbtn} />
+                        </TouchableOpacity>
+                    </View>
+                </ImageBackground>
+                <NavBar_pro />
+            </View>
         </>
     )
 }

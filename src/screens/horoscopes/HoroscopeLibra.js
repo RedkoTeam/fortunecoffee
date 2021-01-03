@@ -29,7 +29,8 @@ import hottxt from "../../../assets/FortuneCoffeePNGassets/horoscopes/hottxt.png
 import advicetxt from "../../../assets/FortuneCoffeePNGassets/horoscopes/ADVICE.png";
 import NavBar_hor from "../../navbars/NavBar";
 import { Dimensions } from 'react-native';
-import {widthPercentageToDP,heightPercentageToDP,} from '../../../util/scaler'
+import {widthPercentageToDP,heightPercentageToDP,} from '../../../util/scaler';
+import { actuatedNormalize } from '../../../util/fontScaler';
 
 
 
@@ -375,12 +376,13 @@ function HoroscopeLibra({}) {
 
 
     return (
-        <View style={styles.mainContainer}>
+        <View style={styles.mainContainer}> 
             <ImageBackground source={bgstars} style={styles.bgfull}>
+            <ScrollView>
             <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-between', padding: 20 }}>
                     <View style={{  flexDirection:'row', width:'100%', marginBottom:15}}>
                         <TouchableOpacity onPress={()=>{navigation.navigate('HoroscopeMain')}}>
-                            <Image source={backButton} style={styles.backButtonStyle}/>
+                            <Image source={backButton} style={styles.backButtonStyle }/>
                         </TouchableOpacity>
                     </View>
                 </View>
@@ -423,7 +425,7 @@ function HoroscopeLibra({}) {
                         <Image source={hottxt} style={{ alignItems: 'center', marginTop: 30 }} />
                         <View style={styles.readingTableContainer2}>
                             <ScrollView>
-                                <Text style={{fontSize:17, color:'white'}}> {randHoroscope}  </Text>
+                                <Text style={{fontSize:actuatedNormalize(13), color:'white'}}> {randHoroscope}  </Text>
                             </ScrollView>
 
                         </View>
@@ -431,8 +433,8 @@ function HoroscopeLibra({}) {
 
                         <Image source={advicetxt} style={{ alignItems: 'center', marginTop:30}} />
                         <View style={styles.readingTableContainer2}>
-                            <ScrollView>
-                                <Text style={{fontSize:17, color:'white'}}> {randAdvice}  </Text>
+                            <ScrollView style={{marginBottom:"30%"}} >
+                                <Text style={{fontSize:actuatedNormalize(13), color:'white'}}> {randAdvice}  </Text>
 
 
                             </ScrollView>
@@ -443,7 +445,8 @@ function HoroscopeLibra({}) {
 
 
                 </View>
-                <NavBar_hor/>
+                </ScrollView>
+                <NavBar_hor/> 
             </ImageBackground>
         </View>
 

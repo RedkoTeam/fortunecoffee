@@ -10,7 +10,6 @@ import asklunabtn from "../../assets/FortuneCoffeePNGassets/Psychic/asklunabtn.p
 import someonebtn from "../../assets/FortuneCoffeePNGassets/Psychic/someonebtn.png";
 import manifestbtn from "../../assets/FortuneCoffeePNGassets/Psychic/manifestbtn.png";
 import NavBar_psyc from "../navbars/NavBar";
-
 import {widthPercentageToDP,heightPercentageToDP,} from '../../util/scaler';
 
 function Psychic() {
@@ -32,38 +31,37 @@ function Psychic() {
 
 
     return (
-        <View style={styles.virtualContainer}>
-            <ImageBackground source={psychicbg} style={{flex: 1, }}>
-                    {isLoggedIn ? (
-                        <View style={{ flex: 0.03, flexDirection: 'row', width: '100%', justifyContent: 'space-between', padding: 25, marginTop: heightPercentageToDP('20') }}>
+        <View style={styles.mainContainer}>
+            <ImageBackground source={psychicbg} style={{flex: 1, resizeMode:'cover'}}>
+                {isLoggedIn ? (
+                    <View style={{flexDirection: 'row', width: '100%', justifyContent: 'space-between', padding: 25, marginTop: heightPercentageToDP('5') }}>
                         <TouchableOpacity onPress={ () => {
-                            LogOutUser();
-                            setIsLoggedIn(false);
-                        }}>
-                            {/*<Image source={Logoutbtn} />*/}
-                            
+                                                            LogOutUser();
+                                                            setIsLoggedIn(false);
+                                                        }}
+                        >
+                            {/*<Image source={Logoutbtn} />*/} 
                         </TouchableOpacity>
-                        </View>
-                        ) :
-                        <View style={{  flex: 0.03, flexDirection: 'row', width: '100%', justifyContent: 'space-between', padding: 25, marginTop: 18 }}>
+                    </View>
+                    ) :
+                    <View style={{flexDirection: 'row', width: '100%', justifyContent: 'space-between', padding: 25, marginTop: 18 }}>
                         <TouchableOpacity onPress={() => navigation.navigate('SignUp')}>
                             <Image source={SignUpButton} />
                         </TouchableOpacity>
                         <TouchableOpacity onPress={() => navigation.navigate('SignIn')}>
                             <Image source={SignInButton} />
                         </TouchableOpacity>
-                        </View>
-                    }
-
-                <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+                    </View>
+                }
+                <View style={{marginTop:heightPercentageToDP(16), alignItems: 'center', justifyContent: 'center' }}>
                     <TouchableOpacity onPress={() => navigation.navigate('LunaChat')}>
                         <Image source={asklunabtn} />
                     </TouchableOpacity>
                     <TouchableOpacity onPress={() => navigation.navigate('SomeoneFortune1')}>
-                        <Image source={someonebtn} style={{marginTop:15}}  />
+                        <Image source={someonebtn} style={{marginTop:heightPercentageToDP(3), marginBottom:heightPercentageToDP(3)}}  />
                     </TouchableOpacity>
                     <TouchableOpacity onPress={() => navigation.navigate('Manifest')}>
-                        <Image source={manifestbtn} style={{marginTop:15}} />
+                        <Image source={manifestbtn} />
                     </TouchableOpacity>
 
                 </View>
