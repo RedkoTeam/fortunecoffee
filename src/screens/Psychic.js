@@ -1,7 +1,7 @@
 import {useNavigation} from "@react-navigation/native";
 import React, {useEffect, useState} from "react";
 import LoginChecker from "../../util/validators/LoginChecker";
-import {Image, ImageBackground, View, TouchableOpacity} from "react-native";
+import {Image, ImageBackground, View, TouchableOpacity,ScrollView} from "react-native";
 import styles from "../styles/styles";
 import psychicbg from "../../assets/FortuneCoffeePNGassets/Psychic/psychbg.png";
 import SignUpButton from "../../assets/FortuneCoffeePNGassets/HomePage/SignUpButton.png";
@@ -53,7 +53,8 @@ function Psychic() {
                         </TouchableOpacity>
                     </View>
                 }
-                <View style={{marginTop:heightPercentageToDP(16), alignItems: 'center', justifyContent: 'center' }}>
+                <ScrollView>
+                <View style={{marginTop:heightPercentageToDP(20), alignItems: 'center', justifyContent: 'center' }}>
                     <TouchableOpacity onPress={() => navigation.navigate('LunaChat')}>
                         <Image source={asklunabtn} />
                     </TouchableOpacity>
@@ -65,6 +66,7 @@ function Psychic() {
                     </TouchableOpacity>
 
                 </View>
+                </ScrollView>
             </ImageBackground>
             <NavBar_psyc />
         </View>
