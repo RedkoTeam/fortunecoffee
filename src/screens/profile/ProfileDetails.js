@@ -3,7 +3,7 @@ import React, {useState} from "react";
 import db from "../../../util/firestore/firestore";
 import * as firebase from "firebase";
 import {Image, ImageBackground, Text, TextInput, View} from "react-native";
-import {TouchableOpacity} from 'react-native-gesture-handler';
+import {TouchableOpacity} from 'react-native';
 import bgstars from "../../../assets/Bgstar.png";
 import styles from "../../styles/styles";
 import backButton from "../../../assets/FortuneCoffeePNGassets/reading/backButton.png";

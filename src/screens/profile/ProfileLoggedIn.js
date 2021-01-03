@@ -4,7 +4,7 @@ import db from "../../../util/firestore/firestore";
 import * as firebase from "firebase";
 import LoginChecker from "../../../util/validators/LoginChecker";
 import {Image, ImageBackground, Text, View} from "react-native";
-import {TouchableOpacity} from 'react-native-gesture-handler';
+import {TouchableOpacity} from 'react-native';
 import profilebg from "../../../assets/FortuneCoffeePNGassets/Profile/Profile.png";
 import styles from "../../styles/styles";
 import Shopbtn from "../../../assets/FortuneCoffeePNGassets/Profile/shopbtn.png";

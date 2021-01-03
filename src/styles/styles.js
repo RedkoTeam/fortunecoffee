@@ -200,6 +200,7 @@ const styles = StyleSheet.create({
         alignSelf:'center',
         alignItems:'center',
         padding: 15,
+        marginBottom:200
     },
 
     readingTableContainer2: {
@@ -309,8 +310,15 @@ const styles = StyleSheet.create({
         padding: 12,
     },
     backButtonStyle: {
+        position: 'absolute',
+        left:widthPercentageToDP(2),
+        top:heightPercentageToDP(3),
+    },
+
+    backButtonStyle2: {
+        position: 'absolute',
         left:widthPercentageToDP(5),
-        top:heightPercentageToDP(5),
+        top:heightPercentageToDP(7),
     },
 
     backButtonStyle1: {

@@ -118,7 +118,7 @@ function SignInScreen() {
             {render_ShowError()}
             <KeyboardAvoidingView style={styles.virtualContainer} behavior='padding'>
                 <ImageBackground source={signBackground} style={styles.virtualOne}>
-                    <TouchableOpacity onPress={() => navigation.navigate('Home')} style={styles.backButtonStyle}>
+                    <TouchableOpacity onPress={() => navigation.navigate('Home')} style={styles.backButtonStyle2}>
                         <Image source={backButton}/>
                     </TouchableOpacity>
                     <Image source={signTitle}  style={{marginTop:'20%', marginBottom:40}}/>

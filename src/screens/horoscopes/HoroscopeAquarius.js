@@ -11,7 +11,7 @@ import {lettersArray} from "../../arrays/lettersArray";
 import {thanksArray} from "../../arrays/thanksArray";
 import {adviceArray} from "../../arrays/adviceArray";
 import {Image, ImageBackground, ScrollView, Text, View} from "react-native";
-import {TouchableOpacity} from 'react-native-gesture-handler';
+import {TouchableOpacity} from 'react-native';
 import styles from "../../styles/styles";
 import bgstars from "../../../assets/Bgstar.png";
 import backButton from "../../../assets/FortuneCoffeePNGassets/reading/backButton.png";
@@ -27,6 +27,9 @@ import linehors from "../../../assets/FortuneCoffeePNGassets/horoscopes/Line_57.
 import hottxt from "../../../assets/FortuneCoffeePNGassets/horoscopes/hottxt.png";
 import advicetxt from "../../../assets/FortuneCoffeePNGassets/horoscopes/ADVICE.png";
 import NavBar_hor from "../../navbars/NavBar";
+import { Dimensions } from 'react-native';
+import { actuatedNormalize } from '../../../util/fontScaler';
+import {widthPercentageToDP,heightPercentageToDP,} from '../../../util/scaler';
 
 function HoroscopeAquarius({}) {
     const navigation = useNavigation();
@@ -370,12 +373,13 @@ function HoroscopeAquarius({}) {
 
 
     return (
-        <View style={styles.mainContainer}>
+        <View style={styles.mainContainer}> 
             <ImageBackground source={bgstars} style={styles.bgfull}>
-                <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-between', padding: 20 }}>
+            <ScrollView>
+            <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-between', padding: 20 }}>
                     <View style={{  flexDirection:'row', width:'100%', marginBottom:15}}>
                         <TouchableOpacity onPress={()=>{navigation.navigate('HoroscopeMain')}}>
-                            <Image source={backButton} style={styles.backButtonStyle}/>
+                            <Image source={backButton} style={styles.backButtonStyle }/>
                         </TouchableOpacity>
                     </View>
                 </View>
@@ -418,7 +422,7 @@ function HoroscopeAquarius({}) {
                         <Image source={hottxt} style={{ alignItems: 'center', marginTop: 30 }} />
                         <View style={styles.readingTableContainer2}>
                             <ScrollView>
-                                <Text style={{fontSize:17, color:'white'}}> {randHoroscope}  </Text>
+                                <Text style={{fontSize:actuatedNormalize(13), color:'white'}}> {randHoroscope}  </Text>
                             </ScrollView>
 
                         </View>
@@ -426,8 +430,8 @@ function HoroscopeAquarius({}) {
 
                         <Image source={advicetxt} style={{ alignItems: 'center', marginTop:30}} />
                         <View style={styles.readingTableContainer2}>
-                            <ScrollView>
-                                <Text style={{fontSize:17, color:'white'}}> {randAdvice}  </Text>
+                            <ScrollView style={{marginBottom:"30%"}} >
+                                <Text style={{fontSize:actuatedNormalize(13), color:'white'}}> {randAdvice}  </Text>
 
 
                             </ScrollView>
@@ -438,7 +442,8 @@ function HoroscopeAquarius({}) {
 
 
                 </View>
-                <NavBar_hor/>
+                </ScrollView>
+                <NavBar_hor/> 
             </ImageBackground>
         </View>
 

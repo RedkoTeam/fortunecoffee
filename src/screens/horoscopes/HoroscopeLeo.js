@@ -11,7 +11,7 @@ import {lettersArray} from "../../arrays/lettersArray";
 import {thanksArray} from "../../arrays/thanksArray";
 import {adviceArray} from "../../arrays/adviceArray";
 import {Image, ImageBackground, ScrollView, Text, View} from "react-native";
-import {TouchableOpacity} from 'react-native-gesture-handler';
+import {TouchableOpacity} from 'react-native';
 import styles from "../../styles/styles";
 import bgstars from "../../../assets/Bgstar.png";
 import backButton from "../../../assets/FortuneCoffeePNGassets/reading/backButton.png";

@@ -53,7 +53,7 @@ function Profile({navigation}) {
                             </TouchableOpacity>
                         </View>
                     }
-                    <View style={{flex: 1}}>
+                    <View style={{flex: 1 }}>
                         <TouchableOpacity onPress={() => navigation.navigate('Credits')} >
                             <Image source={appcredsbtn}  />
                         </TouchableOpacity>
