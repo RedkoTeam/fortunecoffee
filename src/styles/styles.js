@@ -300,7 +300,7 @@ const styles = StyleSheet.create({
     backButtonStyle: {
         position: 'absolute',
         top: 40,
-        left: 20,
+        left: 15,
         width :widthPercentageToDP('13'),
         height :heightPercentageToDP('6')
     },
