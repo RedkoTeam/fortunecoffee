@@ -175,9 +175,7 @@ function SignInScreen() {
                             </>
                         )}
                     </Formik>
-                    {/* <TouchableOpacity onPress={() => { onLogin(email, password) } }>
-          <Image source={loginButton} style={styles.buttonImage} />
-        </TouchableOpacity> */}
+                   
                     <Image source={forgotPasswordText} style={{marginTop:20}}/>
                     <View style={{flexDirection:'row', marginTop:12}}>
                         <Image source={createNewText} style={{marginRight:4}}/>

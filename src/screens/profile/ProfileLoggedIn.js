@@ -22,6 +22,7 @@ import SignInButton from "../../../assets/FortuneCoffeePNGassets/HomePage/SignIn
 import appcredsbtn from "../../../assets/FortuneCoffeePNGassets/Profile/appcredits.png";
 import { Dimensions } from 'react-native';
 import {widthPercentageToDP,heightPercentageToDP,} from '../../../util/scaler'
+import LogOutUser from '../../../util/LogOutUser';
 
 
 function ProfileLoggedIn({route}) {
@@ -76,39 +77,50 @@ function ProfileLoggedIn({route}) {
     },[navigation])
 
 
-    return isLoggedIn? (
-        <ImageBackground source={profilebg} style={styles.bgfull2}>
-            <View style={{ flexDirection: 'row', width: '10%', justifyContent: 'space-between', padding: 25, marginTop: 18, marginTop: heightPercentageToDP() }}>
-                <TouchableOpacity onPress={() => navigation.navigate('Shop')}>
-                    <Image source={Shopbtn} />
-                </TouchableOpacity>
-                <TouchableOpacity onPress={ () => {
-                    LogOutUser();
-                    navigation.navigate('Home')
-                }}>
-                    <Image source={Logoutbtn} />
-                </TouchableOpacity>
-            </View>
-            {/* <Text style={{fontSize: 30}}>Hi</Text>
-      <Button title="console" onPress={ () => console.log(favRef)} /> */}
-            {/* STILL NEED TO BE PULLED FORM FIRESTORE */}
-            <Image source={UserNametxt} style={{marginTop:"10%",marginRight:"60%"}}/>
-            <Text style={{marginTop:20, marginRight:"50%",marginBottom:20, fontSize:15,color:'#FFFFFF'}}>{name} </Text >  
-            <Image source={proline} />
-            <Image source={DOB} style={{marginTop:30,marginRight:"50%"}}/>
-            <Text style={{marginTop:20, marginRight:"50%",marginBottom:20, fontSize:15,color:'#FFFFFF'}}>{month}/{day}/{year}</Text>
-            <Image source={proline} />
-            <Image source={Gen} style={{marginTop:30,marginRight:"50%"}}/>
-            <Text style={{marginTop:20, marginRight:"50%",marginBottom:20, fontSize:15,color:'#FFFFFF'}}>{gender} </Text> 
-            <Image source={proline} />
-            <Image source={Rel} style={{marginTop:30,marginRight:"50%"}}/>
-            <Text style={{marginTop:20, marginRight:"50%",marginBottom:20, fontSize:15,color:'#FFFFFF'}}>{rStatus} </Text>
-            <Image source={proline} />
-            <Image source={Emp} style={{marginTop:30,marginRight:"50%"}}/>
-            <Text style={{marginTop:20, marginRight:"50%",marginBottom:20, fontSize:15,color:'#FFFFFF'}}> {employment} </Text>
-            <Image source={proline} />
+    return isLoggedIn ? (
+        <>
+        <View style={{flex: 1, alignItems: 'center'}}>
+
+            <ImageBackground source={profilebg} style={{width: widthPercentageToDP('100'), height: heightPercentageToDP('100')}}>
+                <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-between', padding: 25, marginTop: 18 }}>
+                    <TouchableOpacity onPress={() => navigation.navigate('Shop')}>
+                        <Image source={Shopbtn} />
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={ () => {
+                        LogOutUser();
+                        navigation.navigate('Home')
+                    }}>
+                        <Image source={Logoutbtn} />
+                    </TouchableOpacity>
+                </View>
+                <View style={{flex: 1, flexDirection:'column', alignItems: 'center', width: widthPercentageToDP('100'), height: heightPercentageToDP('100')}}>
+                    
+                    <Image source={UserNametxt} style={{marginTop:"10%", marginRight: '56%'}}/>
+                    <Text style={{marginTop:20, marginRight:"50%",marginBottom:20, fontSize:15,color:'#FFFFFF'}}>{name} </Text >  
+                    <Image source={proline} />
+
+                    <Image source={DOB} style={{marginTop:30,marginRight:"50%"}}/>
+                    <Text style={{marginTop:20, marginRight:"50%",marginBottom:20, fontSize:15,color:'#FFFFFF'}}>{month}/{day}/{year}</Text>
+
+                    <Image source={proline} />
+                    <Image source={Gen} style={{marginTop:30,marginRight:"50%"}}/>
+                    <Text style={{marginTop:20, marginRight:"50%",marginBottom:20, fontSize:15,color:'#FFFFFF'}}>{gender} </Text>
+
+                    <Image source={proline} />
+                    <Image source={Rel} style={{marginTop:30,marginRight:"50%"}}/>
+                    <Text style={{marginTop:20, marginRight:"50%",marginBottom:20, fontSize:15,color:'#FFFFFF'}}>{rStatus} </Text>
+
+                    <Image source={proline} />
+                    <Image source={Emp} style={{marginTop:30,marginRight:"50%"}}/>
+                    <Text style={{marginTop:20, marginRight:"50%",marginBottom:20, fontSize:15,color:'#FFFFFF'}}> {employment} </Text>
+
+                    <Image source={proline} />
+                </View>
             <NavBar_pro/>
-        </ImageBackground>
+            </ImageBackground>
+        </View>
+
+        </>
 
     ): (
         <>
@@ -121,7 +133,7 @@ function ProfileLoggedIn({route}) {
                                 </TouchableOpacity>
                             </View>
                         ) :
-                        <View style={{  flex: .9, flexDirection: 'row', width: '100%', justifyContent: 'space-between', padding: 25, marginTop:15 }}>
+                        <View style={{   flex: 0.03, flexDirection: 'row', width: '100%', justifyContent: 'space-between', padding: 25, marginTop: 18}}>
                         <TouchableOpacity onPress={() => navigation.navigate('SignUp')}>
                             <Image source={SignUpButton} />
                         </TouchableOpacity>
@@ -132,7 +144,7 @@ function ProfileLoggedIn({route}) {
                         </View>
 
                     }
-                    <View style={{flex: 1, justifyContent: 'center'}}>
+                    <View style={{flex: 1, justifyContent: 'center', top: heightPercentageToDP(10)}}>
                         <TouchableOpacity onPress={() => navigation.navigate('Credits')} >
                             <Image source={appcredsbtn} />
                         </TouchableOpacity>

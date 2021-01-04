@@ -37,7 +37,7 @@ import {widthPercentageToDP,heightPercentageToDP,} from '../../util/scaler'
 
 function HomeScreen({ navigation }) {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [isModalVisible, setModalVisible] = useState(false);
+  const [isModalVisible, setModalVisible] = useState(true);
   const [isFortuneModalVisible, setFortuneModalVisible] = useState(false);
   const [front, setFront] = useState(dummyPath);
   const [meaning, setMeaning] = useState(dummyPath);
@@ -149,43 +149,43 @@ function HomeScreen({ navigation }) {
     return userCanViewCard ? (
         <>
           {/* Show module if user can view*/}
-          <Modal isVisible={isModalVisible} style={{ alignItems: "center", flex: 1 }}>
-            <View>
-              <Text style={styles.tapCard}>Tap card to flip</Text>
-              <Button title="Hide Card" onPress={toggleModal} />
-              <View style={{ marginBottom: 500 }}>
-                <FlipCard
-                    flipHorizontal={true}
-                    flipVertical={false}>
-                  <View style={styles.face}>
-                    {/* <Text>The Face</Text> */}
-                    <Image source={front} style={styles.cardStyle} />
-                  </View>
-                  <View>
-                    {/* <Text>The Back</Text> */}
-                    <Image source={meaning} style={styles.cardStyle} />
-                  </View>
-                </FlipCard>
-              </View>
-            </View>
-          </Modal>
+            <Modal isVisible={isModalVisible} style={{alignItems: 'center',
+              flex: 1,
+              justifyContent: 'center'}}>
+              <Text style={{color: '#FFF',
+                  fontSize: 40,
+                  textAlign: 'center',
+                  fontWeight: 'bold',
+                  marginTop: 20
+              }}>Tap card to flip</Text>
+              <Button title="Hide Card" onPress={toggleModal} style={{marginTop: 20}} />
+              <FlipCard
+                  flipHorizontal={true}
+                  flipVertical={false}>
+                  {/* <Text>The Face</Text> */}
+                  <Image source={front} style={styles.cardStyle} />
+                  {/* <Text>The Back</Text> */}
+                  <Image source={meaning} style={styles.cardStyle} />
+              </FlipCard>
+            </Modal>
         </>
     ) : <>
       {/* What to show iff the user is over the max setting.*/}
       <Modal isVisible={isModalVisible}>
-        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center',  alignSelf: 'center'}}>
+       
+
+        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center',  alignSelf: 'center',}}>
               {/* X */}
-            <TouchableOpacity style={{width: 50, height: 50,}} onPress={()=>{
+              <TouchableOpacity style={{position: 'absolute', zIndex: 20,top: heightPercentageToDP(26), right: 25}} onPress={()=>{
                 toggleModal();
               }}>
-                <Image source={xButton} style={{}} />
+                <Image source={xButton} style={{width: widthPercentageToDP(3), height: heightPercentageToDP(3)  }} />
             </TouchableOpacity>
-
               {/* IMAGE */}
             <Image source={submodfo} style={{ }} />
 
               {/* GET CRYTSTALS */}
-            <TouchableOpacity style={{ marginBottom: 20}} onPress={() => {
+            <TouchableOpacity style={{  zIndex: 20, position:'absolute', top: heightPercentageToDP(58)}} onPress={() => {
               toggleModal();
               navigation.navigate('SubscriptionScreen');
             }} >
@@ -262,7 +262,7 @@ function HomeScreen({ navigation }) {
             </View>
           </Modal>
 
-          {/* <Button title="Clear Async" onPress={ () => { console.log("Async Storage Cleared"); AsyncStorage.clear();}}></Button> */}
+          <Button title="Clear Async" onPress={ () => { console.log("Async Storage Cleared"); AsyncStorage.clear();}}></Button>
 
           <View style={{ flexDirection: 'row', justifyContent: 'space-evenly',marginHorizontal: 10 }}>
             <TouchableOpacity 
@@ -288,9 +288,12 @@ function HomeScreen({ navigation }) {
 
   return (
       <View style={{flex: 1}}>
+        <Modal isVisible={isModalVisible} style={{}}>
+              {Render_CardModule()}
+        </Modal>
         <ImageBackground source={bgstars} style={styles.bgfull}>
             {isLoggedIn ? (
-                <View style={{ flex: 0.03, flexDirection: 'row', width: '100%', justifyContent: 'space-between', padding: 25, marginTop: heightPercentageToDP() }}>
+                <View style={{ flex: 0.03, flexDirection: 'row', width: '100%', justifyContent: 'space-between', padding: 25, marginTop: heightPercentageToDP('3') }}>
                   <TouchableOpacity onPress={ () => {
                     LogOutUser();
                     setIsLoggedIn(false);
@@ -319,15 +322,10 @@ function HomeScreen({ navigation }) {
               {/* Pick a card  */}
               <TouchableOpacity onPress={toggleModal2} style={styles.cards}>
                 <Image source={Cards} style={{resizeMode: 'stretch', width: widthPercentageToDP('95')}}/>
-                <Modal isVisible={isModalVisible} style={{ alignItems: "center", flex: 1 }}>
-                  <View>
-                    <View style={{ }}>
-                      {Render_CardModule()}
-                    </View>
-                  </View>
-                </Modal>
               </TouchableOpacity>
+             
             </View>
+            
             <NavBar />
 
         </ImageBackground>

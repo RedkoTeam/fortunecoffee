@@ -375,7 +375,7 @@ function HoroscopeAquarius({}) {
     return (
         <View style={styles.mainContainer}> 
             <ImageBackground source={bgstars} style={styles.bgfull}>
-            <ScrollView>
+            <ScrollView horizontal={false}>
             <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-between', padding: 20 }}>
                     <View style={{  flexDirection:'row', width:'100%', marginBottom:15}}>
                         <TouchableOpacity onPress={()=>{navigation.navigate('HoroscopeMain')}}>

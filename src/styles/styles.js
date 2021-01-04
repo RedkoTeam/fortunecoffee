@@ -164,7 +164,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         width:'100%',
-        opacity: 0.3,
+        opacity: 1,
         
     },
         bgfull1: {
@@ -281,10 +281,11 @@ const styles = StyleSheet.create({
         backgroundColor: "rgba(255,255,255,0.4)",
     },
     savedFortuneTextBox0: {
-        height: '11%',
-        width: "90%",
+        height: heightPercentageToDP(5),
+        width: widthPercentageToDP(80),
         borderWidth: 1,
-        borderRadius: 10,
+        borderRadius: 15,
+        marginBottom: 20,
         backgroundColor: "rgba(255,255,255,0.4)",
     },
     savedFortuneTextBox2: {
