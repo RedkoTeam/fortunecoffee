@@ -2,7 +2,7 @@
 // Mostly done. Still need back button and add onPress with href to shopify site
 import {useNavigation} from "@react-navigation/native";
 import {Image, Linking, ScrollView, View} from "react-native";
-import {TouchableOpacity} from 'react-native-gesture-handler';
+import {TouchableOpacity} from 'react-native';
 import styles from "../styles/styles";
 import galaxy from "../../assets/FortuneCoffeePNGassets/shopPage/galaxy.png";
 import backButton from "../../assets/FortuneCoffeePNGassets/reading/backButton.png";

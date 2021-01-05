@@ -10,7 +10,7 @@ import SignInButton from "../../assets/FortuneCoffeePNGassets/HomePage/SignInBut
 import asklunabtn from "../../assets/FortuneCoffeePNGassets/Psychic/asklunabtn.png";
 import someonebtn from "../../assets/FortuneCoffeePNGassets/Psychic/someonebtn.png";
 import manifestbtn from "../../assets/FortuneCoffeePNGassets/Psychic/manifestbtn.png";
-import NavBar_psyc from "../navbars/NavBar";
+import NavBar_psyc from "../navbars/NavBar_Psychic";
 import {widthPercentageToDP,heightPercentageToDP,} from '../../util/scaler';
 import Logoutbtn from "../../assets/FortuneCoffeePNGassets/Profile/BtnPrimary.png";
 
@@ -35,35 +35,40 @@ function Psychic() {
 
     return (
         <View style={styles.mainContainer}>
-            <ImageBackground source={psychicbg} style={{flex: 1}}>
-                {isLoggedIn ? (
-                    <View>
-                    </View>
-                    ) :
-                    <View style={{flexDirection: 'row', width: '100%', justifyContent: 'space-between', padding: 25, marginTop: 18 }}>
-                        <TouchableOpacity onPress={() => navigation.navigate('SignUp')}>
-                            <Image source={SignUpButton} />
-                        </TouchableOpacity>
-                        <TouchableOpacity onPress={() => navigation.navigate('SignIn')}>
-                            <Image source={SignInButton} />
-                        </TouchableOpacity>
-                    </View>
-                }
-                <ScrollView>
-                <View style={{flex: 1, marginTop:heightPercentageToDP('8'), alignItems: 'center', justifyContent: 'center' }}>
-                    <Image source={psychicTitle} style={{marginBottom: heightPercentageToDP('2')}}/>
-                    <TouchableOpacity onPress={() => navigation.navigate('LunaChat')}>
-                        <Image source={asklunabtn}  />
-                    </TouchableOpacity>
-                    <TouchableOpacity onPress={() => navigation.navigate('SomeoneFortune1')}>
-                        <Image source={someonebtn} style={{marginTop:heightPercentageToDP(2), marginBottom:heightPercentageToDP(2)}}  />
-                    </TouchableOpacity>
-                    <TouchableOpacity onPress={() => navigation.navigate('Manifest')}>
-                        <Image source={manifestbtn} />
-                    </TouchableOpacity>
 
-                </View>
-                </ScrollView>
+            <ImageBackground source={psychicbg} style={{flex: 1 }}>
+
+                    {isLoggedIn ? (
+                        <View style={{flexDirection: 'row', width: '100%', justifyContent: 'space-between', padding: 25, marginTop: 18 }}>
+                        </View>
+                        ) :
+                        <View style={{flexDirection: 'row', width: '100%', justifyContent: 'space-between', padding: 25, marginTop: 18 }}>
+                            <TouchableOpacity onPress={() => navigation.navigate('SignUp')}>
+                                <Image source={SignUpButton} />
+                            </TouchableOpacity>
+                            <TouchableOpacity onPress={() => navigation.navigate('SignIn')}>
+                                <Image source={SignInButton} />
+                            </TouchableOpacity>
+                        </View>
+                    }
+                    <View style={{flexGrow : 1,marginTop: heightPercentageToDP(2), justifyContent:'center', flexDirection: 'column', alignItems: 'center'}}>
+                        <ScrollView >
+                            <View style={{ marginTop:heightPercentageToDP('8'), alignItems: 'center', justifyContent: 'center'}}>
+                                <Image source={psychicTitle} style={{marginBottom: heightPercentageToDP('2')}}/>
+                                <TouchableOpacity onPress={() => navigation.navigate('LunaChat')}>
+                                    <Image source={asklunabtn} style={{height: heightPercentageToDP(10), width:widthPercentageToDP(87), borderRadius:15}} />
+                                </TouchableOpacity>
+                                <TouchableOpacity onPress={() => navigation.navigate('SomeoneFortune1')}>
+                                    <Image source={someonebtn} style={{marginTop:heightPercentageToDP(2), marginBottom:heightPercentageToDP(2)
+                                        , height: heightPercentageToDP(10), width:widthPercentageToDP(87), borderRadius:15}}  />
+                                </TouchableOpacity>
+                                <TouchableOpacity onPress={() => navigation.navigate('Manifest')}>
+                                    <Image source={manifestbtn} style={{height: heightPercentageToDP(10), width:widthPercentageToDP(87), borderRadius:15}}/>
+                                </TouchableOpacity>
+
+                            </View>
+                        </ScrollView>
+                    </View>
             </ImageBackground>
             <NavBar_psyc />
         </View>

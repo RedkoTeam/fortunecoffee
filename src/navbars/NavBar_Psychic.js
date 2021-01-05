@@ -7,9 +7,8 @@ import Ellipse1 from "../../assets/FortuneCoffeePNGassets/HomePage/ellipse.png";
 import styles from "../styles/styles";
 import Horosbtn from "../../assets/FortuneCoffeePNGassets/HomePage/horosbtn.png";
 import HorosSelected from '../../assets/FortuneCoffeePNGassets/HomePage/horW.png'
-import Psychicbtn from "../../assets/FortuneCoffeePNGassets/HomePage/psyhbtn.png";
-import Home from "../../assets/FortuneCoffeePNGassets/HomePage/Home.png";
-import HomeUnselected from "../../assets/FortuneCoffeePNGassets/HomePage/homeb.png";
+import Psychicbtn from "../../assets/FortuneCoffeePNGassets/HomePage/psW.png";
+import Home from "../../assets/FortuneCoffeePNGassets/HomePage/homeb.png";
 import Favorites from "../../assets/FortuneCoffeePNGassets/HomePage/Favorites.png";
 import Profilebtn from "../../assets/FortuneCoffeePNGassets/HomePage/Profile.png";
 import React, {useEffect, useState}  from "react";

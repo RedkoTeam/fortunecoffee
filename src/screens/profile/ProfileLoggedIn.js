@@ -15,7 +15,7 @@ import DOB from "../../../assets/FortuneCoffeePNGassets/Profile/DateofBirth.png"
 import Emp from "../../../assets/FortuneCoffeePNGassets/Profile/Employement.png";
 import Gen from "../../../assets/FortuneCoffeePNGassets/Profile/Gender.png";
 import Rel from "../../../assets/FortuneCoffeePNGassets/Profile/Relationship_Status.png";
-import NavBar_pro from "../../navbars/NavBar";
+import NavBar_pro from "../../navbars/NavBar_Profile";
 import profilebgnotlogged from "../../../assets/FortuneCoffeePNGassets/profile_login.png";
 import SignUpButton from "../../../assets/FortuneCoffeePNGassets/HomePage/SignUpButton.png";
 import SignInButton from "../../../assets/FortuneCoffeePNGassets/HomePage/SignInButton.png";

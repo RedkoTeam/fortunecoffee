@@ -24,7 +24,7 @@ import AriesTxt from "../../../assets/FortuneCoffeePNGassets/horoscopes/ARIES.pn
 import linehors from "../../../assets/FortuneCoffeePNGassets/horoscopes/Line_57.png";
 import hottxt from "../../../assets/FortuneCoffeePNGassets/horoscopes/hottxt.png";
 import advicetxt from "../../../assets/FortuneCoffeePNGassets/horoscopes/ADVICE.png";
-import NavBar_hor from "../../navbars/NavBar";
+import NavBar_hor from "../../navbars/NavBar_Horoscope";
 import { Dimensions } from 'react-native';
 import { actuatedNormalize } from '../../../util/fontScaler';
 import {widthPercentageToDP,heightPercentageToDP,} from '../../../util/scaler';
@@ -369,18 +369,20 @@ function HoroscopeAries({}) {
     return (
         <View style={styles.mainContainer}> 
             <ImageBackground source={bgstars} style={styles.bgfull}>
-            <ScrollView>
-            <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-between', padding: 20 }}>
-                    <View style={{  flexDirection:'row', width:'100%', marginBottom:15}}>
-                        <TouchableOpacity onPress={()=>{navigation.navigate('HoroscopeMain')}}>
-                            <Image source={backButton} style={styles.backButtonStyle }/>
-                        </TouchableOpacity>
-                    </View>
+            <View style={{flex: 1,flexDirection: 'row', width: '100%', padding: 25, zIndex: 10}}>
+                    <TouchableOpacity onPress={()=>navigation.navigate('HoroscopeMain')} style={{
+                                left:widthPercentageToDP(0),
+                                top:heightPercentageToDP(3)
+                            }}>
+                                    <Image source={backButton} />
+                    </TouchableOpacity>
                 </View>
-                <View style={{  alignItems: 'center', marginTop:60 }}>
+            <ScrollView directionalLockEnabled={true} automaticallyAdjustContentInsets={true} >
+            
+                <View style={{ flex: 1, alignItems: 'center', marginTop:60 }}>
 
                     <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-evenly' }}>
-                        <View style={{ flexDirection: 'column', justifyContent: 'space-evenly' , marginRight:12 }}>
+                        <View style={{ flexDirection: 'column', justifyContent: 'space-evenly' , marginRight:12, }}>
 
                             <Image source={number} style={{ marginTop: 10 }} />
                             <Text style={{fontSize:14, color:'white', marginTop:5,marginLeft:3}}> {randNumber}  </Text>
