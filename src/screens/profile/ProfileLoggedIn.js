@@ -3,7 +3,7 @@ import React, {useEffect, useState} from "react";
 import db from "../../../util/firestore/firestore";
 import * as firebase from "firebase";
 import LoginChecker from "../../../util/validators/LoginChecker";
-import {Image, ImageBackground, Text, View} from "react-native";
+import {Image, ImageBackground, Text, View, ScrollView} from "react-native";
 import {TouchableOpacity} from 'react-native';
 import profilebg from "../../../assets/FortuneCoffeePNGassets/Profile/Profile.png";
 import styles from "../../styles/styles";
@@ -37,7 +37,8 @@ function ProfileLoggedIn({route}) {
     const [year, setYear] = useState('')
 
     const pullProfileInfo = () => {
-        db.collection('users').doc(firebase.auth().currentUser.uid)
+        try{
+            db.collection('users').doc(firebase.auth().currentUser.uid)
             .get()
             .then((doc) => {
                 if (doc.exists) {
@@ -56,7 +57,10 @@ function ProfileLoggedIn({route}) {
                 }
             }).catch(function (error) {
             console.log("Error getting document:", error);
-        })
+            })
+        }catch(e){
+            console.log(e)
+        }
     }
 
     useEffect(()=>{
@@ -94,7 +98,8 @@ function ProfileLoggedIn({route}) {
                     </TouchableOpacity>
                 </View>
                 <View style={{flex: 1, flexDirection:'column', alignItems: 'center', width: widthPercentageToDP('100'), height: heightPercentageToDP('100')}}>
-                    
+                    <ScrollView>
+
                     <Image source={UserNametxt} style={{marginTop:"10%", marginRight: '56%'}}/>
                     <Text style={{marginTop:20, marginRight:"50%",marginBottom:20, fontSize:15,color:'#FFFFFF'}}>{name} </Text >  
                     <Image source={proline} />
@@ -115,6 +120,8 @@ function ProfileLoggedIn({route}) {
                     <Text style={{marginTop:20, marginRight:"50%",marginBottom:20, fontSize:15,color:'#FFFFFF'}}> {employment} </Text>
 
                     <Image source={proline} />
+                    </ScrollView>
+
                 </View>
             <NavBar_pro/>
             </ImageBackground>

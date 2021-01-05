@@ -15,6 +15,7 @@ import {fortunesArray} from "../arrays/fortunesArray";
 import db from "../../util/firestore/firestore";
 import * as firebase from "firebase";
 import { actuatedNormalize } from '../../util/fontScaler';
+import { heightPercentageToDP } from "../../util/scaler";
 
 function Reading({}){
     const navigation = useNavigation();
@@ -47,32 +48,29 @@ function Reading({}){
                         <Image source={saveButton} />
                     </TouchableOpacity>
                     <View >
-                        <Image source={coffeeImg} style={{ marginTop: 20, justifyContent:'center', marginRight:'25%'}} />
+                        <Image source={coffeeImg} style={{ marginTop: 30, justifyContent:'center', marginRight:'25%'}} />
                     </View>
-                    {/*<TouchableOpacity onPress={() => console.log("SHARE")}>
-              <Image source={shareButton} style={{ alignSelf: 'flex-end' }} />
-            </TouchableOpacity>*/}
                 </View>
-                <View style={styles.readingTableContainer}>
+                <View style={{ flex: 1,width:'95%',alignSelf:'center', alignItems:'center', padding: 15,}}>
                     <Image source={yourFortune} style={{marginBottom:15}} />
-                    <ScrollView>
-                        <Text style={{fontSize: actuatedNormalize(12), color:'white'}}> {randomFortune}  </Text>
-
-                        {!buttonClicked ? (
-                            <Button
-                                onPress={() => {
-                                    setRandomFortune(getRandomFortune)
-                                    setButtonClicked(true)
-                                }}
-                                title='Fortune Ready Click To View!'
-                            >
-                            </Button>
-                        ) : null}
-
+                    <ScrollView style={{}}>
+                        <View style={{flex: 1,}}>
+                        <Text style={{fontSize: actuatedNormalize(12), color:'white',}}> {randomFortune}  </Text>
+                            {!buttonClicked ? (
+                                <Button
+                                    onPress={() => {
+                                        setRandomFortune(getRandomFortune)
+                                        setButtonClicked(true)
+                                    }}
+                                    title='Fortune Ready Click To View!'
+                                >
+                                </Button>
+                            ) : null}
+                        </View>
                     </ScrollView>
                 </View>
-                <NavBar/>
             </ImageBackground>
+            <NavBar/>
         </View>
     )
 

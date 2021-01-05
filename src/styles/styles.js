@@ -23,7 +23,6 @@ const styles = StyleSheet.create({
     shopContainer: {
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: '#070631',
     },
     getCrystalContainer: {
         flex: 1,
@@ -188,11 +187,10 @@ const styles = StyleSheet.create({
     },
     flexInRowsCoffee: {
         flex: 1,
-        paddingTop: '20%',
         flexDirection: 'row',
         justifyContent: 'center',
         width:'100%',
-        alignItems:'flex-end',
+        
     },
     readingTableContainer: {
         flex: 1,
@@ -278,6 +276,7 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderRadius: 10,
         marginTop:10,
+        marginLeft : 10,
         backgroundColor: "rgba(255,255,255,0.4)",
     },
     savedFortuneTextBox0: {
