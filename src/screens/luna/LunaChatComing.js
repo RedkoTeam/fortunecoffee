@@ -6,6 +6,8 @@ import ComingLuna from "../../../assets/FortuneCoffeePNGassets/Psychic/askluna/C
 import backButton from "../../../assets/FortuneCoffeePNGassets/reading/backButton.png";
 import NavBar_psyc from "../../navbars/NavBar";
 import React from "react";
+import { Dimensions } from 'react-native';
+import {widthPercentageToDP,heightPercentageToDP} from '../../../util/scaler';
 
 
 function LunaChatComing() {
@@ -14,12 +16,12 @@ function LunaChatComing() {
 
         <View style={styles.virtualContainer}>
             <ImageBackground source={ComingLuna} style={styles.bgfull}>
-            <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-between', padding: 20 }}>
-                    <View style={{  flexDirection:'row', width:'100%', marginBottom:"200%"}}>
+            <View style={{ flexDirection: 'row', width:widthPercentageToDP(100), height:heightPercentageToDP(95), justifyContent: 'space-between', padding: 20 }}>
+                   
                         <TouchableOpacity onPress={()=>{navigation.navigate('Psychic')}}>
                             <Image source={backButton} />
                         </TouchableOpacity>
-                    </View>
+                
                 </View>
 
             </ImageBackground>

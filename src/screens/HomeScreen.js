@@ -31,7 +31,7 @@ import * as firebase from "firebase";
 import SaveItemInStorage from "../../util/SaveItemInStorage";
 import LogOutUser from "../../util/LogOutUser";
 import { Dimensions } from 'react-native';
-import {widthPercentageToDP,heightPercentageToDP,} from '../../util/scaler'
+import {widthPercentageToDP,heightPercentageToDP} from '../../util/scaler';
 
 
 
@@ -251,7 +251,7 @@ function HomeScreen({ navigation }) {
             </View>
           </Modal>
 
-          <Button title="Clear Async" onPress={ () => { console.log("Async Storage Cleared"); AsyncStorage.clear();}}></Button>
+          <Button title="Reset Crystals" onPress={ () => { console.log("Async Storage Cleared"); AsyncStorage.clear();}}></Button>
 
           <View style={{ flexDirection: 'row', justifyContent: 'space-evenly',marginHorizontal: 10 }}>
             <TouchableOpacity 
