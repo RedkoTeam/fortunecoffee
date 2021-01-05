@@ -50,7 +50,7 @@ function Psychic() {
                     </View>
                 }
                 <ScrollView>
-                <View style={{flex: 1, marginTop:heightPercentageToDP('3'), alignItems: 'center', justifyContent: 'center' }}>
+                <View style={{flex: 1, marginTop:heightPercentageToDP('8'), alignItems: 'center', justifyContent: 'center' }}>
                     <Image source={psychicTitle} style={{marginBottom: heightPercentageToDP('2')}}/>
                     <TouchableOpacity onPress={() => navigation.navigate('LunaChat')}>
                         <Image source={asklunabtn}  />

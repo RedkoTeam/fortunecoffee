@@ -33,7 +33,7 @@ function Manifest() {
                     </View>
                 </View>
                 <View style={{ flex: 1,flexDirection: 'column', justifyContent: 'space-between', alignItems: 'center'}}>
-                <View style={{flex: 1, margin: 40, flexDirection: 'column', padding: 10, alignItems: 'center'}}>
+                <View style={{flex: 1, margin: 90, flexDirection: 'column', padding: 10, alignItems: 'center'}}>
                     <TextInput style={styles.savedFortuneTextBox0}
                                    onChangeText={wish1 => setWish1(wish1)}
                                    value={wish1}

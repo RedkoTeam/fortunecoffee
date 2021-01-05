@@ -38,11 +38,7 @@ function ProfileDetails({route}) {
     return (
         <ImageBackground source={bgstars} style={styles.bgfull}>
             <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-                <View style={ styles.flexInRows}>
-                    <TouchableOpacity onPress={()=>navigation.navigate('Home')} style = {{top: 50, marginLeft: 10}}>
-                        <Image source={backButton} />
-                    </TouchableOpacity>
-                </View>
+  
                 <Text style={{ color: '#FFFFFF', fontSize: 18, textAlign: 'left', alignSelf: 'stretch', marginLeft: 20}}>Name</Text>
                 <View style={{flexDirection: 'row',width:'90%', height: '7%'}}>
                     <TextInput style={styles.savedFortuneTextBox0}
@@ -107,7 +103,7 @@ function ProfileDetails({route}) {
                 </TouchableOpacity>
                 <Text></Text>
                 <Text></Text>
-                <TouchableOpacity onPress={() => console.log('Skip')}>
+                <TouchableOpacity onPress={() => profileUpload()}>
                     <Image source={skipImage} />
                 </TouchableOpacity>
             </View>
