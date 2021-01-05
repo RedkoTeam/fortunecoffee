@@ -36,13 +36,13 @@ function FavoritesScreen() {
                 if(results){
                     //Default to logins, if the user is logged in but no favoruits are selected
                     setFavoritesData([{"fortune": "You are logged in, but you haven't selected a favorite!"}])
-                    db.collection('users').doc(firebase.auth().currentUser.uid).get()
-                        .then(uData => {
-                            const userData = uData.data().favorites;
-                            setFavoritesData(userData);
-                            console.log(`USER DATA  ${JSON.stringify(favoritesData)}`);
-                        })
-                        .catch(error => console.log(error));
+                    // db.collection('users').doc(firebase.auth().currentUser.uid).get()
+                    //     .then(uData => {
+                    //         const userData = uData.data().favorites;
+                    //         setFavoritesData(userData);
+                    //         console.log(`USER DATA  ${JSON.stringify(favoritesData)}`);
+                    //     })
+                    //     .catch(error => console.log(error));
                 }
                 else{
                     navigation.navigate('SignUp');
@@ -73,16 +73,16 @@ function FavoritesScreen() {
     }, [resetTriggered])
 
     return (
-        <View style={{flexGrow:1, justifyContent:'space-between'}}>
+        <>
             <ScrollView contentContainerStyle={styles.shopContainer}>
-                <Image source={ galaxy } style={styles.shopBackgroundContainer} />
+                <Image source={ galaxy } style={{flex: 1,}} />
                 <View style={{position:'absolute', top:0, flexDirection:'row', width:'100%', margin:16}}>
                     {/*} <TouchableOpacity onPress={()=>{navigation.navigate('Home')}}>
           <Image source={backButton} style={styles.backButtonStyle}/>
         </TouchableOpacity>*/}
                     <Image source={savedFortunesTitle} style={{position:'absolute', alignSelf:'center', right:'28%', top: 100}} />
                 </View>
-                <View style={{paddingTop: 130}}></View>
+                <View style={{}}></View>
                 {
                     favoritesData.map((item, index) => {
                         // favorites data is showing up in the console.log but not populating on the screen
@@ -94,11 +94,9 @@ function FavoritesScreen() {
                                     <Text style={{color:'white', fontWeight:'bold', fontSize: 21, right: 75}}>{item.date}</Text>
                                     <TouchableOpacity onPress={() => {
 
-                                        // TODO: CONDITIONAL RENDERER HERE IN CASE DATA DOESNT EXIST
-
-                                        // favRef.update({
-                                        //     'favorites' : firebase.firestore.FieldValue.arrayRemove(...[{'date':item.date, 'fortune':item.fortune}])
-                                        // })
+                                        favRef.update({
+                                            'favorites' : firebase.firestore.FieldValue.arrayRemove(...[{'date':item.date, 'fortune':item.fortune}])
+                                        })
                                         setReset(true);
                                     }}>
                                         <Image source={XButton} style={{right:50, bottom:-5}}/>
@@ -113,8 +111,8 @@ function FavoritesScreen() {
                 }
                 <View style={{paddingBottom:180}}></View>
             </ScrollView>
-            <NavBar_fav/>
-        </View>
+        <NavBar_fav/>
+        </>
     )
 }
 

@@ -3,7 +3,8 @@ import React, {useEffect, useState} from "react";
 import LoginChecker from "../../util/validators/LoginChecker";
 import {Image, ImageBackground, View, TouchableOpacity,ScrollView} from "react-native";
 import styles from "../styles/styles";
-import psychicbg from "../../assets/FortuneCoffeePNGassets/Psychic/psychbg.png";
+import psychicbg from "../../assets/FortuneCoffeePNGassets/Psychic/PsychicBackground.png";
+import psychicTitle from "../../assets/FortuneCoffeePNGassets/Psychic/PsychicTitle.png";
 import SignUpButton from "../../assets/FortuneCoffeePNGassets/HomePage/SignUpButton.png";
 import SignInButton from "../../assets/FortuneCoffeePNGassets/HomePage/SignInButton.png";
 import asklunabtn from "../../assets/FortuneCoffeePNGassets/Psychic/asklunabtn.png";
@@ -11,6 +12,8 @@ import someonebtn from "../../assets/FortuneCoffeePNGassets/Psychic/someonebtn.p
 import manifestbtn from "../../assets/FortuneCoffeePNGassets/Psychic/manifestbtn.png";
 import NavBar_psyc from "../navbars/NavBar";
 import {widthPercentageToDP,heightPercentageToDP,} from '../../util/scaler';
+import Logoutbtn from "../../assets/FortuneCoffeePNGassets/Profile/BtnPrimary.png";
+
 
 function Psychic() {
     const navigation = useNavigation();
@@ -32,16 +35,9 @@ function Psychic() {
 
     return (
         <View style={styles.mainContainer}>
-            <ImageBackground source={psychicbg} style={{flex: 1, resizeMode:'cover'}}>
+            <ImageBackground source={psychicbg} style={{flex: 1}}>
                 {isLoggedIn ? (
-                    <View style={{flexDirection: 'row', width: '100%', justifyContent: 'space-between', padding: 25, marginTop: heightPercentageToDP('5') }}>
-                        <TouchableOpacity onPress={ () => {
-                                                            LogOutUser();
-                                                            setIsLoggedIn(false);
-                                                        }}
-                        >
-                            {/*<Image source={Logoutbtn} />*/} 
-                        </TouchableOpacity>
+                    <View>
                     </View>
                     ) :
                     <View style={{flexDirection: 'row', width: '100%', justifyContent: 'space-between', padding: 25, marginTop: 18 }}>
@@ -54,12 +50,13 @@ function Psychic() {
                     </View>
                 }
                 <ScrollView>
-                <View style={{marginTop:heightPercentageToDP(20), alignItems: 'center', justifyContent: 'center' }}>
+                <View style={{flex: 1, marginTop:heightPercentageToDP('3'), alignItems: 'center', justifyContent: 'center' }}>
+                    <Image source={psychicTitle} style={{marginBottom: heightPercentageToDP('2')}}/>
                     <TouchableOpacity onPress={() => navigation.navigate('LunaChat')}>
-                        <Image source={asklunabtn} />
+                        <Image source={asklunabtn}  />
                     </TouchableOpacity>
                     <TouchableOpacity onPress={() => navigation.navigate('SomeoneFortune1')}>
-                        <Image source={someonebtn} style={{marginTop:heightPercentageToDP(3), marginBottom:heightPercentageToDP(3)}}  />
+                        <Image source={someonebtn} style={{marginTop:heightPercentageToDP(2), marginBottom:heightPercentageToDP(2)}}  />
                     </TouchableOpacity>
                     <TouchableOpacity onPress={() => navigation.navigate('Manifest')}>
                         <Image source={manifestbtn} />

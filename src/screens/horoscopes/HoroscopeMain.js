@@ -33,7 +33,7 @@ function HoroscopeMain({}) {
 
 
     return (
-<View style={{flex: 1}}>
+    <View style={{flex: 1}}>    
         <ImageBackground source={bgstars} style={styles.bgfull}>
                     <Image source={Horoscopetxt} style={{marginTop:widthPercentageToDP(20)}} />
                     <View style={{justifyContent: 'center', padding:15 }}>
@@ -83,12 +83,10 @@ function HoroscopeMain({}) {
                     </View>
                 </View>
                 <View style={{height :widthPercentageToDP(35)}}>
-
                 </View>
-            
+             </ImageBackground>
+        <NavBar_hor  />
 
-            <NavBar_hor  />
-        </ImageBackground>
         </View>
 
     );

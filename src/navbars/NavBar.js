@@ -12,21 +12,46 @@ import Favorites from "../../assets/FortuneCoffeePNGassets/HomePage/Favorites.pn
 import Profilebtn from "../../assets/FortuneCoffeePNGassets/HomePage/Profile.png";
 import React from "react";
 import { Dimensions } from 'react-native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
+import {useRoute} from '@react-navigation/native';
 import {widthPercentageToDP,heightPercentageToDP,} from '../../util/scaler'
 
-function NavBar(){
+
+function NavBar({}){
     const navigation = useNavigation();
 
+    const Tab = createBottomTabNavigator();
+
+
+    const TurnOnCurrentNaviation = () =>{
+        const route = useRoute();
+        console.log(route.name);
+    
+        switch(route){
+            case "Psychic": {
+                console.log("In Psychic screen !")
+    
+                break;
+            }
+    
+            default :{
+                break;
+            }
+        }
+    
+
+    }
+
     return(
-        <View style={{ backgroundColor:'#070631',  alignItems:'center', alignContent:'center'}}>
+        <View style={{ backgroundColor:'#070631',  alignItems:'center', alignContent:'center',width: widthPercentageToDP('100') }}>
             <Image source={Ellipse1} style={{ position: 'absolute', bottom: heightPercentageToDP('-1'), width: widthPercentageToDP('100')}} />
-            <View style={{flexDirection:'row', width:'80%', justifyContent: 'space-between', bottom: "0%", paddingBottom:10}}>
+            <View style={{flexDirection:'row', width:'90%', justifyContent: 'space-between', paddingBottom:10}}>
                 <TouchableOpacity onPress={() => navigation.navigate('HoroscopeMain')}>
                     <Image source={Horosbtn}  />
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => navigation.navigate('Psychic')}>
-                    <Image source={Psychicbtn} style={{ marginRight:30, bottom:'80%'}}  />
+                    <Image source={Psychicbtn} style={{ marginRight: widthPercentageToDP('10'), bottom:'80%'}}  />
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => navigation.navigate('Home')}>
                     <Image source={Home} style={{ bottom:'120%'}}/>
