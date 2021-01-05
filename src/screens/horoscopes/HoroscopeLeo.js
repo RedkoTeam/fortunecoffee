@@ -375,14 +375,15 @@ function HoroscopeLeo({}) {
     return (
         <View style={styles.mainContainer}> 
             <ImageBackground source={bgstars} style={styles.bgfull}>
-            <ScrollView>
-            <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-between', padding: 20 }}>
-                    <View style={{  flexDirection:'row', width:'100%', marginBottom:15}}>
-                        <TouchableOpacity onPress={()=>{navigation.navigate('HoroscopeMain')}}>
-                            <Image source={backButton} style={styles.backButtonStyle }/>
-                        </TouchableOpacity>
-                    </View>
+            <View style={{flex: 1,flexDirection: 'row', width: '100%', padding: 25, zIndex: 10}}>
+                    <TouchableOpacity onPress={()=>navigation.navigate('Home')} style={{
+                                left:widthPercentageToDP(0),
+                                top:heightPercentageToDP(3)
+                            }}>
+                                    <Image source={backButton} />
+                    </TouchableOpacity>
                 </View>
+            <ScrollView directionalLockEnabled={true} automaticallyAdjustContentInsets={true}>
                 <View style={{  alignItems: 'center', marginTop:60 }}>
 
                     <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-evenly' }}>

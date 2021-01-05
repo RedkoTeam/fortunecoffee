@@ -37,7 +37,7 @@ import {widthPercentageToDP,heightPercentageToDP,} from '../../util/scaler'
 
 function HomeScreen({ navigation }) {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [isModalVisible, setModalVisible] = useState(true);
+  const [isModalVisible, setModalVisible] = useState(false);
   const [isFortuneModalVisible, setFortuneModalVisible] = useState(false);
   const [front, setFront] = useState(dummyPath);
   const [meaning, setMeaning] = useState(dummyPath);
@@ -52,14 +52,6 @@ function HomeScreen({ navigation }) {
 
   /// Modal Viewer based on date. 
   const [userCanViewCard, setUserCanViewCard] = useState(false);
-
-  const {
-    width: SCREEN_WIDTH,
-    height: SCREEN_HEIGHT,
-  } = Dimensions.get('window');
-
-  console.log("Current Window Width" ,SCREEN_WIDTH)
-  console.log("Current Window Height" ,SCREEN_HEIGHT)
 
   // UseEffect for checking the card before each trigger
   // Rather than putting it inside the function, we put it on the useeffect for checking
@@ -149,24 +141,20 @@ function HomeScreen({ navigation }) {
     return userCanViewCard ? (
         <>
           {/* Show module if user can view*/}
-            <Modal isVisible={isModalVisible} style={{alignItems: 'center',
-              flex: 1,
-              justifyContent: 'center'}}>
-              <Text style={{color: '#FFF',
-                  fontSize: 40,
-                  textAlign: 'center',
-                  fontWeight: 'bold',
-                  marginTop: 20
-              }}>Tap card to flip</Text>
-              <Button title="Hide Card" onPress={toggleModal} style={{marginTop: 20}} />
-              <FlipCard
-                  flipHorizontal={true}
-                  flipVertical={false}>
-                  {/* <Text>The Face</Text> */}
-                  <Image source={front} style={styles.cardStyle} />
-                  {/* <Text>The Back</Text> */}
-                  <Image source={meaning} style={styles.cardStyle} />
-              </FlipCard>
+            <Modal isVisible={isModalVisible}>
+               <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center',  alignSelf: 'center',}}>
+                  <Text style={{color: '#FFF',fontSize: 40,  textAlign: 'center',    fontWeight: 'bold',   marginTop: 20
+                    }}>Tap card to flip</Text>
+                    <Button title="Hide Card" onPress={toggleModal} style={{marginTop: 20}} />
+                    <FlipCard
+                        flipHorizontal={true}
+                        flipVertical={false}>
+                        {/* <Text>The Face</Text> */}
+                        <Image source={front} style={{height: heightPercentageToDP(75),}} />
+                        {/* <Text>The Back</Text> */}
+                        <Image source={meaning} style={{height: heightPercentageToDP(75)}} />
+                    </FlipCard>
+              </View>
             </Modal>
         </>
     ) : <>
@@ -175,15 +163,16 @@ function HomeScreen({ navigation }) {
        
 
         <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center',  alignSelf: 'center',}}>
-              {/* X */}
-              <TouchableOpacity style={{position: 'absolute', zIndex: 20,top: heightPercentageToDP(26), right: 25}} onPress={()=>{
-                toggleModal();
+              
+              {/* IMAGE */}
+            <Image source={submodfo} style={{ height: heightPercentageToDP('48'), width: widthPercentageToDP('86'),
+              resizeMode: 'stretch', borderRadius:36}} />
+            {/* X */}
+            <TouchableOpacity style={{position: 'absolute', zIndex: 20, top: heightPercentageToDP(25), right: 25}} onPress={()=>{
+                  toggleModal();
               }}>
                 <Image source={xButton} style={{width: widthPercentageToDP(3), height: heightPercentageToDP(3)  }} />
             </TouchableOpacity>
-              {/* IMAGE */}
-            <Image source={submodfo} style={{ }} />
-
               {/* GET CRYTSTALS */}
             <TouchableOpacity style={{  zIndex: 20, position:'absolute', top: heightPercentageToDP(58)}} onPress={() => {
               toggleModal();
