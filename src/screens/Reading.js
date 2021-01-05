@@ -29,7 +29,7 @@ function Reading({}){
                     <TouchableOpacity onPress={() => navigation.navigate('Home')} >
                         <Image source={backButton} />
                     </TouchableOpacity>
-                    <TouchableOpacity onPress={() => navigation.navigate('Profile')}>
+                    <TouchableOpacity onPress={() => navigation.navigate('ProfileLoggedIn')}>
                         <Image source={userImg} />
                     </TouchableOpacity>
                 </View>

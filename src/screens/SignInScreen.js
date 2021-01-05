@@ -4,6 +4,8 @@ import SaveItemInStorage from "../../util/SaveItemInStorage";
 import RetrieveData from "../../util/GetItemInStorage";
 import StoreData from "../../util/SaveItemInStorage";
 import * as firebase from "firebase";
+import { actuatedNormalize } from '../../util/fontScaler';
+
 import {
     Button,
     Image,
