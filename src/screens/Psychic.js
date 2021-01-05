@@ -10,7 +10,7 @@ import SignInButton from "../../assets/FortuneCoffeePNGassets/HomePage/SignInBut
 import asklunabtn from "../../assets/FortuneCoffeePNGassets/Psychic/asklunabtn.png";
 import someonebtn from "../../assets/FortuneCoffeePNGassets/Psychic/someonebtn.png";
 import manifestbtn from "../../assets/FortuneCoffeePNGassets/Psychic/manifestbtn.png";
-import NavBar_psyc from "../navbars/NavBar";
+import NavBar_psyc from "../navbars/NavBar_Psychic";
 import {widthPercentageToDP,heightPercentageToDP,} from '../../util/scaler';
 import Logoutbtn from "../../assets/FortuneCoffeePNGassets/Profile/BtnPrimary.png";
 

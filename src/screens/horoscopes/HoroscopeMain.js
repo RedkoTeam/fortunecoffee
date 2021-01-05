@@ -20,7 +20,7 @@ import Sagittariusbttn from "../../../assets/FortuneCoffeePNGassets/horoscopes/h
 import Capribttn from "../../../assets/FortuneCoffeePNGassets/horoscopes/horoscopebtns/Capricorn-bttn.png";
 import Aquariusbttn from "../../../assets/FortuneCoffeePNGassets/horoscopes/horoscopebtns/Aquarius-bttn.png";
 import Piscesbttn from "../../../assets/FortuneCoffeePNGassets/horoscopes/horoscopebtns/Pisces-bttn.png";
-import NavBar_hor from "../../navbars/NavBar";
+import NavBar_hor from "../../navbars/NavBar_Horoscope";
 import { Dimensions } from 'react-native';
 import {widthPercentageToDP,heightPercentageToDP,} from '../../../util/scaler';
 import React, {useEffect, useState} from "react";
