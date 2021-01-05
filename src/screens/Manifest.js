@@ -25,11 +25,11 @@ function Manifest() {
                         resizeMode:'cover',
                         alignItems: 'center',
                         opacity: 1,}}>
-                <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-between', padding: 60,marginTop:30 }}>
-                    <View style={{position:'absolute', flexDirection:'row', width:'100%', margin:10}}>
-                        <TouchableOpacity onPress={()=>{navigation.navigate('Psychic')}}>
-                            <Image source={backButton} style={styles.backButtonStyle}/>
-                        </TouchableOpacity>
+                <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-between', padding: heightPercentageToDP(6.5), marginTop:30 }}>
+                    <View style={{position:'absolute', flexDirection:'row', width:heightPercentageToDP(6.5), margin:5}}>
+                    <TouchableOpacity onPress={()=>navigation.navigate('Psychic')} style={{alignSelf:'flex-start', top: heightPercentageToDP('5'), left: widthPercentageToDP('5')}}>
+                    <Image source={backButton}/>
+                </TouchableOpacity>
                     </View>
                 </View>
                 <View style={{ flex: 1,flexDirection: 'column', justifyContent: 'space-between', alignItems: 'center'}}>

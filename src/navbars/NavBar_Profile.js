@@ -29,27 +29,27 @@ function NavBar({}){
                 <TouchableOpacity onPress={() => { 
                     navigation.navigate('HoroscopeMain')
                 }}>
-                    <Image source={Horosbtn}  />
+                    <Image source={Horosbtn} style={{bottom: heightPercentageToDP('1.2'), left: heightPercentageToDP('-0.5') }} />
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() =>{
                     navigation.navigate('Psychic')
                 }}>
-                    <Image source={Psychicbtn} style={{ marginRight: widthPercentageToDP('10'), bottom:'80%'}}  />
+                    <Image source={Psychicbtn} style={{bottom: heightPercentageToDP('1.2') , left: heightPercentageToDP('-0.5') }} />
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => {
                     navigation.navigate('Home')
                     }}>
-                    <Image source={Home} style={{ bottom:'120%'}}/>
+                    <Image source={Home} style={{ bottom: heightPercentageToDP('0.2') }}/>
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => {
                     navigation.navigate('Favorites')
                     }}>
-                    <Image source={Favorites} style={{ marginLeft:30, bottom:'65%'}} />
+                    <Image source={Favorites} style={{bottom: heightPercentageToDP('-0.2')}}  />
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() =>{
                     navigation.navigate('ProfileLoggedIn')
                     }}>
-                    <Image source={Profilebtn} style={{ bottom:'0%',paddingBottom:10}} />
+                    <Image source={Profilebtn} style={{ bottom: heightPercentageToDP('0.5')}} />
                 </TouchableOpacity>
                     
             </View>
