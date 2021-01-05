@@ -307,7 +307,7 @@ function HomeScreen({ navigation }) {
               {RenderTheFortuneButtons()}
 
               {/* <Button title="credits" onPress={() => navigation.navigate('Credits')} /> */}
-              <Image source={PickCard} style={{ marginTop:20, margin: 8 }} />
+              <Image source={PickCard} style={{ marginTop:widthPercentageToDP(15), margin: 8 }} />
               {/* Pick a card  */}
               <TouchableOpacity onPress={toggleModal2} style={styles.cards}>
                 <Image source={Cards} style={{resizeMode: 'stretch', width: widthPercentageToDP('95')}}/>
