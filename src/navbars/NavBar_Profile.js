@@ -49,7 +49,7 @@ function NavBar({}){
                 <TouchableOpacity onPress={() =>{
                     navigation.navigate('ProfileLoggedIn')
                     }}>
-                    <Image source={Profilebtn} style={{ bottom: heightPercentageToDP('0.5')}} />
+                    <Image source={Profilebtn} style={{ bottom: heightPercentageToDP('0.7')}} />
                 </TouchableOpacity>
                     
             </View>

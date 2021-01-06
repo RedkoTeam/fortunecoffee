@@ -32,6 +32,7 @@ import SaveItemInStorage from "../../util/SaveItemInStorage";
 import LogOutUser from "../../util/LogOutUser";
 import { Dimensions } from 'react-native';
 import {widthPercentageToDP,heightPercentageToDP} from '../../util/scaler';
+import Onboarding from "./Onboarding";
 
 
 
@@ -266,6 +267,11 @@ function HomeScreen({ navigation }) {
             onPress={() => {
               CheckFortuneCountPhoto()
             }}>
+              <Image source={TakePhoto}  style={{resizeMode: 'stretch',}}  />
+            </TouchableOpacity>
+            <TouchableOpacity 
+         onPress={() => {CheckFortuneCountPhoto()}}>
+
               <Image source={TakePhoto}  style={{resizeMode: 'stretch',}}  />
             </TouchableOpacity>
           </View>

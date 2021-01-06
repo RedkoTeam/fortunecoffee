@@ -15,6 +15,7 @@ import {fortunesArray} from "../arrays/fortunesArray";
 import db from "../../util/firestore/firestore";
 import * as firebase from "firebase";
 import { actuatedNormalize } from '../../util/fontScaler';
+import {widthPercentageToDP,heightPercentageToDP} from '../../util/scaler';
 
 function Reading({}){
     const navigation = useNavigation();
@@ -54,9 +55,10 @@ function Reading({}){
             </TouchableOpacity>*/}
                 </View>
                 <View style={styles.readingTableContainer}>
-                    <Image source={yourFortune} style={{marginBottom:15}} />
-                    <ScrollView>
-                        <Text style={{fontSize: actuatedNormalize(12), color:'white'}}> {randomFortune}  </Text>
+                    <Image source={yourFortune} style={{marginBottom:20}} />
+                    <View style={{height: 240}} >
+                    <ScrollView style={{marginTop:widthPercentageToDP(0)}} >
+                        <Text style={{fontSize: actuatedNormalize(14), color:'white'}}> {randomFortune}  </Text>
 
                         {!buttonClicked ? (
                             <Button
@@ -70,6 +72,7 @@ function Reading({}){
                         ) : null}
 
                     </ScrollView>
+                    </View>
                 </View>
                 <NavBar/>
             </ImageBackground>

@@ -149,6 +149,15 @@ const styles = StyleSheet.create({
         opacity: 0.7,
     },
 
+    virtualOne1: {
+        flex: 1,
+        resizeMode:'cover',
+        justifyContent: 'center',
+        alignItems: 'center',
+        width:'100%',
+        opacity: 0.7,
+    },
+
     bgfull: {
         flex: 1,
         resizeMode:'cover',

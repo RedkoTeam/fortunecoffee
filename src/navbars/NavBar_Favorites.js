@@ -44,7 +44,7 @@ function NavBar({}){
                 <TouchableOpacity onPress={() => {
                     navigation.navigate('Favorites')
                     }}>
-                    <Image source={Favorites} style={{bottom: heightPercentageToDP('-0.2')}}  />
+                    <Image source={Favorites} style={{bottom: heightPercentageToDP('1.4')}}  />
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() =>{
                     navigation.navigate('ProfileLoggedIn')
