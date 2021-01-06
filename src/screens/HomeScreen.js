@@ -254,25 +254,20 @@ function HomeScreen({ navigation }) {
 
           <Button title="Reset Crystals" onPress={ () => { console.log("Async Storage Cleared"); AsyncStorage.clear();}}></Button>
 
-          <View style={{ flexDirection: 'row', justifyContent: 'space-evenly',marginHorizontal: 10 }}>
+          <View style={{ flexDirection: 'row', justifyContent: 'space-evenly' }}>
             <TouchableOpacity 
             onPress={() => {
               CheckFortuneCountCoffeeReading()
             }}>
               {/* virtual Coffee Reading */}
-              <Image source={VirtualCoffee} style={{resizeMode: 'stretch'}}   />
+              <Image source={VirtualCoffee} style={{resizeMode: 'stretch', marginRight:35}}   />
             </TouchableOpacity>
             {/* Take a photo for reading */}
             <TouchableOpacity 
             onPress={() => {
               CheckFortuneCountPhoto()
             }}>
-              <Image source={TakePhoto}  style={{resizeMode: 'stretch',}}  />
-            </TouchableOpacity>
-            <TouchableOpacity 
-         onPress={() => {CheckFortuneCountPhoto()}}>
-
-              <Image source={TakePhoto}  style={{resizeMode: 'stretch',}}  />
+              <Image source={TakePhoto}  style={{resizeMode: 'stretch'}}  />
             </TouchableOpacity>
           </View>
         </>
