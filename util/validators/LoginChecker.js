@@ -14,7 +14,6 @@ import GetItemInStorage from '../GetItemInStorage'
 const LoginChecker = async () =>{
     try{
         const user = await firebase.auth().currentUser;
-        console.log(user)
         // If the user isn't logged in then login
         const email = await GetItemInStorage("AUTH_EMAIL");
         const password = await GetItemInStorage("AUTH_PASSWORD");
@@ -25,7 +24,6 @@ const LoginChecker = async () =>{
                     auth()
                         .signInWithEmailAndPassword(email, password)
                         .then((data) => {
-                        console.log(data)
                         console.log('User signed in!');
                         SetTokenInLocalStorage(email, password)
                         return true;

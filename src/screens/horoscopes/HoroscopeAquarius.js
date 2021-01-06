@@ -375,13 +375,13 @@ function HoroscopeAquarius({}) {
     return (
         <View style={styles.mainContainer}> 
             <ImageBackground source={bgstars} style={styles.bgfull}>
-            <View style={{flex: 1,flexDirection: 'row', width: '100%', padding: 10, zIndex: 10}}>
+            <View style={{flex: 1,flexDirection: 'row', width: '100%', padding: 25, zIndex: 10}}>
             <TouchableOpacity onPress={()=>navigation.navigate('HoroscopeMain')} style={{alignSelf:'flex-start', top: heightPercentageToDP('3'), left: widthPercentageToDP('3')}}>
                     <Image source={backButton}/>
                 </TouchableOpacity>
-                </View>
-            <ScrollView directionalLockEnabled={true} automaticallyAdjustContentInsets={true}>
-                <View style={{  alignItems: 'center', marginTop:60 }}>
+            </View>
+            <ScrollView directionalLockEnabled={true} automaticallyAdjustContentInsets={true} >
+               <View style={{  alignItems: 'center', marginTop:60 }}>
 
                     <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-evenly' }}>
                         <View style={{ flexDirection: 'column', justifyContent: 'space-evenly' , marginRight:12 }}>

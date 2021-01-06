@@ -48,11 +48,8 @@ function Reading({}){
                         <Image source={saveButton} />
                     </TouchableOpacity>
                     <View >
-                        <Image source={coffeeImg} style={{ marginTop: 20, justifyContent:'center', marginRight:'25%'}} />
+                        <Image source={coffeeImg} style={{ marginTop: 30, justifyContent:'center', marginRight:'25%'}} />
                     </View>
-                    {/*<TouchableOpacity onPress={() => console.log("SHARE")}>
-              <Image source={shareButton} style={{ alignSelf: 'flex-end' }} />
-            </TouchableOpacity>*/}
                 </View>
                 <View style={styles.readingTableContainer}>
                     <Image source={yourFortune} style={{marginBottom:20}} />
@@ -74,8 +71,8 @@ function Reading({}){
                     </ScrollView>
                     </View>
                 </View>
-                <NavBar/>
             </ImageBackground>
+            <NavBar/>
         </View>
     )
 

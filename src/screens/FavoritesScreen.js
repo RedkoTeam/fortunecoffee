@@ -2,8 +2,8 @@ import {useNavigation} from "@react-navigation/native";
 import React, {useEffect, useState} from "react";
 import * as firebase from "firebase";
 import LoginChecker from "../../util/validators/LoginChecker";
-import {Image, ScrollView, Text, View} from "react-native";
-import {TouchableOpacity} from 'react-native-gesture-handler';
+import {Image, ScrollView, Text, View, ImageBackground} from "react-native";
+import {TouchableOpacity} from 'react-native';
 import styles from "../styles/styles";
 import galaxy from "../../assets/FortuneCoffeePNGassets/shopPage/galaxy.png";
 import savedFortunesTitle from "../../assets/FortuneCoffeePNGassets/savedFortunes/savedFortuneTitle.png";
@@ -12,37 +12,48 @@ import NavBar_fav from "../navbars/NavBar_Favorites";
 import XButton from '../../assets/FortuneCoffeePNGassets/bi_x.png'
 // FIRESTORE
 import db from '../../util/firestore/firestore'
+import { fortunesArray } from '../arrays/fortunesArray';
+import {widthPercentageToDP,heightPercentageToDP} from '../../util/scaler';
+import backButton from "../../assets/FortuneCoffeePNGassets/reading/backButton.png";
+import { date } from "yup";
+
 
 function FavoritesScreen() {
     const navigation = useNavigation();
-    const [favoritesData, setFavoritesData] = useState([{"fortune" : "You're not logged in. Please come back and check after logging in"}]);
+    const [favoritesData, setFavoritesData] = useState([{ 
+        "date" : "Please save a fortune first!",
+        "fortune": "You are logged in, but you haven't selected a favorite!"}]);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [resetTriggered, setReset] = useState(false);
-
-
-    // TODO: NEED  TO CHECK FOR ERRORS HERE. ASSUME THERE IS NO DATA AND WHAT DO YOU DO IF NO DATA
-    // TODO: GRABBING DATA SHOULD BE THE LAST THING
-    // Please run the function through the login checker first. Then go ahead and pull the data
-    // Then check for the data before you do anything else. If the data format is correct, it it exists .etc
-    //const favRef = db.collection('users').doc(firebase.auth().currentUser.uid);
-
+    const [ showMore, setShowMore ] = useState(false);
+    let favRef ;
+    
     useEffect(()=>{
-        let mounted = true;
         const unsubscribe = navigation.addListener('focus', () => {
             // Login Checker
             LoginChecker().then((results) =>{
                 console.log("USER IS LOGGED IN : " , results)
                 setIsLoggedIn(results)
                 if(results){
-                    //Default to logins, if the user is logged in but no favoruits are selected
-                    setFavoritesData([{"fortune": "You are logged in, but you haven't selected a favorite!"}])
-                    // db.collection('users').doc(firebase.auth().currentUser.uid).get()
-                    //     .then(uData => {
-                    //         const userData = uData.data().favorites;
-                    //         setFavoritesData(userData);
-                    //         console.log(`USER DATA  ${JSON.stringify(favoritesData)}`);
-                    //     })
-                    //     .catch(error => console.log(error));
+                    try{
+                        favRef = db.collection('users').doc(firebase.auth().currentUser.uid);
+
+
+
+                        db.collection('users').doc(firebase.auth().currentUser.uid).get()
+                        .then(uData => {
+                            const userData = uData.data().favorites;
+                            console.log("USER DATA: ", userData)
+                            if(userData !== undefined){
+                                setFavoritesData(userData);
+                            }
+                            console.log(`USER DATA  ${JSON.stringify(favoritesData)}`);
+                        })
+                        .catch(error => console.log(error));
+                    }catch(e){
+                        console.log(e)
+                    }
+                   
                 }
                 else{
                     navigation.navigate('SignUp');
@@ -53,66 +64,53 @@ function FavoritesScreen() {
 
     },[navigation])
 
-    useEffect(()=>{
-        let mounted = true;
-        setFavoritesData([])
-        if(mounted){
+    
 
-            // TODO: NEED  TO CHECK FOR ERRORS HERE. ASSUME THERE IS NO DATA AND WHAT DO YOU DO IF NO DATA
-            // TODO: GRABBING DATA SHOULD BE THE LAST THING
-            // favRef.get()
-            //     .then(uData => {
-            //         const userData = uData.data().favorites;
-            //         setFavoritesData(userData);
-            //         console.log(`USER DATA  ${JSON.stringify(favoritesData)}`);
-            //     })
-            //     .catch(error => console.log(error));
-        }
-        setReset(false);
-        return () => { mounted = false; }
-    }, [resetTriggered])
 
     return (
-        <>
-            <ScrollView contentContainerStyle={styles.shopContainer}>
-                <Image source={ galaxy } style={{flex: 1,}} />
-                <View style={{position:'absolute', top:0, flexDirection:'row', width:'100%', margin:16}}>
-                    {/*} <TouchableOpacity onPress={()=>{navigation.navigate('Home')}}>
-          <Image source={backButton} style={styles.backButtonStyle}/>
-        </TouchableOpacity>*/}
-                    <Image source={savedFortunesTitle} style={{position:'absolute', alignSelf:'center', right:'28%', top: 100}} />
+        <View style ={{backgroundColor:'#070631', flex: 1,alignItems: 'center',}}>
+            <ImageBackground source={ galaxy } style={{flex: 1, width: widthPercentageToDP(100)}} >
+                <Image source={savedFortunesTitle} style={{ alignSelf:'center',  top: heightPercentageToDP(10)}} />
+                <View style={{flex: 1,flexDirection: 'row', width: '100%', padding: 10, zIndex: 10}}>
+                <TouchableOpacity onPress={()=>navigation.navigate('Home')} style={{alignSelf:'flex-start', top: heightPercentageToDP('3'), left: widthPercentageToDP('3')}}>
+                        <Image source={backButton}/>
+                    </TouchableOpacity>
                 </View>
-                <View style={{}}></View>
-                {
-                    favoritesData.map((item, index) => {
-                        // favorites data is showing up in the console.log but not populating on the screen
-                        // this needs to be changed from a map to something else to correctly access the fortunes.
+                <ScrollView style={{ marginTop: heightPercentageToDP(10)}}
+                    contentContainerStyle={{marginTop: heightPercentageToDP(0), justifyContent: 'center', alignItems: 'center',}}
+                >
+                    {favoritesData.map((item, index) =>{
                         return(
-                            <View key={index} style={{padding:30}}>
-                                <Image source={fortuneBox} />
-                                <View style={{flexDirection:'row', position: 'absolute', bottom:500, right:0, alignItems:'center', padding:12}}>
-                                    <Text style={{color:'white', fontWeight:'bold', fontSize: 21, right: 75}}>{item.date}</Text>
-                                    <TouchableOpacity onPress={() => {
-
-                                        favRef.update({
-                                            'favorites' : firebase.firestore.FieldValue.arrayRemove(...[{'date':item.date, 'fortune':item.fortune}])
-                                        })
-                                        setReset(true);
-                                    }}>
-                                        <Image source={XButton} style={{right:50, bottom:-5}}/>
-                                    </TouchableOpacity>
-                                </View>
-                                <View style={{position:'absolute', top:150, left: 60, width:'90%'}}>
-                                    <Text style={{fontSize:17}}>{item.fortune}</Text>
-                                </View>
-                            </View>
+                            <View  index={index} style={{padding:30, flex: 1 }}>    
+                                {/* This is the container for THE FORTUNES */}
+                                <ImageBackground source={fortuneBox} imageStyle={{resizeMode:'stretch'}} style={{flex: 1, width: widthPercentageToDP(87), height: heightPercentageToDP(60), }}>
+                                    <Text style={{color:'white', fontWeight:'bold', fontSize: widthPercentageToDP(5), alignSelf: 'center', top: heightPercentageToDP(4),}}>{item.date}</Text>
+                                    <View style={{flexDirection:'column', alignItems:'center', justifyContent:'center', padding:12}}>
+                                        <TouchableOpacity onPress={() => {
+                                            //Remove Fav
+                                            favRef.update({
+                                                'favorites' : firebase.firestore.FieldValue.arrayRemove(...[{'date':item.date, 'fortune':item.fortune}])
+                                            })
+                                            // reset by just removing it from the array, instead of recalling the whole function
+    
+                                            setReset(true);
+                                        }}>
+                                            <Image source={XButton} style={{left: widthPercentageToDP(35), top: heightPercentageToDP(-2)}}/>
+                                        </TouchableOpacity>
+                                    </View>    
+                                    
+                                        {/* TODO : PLEASE FIX THE Text size, you can either scale up the image backgorund or scale down the text */}
+                                        <View style={{ top:heightPercentageToDP(4), width:'73%', alignSelf: 'center'}}>
+                                            <Text adjustsFontSizeToFit={true} style={{ fontSize:17}}>{item.fortune}</Text>
+                                        </View>
+                                </ImageBackground>
+                        </View>
                         )
-                    })
-                }
-                <View style={{paddingBottom:180}}></View>
-            </ScrollView>
-        <NavBar_fav/>
-        </>
+                    })}
+                </ScrollView>
+            </ImageBackground>
+            <NavBar_fav/>
+        </View>
     )
 }
 

@@ -8,7 +8,7 @@ import Logoutbtn from "../../../assets/FortuneCoffeePNGassets/Profile/BtnPrimary
 import SignUpButton from "../../../assets/FortuneCoffeePNGassets/HomePage/SignUpButton.png";
 import SignInButton from "../../../assets/FortuneCoffeePNGassets/HomePage/SignInButton.png";
 import appcredsbtn from "../../../assets/FortuneCoffeePNGassets/Profile/appcredits.png";
-import NavBar_pro from "../../navbars/NavBar";
+import NavBar_pro from "../../navbars/NavBar_Profile";
 import { Dimensions } from 'react-native';
 import {widthPercentageToDP,heightPercentageToDP,} from '../../../util/scaler'
 
