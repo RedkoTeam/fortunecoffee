@@ -34,7 +34,7 @@ function SomeoneFortune1() {
                 </View>
                 <Formik 
                     validationSchema={MagicGlobeValidationSchema}
-                    initialValues={{name:'', birthDate:''}}
+                    initialValues={{name:''}}
                     onSubmit={ values => {
                         console.log(values);
                         navigation.navigate('SomeoneFortune');
@@ -51,12 +51,10 @@ function SomeoneFortune1() {
                                 { errors.name &&  <Text style={{fontSize:13, color:'red', marginTop:3}}>{errors.name}</Text> }
                                 <Text style={{ color: '#FFFFFF', fontSize: 17, textAlign: 'left', alignSelf: 'stretch', marginLeft: 20, marginTop:20}}>Birthday</Text>
                                 <TextInput style={styles.savedFortuneTextBox0}
-                                    placeholder="    MMDDYYYY"
+                                    placeholder="    Enter The BirthDate of The Person"
                                     placeholderTextColor='#DCDCDC'
                                     autoCapitalize='none'
-                                    onChangeText={handleChange('birthDate')}
                                 /> 
-                                { errors.birthDate && <Text style={{fontSize:13, color:'red', marginTop:3}}>{errors.birthDate}</Text> }
                                 <TouchableOpacity style={{ alignItems: 'center', marginTop: 28 }} disabled={!isValid} onPress={handleSubmit}>
                                     <Image source={magicbtn} />
                                 </TouchableOpacity>           
