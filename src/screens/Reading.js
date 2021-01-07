@@ -41,6 +41,9 @@ function Reading({}){
                                 onSave()
                             }
                             else{
+                                // Might want to FIX later. 
+                                // 1. Assign user to sign up when saving a fortune
+                                // 2. Save fortune aside and save on database once user signs in
                                 navigation.navigate('SignUp');
                             }
                         })

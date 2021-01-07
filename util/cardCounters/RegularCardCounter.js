@@ -1,6 +1,13 @@
 // Async Storage
 import SaveItemInStorage from '../SaveItemInStorage'
 import GetItemInStorage from '../GetItemInStorage'
+
+import CheckLoginToken from "../../util/validators/CheckLoginToken";
+import LoginChecker from "../../util/validators/LoginChecker";
+
+import db from "../../util/firestore/firestore";
+import * as firebase from "firebase";
+
 // 1 time an hour
 // Counters will be stored inside the async storage.
 // This needs to be called once, everytime the card's are read.
@@ -8,9 +15,38 @@ export default RegularCardCounter = async() =>{
     //Automatically try and get the user's FORTUNE READING COUNTER
     try{
       // Just need to pass in a Key for storage, need to await the promise
-      const date = await GetItemInStorage("CARD_READING_LAST_USE");
+
+{
+  /*
+            fortuneCardCounterRef = db.collection('users').doc(firebase.auth.currentUser.uid);
+          fortuneCardCounterRef.set({
+            FORTUNE_READING_LAST_USE : 0
+          })
+          console.log('FortuneCardCounter saved onto database')
+   */
+}
+      console.log('REGULAR CARD COUNTER STARTED');
+
+      var isLoggedIn = await LoginChecker();
+      console.log(`User logged in Status:${isLoggedIn}`)
+
+      var dbRef;
+      var date;
+
+      console.log('Setting date var');
+      if(isLoggedIn){
+        dbRef = db.collection('users').doc(firebase.auth().currentUser.uid);
+        date = await (await dbRef.get()).data().CARD_READING_LAST_USE;
+      }
+      else{
+        date = await GetItemInStorage("CARD_READING_LAST_USE");
+      }
+      {/*const date = await GetItemInStorage("CARD_READING_LAST_USE"); */}
       let newDate;
       let result;
+
+      console.log(date);
+
       // If no date stored
       if(!date){
         // Grab today's date and store it down, Saved as a string, parse it when retriving
