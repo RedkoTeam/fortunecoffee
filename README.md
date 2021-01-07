@@ -22,6 +22,9 @@ Launch: open Sample.xcworkspace
 
 ## ARCHIVING IN XCODE
 
+### FREQUENT ERRORS
+ if you need certificates, go to developer and download the certificates onto your computer. Then rebuild.
+
 // Create the bundle first. Run this command to export the assets out and bundle it
 1.
 $ react-native bundle --entry-file index.js --platform ios --dev false --bundle-output ios/main.jsbundle --assets-dest ios
