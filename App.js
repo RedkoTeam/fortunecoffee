@@ -113,7 +113,6 @@ function App() {
         <Stack.Screen name="SendingUni" component={SendingUni} />
         <Stack.Screen name="SomeoneFortune" component={SomeoneFortune} />
         <Stack.Screen name="SomeoneFortune1" component={SomeoneFortune1} />
-        
       </Stack.Navigator>
     </NavigationContainer>
   );

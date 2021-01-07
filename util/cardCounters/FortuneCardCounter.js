@@ -33,6 +33,7 @@ export default FortuneCardCounter = async () =>{
     let date; 
     // Set variables based on userLoginStatus
     if(_isLoggedIn){
+      console.log("Using data from logged in users")
       _dbRef = db.collection('users').doc(firebase.auth().currentUser.uid);
       _totalFortunes = await (await _dbRef.get()).data().totalFortunes;
       let newTotalFortunes = _totalFortunes - 1;

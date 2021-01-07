@@ -32,18 +32,25 @@ export default RegularCardCounter = async() =>{
 
       var dbRef;
       var date;
+      let newDate;
+      let result;
 
       console.log('Setting date var');
       if(isLoggedIn){
         dbRef = db.collection('users').doc(firebase.auth().currentUser.uid);
         date = await (await dbRef.get()).data().CARD_READING_LAST_USE;
+
+        result = {
+          userCanView : false,
+          timeRemaining : timeToReOpen
+        }
+        return result;
       }
       else{
         date = await GetItemInStorage("CARD_READING_LAST_USE");
       }
       {/*const date = await GetItemInStorage("CARD_READING_LAST_USE"); */}
-      let newDate;
-      let result;
+   
 
       console.log(date);
 

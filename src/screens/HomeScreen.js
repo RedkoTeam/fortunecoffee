@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useState,useRef} from "react";
 import dummyPath from "../../assets/pencil.png";
 import RegularCardCounter from "../../util/cardCounters/RegularCardCounter";
 import CheckLoginToken from "../../util/validators/CheckLoginToken";
@@ -29,11 +29,15 @@ import Cards from "../../assets/FortuneCoffeePNGassets/HomePage/allCards.png";
 import NavBar from "../navbars/NavBar";
 import * as firebase from "firebase";
 import SaveItemInStorage from "../../util/SaveItemInStorage";
+import GetItemInStorage from '../../util/GetItemInStorage'
 import LogOutUser from "../../util/LogOutUser";
 import { Dimensions } from 'react-native';
 import {widthPercentageToDP,heightPercentageToDP} from '../../util/scaler';
 import Onboarding from "./Onboarding";
-
+import db from '../../util/firestore/firestore';
+import { assignWith } from "lodash";
+import backButton from "../../assets/FortuneCoffeePNGassets/reading/backButton.png";
+import gemsbg from "../../assets/FortuneCoffeePNGassets/Subscription/Gemsbg.png";
 
 
 function HomeScreen({ navigation }) {
@@ -42,6 +46,7 @@ function HomeScreen({ navigation }) {
   const [isFortuneModalVisible, setFortuneModalVisible] = useState(false);
   const [front, setFront] = useState(dummyPath);
   const [meaning, setMeaning] = useState(dummyPath);
+  const [boughtGems, setBoughtGems] = useState(false);
 
   const toggleModal = () => {
     setModalVisible(!isModalVisible);
@@ -69,7 +74,6 @@ function HomeScreen({ navigation }) {
           if(mounted){
             console.log("User can view card : " , result)
             setUserCanViewCard(result.userCanView)
-            console.log("Time Remaining in seconds : ", result.timeRemaining)
             // update time remaining onto modal, must pass seconds ! .toHHMMSS = custom prototype
           }
         });
@@ -94,10 +98,13 @@ function HomeScreen({ navigation }) {
         if(result === "USER"){
           console.log("THE USER IS A USER")
           // Login The user
-          LoginChecker().then((results) =>{
+          LoginChecker().then(async (results) =>{
             console.log("USER IS LOGGED IN : " , results)
             setIsLoggedIn(results)
+
+            await DidUsersBuyGems();
           });
+          
         }
         if(result === "GUEST"){
           LoginChecker().then((results) =>{
@@ -173,8 +180,8 @@ function HomeScreen({ navigation }) {
             </TouchableOpacity>
               {/* GET CRYTSTALS */}
             <TouchableOpacity style={{  zIndex: 20, position:'absolute', top: heightPercentageToDP(58)}} onPress={() => {
-              toggleModal();
-              navigation.navigate('SubscriptionScreen');
+              console.log("Going to subscription screen, saving previous values");
+              SetPreviousData();
             }} >
               <Image source={getCrystals} style={{marginBottom: 20}}/>
             </TouchableOpacity>
@@ -237,8 +244,9 @@ function HomeScreen({ navigation }) {
 
               {/* GET CRYSTALS BUTTON */}
               <TouchableOpacity style={{  zIndex: 20, position:'absolute', top: heightPercentageToDP(58)}} onPress={() => {
-              toggleModal();
-              navigation.navigate('SubscriptionScreen');
+                console.log("Going to subscription screen, saving previous values");
+                SetPreviousData();
+               
             }} >
               <Image source={getCrystals} style={{marginBottom: 20}}/>
             </TouchableOpacity>
@@ -270,9 +278,77 @@ function HomeScreen({ navigation }) {
   }
 
 
+  // This handles the checkign if the user has gotten new gems or not.
+  const SetPreviousData = async () =>{
+    let _isLoggedIn = await LoginChecker();
+    let _dbRef;
+    let _totalFortunes;
+
+    if(_isLoggedIn){
+      console.log("Using data from logged in users")
+      _dbRef = db.collection('users').doc(firebase.auth().currentUser.uid);
+      _totalFortunes = await (await _dbRef.get()).data().totalFortunes;
+
+      let oldFortuneData = await GetItemInStorage("PREVIOUS_FORTUNE_COUNT")
+      if(!oldFortuneData){
+        await SaveItemInStorage("PREVIOUS_FORTUNE_COUNT", "0")
+        oldFortuneData = await GetItemInStorage("PREVIOUS_FORTUNE_COUNT")
+      }
+
+      console.log("OLD FORTUNE DATA : ", oldFortuneData)
+
+      await SaveItemInStorage("OLD_FORTUNE_COUNT", _totalFortunes.toString())
+      console.log("Setting previous fortune data : ", _totalFortunes)
+      toggleModal();
+      navigation.navigate('SubscriptionScreen');
+
+    }else{
+      console.log("User isnt logged in!")
+      toggleModal();
+      navigation.navigate('SubscriptionScreen');
+    }
+  }
+
+  const DidUsersBuyGems = async () =>{
+    let _dbRef;
+    let _totalFortunes;
+    let _isLoggedIn = await LoginChecker();
+
+    if(_isLoggedIn){
+      console.log("Checking Data to see if the user bought gems")
+      _dbRef = db.collection('users').doc(firebase.auth().currentUser.uid);
+      _totalFortunes = await (await _dbRef.get()).data().totalFortunes;
+
+      let oldFortuneData = await GetItemInStorage("PREVIOUS_FORTUNE_COUNT")
+      let parsedOld = parseInt(oldFortuneData);
+      if(parsedOld < _totalFortunes){
+        console.log("The user bought gems!");
+        console.log(_totalFortunes)
+        await SaveItemInStorage("PREVIOUS_FORTUNE_COUNT", _totalFortunes.toString())
+        setBoughtGems(true)
+        // Show the screen
+      }else{
+        console.log("The user didn't buy gems!")
+      }
+    }else{
+      console.log("User isnt logged in, will not check for previous bought gems")
+    }
+
+  }
 
   return (
       <View style={{flex: 1}}>
+        <Modal isVisible={boughtGems} style={{}}>
+          <ImageBackground source={gemsbg} style={{flex: 1}}>
+                  <View style={{ flex: 1, flexDirection: 'row', width: '100%', justifyContent: 'space-between', padding: 25, marginBottom:"50%" }}>
+                      <View style={{position:'absolute', top:0, flexDirection:'row', width:'100%', margin:10}}>
+                          <TouchableOpacity onPress={()=>{ setBoughtGems(false)}}>
+                              <Image source={backButton} style={styles.backButtonStyle}/>
+                          </TouchableOpacity>
+                      </View>
+                  </View>
+          </ImageBackground>
+        </Modal>
         <Modal isVisible={isModalVisible} style={{}}>
               {Render_CardModule()}
         </Modal>
