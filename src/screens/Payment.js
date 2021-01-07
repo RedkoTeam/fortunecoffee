@@ -11,6 +11,8 @@ import LoginChecker from "../../util/validators/LoginChecker";
 import Continue from '../../assets/FortuneCoffeePNGassets/Continue.png'
 import NavBar from "../navbars/NavBar_Favorites";
 import { heightPercentageToDP } from "../../util/scaler";
+import db from '../../util/firestore/firestore';
+import * as firebase from "firebase";
 
 
 function Payment({navigation, route}) {
@@ -22,29 +24,34 @@ function Payment({navigation, route}) {
       console.log(route.params.subscription)
       let subscriptionRoute = route.params.subscription;
       // Switch cases for each subscription location
+      let _dbRef;
+      let userName;
+      _dbRef = db.collection('users').doc(firebase.auth().currentUser.uid);
+      userName = await (await _dbRef.get()).data().userName;
       switch(subscriptionRoute){
           case "Amethyst": {
               console.log("Amethyst selected")
-              let result = await WebBrowser.openBrowserAsync('https://fortunecoffeepaymentserver.herokuapp.com/amethyst');
-              setResult(result);
+              console.log("userName: " , userName)
+              let result = await WebBrowser.openBrowserAsync(`https://fortunecoffeepaymentserver.herokuapp.com/amethyst/${userName}`);
+              navigation.navigate('Home');
               break;
           }
           case "Rose Quartz": {
               console.log("Rose Quartz Selected")
-              let result = await WebBrowser.openBrowserAsync('https://fortunecoffeepaymentserver.herokuapp.com/rose');
-              setResult(result);
+              let result = await WebBrowser.openBrowserAsync(`https://fortunecoffeepaymentserver.herokuapp.com/rose/${userName}`);
+              navigation.navigate('Home');
               break;
           }
           case "Sapphire": {
               console.log("Sapphire selected")
-              let result = await WebBrowser.openBrowserAsync('https://fortunecoffeepaymentserver.herokuapp.com/sapphire');
-              setResult(result);
+              let result = await WebBrowser.openBrowserAsync(`https://fortunecoffeepaymentserver.herokuapp.com/sapphire/${userName}`);
+              navigation.navigate('Home');
               break;
           }
           case "Tiger's Eye": {
               console.log("Tiger's Eye selected")
-              let result = await WebBrowser.openBrowserAsync('https://fortunecoffeepaymentserver.herokuapp.com/tiger');
-              setResult(result);
+              let result = await WebBrowser.openBrowserAsync(`https://fortunecoffeepaymentserver.herokuapp.com/tiger/${userName}`);
+              navigation.navigate('Home');
               break;
           }
           default:{

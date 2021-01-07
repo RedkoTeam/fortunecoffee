@@ -13,7 +13,7 @@ PODS:
   - EXConstants (9.3.5):
     - UMConstantsInterface
     - UMCore
-  - EXDevice (3.0.0):
+  - EXDevice (2.4.0):
     - UMCore
   - EXErrorRecovery (1.4.0):
     - UMCore
@@ -684,7 +684,7 @@ SPEC CHECKSUMS:
   DoubleConversion: cde416483dac037923206447da6e1454df403714
   EXApplication: e3c201e7b913d081bbd37bd3c5d0e2cdc21733b4
   EXConstants: 54d0bf04319d1692c6c7bc03ca151ef7a71705a4
-  EXDevice: 3763c4fe50988ed87206dbf8672ba0d1429cf667
+  EXDevice: 01f54314f618aa4098893f66cd8f2a8a411f33ee
   EXErrorRecovery: b46af4b91e2b4ec598ab1fa51d2cf088aaf5511f
   EXFacebook: 72bd4ed1d19914318b7e19d4060e14dfe7ca6ba9
   EXFileSystem: 0e4974ab77bff04cda68d2886d070cbe64b93a6b
