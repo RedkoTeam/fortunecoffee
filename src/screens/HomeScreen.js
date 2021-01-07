@@ -161,10 +161,7 @@ function HomeScreen({ navigation }) {
     ) : <>
       {/* What to show iff the user is over the max setting.*/}
       <Modal isVisible={isModalVisible}>
-       
-
         <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center',  alignSelf: 'center',}}>
-              
               {/* IMAGE */}
             <Image source={submodfo} style={{ height: heightPercentageToDP('48'), width: widthPercentageToDP('86'),
               resizeMode: 'stretch', borderRadius:36}} />
@@ -224,29 +221,27 @@ function HomeScreen({ navigation }) {
   const RenderTheFortuneButtons = () =>{
     return (
         <>
-          <Modal isVisible={isFortuneModalVisible} style={{ alignItems: "center", flex: 1,  }}>
-            <View style={{alignItems: 'center',justifyContent: 'center',}}>
-
+          <Modal isVisible={isFortuneModalVisible}>
+            <View style={{flex:1, alignItems: 'center',justifyContent: 'center', alignSelf:'center'}}>
               {/* IMAGE BACKGROUND */}
-              <Image source={crystalBackground} style={{alignItems:'center', width: widthPercentageToDP('50%')}} />
+              <Image source={crystalBackground} style={{height: heightPercentageToDP('48'), width: widthPercentageToDP('86'), resizeMode: 'stretch', borderRadius:36}} />
               {/* X BUTTON */}
               <TouchableOpacity style={{
-                flexDirection: 'row',
-                top: 10,
-                right: 15
+                position: 'absolute', zIndex: 20, 
+                top: heightPercentageToDP(25), right: 25
               }} onPress={()=>{
                 toggleFortuneModal();
               }}>
-                <Image source={xButton} style={{width :widthPercentageToDP('19')}} />
+                <Image source={xButton} style={{width :widthPercentageToDP(3), height: heightPercentageToDP(3)}} />
               </TouchableOpacity>
 
               {/* GET CRYSTALS BUTTON */}
-              <TouchableOpacity onPress={() => {
-                toggleFortuneModal();
-                navigation.navigate('SubscriptionScreen');
-              }} style={{width: widthPercentageToDP('40%'), height: heightPercentageToDP('20%')}}>
-                <Image style={{ width: widthPercentageToDP('40%'), height: heightPercentageToDP('20%')}}source={getCrystals}/>
-              </TouchableOpacity>
+              <TouchableOpacity style={{  zIndex: 20, position:'absolute', top: heightPercentageToDP(58)}} onPress={() => {
+              toggleModal();
+              navigation.navigate('SubscriptionScreen');
+            }} >
+              <Image source={getCrystals} style={{marginBottom: 20}}/>
+            </TouchableOpacity>
 
 
             </View>
