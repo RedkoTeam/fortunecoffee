@@ -27,6 +27,7 @@ import {widthPercentageToDP,heightPercentageToDP,} from '../../../util/scaler'
 import LogOutUser from '../../../util/LogOutUser';
 import GetItemInStorage from "../../../util/GetItemInStorage";
 import SaveItemInStorage from '../../../util/SaveItemInStorage'
+import Gems from '../Gems';
 
 
 
@@ -41,12 +42,14 @@ function ProfileLoggedIn({route}) {
     const [day, setDay] = useState('')
     const [year, setYear] = useState('')
     const [fortune, setFortunes] = useState('0');
+    const [cardCount, setCardCount] = useState('0');
+
 
     const pullProfileInfo = () => {
         try{
             db.collection('users').doc(firebase.auth().currentUser.uid)
             .get()
-            .then((doc) => {
+            .then(async (doc) => {
                 if (doc.exists) {
                     console.log("Document data:", doc.data());
                     let data = doc.data()
@@ -58,12 +61,17 @@ function ProfileLoggedIn({route}) {
                     setDay(data.day)
                     setYear(data.year)
                     setFortunes(data.totalFortunes)
+                    setCardCount(data.totalGems)
                 } else {
                     // doc.data() will be undefined in this case
                     console.log("No such document!");
                     if(!GetItemInStorage("FORTUNE_READING_COUNT")){
                         SaveItemInStorage("FORTUNE_READING_COUNT", "5")
                     }
+                    if(!GetItemInStorage("CARD_READING_COUNT")){
+                        SaveItemInStorage("CARD_READING_COUNT", "3")
+                    }
+                    setCardCount(GetItemInStorage("CARD_READING_COUNT"))
                     setFortunes(GetItemInStorage("FORTUNE_READING_COUNT"))
                 }
             }).catch(function (error) {
@@ -91,22 +99,6 @@ function ProfileLoggedIn({route}) {
         return unsubscribe;
     },[navigation])
 
-    const GetGemAndFortuneCount = () =>{
-        
-
-        return (
-            <TouchableOpacity>
-            <Image source={cardz} style={{marginTop:"0%", marginLeft:"60%"}}/>
-            <Text style={{marginTop:"-5%",  marginLeft:"60%",fontSize:24,color:'#FFFFFF'}}>2</Text >  
-
-            {/* ADD HERE THE CARD COUNT */}
-        </TouchableOpacity>
-
-        )
-    }
-
-
-
 
     return isLoggedIn ? (
         <>
@@ -127,7 +119,7 @@ function ProfileLoggedIn({route}) {
                 </View>
                 <TouchableOpacity>
                     <Image source={cardz} style={{marginTop:"0%", marginLeft:"60%"}}/>
-                    <Text style={{marginTop:"-5%",  marginLeft:"60%",fontSize:24,color:'#FFFFFF'}}>{fortune}</Text >  
+                    <Text style={{marginTop:"-5%",  marginLeft:"60%",fontSize:24,color:'#FFFFFF'}}>{fortune}/{cardCount}</Text >  
                     {/* ADD HERE THE CARD COUNT */}
                 </TouchableOpacity>
 
@@ -191,7 +183,7 @@ function ProfileLoggedIn({route}) {
 
                     }
                     <Image source={cardz} style={{marginTop:"10%", marginLeft: '10%'}}/>
-                    <Text style={{marginTop:"-5%", marginLeft: '-5%', fontSize:24,color:'#FFFFFF'}}>{fortune}</Text >  
+                    <Text style={{marginTop:"-5%", marginLeft: '-5%', fontSize:24,color:'#FFFFFF'}}>{fortune}/{cardCount}</Text >  
 
                     {/* ADD HERE THE CARD COUNT */}
 
