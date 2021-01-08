@@ -18,7 +18,6 @@ export default RegularCardCounter = async() =>{
     // These variables will be use IFF isLoggedIn : True
     let _dbRef;
     ////////////////////////////////////////////////////
-    let _totalGems;
     let newTotalGems;
     let date; 
     let newDate;
@@ -30,10 +29,14 @@ export default RegularCardCounter = async() =>{
     // Set variables based on userLoginStatus
     // 1. User Is Logged In 
     if(_isLoggedIn){
+      let _totalGems;
+
       _dbRef = db.collection('users').doc(firebase.auth().currentUser.uid);
       _totalGems = await (await _dbRef.get()).data().totalGems;
       newDate = new Date().getTime().toString();
       timeToReOpen  = ((newDate + 3600000) - newDate) / 1000;
+
+      console.log("User Is Loggged in: Gem Availability: ", _totalGems);
       // 1.1 Logged In User has Sapphire Gem
       if(_totalGems > 8000){
         console.log("Logged in user has Sapphire Gem ")
@@ -100,7 +103,7 @@ export default RegularCardCounter = async() =>{
     // 2. User Is Not Logged In
     else{
       console.log("User Is Not Logged in:  Trying to Get Gem Count");
-      _totalGems = await GetItemInStorage("CARD_READING_COUNT");
+      let _totalGems = await GetItemInStorage("CARD_READING_COUNT");
       console.log("User Is Not Logged in: Gem Availability: ", _totalGems);
       newDate = new Date().getTime().toString();
       timeToReOpen  = ((newDate + 3600000) - newDate) / 1000;
@@ -125,7 +128,7 @@ export default RegularCardCounter = async() =>{
         console.log("Gem exists for guest")
         date = await GetItemInStorage("CARD_READING_LAST_USE");
         newTotalGems = parseInt(_totalGems) - 1;
-        if(_totalGems>0){
+        if(newTotalGems>0){
           await SaveItemInStorage("CARD_READING_COUNT", newTotalGems.toString());
           await SaveItemInStorage("CARD_READING_LAST_USE", newDate);
           result = {

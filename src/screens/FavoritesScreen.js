@@ -38,8 +38,6 @@ function FavoritesScreen() {
                     try{
                         favRef = db.collection('users').doc(firebase.auth().currentUser.uid);
 
-
-
                         db.collection('users').doc(firebase.auth().currentUser.uid).get()
                         .then(uData => {
                             const userData = uData.data().favorites;
@@ -87,13 +85,23 @@ function FavoritesScreen() {
                                     <Text style={{color:'white', fontWeight:'bold', fontSize: widthPercentageToDP(5), alignSelf: 'center', top: heightPercentageToDP(4),}}>{item.date}</Text>
                                     <View style={{flexDirection:'column', alignItems:'center', justifyContent:'center', padding:12}}>
                                         <TouchableOpacity onPress={() => {
-                                            //Remove Fav
-                                            favRef.update({
-                                                'favorites' : firebase.firestore.FieldValue.arrayRemove(...[{'date':item.date, 'fortune':item.fortune}])
-                                            })
-                                            // reset by just removing it from the array, instead of recalling the whole function
+                                            // //Remove Fav
+                                            // // favRef.update({
+                                            // //     'favorites' : firebase.firestore.FieldValue.arrayRemove(...[{'date':item.date, 'fortune':item.fortune}])
+                                                
+                                            // // })
+                                            // // reset by just removing it from the array, instead of recalling the whole function
+                                            //  db.collection('users').doc(firebase.auth().currentUser.uid).update({
+                                            //     'favorites' : firebase.firestore.FieldValue.arrayRemove(...[{'date':item.date, 'fortune':item.fortune}])
+                                            //  }).catch(function(error) {
+                                            //     console.error("Error removing document: ", error);
+                                            //     });
+                                            // //  .doc(docId).update({
+                                            // //     posts: posts.filter(post => post.id !== deleteId);
+                                            // //   })
+                                             
     
-                                            setReset(true);
+                                            // setReset(true);
                                         }}>
                                             <Image source={XButton} style={{left: widthPercentageToDP(35), top: heightPercentageToDP(-2)}}/>
                                         </TouchableOpacity>
