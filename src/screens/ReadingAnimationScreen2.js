@@ -33,7 +33,7 @@ function ReadingAnimationScreen2({navigation}){
     {
         InteractionManager.runAfterInteractions(() => navigation.navigate("VirtualFive"));
     }
-    InteractionManager.runAfterInteractions(() => setTimeout(() => { navigation.navigate('Reading') }, 1000000000000));
+    InteractionManager.runAfterInteractions(() => setTimeout(() => { navigation.navigate('ReadingP') }, 1000000000000));
 
     return(
         <View style={styles.mainContainer}>

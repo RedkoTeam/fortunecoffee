@@ -8,7 +8,7 @@ import StoreData from "../../util/SaveItemInStorage";
 import {cardsAndMeaning} from "../arrays/fortunesCardArray";
 import Modal from "react-native-modal";
 import AsyncStorage from '@react-native-community/async-storage';
-import {Button, Image, ImageBackground, Text, View} from "react-native";
+import {Button, Image, ImageBackground, Text, View, ScrollView} from "react-native";
 import {TouchableOpacity} from 'react-native';
 import styles from "../styles/styles";
 import FlipCard from "react-native-flip-card";
@@ -230,6 +230,7 @@ function HomeScreen({ navigation }) {
     return (
         <>
           <Modal isVisible={isFortuneModalVisible}>
+            
             <View style={{flex:1, alignItems: 'center',justifyContent: 'center', alignSelf:'center'}}>
               {/* IMAGE BACKGROUND */}
               <Image source={crystalBackground} style={{height: heightPercentageToDP('48'), width: widthPercentageToDP('86'), resizeMode: 'stretch', borderRadius:36}} />
@@ -255,8 +256,9 @@ function HomeScreen({ navigation }) {
             </TouchableOpacity>
 
 
-            </View>git 
+            </View>
           </Modal>
+          
 
          {/*  <Button title="Reset Crystals" onPress={ () => { console.log("Async Storage Cleared"); AsyncStorage.clear();}}></Button> */}
 

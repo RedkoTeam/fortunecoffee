@@ -45,6 +45,7 @@ import HoroscopeCapricorn from './src/screens/horoscopes/HoroscopeCapricorn'
 import HoroscopePisces from './src/screens/horoscopes/HoroscopePisces'
 import HoroscopeSagittarius from './src/screens/horoscopes/HoroscopeSagittarius'
 import Reading from './src/screens/Reading'
+import ReadingP from './src/screens/ReadingP'
 import VirtualCoffeeReadingScreen from './src/screens/virtual/VirtualCoffeeReadingScreen'
 import VirtualOne from "./src/screens/virtual/VirtualOne";
 import VirtualTwo from './src/screens/virtual/VirtualTwo'
@@ -70,6 +71,7 @@ function App() {
         }}
       >
         <Stack.Screen name="Home" component={HomeScreen} />
+        <Stack.Screen name="ReadingP" component={ReadingP} />
         <Stack.Screen name="Favorites" component={FavoritesScreen} />
         <Stack.Screen name="Shop" component={ShopScreen} />
         <Stack.Screen name="Virtual" component={VirtualCoffeeReadingScreen} />
