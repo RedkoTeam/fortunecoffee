@@ -4,7 +4,7 @@ import {useNavigation} from "@react-navigation/native";
 import React, {useEffect, useState} from "react";
 import GetItemInStorage from "../../../util/GetItemInStorage";
 import SaveItemInStorage from "../../../util/SaveItemInStorage";
-import {horoscopeArray} from "../../arrays/horoscopeArray";
+import {horoscopeArrayAqua} from "../../arrays/horoscopeArrayAqua";
 import {numbersArray} from "../../arrays/numbersArray";
 import {wordsArray} from "../../arrays/wordsArray";
 import {lettersArray} from "../../arrays/lettersArray";
@@ -73,7 +73,7 @@ function HoroscopeAquarius({}) {
         console.log(randomHoroscope)
         if(!randomHoroscope){
             await SaveItemInStorage("HOROSCOPE_RANDOM_TIMER_Aquarius", new Date().getTime().toString())
-            let random = Math.floor((Math.random() * horoscopeArray.length))
+            let random = Math.floor((Math.random() * horoscopeArrayAqua.length))
             await SaveItemInStorage("HOROSCOPE_RANDOM_NUMBER_Aquarius", random.toString())
             await setRandomHoroscope(getRandomHoroscope(random));
 
@@ -90,7 +90,7 @@ function HoroscopeAquarius({}) {
             if((previousDate + 86400000) < currentDate){
                 // if one day has passed
                 // Grab a random number
-                let random = Math.floor((Math.random() * horoscopeArray.length))
+                let random = Math.floor((Math.random() * horoscopeArrayAqua.length))
                 console.log("One day has passed, getting new horoscope")
                 await setRandomHoroscope(getRandomHoroscope(random));
                 await SaveItemInStorage("HOROSCOPE_RANDOM_TIMER_Aquarius", currentDate.toString())
@@ -449,7 +449,7 @@ function HoroscopeAquarius({}) {
 
     function getRandomHoroscope(random) {
         console.log(random);
-        let randHoroscope = horoscopeArray[random];
+        let randHoroscope = horoscopeArrayAqua[random];
         console.log(randHoroscope);
         return randHoroscope;
 

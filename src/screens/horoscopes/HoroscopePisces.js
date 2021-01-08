@@ -5,7 +5,7 @@ import {useNavigation} from "@react-navigation/native";
 import React, {useEffect, useState} from "react";
 import GetItemInStorage from "../../../util/GetItemInStorage";
 import SaveItemInStorage from "../../../util/SaveItemInStorage";
-import {horoscopeArray} from "../../arrays/horoscopeArray";
+import {horoscopeArrayPisces} from "../../arrays/horoscopeArrayPisces";
 import {numbersArray} from "../../arrays/numbersArray";
 import {wordsArray} from "../../arrays/wordsArray";
 import {lettersArray} from "../../arrays/lettersArray";
@@ -77,7 +77,7 @@ function HoroscopePisces({}) {
         console.log(randomHoroscope)
         if(!randomHoroscope){
             await SaveItemInStorage("HOROSCOPE_RANDOM_TIMER_pisces", new Date().getTime().toString())
-            let random = Math.floor((Math.random() * horoscopeArray.length))
+            let random = Math.floor((Math.random() * horoscopeArrayPisces.length))
             await SaveItemInStorage("HOROSCOPE_RANDOM_NUMBER_pisces", random.toString())
             await setRandomHoroscope(getRandomHoroscope(random));
 
@@ -94,7 +94,7 @@ function HoroscopePisces({}) {
             if((previousDate + 86400000) < currentDate){
                 // if one day has passed
                 // Grab a random number
-                let random = Math.floor((Math.random() * horoscopeArray.length))
+                let random = Math.floor((Math.random() * horoscopeArrayPisces.length))
                 console.log("One day has passed, getting new horoscope")
                 await setRandomHoroscope(getRandomHoroscope(random));
                 await SaveItemInStorage("HOROSCOPE_RANDOM_TIMER_pisces", currentDate.toString())
@@ -452,7 +452,7 @@ function HoroscopePisces({}) {
     );
     function getRandomHoroscope(random) {
         console.log(random);
-        let randHoroscope = horoscopeArray[random];
+        let randHoroscope = horoscopeArrayPisces[random];
         console.log(randHoroscope);
         return randHoroscope;
 
