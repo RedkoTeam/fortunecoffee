@@ -2,125 +2,173 @@
 import SaveItemInStorage from '../SaveItemInStorage'
 import GetItemInStorage from '../GetItemInStorage'
 
-import CheckLoginToken from "../../util/validators/CheckLoginToken";
 import LoginChecker from "../../util/validators/LoginChecker";
-
 import db from "../../util/firestore/firestore";
 import * as firebase from "firebase";
 
-// 1 time an hour
+// 3 time an hour
 // Counters will be stored inside the async storage.
 // This needs to be called once, everytime the card's are read.
 export default RegularCardCounter = async() =>{
     //Automatically try and get the user's FORTUNE READING COUNTER
-    try{
-      // Just need to pass in a Key for storage, need to await the promise
+  try{
+    console.log('REGULAR CARD COUNTER STARTED');
 
-{
-  /*
-            fortuneCardCounterRef = db.collection('users').doc(firebase.auth.currentUser.uid);
-          fortuneCardCounterRef.set({
-            FORTUNE_READING_LAST_USE : 0
-          })
-          console.log('FortuneCardCounter saved onto database')
-   */
-}
-      console.log('REGULAR CARD COUNTER STARTED');
+    let _isLoggedIn = await LoginChecker();
+    // These variables will be use IFF isLoggedIn : True
+    let _dbRef;
+    ////////////////////////////////////////////////////
+    let _totalGems;
+    let newTotalGems;
+    let date; 
+    let newDate;
+    let currentDate = parseInt(new Date().getTime());
+    let previousDate;
+    let timeToReOpen;
+    let result;
 
-      var isLoggedIn = await LoginChecker();
-      console.log(`User logged in Status:${isLoggedIn}`)
-
-      var dbRef;
-      var date;
-      let newDate;
-      let result;
-
-      console.log('Setting date var');
-      if(isLoggedIn){
-        dbRef = db.collection('users').doc(firebase.auth().currentUser.uid);
-        date = await (await dbRef.get()).data().CARD_READING_LAST_USE;
-
+    // Set variables based on userLoginStatus
+    // 1. User Is Logged In 
+    if(_isLoggedIn){
+      _dbRef = db.collection('users').doc(firebase.auth().currentUser.uid);
+      _totalGems = await (await _dbRef.get()).data().totalGems;
+      newDate = new Date().getTime().toString();
+      timeToReOpen  = ((newDate + 3600000) - newDate) / 1000;
+      // 1.1 Logged In User has Sapphire Gem
+      if(_totalGems > 8000){
+        console.log("Logged in user has Sapphire Gem ")
+        // If User purchased Sapphire Gem ( Unlimited Card Reading )
+        // Gems is set to 9999
+        await SaveItemInStorage("CARD_READING_COUNT", '9999');
+        await SaveItemInStorage("CARD_READING_LAST_USE", newDate);
         result = {
-          userCanView : false,
-          timeRemaining : timeToReOpen
+          userCanView: true,
+          timeRemaining: timeToReOpen
         }
         return result;
       }
+      // 1.2 Logged In User has Gem Available
+      else if(_totalGems>0 && _totalGems < 8000){
+        newTotalGems = _totalGems - 1;
+        // If User has Enough Gems
+        _dbRef.update({
+          totalGems: newTotalGems
+        })
+        await SaveItemInStorage("CARD_READING_COUNT", newTotalGems.toString());
+        await SaveItemInStorage("CARD_READING_LAST_USE", newDate);
+        result = {
+          userCanView: true,
+          timeRemaining: timeToReOpen
+        }
+        return result;
+      }
+      // 1.3 Logged In User is out of Gem
+      //// 1.3.1 Logged In User has Passed one Hour => Gem resets to 2
+      //// 1.3.2 Logged In User has not Passed one Hour => Need to wait
       else{
         date = await GetItemInStorage("CARD_READING_LAST_USE");
-      }
-      {/*const date = await GetItemInStorage("CARD_READING_LAST_USE"); */}
-   
+        previousDate = parseInt(date);
+        // Add one hour to previous date
+        if((previousDate + 3600000) < currentDate){
+          console.log("More than 1 hour has passed")
 
-      console.log(date);
+          // Save the new item in Database as well
+          _dbRef.update({
+            totalGems: 2
+          })
+          // Save the new item in Async Storage
+          await SaveItemInStorage("CARD_READING_LAST_USE", new Date().getTime().toString());
+          await SaveItemInStorage("CARD_READING_COUNT", 2);
 
-      // If no date stored
-      if(!date){
-        // Grab today's date and store it down, Saved as a string, parse it when retriving
-          // This is a date time, in miliseconds. 
-         newDate = await SaveItemInStorage("CARD_READING_LAST_USE", new Date().getTime().toString())
-         // We don't store a new date until the User actually loads a card. 
-         console.log("No Previous Date Found, Setting new date : ", newDate)
-                                // Add's one hour to current time  / set to seconds
-         let timeToReOpen  = ((newDate + 3600000) - newDate) / 1000;
-         result = {
-           userCanView : true,
-           timeRemaining : timeToReOpen
-         }
-         return result;
-      }else{
-        console.log("Regular Card Date Exists : ", date)
-         // Compare today's date with the previous date. Return true or false;
-        // 1000 = 1 second
-        // 60,000 = 1 minute 
-        // 3,600,000 = 1 hour; 
-        if(date){
-          try{
-            let currentDate = parseInt(new Date().getTime());
-            let previousDate =  parseInt(date);
-            // Add one hour to previous date
-            if((previousDate + 3600000) < currentDate){
-              console.log("More than 1 hour has passed")
-
-              // Save the new item in strage
-              await SaveItemInStorage("CARD_READING_LAST_USE", new Date().getTime().toString())
-              console.log("Regular cards , Storeing a new date : ", currentDate)
-              let timeToReOpen  = ((newDate + 3600000) - newDate) / 1000;
-              result = {
-                userCanView: true,
-                timeRemaining : timeToReOpen
-              }
-              return result;
-            }
-            // If the date hasn't been one hour. Then return the time remaining
-            else{
-              // If date doesnt exist 
-              console.log("Date exists, but 1 hour hasn't passed")
-              let previousDate =  parseInt(date);
-              let timeToReOpen  = ((previousDate + 3600000) - currentDate) / 1000;
-              result = {
-                userCanView: false,
-                timeRemaining : timeToReOpen
-              }
-              return result;
-            }
-          }catch(e){
-            console.log(e)
+          result = {
+            userCanView: true,
+            timeRemaining : timeToReOpen
           }
+          return result;
         }
-        // If all else fails, return false and date remaining
-        console.log("Date Exists but it has not been one hour")
-        let previousDate =  parseInt(date);
-        let currentDate = parseInt(new Date().getTime());
-        let timeToReOpen  = ((previousDate + 3600000) - currentDate) / 1000;
+        else{
+          // If one hour has not Passed
+          console.log("Date Exists but it has not been one hour")
+          result = {
+            userCanView: false,
+            timeRemaining : timeToReOpen
+          }
+          return result;
+        }
+      }
+    }
+    // 2. User Is Not Logged In
+    else{
+      console.log("User Is Not Logged in:  Trying to Get Gem Count");
+      _totalGems = await GetItemInStorage("CARD_READING_COUNT");
+      console.log("User Is Not Logged in: Gem Availability: ", _totalGems);
+      newDate = new Date().getTime.toString();
+      timeToReOpen  = ((newDate + 3600000) - newDate) / 1000;
+      // 2.1 Gem Not Exist => Create New Gem for User
+      if(!_totalGems){
+        await SaveItemInStorage("CARD_READING_COUNT", "2");
+        await SaveItemInStorage("CARD_READING_LAST_USE", newDate);
+        console.log(`New Date ${newDate}`)
         result = {
-          userCanView: false,
-          timeRemaining : timeToReOpen
+          userCanView: true,
+          gemRemaining: 2,
+          timeRemaining: timeToReOpen
         }
         return result;
       }
-    }catch(e){
-      console.log("Error Occured : " , e)
+      // 2.2 Gem Exist 
+      //// 2.2.1 Gem is > 0, 
+      //// 2.2.2 Gem == 0, 
+      ////// 2.2.2.1 Time Passed One Hour
+      ////// 2.2.2.2 Time Has not Passed One hour
+      else{
+        date = await GetItemInStorage("CARD_READING_LAST_USE");
+        newTotalGems = _totalGems - 1;
+        if(_totalGems>0){
+          await SaveItemInStorage("CARD_READING_COUNT", newTotalGems);
+          await SaveItemInStorage("CARD_READING_LAST_USE", newDate);
+          result = {
+            userCanView: true,
+            gemRemaining: newTotalGems,
+            timeRemaining: timeToReOpen
+          }
+          return result;
+        }
+        else{
+          if((date + 3600000) < currentDate){
+            console.log("More than 1 hour has passed")
+            // Save the new item in Async Storage
+            await SaveItemInStorage("CARD_READING_LAST_USE", newDate);
+            await SaveItemInStorage("CARD_READING_COUNT", 2);
+            result = {
+              userCanView: true,
+              gemRemaining: newTotalGems,
+              timeRemaining : timeToReOpen
+            }
+            return result;
+          }
+          else{
+            // If one hour has not Passed
+            console.log("Date Exists but it has not been one hour")
+            result = {
+              userCanView: false,
+              timeRemaining : timeToReOpen
+            }
+            return result;
+          }
+        }
+      }
     }
-  
+
+    // 2. User Is Not Logged In
+
+    result = {
+      userCanView: false,
+      timeRemaining : NaN
+    }
+    return result;
   }
+  catch(e){
+    console.log("Error occured: ", e)
+  }
+}
