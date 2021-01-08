@@ -28,6 +28,9 @@ Launch: open Sample.xcworkspace
 // Create the bundle first. Run this command to export the assets out and bundle it
 1.
 $ react-native bundle --entry-file index.js --platform ios --dev false --bundle-output ios/main.jsbundle --assets-dest ios
+!! While this is running. Dont do anything. It may look frozen but its not. Let it finish.  ~~~~~
+
+
 ** Change version number in plist file.
 
 2. 
