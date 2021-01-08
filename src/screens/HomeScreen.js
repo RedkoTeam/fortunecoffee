@@ -112,6 +112,7 @@ function HomeScreen({ navigation }) {
             setIsLoggedIn(results)
           });
         }
+       
       });
     });
     return unsubscribe;
@@ -255,7 +256,7 @@ function HomeScreen({ navigation }) {
             </View>
           </Modal>
 
-          <Button title="Reset Crystals" onPress={ () => { console.log("Async Storage Cleared"); AsyncStorage.clear();}}></Button>
+          {/* <Button title="Reset Crystals" onPress={ () => { console.log("Async Storage Cleared"); AsyncStorage.clear();}}></Button> */}
 
           <View style={{ flexDirection: 'row', justifyContent: 'space-evenly' }}>
             <TouchableOpacity 
@@ -336,6 +337,8 @@ function HomeScreen({ navigation }) {
     }
 
   }
+  
+  
 
   return (
       <View style={{flex: 1}}>
