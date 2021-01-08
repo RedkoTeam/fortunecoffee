@@ -4,7 +4,7 @@ export default MagicGlobeValidationSchema = yup.object().shape({
     // Name Validation,
     name: yup
     .string()
-    .matches(/(\w.+\s).+/, 'Last Name First Name')
-    .required('Full name is required'),
+    .max(40)
+    .required('Please enter thier name!'),
     
 })
