@@ -51,7 +51,7 @@ function SomeoneFortune1() {
                                 { errors.name &&  <Text style={{fontSize:13, color:'red', marginTop:3}}>{errors.name}</Text> }
                                 <Text style={{ color: '#FFFFFF', fontSize: 17, textAlign: 'left', alignSelf: 'stretch', marginLeft: 20, marginTop:20}}>Birthday</Text>
                                 <TextInput style={styles.savedFortuneTextBox0}
-                                    placeholder="    Enter The BirthDate of The Person"
+                                    placeholder="    Enter The Birthday of The Person"
                                     placeholderTextColor='#DCDCDC'
                                     autoCapitalize='none'
                                 /> 
