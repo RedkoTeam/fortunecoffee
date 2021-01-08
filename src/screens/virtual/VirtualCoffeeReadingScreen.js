@@ -48,7 +48,7 @@ function VirtualCoffeeReadingScreen() {
                     <Image source={useAVirtualCoffee}/>
                 </TouchableOpacity>
             </View>
-            {image && <Image source={{uri: image}} style={{marginTop:20, height: '40%', width: '80%', borderWidth:5, borderColor: '#FFF'}} />}
+            {image && <Image source={{uri: image}} style={{marginTop:20, height: '30%', width: '60%', borderWidth:5, borderColor: '#FFF'}} />}
             <Image source={virtualImage} style={{marginTop:10}}/>
             {image && <View>
                 <TouchableOpacity onPress={() => navigation.navigate('ReadingAnimationScreen2')}>

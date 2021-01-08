@@ -51,14 +51,14 @@ function ReadingP({}){
                         <Image source={saveButton} />
                     </TouchableOpacity>
                     <View >
-                        <Image source={coffeeImg} style={{ marginTop: 30,marginBottom: 20, justifyContent:'center', marginRight:'25%'}} />
+                        <Image source={coffeeImg} style={{ marginTop: 30, marginBottom: 20, justifyContent:'center', marginRight:'25%'}} />
                     </View>
                 </View>
                 <View style={styles.readingTableContainer}>
                     <Image source={yourFortune} style={{marginBottom:20}} />
-                    <View style={{height: 240}} >
+                    <View style={{height: 100}} >
                     <ScrollView style={{marginTop:widthPercentageToDP(0)}} >
-                        <Text style={{fontSize: actuatedNormalize(14), color:'white'}}> {randomFortune}  </Text>
+                        <Text style={{fontSize: actuatedNormalize(12), color:'white'}}> {randomFortune}  </Text>
 
                         {!buttonClicked ? (
                             <Button

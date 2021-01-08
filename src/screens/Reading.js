@@ -51,7 +51,7 @@ function Reading({}){
                         <Image source={saveButton} />
                     </TouchableOpacity>
                     <View >
-                        <Image source={coffeeImg} style={{ marginTop: 30,marginBottom: 20, justifyContent:'center', marginRight:'25%'}} />
+                        <Image source={coffeeImg} style={{ marginTop: heightPercentageToDP("0%") ,marginBottom: 20 ,justifyContent:'center', marginRight:'25%'}} />
                     </View>
                 </View>
                 <View style={styles.readingTableContainer}>
