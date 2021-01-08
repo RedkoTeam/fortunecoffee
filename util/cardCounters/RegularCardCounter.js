@@ -78,7 +78,7 @@ export default RegularCardCounter = async() =>{
           })
           // Save the new item in Async Storage
           await SaveItemInStorage("CARD_READING_LAST_USE", new Date().getTime().toString());
-          await SaveItemInStorage("CARD_READING_COUNT", 2);
+          await SaveItemInStorage("CARD_READING_COUNT", "2");
 
           result = {
             userCanView: true,
@@ -102,7 +102,7 @@ export default RegularCardCounter = async() =>{
       console.log("User Is Not Logged in:  Trying to Get Gem Count");
       _totalGems = await GetItemInStorage("CARD_READING_COUNT");
       console.log("User Is Not Logged in: Gem Availability: ", _totalGems);
-      newDate = new Date().getTime.toString();
+      newDate = new Date().getTime().toString();
       timeToReOpen  = ((newDate + 3600000) - newDate) / 1000;
       // 2.1 Gem Not Exist => Create New Gem for User
       if(!_totalGems){
@@ -122,10 +122,11 @@ export default RegularCardCounter = async() =>{
       ////// 2.2.2.1 Time Passed One Hour
       ////// 2.2.2.2 Time Has not Passed One hour
       else{
+        console.log("Gem exists for guest")
         date = await GetItemInStorage("CARD_READING_LAST_USE");
-        newTotalGems = _totalGems - 1;
+        newTotalGems = parseInt(_totalGems) - 1;
         if(_totalGems>0){
-          await SaveItemInStorage("CARD_READING_COUNT", newTotalGems);
+          await SaveItemInStorage("CARD_READING_COUNT", newTotalGems.toString());
           await SaveItemInStorage("CARD_READING_LAST_USE", newDate);
           result = {
             userCanView: true,
@@ -135,11 +136,12 @@ export default RegularCardCounter = async() =>{
           return result;
         }
         else{
+          console.log("Entered else statement");
           if((date + 3600000) < currentDate){
             console.log("More than 1 hour has passed")
             // Save the new item in Async Storage
             await SaveItemInStorage("CARD_READING_LAST_USE", newDate);
-            await SaveItemInStorage("CARD_READING_COUNT", 2);
+            await SaveItemInStorage("CARD_READING_COUNT", "2");
             result = {
               userCanView: true,
               gemRemaining: newTotalGems,
@@ -159,8 +161,6 @@ export default RegularCardCounter = async() =>{
         }
       }
     }
-
-    // 2. User Is Not Logged In
 
     result = {
       userCanView: false,

@@ -2,7 +2,6 @@
 import SaveItemInStorage from '../SaveItemInStorage'
 import GetItemInStorage from '../GetItemInStorage'
 
-import CheckLoginToken from "../../util/validators/CheckLoginToken";
 import LoginChecker from "../../util/validators/LoginChecker";
 import db from "../../util/firestore/firestore";
 import * as firebase from "firebase";
@@ -41,7 +40,7 @@ export default FortuneCardCounter = async () =>{
         _dbRef.update({
           totalFortunes: newTotalFortunes
         })
-        await SaveItemInStorage("FORTUNE_READING_COUNT", _totalFortunes.toString());
+        await SaveItemInStorage("FORTUNE_READING_COUNT", newTotalFortunes.toString());
         await SaveItemInStorage("FORTUNE_READING_LAST_USE", new Date().getTime().toString());
         return true;
       }
@@ -104,10 +103,6 @@ export default FortuneCardCounter = async () =>{
       }
       else{
         console.log("Current count of FortuneCardCount: ", fortuneCardCount)
-        // If there is no count create one
-/*         await SaveItemInStorage("FORTUNE_READING_COUNT", "5");
-        let newFortuneCardCount = await GetItemInStorage("FORTUNE_READING_COUNT");
-        console.log("Reset new count : ", newFortuneCardCount) */
 
         // Pull the count, remove one and return true
         if(fortuneCardCount > 0){
