@@ -16,7 +16,7 @@ function SendingUni() {
 
 
             <TouchableOpacity onPress={()=>{navigation.navigate('Psychic')}}>
-                <Image source={backButton} style={{marginTop:heightPercentageToDP(10)}} />
+                <Image source={backButton} style={{marginBottom:heightPercentageToDP(80),marginRight:widthPercentageToDP(70)}} />
             </TouchableOpacity>
 
         </ImageBackground>

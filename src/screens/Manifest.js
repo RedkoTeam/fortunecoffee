@@ -27,7 +27,7 @@ function Manifest() {
                         opacity: 1,}}>
                 <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-between', padding: heightPercentageToDP(6.5), marginTop:30 }}>
                     <View style={{position:'absolute', flexDirection:'row', width:heightPercentageToDP(6.5), margin:5}}>
-                    <TouchableOpacity onPress={()=>navigation.navigate('Psychic')} style={{alignSelf:'flex-start', top: heightPercentageToDP('5'), left: widthPercentageToDP('5')}}>
+                    <TouchableOpacity onPress={()=>navigation.navigate('Psychic')} style={{alignSelf:'flex-start', top: heightPercentageToDP('1'), left: widthPercentageToDP('3')}}>
                     <Image source={backButton}/>
                 </TouchableOpacity>
                     </View>
