@@ -246,6 +246,8 @@ function HomeScreen({ navigation }) {
               {/* GET CRYSTALS BUTTON */}
               <TouchableOpacity style={{  zIndex: 20, position:'absolute', top: heightPercentageToDP(58)}} onPress={() => {
                 console.log("Going to subscription screen, saving previous values");
+                toggleFortuneModal();
+
                 SetPreviousData();
                
             }} >
