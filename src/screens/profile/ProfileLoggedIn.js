@@ -21,6 +21,7 @@ import SignUpButton from "../../../assets/FortuneCoffeePNGassets/HomePage/SignUp
 import SignInButton from "../../../assets/FortuneCoffeePNGassets/HomePage/SignInButton.png";
 import manageSubs from "../../../assets/FortuneCoffeePNGassets/Profile/managesubs.png";
 import appcredsbtn from "../../../assets/FortuneCoffeePNGassets/Profile/appcredits.png";
+import cardz from "../../../assets/FortuneCoffeePNGassets/Profile/cardz.png";
 import { Dimensions } from 'react-native';
 import {widthPercentageToDP,heightPercentageToDP,} from '../../../util/scaler'
 import LogOutUser from '../../../util/LogOutUser';
@@ -97,7 +98,15 @@ function ProfileLoggedIn({route}) {
                     }}>
                         <Image source={Logoutbtn} />
                     </TouchableOpacity>
+                    
                 </View>
+                <TouchableOpacity>
+                    <Image source={cardz} style={{marginTop:"0%", marginLeft:"60%"}}/>
+                    <Text style={{marginTop:"-5%",  marginLeft:"60%",fontSize:24,color:'#FFFFFF'}}>2</Text >  
+
+                    {/* ADD HERE THE CARD COUNT */}
+                    </TouchableOpacity>
+
                 <View style={{flex: 1, flexDirection:'column', alignItems: 'center', width: widthPercentageToDP('100'), height: heightPercentageToDP('100')}}>
                     <ScrollView>
 
@@ -124,7 +133,7 @@ function ProfileLoggedIn({route}) {
 
 
                     <TouchableOpacity>
-                    <Image source={manageSubs} style={{marginTop:30}}/>
+                    <Image source={manageSubs} style={{marginTop:30,marginBottom:30}}/>
                     </TouchableOpacity>
                     </ScrollView>
 
@@ -157,6 +166,11 @@ function ProfileLoggedIn({route}) {
                         </View>
 
                     }
+                    <Image source={cardz} style={{marginTop:"10%", marginLeft: '10%'}}/>
+                    <Text style={{marginTop:"-5%", marginLeft: '-5%', fontSize:24,color:'#FFFFFF'}}>2</Text >  
+
+                    {/* ADD HERE THE CARD COUNT */}
+
                     <View style={{flex: 1, justifyContent: 'center', top: heightPercentageToDP(10)}}>
                         <TouchableOpacity onPress={() => navigation.navigate('Credits')} >
                             <Image source={appcredsbtn} />
