@@ -4,7 +4,6 @@ import {TouchableOpacity} from 'react-native';
 import styles from "../styles/styles";
 import {Image, ImageBackground, Linking, ScrollView, View,Text,TextInput} from "react-native";
 import backButton from "../../assets/FortuneCoffeePNGassets/reading/backButton.png";
-import gemsbg from "../../assets/FortuneCoffeePNGassets/Subscription/Gemsbg.png";
 import bgstars from '../../assets/Bgstars.png'
 import CheckLoginToken from "../../util/validators/CheckLoginToken";
 import LoginChecker from "../../util/validators/LoginChecker";
@@ -113,36 +112,23 @@ function Payment({navigation, route}) {
 
   useEffect(()=>{
     const unsubscribe = navigation.addListener('focus', () => {
-        CheckLoginToken().then(async (result)=>{
-          console.log("User TYPE  : " , result)
-          // Navigate the user's based off of results
-          // TODO, log the user in via firestore
-          if(result === "USER"){
-            console.log("THE USER IS A USER")
-            // Login The user
             LoginChecker().then((results) =>{
               console.log("USER IS LOGGED IN : " , results)
-              _handlePressButtonAsync();
-              
-            });
-          }
-          if(result === "GUEST"){
-            LoginChecker().then((results) =>{
-              console.log("USER IS LOGGED IN : " , results)
-
               if(!results){
                   navigation.navigate('SignUp')
+              }else{
+                
+              _handlePressButtonAsync();
+
               }
             });
-          }
-        });
       });
     return unsubscribe;
 },[navigation])
 
   return (
     <View style={styles.container}>
-        <ImageBackground source={gemsbg} style={styles.bgfull}>
+        <ImageBackground source={bgstars} style={styles.bgfull}>
                 <View style={{ flex: 0.7, flexDirection: 'row', width: '100%', justifyContent: 'space-between', padding: 25, marginBottom:"50%" }}>
                     <View style={{position:'absolute', top:0, flexDirection:'row', width:'100%', margin:10}}>
                         <TouchableOpacity onPress={()=>{navigation.navigate('Home')}}>

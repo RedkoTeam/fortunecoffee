@@ -52,9 +52,11 @@ function SignUpScreen({ navigation }) {
                         subscriptionLevel: 0,
                         totalGems: 3,
                         totalFortunes: 5,
-                    }).then( () => {
-                        SaveItemInStorage("FORTUNE_READING_COUNT", "5");
-                        SaveItemInStorage("REGULAR_READING_COUNT", "3");
+                    }).then( async () => {
+                        await SaveItemInStorage("FORTUNE_READING_COUNT", "5");
+                        await SaveItemInStorage("REGULAR_READING_COUNT", "3");
+                        await SaveItemInStorage("AUTH_EMAIL", values.email);
+                        await SaveItemInStorage("AUTH_PASSWORD", values.password);
                         console.log('User account created & signed in!');
                         navigation.navigate('ProfileDetails')
                     })
