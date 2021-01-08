@@ -37,28 +37,28 @@ function Manifest() {
                     <TextInput style={styles.savedFortuneTextBox0}
                                    onChangeText={wish1 => setWish1(wish1)}
                                    value={wish1}
-                                   placeholder="    What's going to happen?"
+                                   placeholder="    What's going to happen this year?"
                                    placeholderTextColor='#DCDCDC'
                                    autoCapitalize='none'
                         />
                         <TextInput style={styles.savedFortuneTextBox0}
                                    onChangeText={wish2 => setWish2(wish2)}
                                    value={wish2}
-                                   placeholder="    What's going to happen?"
+                                   placeholder="    What's going to happen in your love life?"
                                    placeholderTextColor='#DCDCDC'
                                    autoCapitalize='none'
                         />
                         <TextInput style={styles.savedFortuneTextBox0}
                                    onChangeText={wish3 => setWish3(wish3)}
                                    value={wish3}
-                                   placeholder="    What's going to happen?"
+                                   placeholder="    What's going to happen in your career?"
                                    placeholderTextColor='#DCDCDC'
                                    autoCapitalize='none'
                         />
                             <TextInput style={styles.savedFortuneTextBox0}
                                    onChangeText={wish4 => setWish4(wish4)}
                                    value={wish4}
-                                   placeholder="    What's going to happen?"
+                                   placeholder="    What are you thankful for?"
                                    placeholderTextColor='#DCDCDC'
                                    autoCapitalize='none'
                         />
