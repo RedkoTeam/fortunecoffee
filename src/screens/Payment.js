@@ -19,6 +19,44 @@ function Payment({navigation, route}) {
   const [result, setResult] = useState(null);
 
   console.log(route)
+  // This handles the checkign if the user has gotten new gems or not.
+  const SetPreviousData = async () =>{
+    let _isLoggedIn = await LoginChecker();
+    let _dbRef;
+    let _totalFortunes;
+
+    if(_isLoggedIn){
+      console.log("Using data from logged in users")
+      _dbRef = db.collection('users').doc(firebase.auth().currentUser.uid);
+      _totalFortunes = await (await _dbRef.get()).data().totalFortunes;
+      await SaveItemInStorage("OLD_FORTUNE_COUNT", _totalFortunes.toString())
+      console.log("Setting previous fortune data : ", _totalFortunes)
+    }
+  }
+
+  const DidUsersBuyGems = async () =>{
+    let _dbRef;
+    let _totalFortunes;
+    let _isLoggedIn = await LoginChecker();
+
+    if(_isLoggedIn){
+      console.log("Checking Data to see if the user bought gems")
+      _dbRef = db.collection('users').doc(firebase.auth().currentUser.uid);
+      _totalFortunes = await (await _dbRef.get()).data().totalFortunes;
+
+      let oldFortuneData = await GetItemInStorage("OLD_FORTUNE_COUNT")
+      console.log("OLD FORTUNE COUNT : ", oldFortuneData)
+      let parsedOld = parseInt(oldFortuneData);
+      if(parsedOld < _totalFortunes ){
+        console.log("The user bought gems!");
+        navigation.navigate('Gems')
+      }else{
+        console.log("The user didn't buy gems!")
+        navigation.navigate('Home')
+      }
+    }
+
+  }
 
   const _handlePressButtonAsync = async () => {
       console.log(route.params.subscription)
@@ -32,62 +70,38 @@ function Payment({navigation, route}) {
           case "Amethyst": {
               console.log("Amethyst selected")
               console.log("userName: " , userName)
-              let url = `https://fortunecoffeepaymentserver.herokuapp.com/amethyst/${userName}`;
-              //let result = await WebBrowser.openBrowserAsync(`https://fortunecoffeepaymentserver.herokuapp.com/amethyst/${userName}`);
-              const supported = await Linking.canOpenURL(url);
-              if (supported) {
-                // Opening the link with some app, if the URL scheme is "http" the web link should be opened
-                // by some browser in the mobile
-                await Linking.openURL(url);
-              } else {
-                console.log(`Don't know how to open this URL: ${url}`);
+              await SetPreviousData();
+              let result = await WebBrowser.openBrowserAsync(`https://fortunecoffeepaymentserver.herokuapp.com/amethyst/${userName}`);
+              if(result){
+                await DidUsersBuyGems();
               }
-              navigation.navigate('Home');
               break;
           }
           case "Rose Quartz": {
               console.log("Rose Quartz Selected")
-              let url = `https://fortunecoffeepaymentserver.herokuapp.com/rose/${userName}`;
-              //let result = await WebBrowser.openBrowserAsync(`https://fortunecoffeepaymentserver.herokuapp.com/amethyst/${userName}`);
-              const supported = await Linking.canOpenURL(url);
-              if (supported) {
-                // Opening the link with some app, if the URL scheme is "http" the web link should be opened
-                // by some browser in the mobile
-                await Linking.openURL(url);
-              } else {
-                console.log(`Don't know how to open this URL: ${url}`);
+              await SetPreviousData();
+              let result = await WebBrowser.openBrowserAsync(`https://fortunecoffeepaymentserver.herokuapp.com/rose/${userName}`);
+              if(result){
+                await DidUsersBuyGems();
               }
-              navigation.navigate('Home');
               break;
           }
           case "Sapphire": {
               console.log("Sapphire selected")
-              let url = `https://fortunecoffeepaymentserver.herokuapp.com/sapphire/${userName}`;
-              //let result = await WebBrowser.openBrowserAsync(`https://fortunecoffeepaymentserver.herokuapp.com/amethyst/${userName}`);
-              const supported = await Linking.canOpenURL(url);
-              if (supported) {
-                // Opening the link with some app, if the URL scheme is "http" the web link should be opened
-                // by some browser in the mobile
-                await Linking.openURL(url);
-              } else {
-                console.log(`Don't know how to open this URL: ${url}`);
+              await SetPreviousData();
+              let result = await WebBrowser.openBrowserAsync(`https://fortunecoffeepaymentserver.herokuapp.com/sapphire/${userName}`);
+              if(result){
+                await DidUsersBuyGems();
               }
-              navigation.navigate('Home');
               break;
           }
           case "Tiger's Eye": {
               console.log("Tiger's Eye selected")
-              let url = `https://fortunecoffeepaymentserver.herokuapp.com/tiger/${userName}`;
-              //let result = await WebBrowser.openBrowserAsync(`https://fortunecoffeepaymentserver.herokuapp.com/amethyst/${userName}`);
-              const supported = await Linking.canOpenURL(url);
-              if (supported) {
-                // Opening the link with some app, if the URL scheme is "http" the web link should be opened
-                // by some browser in the mobile
-                await Linking.openURL(url);
-              } else {
-                console.log(`Don't know how to open this URL: ${url}`);
+              await SetPreviousData();
+              let result = await WebBrowser.openBrowserAsync(`https://fortunecoffeepaymentserver.herokuapp.com/tiger/${userName}`);
+              if(result){
+                await DidUsersBuyGems();
               }
-              navigation.navigate('Home');
               break;
           }
           default:{

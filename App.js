@@ -54,6 +54,7 @@ import VirtualFour from './src/screens/virtual/VirtualFour'
 import VirtualFive from './src/screens/virtual/VirtualFive'
 import VirtualLoadingScreen from './src/screens/virtual/VirtualLoadingScreen'
 import ReadingAnimationScreen2 from './src/screens/ReadingAnimationScreen2'
+import Gems from './src/screens/Gems';
 
 
 // ONLY STORE NAVIGATION HERE
@@ -117,6 +118,7 @@ function App() {
         <Stack.Screen name="SendingUni" component={SendingUni} />
         <Stack.Screen name="SomeoneFortune" component={SomeoneFortune} />
         <Stack.Screen name="SomeoneFortune1" component={SomeoneFortune1} />
+        <Stack.Screen name="Gems" component={Gems} />
       </Stack.Navigator>
     </NavigationContainer>
   );
