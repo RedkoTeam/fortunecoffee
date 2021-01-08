@@ -60,60 +60,27 @@ function HomeScreen({ navigation }) {
   /// Modal Viewer based on date. 
   const [userCanViewCard, setUserCanViewCard] = useState(false);
 
-  // UseEffect for checking the card before each trigger
-  // Rather than putting it inside the function, we put it on the useeffect for checking
-  useEffect(()=>{
-    // setIsLoggedIn(checkLoggedIn)
-    let mounted = true;
-
-    // If mounted . Check the state then storage.
-    if(mounted){
-      if(isModalVisible === true){
-        console.log("Modal is visible")
-        // Check the counter based on async storage, not fire ..
-        RegularCardCounter().then((result)=>{
-          if(mounted){
-            console.log("User can view card : " , result)
-            setUserCanViewCard(result.userCanView)
-            // update time remaining onto modal, must pass seconds ! .toHHMMSS = custom prototype
-          }
-        });
-      }
-    }
-    return () =>{
-      mounted = false;
-    }
-  },[isModalVisible])
-
-
   // This use Effect is only called when the navigation lands here, This will reduce the amount of times
   // it will run on this page.
   useEffect(()=>{
     const unsubscribe = navigation.addListener('focus', () => {
+      console.log("User Landed on homescreen")
       _CheckOnboarding().then(r => console.log("Checked on Boarding"));
       // Checks the login upon opening App
       CheckLoginToken().then(async (result)=>{
         console.log("User TYPE  : " , result)
-        // Navigate the user's based off of results
-        // TODO, log the user in via firestore
         if(result === "USER"){
-          console.log("THE USER IS A USER")
-          // Login The user
-          LoginChecker().then(async (results) =>{
-            console.log("USER IS LOGGED IN : " , results)
-            setIsLoggedIn(results)
-
-            await DidUsersBuyGems();
-          });
-          
+          let _checker = await LoginChecker();
+          console.log("STATUS:" , _checker)
+          setIsLoggedIn(true)
+         // await DidUsersBuyGems();
         }
         if(result === "GUEST"){
-          LoginChecker().then((results) =>{
-            console.log("USER IS LOGGED IN : " , results)
-            setIsLoggedIn(results)
-          });
+          let _checker = await LoginChecker();
+          console.log("STATUS:" , _checker)
+          setIsLoggedIn(false)
+          //await DidUsersBuyGems();
         }
-       
       });
     });
     return unsubscribe;
@@ -135,11 +102,18 @@ function HomeScreen({ navigation }) {
     )
   }
 
-  const toggleModal2 = () => {
-    setModalVisible(!isModalVisible);
+  const toggleModal2 = async () => {
     let random = Math.floor((Math.random() * cardsAndMeaning.length));
-    setFront(cardsAndMeaning[random][0]);
-    setMeaning(cardsAndMeaning[random][1]);
+    // Put the card check inside the function of opening rather than the use Effect
+    RegularCardCounter().then((result)=>{
+      console.log("User can view card : " , result)
+      setUserCanViewCard(result.userCanView)
+      // update time remaining onto modal, must pass seconds ! .toHHMMSS = custom prototype
+      setFront(cardsAndMeaning[random][0]);
+      setMeaning(cardsAndMeaning[random][1]);
+      setModalVisible(!isModalVisible);
+    });
+
   }
 
   const Render_CardModule = () =>{
@@ -183,7 +157,10 @@ function HomeScreen({ navigation }) {
               {/* GET CRYTSTALS */}
             <TouchableOpacity style={{  zIndex: 20, position:'absolute', top: heightPercentageToDP(58)}} onPress={() => {
               console.log("Going to subscription screen, saving previous values");
-              SetPreviousData();
+              //SetPreviousData();
+                toggleModal();
+                navigation.navigate('SubscriptionScreen');
+
             }} >
               <Image source={getCrystals} style={{marginBottom: 20}}/>
             </TouchableOpacity>
@@ -249,8 +226,8 @@ function HomeScreen({ navigation }) {
               <TouchableOpacity style={{  zIndex: 20, position:'absolute', top: heightPercentageToDP(58)}} onPress={() => {
                 console.log("Going to subscription screen, saving previous values");
                 toggleFortuneModal();
-
-                SetPreviousData();
+                 navigation.navigate('SubscriptionScreen');
+                //SetPreviousData();
                
             }} >
               <Image source={getCrystals} style={{marginBottom: 20}}/>
@@ -284,67 +261,6 @@ function HomeScreen({ navigation }) {
   }
 
 
-  // This handles the checkign if the user has gotten new gems or not.
-  const SetPreviousData = async () =>{
-    let _isLoggedIn = await LoginChecker();
-    let _dbRef;
-    let _totalFortunes;
-
-    if(_isLoggedIn){
-      console.log("Using data from logged in users")
-      _dbRef = db.collection('users').doc(firebase.auth().currentUser.uid);
-      _totalFortunes = await (await _dbRef.get()).data().totalFortunes;
-
-      let oldFortuneData = await GetItemInStorage("PREVIOUS_FORTUNE_COUNT")
-      if(!oldFortuneData){
-        await SaveItemInStorage("PREVIOUS_FORTUNE_COUNT", "0")
-        oldFortuneData = await GetItemInStorage("PREVIOUS_FORTUNE_COUNT")
-      }
-
-      console.log("OLD FORTUNE DATA : ", oldFortuneData)
-
-      await SaveItemInStorage("OLD_FORTUNE_COUNT", _totalFortunes.toString())
-      console.log("Setting previous fortune data : ", _totalFortunes)
-      toggleModal();
-      navigation.navigate('SubscriptionScreen');
-
-    }else{
-      console.log("User isnt logged in!")
-      toggleModal();
-      navigation.navigate('SubscriptionScreen');
-    }
-  }
-
-  const DidUsersBuyGems = async () =>{
-    let _dbRef;
-    let _totalFortunes;
-    let _isLoggedIn = await LoginChecker();
-
-    if(_isLoggedIn){
-      console.log("Checking Data to see if the user bought gems")
-      _dbRef = db.collection('users').doc(firebase.auth().currentUser.uid);
-      _totalFortunes = await (await _dbRef.get()).data().totalFortunes;
-
-      let oldFortuneData = await GetItemInStorage("PREVIOUS_FORTUNE_COUNT")
-      let parsedOld = parseInt(oldFortuneData);
-      if(parsedOld < _totalFortunes && parsedOld !== 0 ){
-        console.log("The user bought gems!");
-        console.log(_totalFortunes)
-        await SaveItemInStorage("PREVIOUS_FORTUNE_COUNT", _totalFortunes.toString())
-        setBoughtGems(true)
-        // Show the screen
-      }else{
-        console.log("The user didn't buy gems!")
-        await SaveItemInStorage("PREVIOUS_FORTUNE_COUNT", _totalFortunes.toString())
-      }
-    }else{
-      console.log("User isnt logged in, will not check for previous bought gems")
-    }
-
-  }
-  
-  
-
   return (
       <View style={{flex: 1}}>
         <Modal isVisible={boughtGems} style={{}}>
@@ -364,8 +280,8 @@ function HomeScreen({ navigation }) {
         <ImageBackground source={bgstars} style={styles.bgfull}>
             {isLoggedIn ? (
                 <View style={{ flex: 0.03, flexDirection: 'row', width: '100%', justifyContent: 'space-between', padding: 25, marginTop: heightPercentageToDP('3') }}>
-                  <TouchableOpacity onPress={ () => {
-                    LogOutUser();
+                  <TouchableOpacity onPress={ async () => {
+                    await LogOutUser();
                     setIsLoggedIn(false);
                   }}>
                     <Image source={Logoutbtn} />

@@ -12,53 +12,6 @@ import SaveItemInStorage from '../SaveItemInStorage'
 import GetItemInStorage from '../GetItemInStorage'
 
 const LoginChecker = async () =>{
-    try{
-        const user = await firebase.auth().currentUser;
-        // If the user isn't logged in then login
-        const email = await GetItemInStorage("AUTH_EMAIL");
-        const password = await GetItemInStorage("AUTH_PASSWORD");
-        if(!user){
-            if(email && password){
-                try{
-                    firebase.
-                    auth()
-                        .signInWithEmailAndPassword(email, password)
-                        .then((data) => {
-                        console.log('User signed in!');
-                        SetTokenInLocalStorage(email, password)
-                        return true;
-
-                        // Store to firebase
-                        })
-                        .catch(async (error) => {
-                        console.log(error)
-                        if (error.code === 'auth/email-already-in-use') {
-                            console.log(error.code)
-                            return false;
-                        }
-                        if (error.code === 'auth/invalid-email') {
-                            console.log(error.code)
-                            return false;
-
-                        }
-                        console.log(error.code)
-                        return false;
-
-                        });
-                    }catch(e){
-                    console.log(e)
-                    return false;
-
-                    }
-            }
-        }else{
-            console.log("The User is already logged in!")
-            return true;
-        }
-    }catch(e){
-            console.log(e)
-            return false;
-    }
 
     const SetTokenInLocalStorage = async (email, pass) => {
         try{
@@ -72,6 +25,49 @@ const LoginChecker = async () =>{
         }
     }
   
+    try{
+        const user = firebase.auth().currentUser;
+        // If the user isn't logged in then login
+        const email = await GetItemInStorage("AUTH_EMAIL");
+        const password = await GetItemInStorage("AUTH_PASSWORD");
+        if(!user){
+            if(email && password){
+                try{
+                    await firebase.auth().signInWithEmailAndPassword(email, password).then(async (data) => {
+                            console.log('User signed in!');
+                            await SetTokenInLocalStorage(email, password)
+                            return true;
+                            // Store to firebase
+                    }).catch(async (error) => {
+                            console.log(error)
+                            if (error.code === 'auth/email-already-in-use') {
+                                console.log(error.code)
+                                return false;
+                            }
+                            if (error.code === 'auth/invalid-email') {
+                                console.log(error.code)
+                                return false;
+
+                            }
+                        console.log(error.code)
+                        return false;
+
+                        });
+                    }catch(e){
+                    console.log(e)
+                    return false;
+                }
+            }
+        }else{
+            console.log("The User is already logged in!")
+            return true;
+        }
+    }catch(e){
+            console.log(e)
+            return false;
+    }
+
+   
 
 }
 

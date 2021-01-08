@@ -33,17 +33,25 @@ const CheckLoginToken = async () =>{
         }else{
           // If the previous token was GUEST
           if(email === "GUEST" && pass === "GUEST"){ 
+            console.log("Returning as GUEST")
             return "GUEST"
           }
+
+          console.log(email, pass)
 
           if(email && pass){
             // Email and password exists, checking the actual user now.
 
-            let user = firebase.auth().currentUser.uid
+            console.log("Email and pass exist")
+            let user = await firebase.auth().currentUser;
             if(!user){
+              console.log("User not found!, will try and login")
               LoginChecker().then((results)=>{
                 console.log("User is logged in : ", results)
+                return "USER"
               })
+
+              return "USER"
             }
             console.log("This user is a real user, tryign to login now")
             return "USER"

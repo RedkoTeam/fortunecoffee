@@ -91,6 +91,20 @@ function ProfileLoggedIn({route}) {
         return unsubscribe;
     },[navigation])
 
+    const GetGemAndFortuneCount = () =>{
+        
+
+        return (
+            <TouchableOpacity>
+            <Image source={cardz} style={{marginTop:"0%", marginLeft:"60%"}}/>
+            <Text style={{marginTop:"-5%",  marginLeft:"60%",fontSize:24,color:'#FFFFFF'}}>2</Text >  
+
+            {/* ADD HERE THE CARD COUNT */}
+        </TouchableOpacity>
+
+        )
+    }
+
 
 
 
@@ -103,8 +117,8 @@ function ProfileLoggedIn({route}) {
                     <TouchableOpacity onPress={() => navigation.navigate('Shop')}>
                         <Image source={Shopbtn} />
                     </TouchableOpacity>
-                    <TouchableOpacity onPress={ () => {
-                        LogOutUser();
+                    <TouchableOpacity onPress={ async () => {
+                        await LogOutUser();
                         navigation.navigate('Home')
                     }}>
                         <Image source={Logoutbtn} />
