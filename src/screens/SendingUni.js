@@ -5,6 +5,8 @@ import sendingbg from "../../assets/FortuneCoffeePNGassets/Psychic/manifest/Phon
 import styles from "../styles/styles";
 import backButton from "../../assets/FortuneCoffeePNGassets/reading/backButton.png";
 import React from "react";
+import { Dimensions } from 'react-native';
+import {widthPercentageToDP,heightPercentageToDP} from '../../util/scaler';
 
 function SendingUni() {
     const navigation = useNavigation();
@@ -14,7 +16,7 @@ function SendingUni() {
 
 
             <TouchableOpacity onPress={()=>{navigation.navigate('Psychic')}}>
-                <Image source={backButton} style={styles.backButtonStyle1} />
+                <Image source={backButton} style={{marginTop:heightPercentageToDP(10)}} />
             </TouchableOpacity>
 
         </ImageBackground>

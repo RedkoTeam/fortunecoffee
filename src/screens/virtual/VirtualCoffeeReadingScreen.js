@@ -27,7 +27,7 @@ function VirtualCoffeeReadingScreen() {
         let result = await ImagePicker.launchImageLibraryAsync({
             mediaTypes: ImagePicker.MediaTypeOptions.All,
             allowsEditing:true,
-            aspect: [4,3],
+            aspect: [3,2],
             quality: 1,
         });
         console.log(result);
@@ -50,7 +50,7 @@ function VirtualCoffeeReadingScreen() {
             {image && <Image source={{uri: image}} style={{marginTop:20, height: '40%', width: '80%', borderWidth:5, borderColor: '#FFF'}} />}
             <Image source={virtualImage} style={{marginTop:10}}/>
             {image && <View>
-                <TouchableOpacity onPress={() => navigation.navigate('ReadingAnimation')}>
+                <TouchableOpacity onPress={() => navigation.navigate('ReadingAnimation2')}>
                     <Image source={submitPhoto} style={{marginTop:30}} />
                 </TouchableOpacity>
             </View>}
