@@ -27,8 +27,11 @@ function SubscriptionScreen() {
                                     <Image source={backButton} />
                     </TouchableOpacity>
                 </View>
-                    <Image source={subscriptionDescription} style={{width: widthPercentageToDP(70), height: heightPercentageToDP(20), marginTop: heightPercentageToDP(-8), resizeMode:'contain'}}/>
+ 
+                    <Image source={subscriptionDescription} style={{width: widthPercentageToDP(70), height: heightPercentageToDP(25), marginTop: heightPercentageToDP(-6), resizeMode:'contain'}}/>
+                    <ScrollView>
                     <View style={{ flex: 1, flexDirection: 'column',alignItems: 'center', }}>
+
 
                             <TouchableOpacity onPress={ () => navigation.navigate('Payment', {
                                 subscription: 'Amethyst'
@@ -54,7 +57,10 @@ function SubscriptionScreen() {
 
                                 <Image source={sub3} style={{width: widthPercentageToDP(70), height: heightPercentageToDP(10), resizeMode:'contain', right: 3,marginTop: 4}}/>
                             </TouchableOpacity>
+                            
                         </View>
+                        </ScrollView>
+                      
                 </ImageBackground>
             <NavBar/>
         </View>
