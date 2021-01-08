@@ -10,6 +10,7 @@ import submitPhoto from "../../../assets/submitPhoto.png";
 import photoGallery from "../../../assets/photoGallery.png";
 
 
+
 function VirtualCoffeeReadingScreen() {
     const [image, setImage] = useState(null);
     // useEffect(() => {
@@ -50,7 +51,7 @@ function VirtualCoffeeReadingScreen() {
             {image && <Image source={{uri: image}} style={{marginTop:20, height: '40%', width: '80%', borderWidth:5, borderColor: '#FFF'}} />}
             <Image source={virtualImage} style={{marginTop:10}}/>
             {image && <View>
-                <TouchableOpacity onPress={() => navigation.navigate('ReadingAnimation2')}>
+                <TouchableOpacity onPress={() => navigation.navigate('ReadingAnimationScreen2')}>
                     <Image source={submitPhoto} style={{marginTop:30}} />
                 </TouchableOpacity>
             </View>}

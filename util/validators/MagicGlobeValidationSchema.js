@@ -5,6 +5,6 @@ export default MagicGlobeValidationSchema = yup.object().shape({
     name: yup
     .string()
     .max(40)
-    .required('Please enter thier name!'),
+    .required('Please enter their name!'),
     
 })

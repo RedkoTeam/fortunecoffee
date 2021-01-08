@@ -255,10 +255,10 @@ function HomeScreen({ navigation }) {
             </TouchableOpacity>
 
 
-            </View>
+            </View>git 
           </Modal>
 
-          {/* <Button title="Reset Crystals" onPress={ () => { console.log("Async Storage Cleared"); AsyncStorage.clear();}}></Button> */}
+         {/*  <Button title="Reset Crystals" onPress={ () => { console.log("Async Storage Cleared"); AsyncStorage.clear();}}></Button> */}
 
           <View style={{ flexDirection: 'row', justifyContent: 'space-evenly' }}>
             <TouchableOpacity 

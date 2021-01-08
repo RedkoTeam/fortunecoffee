@@ -52,6 +52,7 @@ import VirtualThree from './src/screens/virtual/VirtualThree'
 import VirtualFour from './src/screens/virtual/VirtualFour'
 import VirtualFive from './src/screens/virtual/VirtualFive'
 import VirtualLoadingScreen from './src/screens/virtual/VirtualLoadingScreen'
+import ReadingAnimationScreen2 from './src/screens/ReadingAnimationScreen2'
 
 
 // ONLY STORE NAVIGATION HERE
@@ -83,6 +84,7 @@ function App() {
         <Stack.Screen name="SignUp" component={SignUpScreen} />
         <Stack.Screen name="SignIn" component={SignInScreen} />
         <Stack.Screen name="ReadingAnimation" component={ReadingAnimationScreen} />
+        <Stack.Screen name="ReadingAnimationScreen2" component={ReadingAnimationScreen2} />
         <Stack.Screen name="Reading" component={Reading} />
         <Stack.Screen name="ReadMore" component={ReadMore} />
         <Stack.Screen name="SubscriptionScreen" component={SubscriptionScreen} />

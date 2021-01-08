@@ -5,7 +5,7 @@ import readingAnimationBackground
     from "../../assets/FortuneCoffeePNGassets/readingAnimationPage/readingAnimationBackground.png";
 import readingPhoto from "../../assets/FortuneCoffeePNGassets/readingAnimationPage/readingPhoto.png";
 import cameraP from "../../assets/FortuneCoffeePNGassets/readingAnimationPage/cameraP.png";
-
+import {widthPercentageToDP,heightPercentageToDP} from '../../util/scaler';
 
 function ReadingAnimationScreen2({navigation}){
     const rotateValueHolder = useRef(new Animated.Value(0)).current;
@@ -38,14 +38,15 @@ function ReadingAnimationScreen2({navigation}){
     return(
         <View style={styles.mainContainer}>
             <ImageBackground source={ readingAnimationBackground } style={ styles.readingAnimationBackground }>
-                <Image source={ readingPhoto } style={ styles.readingCoffeeImage } />
+                <Image source={ readingPhoto } style={styles.readingCoffeeImage} />
                 <Animated.View>
                     <Animated.Image style={ {
+                        bottom:450,
                         width: 200,
                         height: 200,
                         transform: [ { rotate: RotateData } ]
                     } }
-                                    source={cameraP}
+                                    source={cameraP} 
                     />
                 </Animated.View>
             </ImageBackground>
