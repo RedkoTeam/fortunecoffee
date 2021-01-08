@@ -196,7 +196,7 @@ function HomeScreen({ navigation }) {
     // navigation.navigate('VirtualOne')
     FortuneCardCounter().then((result)=>{
       console.log("THe user can go to next screen : ", result)
-      if(result){
+      if(result.userCanView){
         // Continue to virtual Coffee Reading.
         navigation.navigate('VirtualOne')
       }else{
@@ -213,7 +213,7 @@ function HomeScreen({ navigation }) {
     // navigation.navigate('VirtualOne')
     FortuneCardCounter().then((result)=>{
       console.log("THe user can go to next screen : ", result)
-      if(result){
+      if(result.userCanView){
         // Continue to photo navigation page.
         navigation.navigate('Virtual')
       }else{

@@ -25,6 +25,9 @@ import cardz from "../../../assets/FortuneCoffeePNGassets/Profile/cardz.png";
 import { Dimensions } from 'react-native';
 import {widthPercentageToDP,heightPercentageToDP,} from '../../../util/scaler'
 import LogOutUser from '../../../util/LogOutUser';
+import GetItemInStorage from "../../../util/GetItemInStorage";
+import SaveItemInStorage from '../../../util/SaveItemInStorage'
+
 
 
 function ProfileLoggedIn({route}) {
@@ -37,6 +40,7 @@ function ProfileLoggedIn({route}) {
     const [month, setMonth] = useState('')
     const [day, setDay] = useState('')
     const [year, setYear] = useState('')
+    const [fortune, setFortunes] = useState('0');
 
     const pullProfileInfo = () => {
         try{
@@ -53,9 +57,14 @@ function ProfileLoggedIn({route}) {
                     setMonth(data.month)
                     setDay(data.day)
                     setYear(data.year)
+                    setFortunes(data.totalFortunes)
                 } else {
                     // doc.data() will be undefined in this case
                     console.log("No such document!");
+                    if(!GetItemInStorage("FORTUNE_READING_COUNT")){
+                        SaveItemInStorage("FORTUNE_READING_COUNT", "5")
+                    }
+                    setFortunes(GetItemInStorage("FORTUNE_READING_COUNT"))
                 }
             }).catch(function (error) {
             console.log("Error getting document:", error);
@@ -83,6 +92,8 @@ function ProfileLoggedIn({route}) {
     },[navigation])
 
 
+
+
     return isLoggedIn ? (
         <>
         <View style={{flex: 1, alignItems: 'center'}}>
@@ -102,10 +113,9 @@ function ProfileLoggedIn({route}) {
                 </View>
                 <TouchableOpacity>
                     <Image source={cardz} style={{marginTop:"0%", marginLeft:"60%"}}/>
-                    <Text style={{marginTop:"-5%",  marginLeft:"60%",fontSize:24,color:'#FFFFFF'}}>2</Text >  
-
+                    <Text style={{marginTop:"-5%",  marginLeft:"60%",fontSize:24,color:'#FFFFFF'}}>{fortune}</Text >  
                     {/* ADD HERE THE CARD COUNT */}
-                    </TouchableOpacity>
+                </TouchableOpacity>
 
                 <View style={{flex: 1, flexDirection:'column', alignItems: 'center', width: widthPercentageToDP('100'), height: heightPercentageToDP('100')}}>
                     <ScrollView>
@@ -167,7 +177,7 @@ function ProfileLoggedIn({route}) {
 
                     }
                     <Image source={cardz} style={{marginTop:"10%", marginLeft: '10%'}}/>
-                    <Text style={{marginTop:"-5%", marginLeft: '-5%', fontSize:24,color:'#FFFFFF'}}>2</Text >  
+                    <Text style={{marginTop:"-5%", marginLeft: '-5%', fontSize:24,color:'#FFFFFF'}}>{fortune}</Text >  
 
                     {/* ADD HERE THE CARD COUNT */}
 

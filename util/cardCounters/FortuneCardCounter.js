@@ -30,19 +30,26 @@ export default FortuneCardCounter = async () =>{
     /////////////////////////////////////////////////////
 
     let date; 
+    let result;
     // Set variables based on userLoginStatus
     if(_isLoggedIn){
       console.log("Using data from logged in users")
       _dbRef = db.collection('users').doc(firebase.auth().currentUser.uid);
       _totalFortunes = await (await _dbRef.get()).data().totalFortunes;
-      let newTotalFortunes = _totalFortunes - 1;
+      let newTotalFortunes = (_totalFortunes - 1).toString();
       if(_totalFortunes>0){
         _dbRef.update({
           totalFortunes: newTotalFortunes
         })
-        await SaveItemInStorage("FORTUNE_READING_COUNT", newTotalFortunes.toString());
+        await SaveItemInStorage("FORTUNE_READING_COUNT", newTotalFortunes);
         await SaveItemInStorage("FORTUNE_READING_LAST_USE", new Date().getTime().toString());
-        return true;
+        
+        result = {
+          count:  newTotalFortunes,
+          userCanView: true
+        }
+
+        return result;
       }
       else{
         date = await GetItemInStorage("FORTUNE_READING_LAST_USE");
@@ -64,12 +71,21 @@ export default FortuneCardCounter = async () =>{
           // Set the new date. 
           await SaveItemInStorage("FORTUNE_READING_COUNT", "4");
           await SaveItemInStorage("FORTUNE_READING_LAST_USE",new Date().getTime().toString());
-          return true;
+          
+          result = {
+            count: "4",
+            userCanView: true
+          }
+          return result;
         }
         else{
           // ----------- IF the user is not past one week --------------- //
           console.log("It has not been past one week")
-          return false;
+          result = {
+            count: "0",
+            userCanView: false
+          }
+          return result;
         }  
       } 
     }
@@ -95,11 +111,15 @@ export default FortuneCardCounter = async () =>{
 
         // Pull the count, remove one and return true
         console.log("Deleting from current count")
-        let newFortuneCount = (parseInt(newFortuenCardCount.toString())) - 1;
-        await SaveItemInStorage("FORTUNE_READING_COUNT", newFortuneCount.toString())
+        let newFortuneCount = ((parseInt(newFortuenCardCount.toString())) - 1).toString();
+        await SaveItemInStorage("FORTUNE_READING_COUNT", newFortuneCount)
         let currentFortuneCount = await GetItemInStorage("FORTUNE_READING_COUNT")
         console.log("Remaining Tries: ", currentFortuneCount)
-        return true;
+        result = {
+          userCanView: true,
+          count: newFortuneCount
+        }
+        return result;
       }
       else{
         console.log("Current count of FortuneCardCount: ", fortuneCardCount)
@@ -107,11 +127,15 @@ export default FortuneCardCounter = async () =>{
         // Pull the count, remove one and return true
         if(fortuneCardCount > 0){
           console.log("Deleting from current count")
-          let newFortuneCount = (parseInt(fortuneCardCount.toString())) - 1;
+          let newFortuneCount = ((parseInt(fortuneCardCount.toString())) - 1).toString();
           await SaveItemInStorage("FORTUNE_READING_COUNT", newFortuneCount.toString())
           let currentFortuneCount = await GetItemInStorage("FORTUNE_READING_COUNT")
           console.log("Remaining Tries: ", currentFortuneCount)
-          return true;
+          result = {
+            userCanView: true,
+            count: newFortuneCount
+          }
+          return result;
         }
         else{
           
@@ -145,11 +169,15 @@ export default FortuneCardCounter = async () =>{
 
             // Pull the count, remove one and return true
             console.log("Deleting from current count")
-              let newFortuneCount = (parseInt(fortuneCardCount.toString())) - 1;
-              await SaveItemInStorage("FORTUNE_READING_COUNT", newFortuneCount.toString())
+              let newFortuneCount = ((parseInt(fortuneCardCount.toString())) - 1).toString();
+              await SaveItemInStorage("FORTUNE_READING_COUNT", newFortuneCount)
               let currentFortuneCount = await GetItemInStorage("FORTUNE_READING_COUNT")
               console.log("Remaining Tries: ", currentFortuneCount)
-              return true;
+              result = {
+                count: newFortuneCount,
+                userCanView: true
+              }
+              return result;
 
           }else{
            await SaveItemInStorage("FORTUNE_READING_COUNT", "5");
@@ -158,11 +186,15 @@ export default FortuneCardCounter = async () =>{
 
            // Pull the count, remove one and return true
            console.log("Deleting from current count")
-           let newFortuneCount = (parseInt(fortuneCardCount.toString())) - 1;
-           await SaveItemInStorage("FORTUNE_READING_COUNT", newFortuneCount.toString())
+           let newFortuneCount = ((parseInt(fortuneCardCount.toString())) - 1).toString();
+           await SaveItemInStorage("FORTUNE_READING_COUNT", newFortuneCount)
            let currentFortuneCount = await GetItemInStorage("FORTUNE_READING_COUNT")
            console.log("Remaining Tries: ", currentFortuneCount)
-           return true;
+           result = {
+             userCanView: true,
+             count: newFortuneCount
+           }
+           return result;
 
           }
 
@@ -181,11 +213,15 @@ export default FortuneCardCounter = async () =>{
 
             // Pull the count, remove one and return true
             console.log("Deleting from current count")
-              let newFortuneCount = (parseInt(fortuneCardCount.toString())) - 1;
-              await SaveItemInStorage("FORTUNE_READING_COUNT", newFortuneCount.toString())
+              let newFortuneCount = ((parseInt(fortuneCardCount.toString())) - 1).toString();
+              await SaveItemInStorage("FORTUNE_READING_COUNT", newFortuneCount)
               let currentFortuneCount = await GetItemInStorage("FORTUNE_READING_COUNT")
               console.log("Remaining Tries: ", currentFortuneCount)
-              return true;
+              result = {
+                userCanView: true,
+                count: newFortuneCount
+              }
+              return result;
 
           }else{
             // The fortune exists. Pull and set the count
@@ -193,14 +229,22 @@ export default FortuneCardCounter = async () =>{
 
             if(fortuneCardCount > 0){
               console.log("Deleting from current count")
-              let newFortuneCount = (parseInt(fortuneCardCount.toString())) - 1;
-              await SaveItemInStorage("FORTUNE_READING_COUNT", newFortuneCount.toString())
+              let newFortuneCount = ((parseInt(fortuneCardCount.toString())) - 1).toString();
+              await SaveItemInStorage("FORTUNE_READING_COUNT", newFortuneCount)
               let currentFortuneCount = await GetItemInStorage("FORTUNE_READING_COUNT")
               console.log("Remaining Tries: ", currentFortuneCount)
-              return true;
+              result = {
+                count: newFortuneCount,
+                userCanView: true
+              }
+              return result;
             }else{
               console.log("RETURNING, hey you used all ur card counts, please wait for a week.")
-              return false;
+              result = {
+                userCanView: false,
+                count: "0"
+              }
+              return result;
             }
 
           }
