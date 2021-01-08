@@ -321,7 +321,7 @@ function HomeScreen({ navigation }) {
 
       let oldFortuneData = await GetItemInStorage("PREVIOUS_FORTUNE_COUNT")
       let parsedOld = parseInt(oldFortuneData);
-      if(parsedOld < _totalFortunes){
+      if(parsedOld < _totalFortunes && parsedOld !== 0 ){
         console.log("The user bought gems!");
         console.log(_totalFortunes)
         await SaveItemInStorage("PREVIOUS_FORTUNE_COUNT", _totalFortunes.toString())
@@ -329,6 +329,7 @@ function HomeScreen({ navigation }) {
         // Show the screen
       }else{
         console.log("The user didn't buy gems!")
+        await SaveItemInStorage("PREVIOUS_FORTUNE_COUNT", _totalFortunes.toString())
       }
     }else{
       console.log("User isnt logged in, will not check for previous bought gems")
