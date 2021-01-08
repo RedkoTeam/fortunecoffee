@@ -48,6 +48,7 @@ function HomeScreen({ navigation }) {
   const [meaning, setMeaning] = useState(dummyPath);
   const [boughtGems, setBoughtGems] = useState(false);
 
+  
   const toggleModal = () => {
     setModalVisible(!isModalVisible);
   };

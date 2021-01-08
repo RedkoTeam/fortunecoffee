@@ -142,16 +142,16 @@ function Payment({navigation, route}) {
 
   return (
     <View style={styles.container}>
-        <TouchableOpacity onPress={()=>navigation.navigate('Home')} style={styles.backButtonStyle}>
-            <Image source={backButton} />
-        </TouchableOpacity>
-        <Text>{result && JSON.stringify(result)}</Text>
-
-        <TouchableOpacity onPress={()=>navigation.navigate('Home')} style={styles.backButtonStyle}>
-            <Text> Nice! You recieved fortunes and gems!</Text>
-
-        </TouchableOpacity>
-    </View>
+        <ImageBackground source={gemsbg} style={styles.bgfull}>
+                <View style={{ flex: 0.7, flexDirection: 'row', width: '100%', justifyContent: 'space-between', padding: 25, marginBottom:"50%" }}>
+                    <View style={{position:'absolute', top:0, flexDirection:'row', width:'100%', margin:10}}>
+                        <TouchableOpacity onPress={()=>{navigation.navigate('Home')}}>
+                            <Image source={backButton} style={styles.backButtonStyle}/>
+                        </TouchableOpacity>
+                    </View>
+                </View>
+        </ImageBackground>
+        </View>
         )
 }
 
