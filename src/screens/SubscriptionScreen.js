@@ -46,18 +46,18 @@ function SubscriptionScreen() {
                                 <Image source={sub2} style={{width: widthPercentageToDP(70), height: heightPercentageToDP(10.2), resizeMode:'contain', right: 3, marginTop: -4}}/>
                             </TouchableOpacity>
                             
-                            <TouchableOpacity onPress={() => navigation.navigate('Payment', {
-                                subscription: 'Sapphire'
-                            })}>
-                                <Image source={sub4} style={{width: widthPercentageToDP(70), height: heightPercentageToDP(10), resizeMode:'contain', right: 3,marginTop: 1}}/>
-                            </TouchableOpacity>
+                           
                             <TouchableOpacity onPress={() => navigation.navigate('Payment', {
                                 subscription: "Tiger's Eye"
                             })}>
 
                                 <Image source={sub3} style={{width: widthPercentageToDP(70), height: heightPercentageToDP(10), resizeMode:'contain', right: 3,marginTop: 4}}/>
                             </TouchableOpacity>
-                            
+                            <TouchableOpacity onPress={() => navigation.navigate('Payment', {
+                                subscription: 'Sapphire'
+                            })}>
+                                <Image source={sub4} style={{width: widthPercentageToDP(70), height: heightPercentageToDP(10), resizeMode:'contain', right: 3,marginTop: 1}}/>
+                            </TouchableOpacity>
                         </View>
                         </ScrollView>
                       

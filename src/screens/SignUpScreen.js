@@ -26,6 +26,10 @@ import haveAcctText from "../../assets/FortuneCoffeePNGassets/Sign/haveAcctText.
 import loginText from "../../assets/FortuneCoffeePNGassets/Sign/loginText.png";
 import {widthPercentageToDP,heightPercentageToDP,} from '../../util/scaler'
 
+// Async Storage
+import SaveItemInStorage from '../../util/SaveItemInStorage'
+import GetItemInStorage from '../../util/GetItemInStorage'
+
 function SignUpScreen({ navigation }) {
     const [visible, setVisible] = useState(false);
     const [currentError, setCurrentError] = useState("");
@@ -46,8 +50,11 @@ function SignUpScreen({ navigation }) {
                     return db.collection('users').doc(data.user.uid).set({
                         userName: values.email,
                         subscriptionLevel: 0,
-                        totalGems: 0
+                        totalGems: 3,
+                        totalFortunes: 5,
                     }).then( () => {
+                        SaveItemInStorage("FORTUNE_READING_COUNT", "5");
+                        SaveItemInStorage("REGULAR_READING_COUNT", "3");
                         console.log('User account created & signed in!');
                         navigation.navigate('ProfileDetails')
                     })

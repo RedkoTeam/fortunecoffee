@@ -81,7 +81,7 @@ function FavoritesScreen() {
                 >
                     {favoritesData.map((item, index) =>{
                         return(
-                            <View  index={index} style={{padding:30, flex: 1 }}>    
+                            <View  key={index} style={{padding:30, flex: 1 }}>    
                                 {/* This is the container for THE FORTUNES */}
                                 <ImageBackground source={fortuneBox} imageStyle={{resizeMode:'stretch'}} style={{flex: 1, width: widthPercentageToDP(87), height: heightPercentageToDP(60), }}>
                                     <Text style={{color:'white', fontWeight:'bold', fontSize: widthPercentageToDP(5), alignSelf: 'center', top: heightPercentageToDP(4),}}>{item.date}</Text>
