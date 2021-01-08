@@ -19,6 +19,7 @@ import NavBar_pro from "../../navbars/NavBar_Profile";
 import profilebgnotlogged from "../../../assets/FortuneCoffeePNGassets/profile_login.png";
 import SignUpButton from "../../../assets/FortuneCoffeePNGassets/HomePage/SignUpButton.png";
 import SignInButton from "../../../assets/FortuneCoffeePNGassets/HomePage/SignInButton.png";
+import manageSubs from "../../../assets/FortuneCoffeePNGassets/Profile/managesubs.png";
 import appcredsbtn from "../../../assets/FortuneCoffeePNGassets/Profile/appcredits.png";
 import { Dimensions } from 'react-native';
 import {widthPercentageToDP,heightPercentageToDP,} from '../../../util/scaler'
@@ -120,6 +121,11 @@ function ProfileLoggedIn({route}) {
                     <Text style={{marginTop:20, marginRight:"50%",marginBottom:20, fontSize:15,color:'#FFFFFF'}}> {employment} </Text>
 
                     <Image source={proline} />
+
+
+                    <TouchableOpacity>
+                    <Image source={manageSubs} style={{marginTop:30}}/>
+                    </TouchableOpacity>
                     </ScrollView>
 
                 </View>
