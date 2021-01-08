@@ -58,7 +58,7 @@ function SignUpScreen({ navigation }) {
                         await SaveItemInStorage("AUTH_EMAIL", values.email);
                         await SaveItemInStorage("AUTH_PASSWORD", values.password);
                         console.log('User account created & signed in!');
-                        navigation.navigate('ProfileDetails')
+                        navigation.navigate('SubscriptionScreen')
                     })
                 })
                 .catch(async (error) => {
