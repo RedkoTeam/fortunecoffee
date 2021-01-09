@@ -17,6 +17,9 @@ import FortuneModal from './src/screens/FortuneModal'
 import Psychic from './src/screens/Psychic'
 import Manifest from './src/screens/Manifest'
 import SendingUni from './src/screens/SendingUni'
+import SendingUni2 from './src/screens/SendingUni2'
+import SendingUni3 from './src/screens/SendingUni3'
+import SendingUni4 from './src/screens/SendingUni4'
 import SomeoneFortune1 from './src/screens/SomeoneFortune1'
 import SomeoneFortune from './src/screens/SomeoneFortune'
 import LunaChat from './src/screens/luna/LunaChat'
@@ -116,6 +119,9 @@ function App() {
         <Stack.Screen name="LunaChat" component={LunaChat} />
         <Stack.Screen name="Manifest" component={Manifest} />
         <Stack.Screen name="SendingUni" component={SendingUni} />
+        <Stack.Screen name="SendingUni2" component={SendingUni2} />
+        <Stack.Screen name="SendingUni3" component={SendingUni3} />
+        <Stack.Screen name="SendingUni4" component={SendingUni4} />
         <Stack.Screen name="SomeoneFortune" component={SomeoneFortune} />
         <Stack.Screen name="SomeoneFortune1" component={SomeoneFortune1} />
         <Stack.Screen name="Gems" component={Gems} />

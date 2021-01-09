@@ -62,7 +62,7 @@ function Manifest() {
                                    placeholderTextColor='#DCDCDC'
                                    autoCapitalize='none'
                         />
-                    <TouchableOpacity onPress={()=>{navigation.navigate('SendingUni')}}>
+                    <TouchableOpacity onPress={()=>{navigation.navigate('SendingUni2')}}>
                         <Image source={sendtouni}  style={{ alignItems: 'center', }} />
                     </TouchableOpacity>
                     </View>
