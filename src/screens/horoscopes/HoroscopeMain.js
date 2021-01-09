@@ -1,7 +1,7 @@
 
 //HOROSCOPE MAIN
 import {useNavigation} from "@react-navigation/native";
-import {Image, ImageBackground, View} from "react-native";
+import {Image, ImageBackground, View, ScrollView} from "react-native";
 import {TouchableOpacity} from 'react-native';
 import bgstars from "../../../assets/Bgstar.png";
 import styles from "../../styles/styles";
@@ -36,54 +36,56 @@ function HoroscopeMain({}) {
     <View style={{flex: 1}}>    
         <ImageBackground source={bgstars} style={styles.bgfull}>
                     <Image source={Horoscopetxt} style={{marginTop:widthPercentageToDP(20)}} />
+                    <ScrollView>
                     <View style={{justifyContent: 'center', padding:15 }}>
                     <View style={{ flexDirection: 'row', justifyContent: 'center',marginTop:widthPercentageToDP(10)}}>
                         <TouchableOpacity onPress={() => navigation.navigate('HoroscopeAries')}>
-                            <Image source={Ariesbttn} style={{width :widthPercentageToDP('21'), height :heightPercentageToDP('14'), resizeMode:'contain'}}/>
+                            <Image source={Ariesbttn} style={{width :widthPercentageToDP('23'), height :heightPercentageToDP('16'), resizeMode:'contain', marginRight:10}}/>
                         </TouchableOpacity>
                         <TouchableOpacity onPress={() => navigation.navigate('HoroscopeTaurus')}>
-                            <Image source={Taurusbttn} style={{width :widthPercentageToDP('21'), height :heightPercentageToDP('14'), resizeMode:'contain'}}/>
+                            <Image source={Taurusbttn} style={{width :widthPercentageToDP('23'), height :heightPercentageToDP('16'), resizeMode:'contain'}}/>
                         </TouchableOpacity>
                         <TouchableOpacity onPress={() => navigation.navigate('HoroscopeGemini')}>
-                            <Image source={Geminibttn} style={{width :widthPercentageToDP('21'), height :heightPercentageToDP('14'), resizeMode:'contain'}}/>
+                            <Image source={Geminibttn} style={{width :widthPercentageToDP('23'), height :heightPercentageToDP('16'), resizeMode:'contain', marginLeft:10}}/>
                         </TouchableOpacity>
                     </View>
-                    <View style={{ flexDirection: 'row', justifyContent: 'center', padding:2 }}>
+                    <View style={{ flexDirection: 'row', justifyContent: 'center', padding:"4%" }}>
                         <TouchableOpacity onPress={() => navigation.navigate('HoroscopeCancer')}>
-                            <Image source={Cancerbttn} style={{width :widthPercentageToDP('21'), height :heightPercentageToDP('14'), resizeMode:'contain'}}/>
+                            <Image source={Cancerbttn} style={{width :widthPercentageToDP('23'), height :heightPercentageToDP('16'), resizeMode:'contain', marginRight:10}}/>
                         </TouchableOpacity>
                         <TouchableOpacity onPress={() => navigation.navigate('HoroscopeLeo')}>
-                            <Image source={Leobttn} style={{width :widthPercentageToDP('21'), height :heightPercentageToDP('14'), resizeMode:'contain'}}/>
+                            <Image source={Leobttn} style={{width :widthPercentageToDP('23'), height :heightPercentageToDP('16'), resizeMode:'contain'}}/>
                         </TouchableOpacity>
                         <TouchableOpacity onPress={() => navigation.navigate('HoroscopeVirgo')}>
-                            <Image source={Virgobttn} style={{width :widthPercentageToDP('21'), height :heightPercentageToDP('14'), resizeMode:'contain'}}/>
+                            <Image source={Virgobttn} style={{width :widthPercentageToDP('23'), height :heightPercentageToDP('16'), resizeMode:'contain', marginLeft:10}}/>
                         </TouchableOpacity>
                     </View>
-                    <View style={{ flexDirection: 'row', justifyContent: 'center',  padding:2}}>
+                    <View style={{ flexDirection: 'row', justifyContent: 'center',  padding:"2%"}}>
                         <TouchableOpacity onPress={() => navigation.navigate('HoroscopeLibra')}>
-                            <Image source={Librabttn} style={{width :widthPercentageToDP('21'), height :heightPercentageToDP('14'), resizeMode:'contain'}}/>
+                            <Image source={Librabttn} style={{width :widthPercentageToDP('23'), height :heightPercentageToDP('16'), resizeMode:'contain', marginRight:10}}/>
                         </TouchableOpacity>
                         <TouchableOpacity onPress={() => navigation.navigate('HoroscopeScorpio')}>
-                            <Image source={Scorpiobttn} style={{width :widthPercentageToDP('21'), height :heightPercentageToDP('14'), resizeMode:'contain'}}/>
+                            <Image source={Scorpiobttn} style={{width :widthPercentageToDP('23'), height :heightPercentageToDP('16'), resizeMode:'contain'}}/>
                         </TouchableOpacity>
                         <TouchableOpacity onPress={() => navigation.navigate('HoroscopeSagittarius')}>
-                            <Image source={Sagittariusbttn} style={{width :widthPercentageToDP('21'), height :heightPercentageToDP('14'), resizeMode:'contain'}}/>
+                            <Image source={Sagittariusbttn} style={{width :widthPercentageToDP('23'), height :heightPercentageToDP('16'), resizeMode:'contain',marginLeft:10}}/>
                         </TouchableOpacity>
                     </View>
-                    <View style={{ flexDirection: 'row', justifyContent: 'center', padding:2 }}>
+                    <View style={{ flexDirection: 'row', justifyContent: 'center', padding:"2%" }}>
                         <TouchableOpacity onPress={() => navigation.navigate('HoroscopeCapricorn')}>
-                            <Image source={Capribttn} style={{width :widthPercentageToDP('21'), height :heightPercentageToDP('14'), resizeMode:'contain'}}/>
+                            <Image source={Capribttn} style={{width :widthPercentageToDP('23'), height :heightPercentageToDP('16'), resizeMode:'contain', marginRight:10}}/>
                         </TouchableOpacity>
                         <TouchableOpacity onPress={() => navigation.navigate('HoroscopeAquarius')}>
-                            <Image source={Aquariusbttn} style={{width :widthPercentageToDP('21'), height :heightPercentageToDP('14'), resizeMode:'contain'}}/>
+                            <Image source={Aquariusbttn} style={{width :widthPercentageToDP('23'), height :heightPercentageToDP('16'), resizeMode:'contain'}}/>
                         </TouchableOpacity>
                         <TouchableOpacity onPress={() => navigation.navigate('HoroscopePisces')}>
-                            <Image source={Piscesbttn} style={{width :widthPercentageToDP('21'), height :heightPercentageToDP('14'), resizeMode:'contain'}}/>
+                            <Image source={Piscesbttn} style={{width :widthPercentageToDP('23'), height :heightPercentageToDP('16'), resizeMode:'contain', marginLeft:10}}/>
                         </TouchableOpacity>
                     </View>
-                </View>
+                    </View>
+                
                 <View style={{height :widthPercentageToDP(35)}}>
-                </View>
+                </View></ScrollView>
              </ImageBackground>
         <NavBar_hor  />
 

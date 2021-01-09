@@ -146,7 +146,7 @@ function HomeScreen({ navigation }) {
       <Modal isVisible={isModalVisible}>
         <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center',  alignSelf: 'center',}}>
               {/* IMAGE */}
-            <Image source={submodfo} style={{ height: heightPercentageToDP('48'), width: widthPercentageToDP('86'),
+            <Image source={crystalBackground} style={{ height: heightPercentageToDP('48'), width: widthPercentageToDP('86'),
               resizeMode: 'stretch', borderRadius:36}} />
             {/* X */}
             <TouchableOpacity style={{position: 'absolute', zIndex: 20, top: heightPercentageToDP(25), right: 25}} onPress={()=>{
@@ -211,7 +211,7 @@ function HomeScreen({ navigation }) {
             
             <View style={{flex:1, alignItems: 'center',justifyContent: 'center', alignSelf:'center'}}>
               {/* IMAGE BACKGROUND */}
-              <Image source={crystalBackground} style={{height: heightPercentageToDP('48'), width: widthPercentageToDP('86'), resizeMode: 'stretch', borderRadius:36}} />
+              <Image source={submodfo} style={{height: heightPercentageToDP('48'), width: widthPercentageToDP('86'), resizeMode: 'stretch', borderRadius:36}} />
               {/* X BUTTON */}
               <TouchableOpacity style={{
                 position: 'absolute', zIndex: 20, 
@@ -263,17 +263,6 @@ function HomeScreen({ navigation }) {
 
   return (
       <View style={{flex: 1}}>
-        <Modal isVisible={boughtGems} style={{}}>
-          <ImageBackground source={gemsbg} style={{flex: 1}}>
-                  <View style={{ flex: 1, flexDirection: 'row', width: '100%', justifyContent: 'space-between', padding: 25, marginBottom:"50%" }}>
-                      <View style={{position:'absolute', top:0, flexDirection:'row', width:'100%', margin:10}}>
-                          <TouchableOpacity onPress={()=>{ setBoughtGems(false)}}>
-                              <Image source={backButton} style={styles.backButtonStyle}/>
-                          </TouchableOpacity>
-                      </View>
-                  </View>
-          </ImageBackground>
-        </Modal>
         <Modal isVisible={isModalVisible} style={{}}>
               {Render_CardModule()}
         </Modal>

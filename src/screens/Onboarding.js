@@ -23,7 +23,7 @@ function Onboarding({}){
     return (
         <ViewPager style={styles.virtualContainer} initialPage={0} ref={pagerRef}>
             <View key="1">
-                <ImageBackground source={OnboardingBg} style={styles.virtualOne}>
+                <ImageBackground source={OnboardingBg} style={styles.virtualOne2}>
                     <View style={{justifyContent:'flex-end', paddingTop: '45%',  paddingRight: widthPercentageToDP(32)}}>
                         <TouchableOpacity onPress={() => handlePageChange(1)} >
                             <Image source={Next} />
@@ -32,7 +32,7 @@ function Onboarding({}){
                 </ImageBackground>
             </View>
             <View key="2">
-                <ImageBackground source={OnboardingBg1} style={styles.virtualOne}>
+                <ImageBackground source={OnboardingBg1} style={styles.virtualOne2}>
                     <View style={{justifyContent:'flex-end',  paddingTop: '45%',  paddingLeft: widthPercentageToDP(26)}}>
                         <TouchableOpacity onPress={() => handlePageChange(2)} >
                             <Image source={Next} />
@@ -41,7 +41,7 @@ function Onboarding({}){
                 </ImageBackground>
             </View>
             <View key="3">
-                <ImageBackground source={OnboardingBg2} style={styles.virtualOne}>
+                <ImageBackground source={OnboardingBg2} style={styles.virtualOne2}>
                     <View style={{justifyContent:'flex-end',  paddingBottom: '80%',paddingLeft: widthPercentageToDP(5) }}>
                         <TouchableOpacity onPress={() =>  handlePageChange(3)} >
                             <Image source={Next} />
@@ -50,7 +50,7 @@ function Onboarding({}){
                 </ImageBackground>
             </View>
             <View key="4">
-                <ImageBackground source={OnboardingBg3} style={styles.virtualOne}>
+                <ImageBackground source={OnboardingBg3} style={styles.virtualOne2}>
                     <View style={{justifyContent:'flex-end', paddingTop:'150%'}}>
                         <TouchableOpacity onPress={() =>  handlePageChange(4)} >
                             <Image source={getStarted} />
@@ -59,7 +59,7 @@ function Onboarding({}){
                 </ImageBackground>
             </View>
             <View key="5">
-                <ImageBackground source={OnboardingBg4} style={styles.virtualOne}>
+                <ImageBackground source={OnboardingBg4} style={styles.virtualOne2}>
                     <View style={{justifyContent:'flex-end', paddingTop: '150%' }}>
                         <TouchableOpacity onPress={() => navigation.navigate('Home')} >
                             <Image source={getStarted} />

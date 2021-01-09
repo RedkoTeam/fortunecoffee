@@ -148,6 +148,16 @@ const styles = StyleSheet.create({
         opacity: 0.7,
     },
 
+    virtualOne2: {
+        flex: 1,
+        resizeMode:'cover',
+        justifyContent: 'center',
+        alignItems: 'center',
+        width:'100%',
+        opacity: 1,
+    },
+
+
     virtualOne1: {
         flex: 1,
         resizeMode:'cover',
