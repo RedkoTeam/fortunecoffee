@@ -7911,6 +7911,11 @@
   "resolved" "https://registry.npmjs.org/react-native-size-matters/-/react-native-size-matters-0.3.1.tgz"
   "version" "0.3.1"
 
+"react-native-sound@^0.11.0":
+  "integrity" "sha512-4bGAZfni6E2L695NQjOZwNLBQGXgBGYC4Sy+h99K5h0HqNZjCqR0+aLel+ezASxEJDpaH83gylNObXpiqJgdwg=="
+  "resolved" "https://registry.npmjs.org/react-native-sound/-/react-native-sound-0.11.0.tgz"
+  "version" "0.11.0"
+
 "react-native-unimodules@~0.12.0":
   "integrity" "sha512-/c1d3hr+3C3yIwhSoX+KTzy0+C9cnjUvenXP2uV8X2V3ZflnPB/HQXwZPHHWITmD89HP2n3NcPBTu4UgOv/KzQ=="
   "resolved" "https://registry.npmjs.org/react-native-unimodules/-/react-native-unimodules-0.12.0.tgz"
@@ -7965,7 +7970,7 @@
     "prop-types" "^15.6.0"
     "react-timer-mixin" "^0.13.4"
 
-"react-native@~0.63.4":
+"react-native@>=0.8.0", "react-native@~0.63.4":
   "integrity" "sha512-I4kM8kYO2mWEYUFITMcpRulcy4/jd+j9T6PbIzR0FuMcz/xwd+JwHoLPa1HmCesvR1RDOw9o4D+OFLwuXXfmGw=="
   "resolved" "https://registry.npmjs.org/react-native/-/react-native-0.63.4.tgz"
   "version" "0.63.4"
