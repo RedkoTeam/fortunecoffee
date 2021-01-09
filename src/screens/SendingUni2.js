@@ -1,4 +1,4 @@
-import {useNavigation} from "@react-navigation/native";
+import {useLinkTo, useNavigation} from "@react-navigation/native";
 import {Image, ImageBackground, View} from "react-native";
 import ViewPager from "@react-native-community/viewpager";
 import {TouchableOpacity} from 'react-native-gesture-handler';
@@ -44,6 +44,14 @@ function SendingUni2(){
           : undefined;
       }, [sound]);
 
+    React.useEffect(()=>{
+        const unsubscribe = navigation.addListener('focus', async  () => {
+            await playSound();
+        });
+        return unsubscribe;
+    
+      },[navigation])
+    
 
     return (
         <ViewPager style={styles.virtualContainer} initialPage={0} ref={pagerRef}>
@@ -64,7 +72,6 @@ function SendingUni2(){
             <View key="3">
             <ImageBackground source={sendingbg4} style={styles.bgfull}>
                 <TouchableOpacity onPress={async () => {
-                    await playSound();
                     handlePageChange(4);
                     }}>
                 <Image source={Nextbtn} style={{marginTop:heightPercentageToDP(67),marginRight:widthPercentageToDP(0)}}/>
