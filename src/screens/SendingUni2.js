@@ -7,10 +7,9 @@ import styles from "../styles/styles";
 import sendingbg3 from "../../assets/FortuneCoffeePNGassets/Psychic/manifest/Phone3.gif";
 import sendingbg4 from "../../assets/FortuneCoffeePNGassets/Psychic/manifest/Phone4.gif";
 import sendingbg from "../../assets/FortuneCoffeePNGassets/Psychic/manifest/Phone.gif";
-
 import backButton from "../../assets/FortuneCoffeePNGassets/reading/backButton.png";
 import Nextbtn from "../../assets/FortuneCoffeePNGassets/Psychic/manifest/Next.png";
-import React, {useRef} from "react";
+import React, {useRef,useState} from "react";
 import { Dimensions } from 'react-native';
 import {widthPercentageToDP,heightPercentageToDP} from '../../util/scaler';
 import { Audio } from 'expo-av';
@@ -18,78 +17,69 @@ import { Audio } from 'expo-av';
 
 
 
-function SendingUni2({}){
+function SendingUni2(){
     const navigation = useNavigation();
     const pagerRef = useRef(null);
+    const [sound, setSound] = useState();
     const handlePageChange = pageNumber => {
         pagerRef.current.setPage(pageNumber);
     };
 
+    const playSound = async ()=>{
+        console.log('Loading Sound');
+        const { sound } = await Audio.Sound.createAsync(
+           require('../../assets/music.mp3')
+        );
+        setSound(sound);
+    
+        console.log('Playing Sound');
+        await sound.playAsync(); 
+    }
 
-    console.log('Loading Sound');
-    const { sound } = await Audio.Sound.createAsync(
-       require('./assets/music.mp3')
-    );
-    setSound(sound);
+    React.useEffect(() => {
+        return sound
+          ? () => {
+              console.log('Unloading Sound');
+              sound.unloadAsync(); }
+          : undefined;
+      }, [sound]);
 
-    console.log('Playing Sound');
-    await sound.playAsync(); }
 
-  React.useEffect(() => {
-    return sound
-      ? () => {
-          console.log('Unloading Sound');
-          sound.unloadAsync(); }
-      : undefined;
-  }, [sound]);
     return (
-        
         <ViewPager style={styles.virtualContainer} initialPage={0} ref={pagerRef}>
             <View key="1">
-
-            <ImageBackground source={sendingbg2} style={styles.bgfull}>
-
-            
-<TouchableOpacity onPress={() => handlePageChange(2)}>
-    <Image source={Nextbtn} style={{marginTop:heightPercentageToDP(67),marginRight:widthPercentageToDP(0)}} />
-</TouchableOpacity>
-
-</ImageBackground>
+                <ImageBackground source={sendingbg2} style={styles.bgfull}>
+                <TouchableOpacity onPress={() => handlePageChange(2)}>
+                    <Image source={Nextbtn} style={{marginTop:heightPercentageToDP(67),marginRight:widthPercentageToDP(0)}} />
+                </TouchableOpacity>
+                </ImageBackground>
             </View>
             <View key="2">
-            <ImageBackground source={sendingbg3} style={styles.bgfull}>
-
-
-<TouchableOpacity onPress={() =>  handlePageChange(3)} >
-<Image source={Nextbtn} style={{marginTop:heightPercentageToDP(67),marginRight:widthPercentageToDP(0)}}/>
-</TouchableOpacity>
-
-
-</ImageBackground>
-
+                <ImageBackground source={sendingbg3} style={styles.bgfull}>
+                    <TouchableOpacity onPress={() =>  handlePageChange(3)} >
+                    <Image source={Nextbtn} style={{marginTop:heightPercentageToDP(67),marginRight:widthPercentageToDP(0)}}/>
+                    </TouchableOpacity>
+                </ImageBackground>
             </View>
             <View key="3">
             <ImageBackground source={sendingbg4} style={styles.bgfull}>
-
-
-<TouchableOpacity onPress={() =>  handlePageChange(4)} >
-<Image source={Nextbtn} style={{marginTop:heightPercentageToDP(67),marginRight:widthPercentageToDP(0)}}/>
-</TouchableOpacity>
-
-</ImageBackground>
+                <TouchableOpacity onPress={async () => {
+                    await playSound();
+                    handlePageChange(4);
+                    }}>
+                <Image source={Nextbtn} style={{marginTop:heightPercentageToDP(67),marginRight:widthPercentageToDP(0)}}/>
+                </TouchableOpacity>
+            </ImageBackground>
             </View>
-
             <View key="4">
             <ImageBackground source={sendingbg} style={styles.bgfull}>
+                <TouchableOpacity onPress={()=>{navigation.navigate('Psychic')}}>
+                    <Image source={backButton} style={{marginBottom:heightPercentageToDP(80),marginRight:widthPercentageToDP(70)}} />
+                </TouchableOpacity>
 
-
-<TouchableOpacity onPress={()=>{navigation.navigate('Psychic')}}>
-    <Image source={backButton} style={{marginBottom:heightPercentageToDP(80),marginRight:widthPercentageToDP(70)}} />
-</TouchableOpacity>
-
-</ImageBackground>
-</View>
-        </ViewPager>
+                </ImageBackground>
+            </View>
+    </ViewPager>
     )
 }
 
