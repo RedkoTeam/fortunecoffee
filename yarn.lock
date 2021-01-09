@@ -2222,7 +2222,7 @@
   dependencies:
     "@types/yargs-parser" "*"
 
-"@unimodules/core@~6.0.0":
+"@unimodules/core@*", "@unimodules/core@~6.0.0":
   "integrity" "sha512-+KCVh+NjU33lkHOFiRfJZR6dDsSF8zCY1CVARMYJbQ7w1epRsalpKnCK08JoNYHQqkPR79d2zQSWMxd20zBvoA=="
   "resolved" "https://registry.npmjs.org/@unimodules/core/-/core-6.0.0.tgz"
   "version" "6.0.0"
@@ -3917,7 +3917,7 @@
   "resolved" "https://registry.npmjs.org/expo-application/-/expo-application-2.4.1.tgz"
   "version" "2.4.1"
 
-"expo-asset@~8.2.1":
+"expo-asset@*", "expo-asset@~8.2.1":
   "integrity" "sha512-M97jZU83Gm6wWGkrCwTzDVlufQCmnrCbmW4AMOH6xl3XhwOpgsQ6m6xrwT0Sq1tto7JUuL0tPbB9vb9L7yLfyg=="
   "resolved" "https://registry.npmjs.org/expo-asset/-/expo-asset-8.2.1.tgz"
   "version" "8.2.1"
@@ -3927,6 +3927,14 @@
     "md5-file" "^3.2.3"
     "path-browserify" "^1.0.0"
     "url-parse" "^1.4.4"
+
+"expo-av@^8.7.0":
+  "integrity" "sha512-tYw0z//UZm9THicOsu4w0A7Olq/JauTy7kcBR15Fhyppd9wd8Jtq7QYNtf2igd1R+byS2L0AGwE0nazlbQR+Qw=="
+  "resolved" "https://registry.npmjs.org/expo-av/-/expo-av-8.7.0.tgz"
+  "version" "8.7.0"
+  dependencies:
+    "lodash" "^4.17.15"
+    "nullthrows" "^1.1.0"
 
 "expo-constants@*", "expo-constants@~9.3.0", "expo-constants@~9.3.3":
   "integrity" "sha512-qIlv2ffSjQl3wrvJwXYoNfQNfH/sK46EXcgyEQnQ1SAQO4ukwTEpG9j3fdW6aTiVEVrv/DsA1IaVRqKrUwSd3A=="
@@ -7970,7 +7978,7 @@
     "prop-types" "^15.6.0"
     "react-timer-mixin" "^0.13.4"
 
-"react-native@>=0.8.0", "react-native@~0.63.4":
+"react-native@*", "react-native@>=0.8.0", "react-native@~0.63.4":
   "integrity" "sha512-I4kM8kYO2mWEYUFITMcpRulcy4/jd+j9T6PbIzR0FuMcz/xwd+JwHoLPa1HmCesvR1RDOw9o4D+OFLwuXXfmGw=="
   "resolved" "https://registry.npmjs.org/react-native/-/react-native-0.63.4.tgz"
   "version" "0.63.4"
@@ -8031,7 +8039,7 @@
   "resolved" "https://registry.npmjs.org/react-timer-mixin/-/react-timer-mixin-0.13.4.tgz"
   "version" "0.13.4"
 
-"react@16.13.1":
+"react@*", "react@16.13.1":
   "integrity" "sha512-YMZQQq32xHLX0bz5Mnibv1/LHb3Sqzngu7xstSM+vrkE5Kzr9xE0yMByK5kMoTK30YVJE61WfbxIFFvfeDKT1w=="
   "resolved" "https://registry.npmjs.org/react/-/react-16.13.1.tgz"
   "version" "16.13.1"
@@ -9316,7 +9324,7 @@
   "resolved" "https://registry.npmjs.org/unimodules-image-loader-interface/-/unimodules-image-loader-interface-5.4.0.tgz"
   "version" "5.4.0"
 
-"unimodules-permissions-interface@~5.4.0":
+"unimodules-permissions-interface@*", "unimodules-permissions-interface@~5.4.0":
   "integrity" "sha512-mb+uiWvf2M/og7bA28CYOH6uKsAg/7oRBodZNsXVRH/h5LjQlBd5lTECH/L3Hkm3Ta7NSQUnENtXUCO4jfnVkg=="
   "resolved" "https://registry.npmjs.org/unimodules-permissions-interface/-/unimodules-permissions-interface-5.4.0.tgz"
   "version" "5.4.0"

@@ -13,7 +13,7 @@ import Nextbtn from "../../assets/FortuneCoffeePNGassets/Psychic/manifest/Next.p
 import React, {useRef} from "react";
 import { Dimensions } from 'react-native';
 import {widthPercentageToDP,heightPercentageToDP} from '../../util/scaler';
-git add .
+import { Audio } from 'expo-av';
 
 
 
@@ -24,6 +24,24 @@ function SendingUni2({}){
     const handlePageChange = pageNumber => {
         pagerRef.current.setPage(pageNumber);
     };
+
+
+    console.log('Loading Sound');
+    const { sound } = await Audio.Sound.createAsync(
+       require('./assets/music.mp3')
+    );
+    setSound(sound);
+
+    console.log('Playing Sound');
+    await sound.playAsync(); }
+
+  React.useEffect(() => {
+    return sound
+      ? () => {
+          console.log('Unloading Sound');
+          sound.unloadAsync(); }
+      : undefined;
+  }, [sound]);
     return (
         
         <ViewPager style={styles.virtualContainer} initialPage={0} ref={pagerRef}>
