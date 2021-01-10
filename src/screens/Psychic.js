@@ -13,6 +13,7 @@ import manifestbtn from "../../assets/FortuneCoffeePNGassets/Psychic/manifestbtn
 import NavBar_psyc from "../navbars/NavBar_Psychic";
 import {widthPercentageToDP,heightPercentageToDP,} from '../../util/scaler';
 import Logoutbtn from "../../assets/FortuneCoffeePNGassets/Profile/BtnPrimary.png";
+import gtcr from "../../assets/FortuneCoffeePNGassets/gtcr.png";
 
 
 function Psychic() {
@@ -40,14 +41,19 @@ function Psychic() {
 
                     {isLoggedIn ? (
                         <View style={{flexDirection: 'row', width: '100%', justifyContent: 'space-between', padding: 25, marginTop: 18 }}>
+                             <TouchableOpacity onPress={() => {}}>
+                            </TouchableOpacity>
+                            <TouchableOpacity onPress={() => navigation.navigate('SubscriptionScreen')}>
+                                <Image source={gtcr} />
+                            </TouchableOpacity>
                         </View>
                         ) :
                         <View style={{flexDirection: 'row', width: '100%', justifyContent: 'space-between', padding: 25, marginTop: 18 }}>
                             <TouchableOpacity onPress={() => navigation.navigate('SignUp')}>
                                 <Image source={SignUpButton} />
                             </TouchableOpacity>
-                            <TouchableOpacity onPress={() => navigation.navigate('SignIn')}>
-                                <Image source={SignInButton} />
+                            <TouchableOpacity onPress={() => navigation.navigate('SubscriptionScreen')}>
+                                <Image source={gtcr} />
                             </TouchableOpacity>
                         </View>
                     }
