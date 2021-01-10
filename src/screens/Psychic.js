@@ -9,11 +9,11 @@ import SignUpButton from "../../assets/FortuneCoffeePNGassets/HomePage/SignUpBut
 import SignInButton from "../../assets/FortuneCoffeePNGassets/HomePage/SignInButton.png";
 import asklunabtn from "../../assets/FortuneCoffeePNGassets/Psychic/asklunabtn.png";
 import someonebtn from "../../assets/FortuneCoffeePNGassets/Psychic/someonebtn.png";
+import gtcr from "../../assets/FortuneCoffeePNGassets/gtcr.png";
 import manifestbtn from "../../assets/FortuneCoffeePNGassets/Psychic/manifestbtn.png";
 import NavBar_psyc from "../navbars/NavBar_Psychic";
 import {widthPercentageToDP,heightPercentageToDP,} from '../../util/scaler';
 import Logoutbtn from "../../assets/FortuneCoffeePNGassets/Profile/BtnPrimary.png";
-import gtcr from "../../assets/FortuneCoffeePNGassets/gtcr.png";
 
 
 function Psychic() {
@@ -48,7 +48,7 @@ function Psychic() {
                             </TouchableOpacity>
                         </View>
                         ) :
-                        <View style={{flexDirection: 'row', width: '100%', justifyContent: 'space-between', padding: 25, marginTop: 18 }}>
+                        <View style={{flexDirection: 'row', width: '100%', justifyContent: 'space-between', padding: 25, marginTop: 10 }}>
                             <TouchableOpacity onPress={() => navigation.navigate('SignUp')}>
                                 <Image source={SignUpButton} />
                             </TouchableOpacity>
@@ -57,7 +57,8 @@ function Psychic() {
                             </TouchableOpacity>
                         </View>
                     }
-                    <View style={{flexGrow : 1,marginTop: heightPercentageToDP(2), justifyContent:'center', flexDirection: 'column', alignItems: 'center'}}>
+                    <View style={{flexGrow : 1,marginTop: heightPercentageToDP(0), justifyContent:'center', flexDirection: 'column', alignItems: 'center'}}>
+
                         <ScrollView >
                             <View style={{ marginTop:heightPercentageToDP('8'), alignItems: 'center', justifyContent: 'center'}}>
                                 <Image source={psychicTitle} style={{marginBottom: heightPercentageToDP('2')}}/>

@@ -8,6 +8,7 @@ import {TouchableOpacity} from 'react-native';
 import profilebg from "../../../assets/FortuneCoffeePNGassets/Profile/Profile.png";
 import styles from "../../styles/styles";
 import Shopbtn from "../../../assets/FortuneCoffeePNGassets/Profile/shopbtn.png";
+import gtcr from "../../../assets/FortuneCoffeePNGassets/gtcr.png";
 import Logoutbtn from "../../../assets/FortuneCoffeePNGassets/Profile/BtnPrimary.png";
 import UserNametxt from "../../../assets/FortuneCoffeePNGassets/Profile/Name.png";
 import proline from "../../../assets/FortuneCoffeePNGassets/Profile/Line2.png";
@@ -106,15 +107,20 @@ function ProfileLoggedIn({route}) {
 
             <ImageBackground source={profilebg} style={{width: widthPercentageToDP('100'), height: heightPercentageToDP('100')}}>
                 <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-between', padding: 25, marginTop: 18 }}>
-                    <TouchableOpacity onPress={() => navigation.navigate('Shop')}>
-                        <Image source={Shopbtn} />
-                    </TouchableOpacity>
+
                     <TouchableOpacity onPress={ async () => {
                         await LogOutUser();
                         navigation.navigate('Home')
                     }}>
                         <Image source={Logoutbtn} />
                     </TouchableOpacity>
+                    <TouchableOpacity onPress={() => navigation.navigate('SubscriptionScreen')}>
+                    <Image source={gtcr} />
+                  </TouchableOpacity>
+                    <TouchableOpacity onPress={() => navigation.navigate('Shop')}>
+                        <Image source={Shopbtn} />
+                    </TouchableOpacity>
+
                     
                 </View>
                 <TouchableOpacity>
@@ -175,9 +181,9 @@ function ProfileLoggedIn({route}) {
                         <TouchableOpacity onPress={() => navigation.navigate('SignUp')}>
                             <Image source={SignUpButton} />
                         </TouchableOpacity>
-                        <TouchableOpacity onPress={() => navigation.navigate('SignIn')}>
-                            <Image source={SignInButton} />
-                        </TouchableOpacity>
+                        <TouchableOpacity onPress={() => navigation.navigate('SubscriptionScreen')}>
+                    <Image source={gtcr} />
+                  </TouchableOpacity>
                         
                         </View>
 
