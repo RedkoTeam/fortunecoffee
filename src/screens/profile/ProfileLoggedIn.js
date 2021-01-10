@@ -125,7 +125,7 @@ function ProfileLoggedIn({route}) {
                 </View>
                 <TouchableOpacity>
                     <Image source={cardz} style={{marginTop:"0%", marginLeft:"60%"}}/>
-                    <Text style={{marginTop:"-5%",  marginLeft:"60%",fontSize:24,color:'#FFFFFF'}}>{fortune} | {cardCount}</Text >  
+                    <Text style={{marginTop:"0%",  marginLeft:"60%",fontSize:24,color:'#FFFFFF'}}>{fortune} | {cardCount}</Text >  
                     {/* ADD HERE THE CARD COUNT */}
                 </TouchableOpacity>
 

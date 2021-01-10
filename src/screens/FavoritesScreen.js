@@ -11,6 +11,7 @@ import fortuneBox from "../../assets/FortuneCoffeePNGassets/savedFortunes/Box.pn
 import NavBar_fav from "../navbars/NavBar_Favorites";
 import XButton from '../../assets/FortuneCoffeePNGassets/bi_x.png'
 import gtcr from "../../assets/FortuneCoffeePNGassets/gtcr.png";
+import { actuatedNormalize } from '../../util/fontScaler';
 
 // FIRESTORE
 import db from '../../util/firestore/firestore'
@@ -88,7 +89,7 @@ function FavoritesScreen() {
                             <View  key={index} style={{padding:30, flex: 1 }}>    
                                 {/* This is the container for THE FORTUNES */}
                                 <ImageBackground source={fortuneBox} imageStyle={{resizeMode:'stretch'}} style={{flex: 1, width: widthPercentageToDP(87), height: heightPercentageToDP(60), }}>
-                                    <Text style={{color:'white', fontWeight:'bold', fontSize: widthPercentageToDP(5), alignSelf: 'center', top: heightPercentageToDP(4),}}>{item.date}</Text>
+                                    <Text style={{color:'white', fontWeight:'bold', fontSize: actuatedNormalize(15), alignSelf: 'center', top: heightPercentageToDP(4),}}>{item.date}</Text>
                                     <View style={{flexDirection:'column', alignItems:'center', justifyContent:'center', padding:12}}>
                                         <TouchableOpacity onPress={() => {
                                             // //Remove Fav
@@ -115,7 +116,7 @@ function FavoritesScreen() {
                                     
                                         {/* TODO : PLEASE FIX THE Text size, you can either scale up the image backgorund or scale down the text */}
                                         <View style={{ top:heightPercentageToDP(4), width:'73%', alignSelf: 'center'}}>
-                                            <Text adjustsFontSizeToFit={true} style={{ fontSize:17}}>{item.fortune}</Text>
+                                            <Text adjustsFontSizeToFit={true} style={{ fontSize:actuatedNormalize(13)}}>{item.fortune}</Text>
                                         </View>
                                 </ImageBackground>
                         </View>
