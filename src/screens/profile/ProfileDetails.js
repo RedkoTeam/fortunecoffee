@@ -31,9 +31,10 @@ function ProfileDetails({route}) {
             year: year,
         }, {merge: true})
             .then(() => {
-                navigation.navigate('ProfileLoggedIn')
+                navigation.navigate('SubscriptionScreen')
             })
     }
+
 
     return (
         <ImageBackground source={bgstars} style={styles.bgfull}>

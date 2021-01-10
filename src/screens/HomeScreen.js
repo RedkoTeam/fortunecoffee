@@ -228,18 +228,12 @@ function HomeScreen({ navigation }) {
                 toggleFortuneModal();
                  navigation.navigate('SubscriptionScreen');
                 //SetPreviousData();
-               
             }} >
               <Image source={getCrystals} style={{marginBottom: 20}}/>
             </TouchableOpacity>
-
-
             </View>
           </Modal>
-          
-
-         <Button title="Reset Crystals" onPress={ () => { console.log("Async Storage Cleared"); AsyncStorage.clear();}}></Button> 
-
+          {/*<Button title="Reset Crystals" onPress={ () => { console.log("Async Storage Cleared"); AsyncStorage.clear();}}></Button> */}
           <View style={{ flexDirection: 'row', justifyContent: 'space-evenly' }}>
             <TouchableOpacity 
             onPress={() => {
