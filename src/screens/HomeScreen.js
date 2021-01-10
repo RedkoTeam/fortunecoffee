@@ -22,10 +22,10 @@ import TakePhoto from "../../assets/FortuneCoffeePNGassets/HomePage/TakePhoto.pn
 import bgstars from "../../assets/Bgstar.png";
 import Logoutbtn from "../../assets/FortuneCoffeePNGassets/Profile/BtnPrimary.png";
 import SignUpButton from "../../assets/FortuneCoffeePNGassets/HomePage/SignUpButton.png";
-import SignInButton from "../../assets/FortuneCoffeePNGassets/HomePage/SignInButton.png";
 import LargeTitleApp from "../../assets/FortuneCoffeePNGassets/HomePage/FortuneCoffeeTitle.png";
 import PickCard from "../../assets/FortuneCoffeePNGassets/HomePage/PickCard.png";
 import Cards from "../../assets/FortuneCoffeePNGassets/HomePage/allCards.png";
+import gtcr from "../../assets/FortuneCoffeePNGassets/gtcr.png";
 import NavBar from "../navbars/NavBar";
 import * as firebase from "firebase";
 import SaveItemInStorage from "../../util/SaveItemInStorage";
@@ -255,6 +255,7 @@ function HomeScreen({ navigation }) {
             }}>
               <Image source={TakePhoto}  style={{resizeMode: 'stretch'}}  />
             </TouchableOpacity>
+            
           </View>
         </>
     )
@@ -275,14 +276,17 @@ function HomeScreen({ navigation }) {
                   }}>
                     <Image source={Logoutbtn} />
                   </TouchableOpacity>
+                  <TouchableOpacity onPress={() => navigation.navigate('SubscriptionScreen')}>
+                    <Image source={gtcr} />
+                  </TouchableOpacity>
                 </View>
                 ) :
                 <View style={{  flex: 0.03, flexDirection: 'row', width: '100%', justifyContent: 'space-between', padding: 25, marginTop: 18 }}>
                   <TouchableOpacity onPress={() => navigation.navigate('SignUp')}>
                     <Image source={SignUpButton} />
                   </TouchableOpacity>
-                  <TouchableOpacity onPress={() => navigation.navigate('SignIn')}>
-                    <Image source={SignInButton} />
+                  <TouchableOpacity onPress={() => navigation.navigate('SubscriptionScreen')}>
+                    <Image source={gtcr} />
                   </TouchableOpacity>
                 </View>
             }
