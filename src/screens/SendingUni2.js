@@ -22,6 +22,7 @@ function SendingUni2(){
     const pagerRef = useRef(null);
     const [sound, setSound] = useState();
     const handlePageChange = pageNumber => {
+        console.log(pageNumber)
         pagerRef.current.setPage(pageNumber);
     };
 
@@ -57,14 +58,14 @@ function SendingUni2(){
         <ViewPager style={styles.virtualContainer} initialPage={0} ref={pagerRef}>
             <View key="1">
                 <ImageBackground source={sendingbg2} style={styles.bgfull}>
-                <TouchableOpacity onPress={() => handlePageChange(2)}>
+                <TouchableOpacity onPress={() => handlePageChange(1)}>
                     <Image source={Nextbtn} style={{marginTop:heightPercentageToDP(67),marginRight:widthPercentageToDP(0)}} />
                 </TouchableOpacity>
                 </ImageBackground>
             </View>
             <View key="2">
                 <ImageBackground source={sendingbg3} style={styles.bgfull}>
-                    <TouchableOpacity onPress={() =>  handlePageChange(3)} >
+                    <TouchableOpacity onPress={() =>  handlePageChange(2)} >
                     <Image source={Nextbtn} style={{marginTop:heightPercentageToDP(67),marginRight:widthPercentageToDP(0)}}/>
                     </TouchableOpacity>
                 </ImageBackground>
@@ -72,7 +73,7 @@ function SendingUni2(){
             <View key="3">
             <ImageBackground source={sendingbg4} style={styles.bgfull}>
                 <TouchableOpacity onPress={async () => {
-                    handlePageChange(4);
+                    handlePageChange(3);
                     }}>
                 <Image source={Nextbtn} style={{marginTop:heightPercentageToDP(67),marginRight:widthPercentageToDP(0)}}/>
                 </TouchableOpacity>
