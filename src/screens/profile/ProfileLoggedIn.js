@@ -107,9 +107,7 @@ function ProfileLoggedIn({route}) {
 
             <ImageBackground source={profilebg} style={{width: widthPercentageToDP('100'), height: heightPercentageToDP('100')}}>
                 <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-between', padding: 25, marginTop: 18 }}>
-                    <TouchableOpacity onPress={() => navigation.navigate('Shop')}>
-                        <Image source={Shopbtn} />
-                    </TouchableOpacity>
+
                     <TouchableOpacity onPress={ async () => {
                         await LogOutUser();
                         navigation.navigate('Home')
@@ -119,6 +117,10 @@ function ProfileLoggedIn({route}) {
                     <TouchableOpacity onPress={() => navigation.navigate('SubscriptionScreen')}>
                     <Image source={gtcr} />
                   </TouchableOpacity>
+                    <TouchableOpacity onPress={() => navigation.navigate('Shop')}>
+                        <Image source={Shopbtn} />
+                    </TouchableOpacity>
+
                     
                 </View>
                 <TouchableOpacity>

@@ -10,6 +10,8 @@ import savedFortunesTitle from "../../assets/FortuneCoffeePNGassets/savedFortune
 import fortuneBox from "../../assets/FortuneCoffeePNGassets/savedFortunes/Box.png";
 import NavBar_fav from "../navbars/NavBar_Favorites";
 import XButton from '../../assets/FortuneCoffeePNGassets/bi_x.png'
+import gtcr from "../../assets/FortuneCoffeePNGassets/gtcr.png";
+
 // FIRESTORE
 import db from '../../util/firestore/firestore'
 import { fortunesArray } from '../arrays/fortunesArray';
@@ -73,6 +75,10 @@ function FavoritesScreen() {
                 <TouchableOpacity onPress={()=>navigation.navigate('Home')} style={{alignSelf:'flex-start', top: heightPercentageToDP('3'), left: widthPercentageToDP('3')}}>
                         <Image source={backButton}/>
                     </TouchableOpacity>
+                    <TouchableOpacity onPress={() => navigation.navigate('SubscriptionScreen')}>
+<Image source={gtcr} style={{marginLeft:"70%", marginTop:"5%"}} />
+</TouchableOpacity>
+                
                 </View>
                 <ScrollView style={{ marginTop: heightPercentageToDP(10)}}
                     contentContainerStyle={{marginTop: heightPercentageToDP(0), justifyContent: 'center', alignItems: 'center',}}
