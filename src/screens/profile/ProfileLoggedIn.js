@@ -189,7 +189,7 @@ function ProfileLoggedIn({route}) {
 
                     }
                     <Image source={cardz} style={{marginTop:"10%", marginLeft: '10%'}}/>
-                    <Text style={{marginTop:"-5%", marginLeft: '-5%', fontSize:24,color:'#FFFFFF'}}>{fortune} | {cardCount}</Text >  
+                    <Text style={{marginTop:"0%", marginLeft: '-5%', fontSize:24,color:'#FFFFFF'}}>{fortune} | {cardCount}</Text >  
 
                     {/* ADD HERE THE CARD COUNT */}
 

@@ -10,6 +10,7 @@ import fromImg from "../../assets/FortuneCoffeePNGassets/Profile/From.png";
 import Flaticon from "../../assets/FortuneCoffeePNGassets/Profile/Flaticon.png";
 import { Dimensions } from 'react-native';
 import {widthPercentageToDP,heightPercentageToDP,} from '../../util/scaler';
+import { actuatedNormalize } from '../../util/fontScaler';
 
 function Credits() {
     const navigation = useNavigation();
