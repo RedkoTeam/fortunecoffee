@@ -13,6 +13,7 @@ import Taurusbttn from "../../../assets/FortuneCoffeePNGassets/horoscopes/horosc
 import Geminibttn from "../../../assets/FortuneCoffeePNGassets/horoscopes/horoscopebtns/Gemini-bttn.png";
 import Cancerbttn from "../../../assets/FortuneCoffeePNGassets/horoscopes/horoscopebtns/Cancer-bttn.png";
 import Leobttn from "../../../assets/FortuneCoffeePNGassets/horoscopes/horoscopebtns/Leo-bttn.png";
+import gtcr from "../../../assets/FortuneCoffeePNGassets/gtcr.png";
 import Virgobttn from "../../../assets/FortuneCoffeePNGassets/horoscopes/horoscopebtns/Virgo-bttn.png";
 import Librabttn from "../../../assets/FortuneCoffeePNGassets/horoscopes/horoscopebtns/Libra-bttn.png";
 import Scorpiobttn from "../../../assets/FortuneCoffeePNGassets/horoscopes/horoscopebtns/Scorpio-bttn.png";
@@ -35,10 +36,16 @@ function HoroscopeMain({}) {
     return (
     <View style={{flex: 1}}>    
         <ImageBackground source={bgstars} style={styles.bgfull}>
-                    <Image source={Horoscopetxt} style={{marginTop:widthPercentageToDP(20)}} />
+        <View style={{flexDirection: 'row', width: '100%', justifyContent: 'space-between', padding: 25, marginTop: 10, marginLeft:'140%'}}>
+      
+        <TouchableOpacity onPress={() => navigation.navigate('SubscriptionScreen')}>
+<Image source={gtcr} style={{marginRight: "50%"}}/>
+</TouchableOpacity>
+    </View>
+                    <Image source={Horoscopetxt} style={{marginTop:widthPercentageToDP(2)}} />
                     <ScrollView>
-                    <View style={{justifyContent: 'center', padding:15 }}>
-                    <View style={{ flexDirection: 'row', justifyContent: 'center',marginTop:widthPercentageToDP(10)}}>
+                    <View style={{justifyContent: 'center', padding:5 }}>
+                    <View style={{ flexDirection: 'row', justifyContent: 'center',marginTop:widthPercentageToDP(3)}}>
                         <TouchableOpacity onPress={() => navigation.navigate('HoroscopeAries')}>
                             <Image source={Ariesbttn} style={{width :widthPercentageToDP('23'), height :heightPercentageToDP('16'), resizeMode:'contain', marginRight:10}}/>
                         </TouchableOpacity>
