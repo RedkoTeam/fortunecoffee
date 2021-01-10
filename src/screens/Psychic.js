@@ -53,12 +53,7 @@ function Psychic() {
                         </View>
                     }
                     <View style={{flexGrow : 1,marginTop: heightPercentageToDP(0), justifyContent:'center', flexDirection: 'column', alignItems: 'center'}}>
-                    <View style={{flexDirection: 'row', width: '100%', justifyContent: 'space-between', padding: 0, marginTop: 0, marginLeft:'150%'}}>
-      
-      <TouchableOpacity onPress={() => navigation.navigate('SubscriptionScreen')}>
-<Image source={gtcr} />
-</TouchableOpacity>
-  </View>
+
                         <ScrollView >
                             <View style={{ marginTop:heightPercentageToDP('8'), alignItems: 'center', justifyContent: 'center'}}>
                                 <Image source={psychicTitle} style={{marginBottom: heightPercentageToDP('2')}}/>
