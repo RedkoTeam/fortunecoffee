@@ -146,10 +146,10 @@ function HomeScreen({ navigation }) {
       <Modal isVisible={isModalVisible}>
         <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center',  alignSelf: 'center',}}>
               {/* IMAGE */}
-            <Image source={crystalBackground} style={{ height: heightPercentageToDP('48'), width: widthPercentageToDP('86'),
+            <Image source={crystalBackground} style={{ height: heightPercentageToDP('58'), width: widthPercentageToDP('86'),
               resizeMode: 'stretch', borderRadius:36}} />
             {/* X */}
-            <TouchableOpacity style={{position: 'absolute', zIndex: 20, top: heightPercentageToDP(25), right: 25}} onPress={()=>{
+            <TouchableOpacity style={{position: 'absolute', zIndex: 20, top: heightPercentageToDP(25), right: '5%'}} onPress={()=>{
                   toggleModal();
               }}>
                 <Image source={xButton} style={{width: widthPercentageToDP(3), height: heightPercentageToDP(3)  }} />
@@ -162,7 +162,7 @@ function HomeScreen({ navigation }) {
                 navigation.navigate('SubscriptionScreen');
 
             }} >
-              <Image source={getCrystals} style={{marginBottom: 20}}/>
+              <Image source={getCrystals} style={{marginBottom: 20, resizeMode:'contain'}}/>
             </TouchableOpacity>
         </View>
       </Modal>
@@ -238,7 +238,7 @@ function HomeScreen({ navigation }) {
           </Modal>
           
 
-          {/*<Button title="Reset Crystals" onPress={ () => { console.log("Async Storage Cleared"); AsyncStorage.clear();}}></Button> */}
+         <Button title="Reset Crystals" onPress={ () => { console.log("Async Storage Cleared"); AsyncStorage.clear();}}></Button> 
 
           <View style={{ flexDirection: 'row', justifyContent: 'space-evenly' }}>
             <TouchableOpacity 
@@ -300,7 +300,7 @@ function HomeScreen({ navigation }) {
               <Image source={PickCard} style={{ marginTop:widthPercentageToDP(15), margin: 8 }} />
               {/* Pick a card  */}
               <TouchableOpacity onPress={toggleModal2} style={styles.cards}>
-                <Image source={Cards} style={{resizeMode: 'stretch', width: widthPercentageToDP('95')}}/>
+                <Image source={Cards} style={{resizeMode: 'contain', width: widthPercentageToDP(95),height: heightPercentageToDP(35)}}/>
               </TouchableOpacity>
              
             </View>

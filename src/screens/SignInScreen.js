@@ -172,7 +172,7 @@ function SignInScreen() {
                                 <Text style={{ fontSize: 13, color: 'red' }}>{errors.password}</Text>
                                 }
                                 <TouchableOpacity style={{paddingTop: 8}} disabled={!isValid} onPress={handleSubmit}>
-                                    <Image source={loginButton} style={{resizeMode: 'stretch',width: widthPercentageToDP('80')}} />
+                                    <Image source={loginButton} style={{resizeMode: 'stretch',width: widthPercentageToDP('70'), height:heightPercentageToDP('7')}} />
                                 </TouchableOpacity>
                             </>
                         )}

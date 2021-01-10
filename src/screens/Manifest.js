@@ -22,7 +22,7 @@ function Manifest() {
     return (
         <View style={styles.mainContainer}>
                 <ImageBackground source={manifestbg} style={{ flex: 1,
-                        resizeMode:'cover',
+                        resizeMode:'co',
                         alignItems: 'center',
                         opacity: 1,}}>
                 <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-between', padding: heightPercentageToDP(6.5), marginTop:30 }}>
@@ -33,7 +33,7 @@ function Manifest() {
                     </View>
                 </View>
                 <View style={{ flex: 1,flexDirection: 'column', justifyContent: 'space-between', alignItems: 'center'}}>
-                <View style={{flex: 1, margin: 90, flexDirection: 'column', padding: 10, alignItems: 'center'}}>
+                <View style={{flex: 1, marginTop:110, flexDirection: 'column', padding: 10, alignItems: 'center'}}>
                     <TextInput style={styles.savedFortuneTextBox0}
                                    onChangeText={wish1 => setWish1(wish1)}
                                    value={wish1}

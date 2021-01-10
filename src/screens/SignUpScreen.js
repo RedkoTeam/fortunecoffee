@@ -24,7 +24,7 @@ import SignUpValidationSchema from "../../util/validators/SignUpValidationSchema
 import signUpButton from "../../assets/FortuneCoffeePNGassets/Sign/signUpButton.png";
 import haveAcctText from "../../assets/FortuneCoffeePNGassets/Sign/haveAcctText.png";
 import loginText from "../../assets/FortuneCoffeePNGassets/Sign/loginText.png";
-import {widthPercentageToDP,heightPercentageToDP,} from '../../util/scaler'
+import {widthPercentageToDP,heightPercentageToDP} from '../../util/scaler'
 
 // Async Storage
 import SaveItemInStorage from '../../util/SaveItemInStorage'
@@ -165,7 +165,7 @@ function SignUpScreen({ navigation }) {
                                 <Text style={{ fontSize: actuatedNormalize (11), color: 'red', paddingTop: 5 }}>{errors.confirmPassword}</Text>
                                 }
                                 <TouchableOpacity style={{paddingTop: 8}} disabled={!isValid} onPress={handleSubmit}>
-                                    <Image source={signUpButton} style={{resizeMode: 'stretch',width: widthPercentageToDP('80')}}  />
+                                    <Image source={signUpButton} style={{resizeMode: 'stretch',width: widthPercentageToDP('70'), height:heightPercentageToDP('7')}}  />
                                 </TouchableOpacity>
                             </>
                         )}

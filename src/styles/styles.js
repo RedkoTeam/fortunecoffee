@@ -20,6 +20,10 @@ const styles = StyleSheet.create({
         flex:1,
         backgroundColor: '#070631',
     },
+    mainContainer1: {
+    
+        backgroundColor: '#070631',
+    },
     shopContainer: {
         justifyContent: 'center',
         alignItems: 'center',
@@ -127,6 +131,15 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         height: '60%',
+        width:'100%',
+        opacity: 0.8
+    },
+    readingAnimationBackground2: {
+        flex: 1,
+        resizeMode: 'cover',
+        justifyContent: 'center',
+        alignItems: 'center',
+        height: '100%',
         width:'100%',
         opacity: 0.8
     },

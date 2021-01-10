@@ -37,7 +37,7 @@ function ReadingAnimationScreen2({navigation}){
 
     return(
         <View style={styles.mainContainer}>
-            <ImageBackground source={ readingAnimationBackground } style={ styles.readingAnimationBackground }>
+            <ImageBackground source={ readingAnimationBackground } style={ styles.readingAnimationBackground2 }>
                 <Image source={ readingPhoto } style={styles.readingCoffeeImage} />
                 <Animated.View>
                     <Animated.Image style={ {
