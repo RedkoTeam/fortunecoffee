@@ -72,10 +72,10 @@ function SignInScreen() {
             firebase.
             auth()
                 .signInWithEmailAndPassword(values.email, values.password)
-                .then((data) => {
+                .then(async (data) => {
                     console.log(data)
                     console.log('User signed in!');
-                    SetTokenInLocalStorage(values.email, values.password)
+                    await SetTokenInLocalStorage(values.email, values.password)
                     // Store to firebase
                     navigation.navigate('ProfileLoggedIn')
                 })

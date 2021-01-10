@@ -67,13 +67,13 @@ function ProfileLoggedIn({route}) {
                     // doc.data() will be undefined in this case
                     console.log("No such document!");
                     if(!GetItemInStorage("FORTUNE_READING_COUNT")){
-                        SaveItemInStorage("FORTUNE_READING_COUNT", "5")
+                        await SaveItemInStorage("FORTUNE_READING_COUNT", "5")
                     }
                     if(!GetItemInStorage("CARD_READING_COUNT")){
-                        SaveItemInStorage("CARD_READING_COUNT", "3")
+                        await SaveItemInStorage("CARD_READING_COUNT", "3")
                     }
-                    setCardCount(GetItemInStorage("CARD_READING_COUNT"))
-                    setFortunes(GetItemInStorage("FORTUNE_READING_COUNT"))
+                    setCardCount(await GetItemInStorage("CARD_READING_COUNT"))
+                    setFortunes(await GetItemInStorage("FORTUNE_READING_COUNT"))
                 }
             }).catch(function (error) {
             console.log("Error getting document:", error);
