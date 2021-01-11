@@ -55,7 +55,19 @@ import VirtualFive from './src/screens/virtual/VirtualFive'
 import VirtualLoadingScreen from './src/screens/virtual/VirtualLoadingScreen'
 import ReadingAnimationScreen2 from './src/screens/ReadingAnimationScreen2'
 import Gems from './src/screens/Gems';
-
+import Compatibility from './src/screens/horoscopes/Compatibility';
+import CompatibilityPisces from './src/screens/horoscopes/CompatibilityPisces';
+import CompatibilityAries from './src/screens/horoscopes/CompatibilityAries';
+import CompatibilityTaurus from './src/screens/horoscopes/CompatibilityTaurus';
+import CompatibilityGemini from './src/screens/horoscopes/CompatibilityGemini';
+import CompatibilityCancer from './src/screens/horoscopes/CompatibilityCancer';
+import CompatibilityCapricorn from './src/screens/horoscopes/CompatibilityCapricorn';
+import CompatibilityLeo from './src/screens/horoscopes/CompatibilityLeo';
+import CompatibilityAquarius from './src/screens/horoscopes/CompatibilityAquarius';
+import CompatibilityVirgo from './src/screens/horoscopes/CompatibilityVirgo';
+import CompatibilitySagi from './src/screens/horoscopes/CompatibilitySagi';
+import CompatibilityLibra from './src/screens/horoscopes/CompatibilityLibra';
+import CompatibilityScorpio from './src/screens/horoscopes/CompatibilityScorpio';
 
 // ONLY STORE NAVIGATION HERE
 
@@ -96,6 +108,19 @@ function App() {
         <Stack.Screen name="Credits" component={Credits} />
         <Stack.Screen name="ProfileLoggedIn" component={ProfileLoggedIn} />
         <Stack.Screen name="ProfileDetails" component={ProfileDetails} />
+        <Stack.Screen name="Compatibility" component={Compatibility} />
+        <Stack.Screen name="CompatibilityPisces" component={CompatibilityPisces} />
+        <Stack.Screen name="CompatibilityGemini" component={CompatibilityGemini} />
+        <Stack.Screen name="CompatibilityAries" component={CompatibilityAries} />
+        <Stack.Screen name="CompatibilityTaurus" component={CompatibilityTaurus} />
+        <Stack.Screen name="CompatibilityCancer" component={CompatibilityCancer} />
+        <Stack.Screen name="CompatibilityCapricorn" component={CompatibilityCapricorn} />
+        <Stack.Screen name="CompatibilityAquarius" component={CompatibilityAquarius} />
+        <Stack.Screen name="CompatibilityLeo" component={CompatibilityLeo} />
+        <Stack.Screen name="CompatibilityLibra" component={CompatibilityLibra} />
+        <Stack.Screen name="CompatibilityVirgo" component={CompatibilityVirgo} />
+        <Stack.Screen name="CompatibilitySagi" component={CompatibilitySagi} />
+        <Stack.Screen name="CompatibilityScorpio" component={CompatibilityScorpio} />
         <Stack.Screen name="HoroscopePisces" component={HoroscopePisces} />
         <Stack.Screen name="HoroscopeAries" component={HoroscopeAries} />
         <Stack.Screen name="HoroscopeAquarius" component={HoroscopeAquarius} />

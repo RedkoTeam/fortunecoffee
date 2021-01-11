@@ -1,4 +1,3 @@
-
 //HOROSCOPE MAIN
 import {useNavigation} from "@react-navigation/native";
 import {Image, ImageBackground, View, ScrollView} from "react-native";
@@ -7,22 +6,22 @@ import bgstars from "../../../assets/Bgstar.png";
 import styles from "../../styles/styles";
 import SignUpButton from "../../../assets/FortuneCoffeePNGassets/HomePage/SignUpButton.png";
 import SignInButton from "../../../assets/FortuneCoffeePNGassets/HomePage/SignInButton.png";
-import Horoscopetxt from "../../../assets/FortuneCoffeePNGassets/horoscopes/Horoscopes.png";
-import hslide from "../../../assets/FortuneCoffeePNGassets/horoscopes/hslide.png";
+import Horoscopetxt from "../../../assets/title1.png";
 import cslide from "../../../assets/FortuneCoffeePNGassets/horoscopes/cslide.png";
-import Ariesbttn from "../../../assets/FortuneCoffeePNGassets/horoscopes/horoscopebtns/Aries-bttn.png";
-import Taurusbttn from "../../../assets/FortuneCoffeePNGassets/horoscopes/horoscopebtns/Taurus-bttn.png";
-import Geminibttn from "../../../assets/FortuneCoffeePNGassets/horoscopes/horoscopebtns/Gemini-bttn.png";
-import Cancerbttn from "../../../assets/FortuneCoffeePNGassets/horoscopes/horoscopebtns/Cancer-bttn.png";
-import Leobttn from "../../../assets/FortuneCoffeePNGassets/horoscopes/horoscopebtns/Leo-bttn.png";
+import Ariesc from "../../../assets/FortuneCoffeePNGassets/horoscopes/compatibility/Ariesc.png";
+import Ariesd from "../../../assets/FortuneCoffeePNGassets/horoscopes/compatibility/Ariesd.png";
+import Taurusc from "../../../assets/FortuneCoffeePNGassets/horoscopes/compatibility/Taurusc.png";
+import Geminic from "../../../assets/FortuneCoffeePNGassets/horoscopes/compatibility/Geminic.png";
+import Cancerc from "../../../assets/FortuneCoffeePNGassets/horoscopes/compatibility/Cancerc.png";
+import Leoc from "../../../assets/FortuneCoffeePNGassets/horoscopes/compatibility/Leoc.png";
 import gtcr from "../../../assets/FortuneCoffeePNGassets/gtcr.png";
-import Virgobttn from "../../../assets/FortuneCoffeePNGassets/horoscopes/horoscopebtns/Virgo-bttn.png";
-import Librabttn from "../../../assets/FortuneCoffeePNGassets/horoscopes/horoscopebtns/Libra-bttn.png";
-import Scorpiobttn from "../../../assets/FortuneCoffeePNGassets/horoscopes/horoscopebtns/Scorpio-bttn.png";
-import Sagittariusbttn from "../../../assets/FortuneCoffeePNGassets/horoscopes/horoscopebtns/Sagittarius-bttn.png";
-import Capribttn from "../../../assets/FortuneCoffeePNGassets/horoscopes/horoscopebtns/Capricorn-bttn.png";
-import Aquariusbttn from "../../../assets/FortuneCoffeePNGassets/horoscopes/horoscopebtns/Aquarius-bttn.png";
-import Piscesbttn from "../../../assets/FortuneCoffeePNGassets/horoscopes/horoscopebtns/Pisces-bttn.png";
+import Virgoc from "../../../assets/FortuneCoffeePNGassets/horoscopes/compatibility/Virgoc.png";
+import Librac from "../../../assets/FortuneCoffeePNGassets/horoscopes/compatibility/Librac.png";
+import Scorpioc from "../../../assets/FortuneCoffeePNGassets/horoscopes/compatibility/Scorpioc.png";
+import Sagittariusc from "../../../assets/FortuneCoffeePNGassets/horoscopes/compatibility/Sagic.png";
+import Capric from "../../../assets/FortuneCoffeePNGassets/horoscopes/compatibility/Capric.png";
+import Aquariusc from "../../../assets/FortuneCoffeePNGassets/horoscopes/compatibility/Aquc.png";
+import Piscesc from "../../../assets/FortuneCoffeePNGassets/horoscopes/compatibility/Piscesc.png";
 import NavBar_hor from "../../navbars/NavBar_Horoscope";
 import { Dimensions } from 'react-native';
 import {widthPercentageToDP,heightPercentageToDP,} from '../../../util/scaler';
@@ -31,7 +30,7 @@ import React, {useEffect, useState} from "react";
 
 
 
-function HoroscopeMain({}) {
+function CompatibilityAries({}) {
     const navigation = useNavigation();
 
 
@@ -45,53 +44,54 @@ function HoroscopeMain({}) {
 </TouchableOpacity>
     </View>
                     <Image source={Horoscopetxt} style={{marginTop:widthPercentageToDP(2)}} />
-                  {/*  <TouchableOpacity onPress={() => navigation.navigate('Compatibility')}> 
-                    <Image source={hslide} style={{marginTop:widthPercentageToDP(2),marginTop: "4%"}} />
-                    </TouchableOpacity>*/}
+                    <Image source={Ariesd} style={{marginTop:widthPercentageToDP(4)}} />
+                    <TouchableOpacity onPress={() => navigation.navigate('HoroscopeAries')}>
+                    <Image source={cslide} style={{marginTop:widthPercentageToDP(2),marginTop: "6%",}} />
+                    </TouchableOpacity>
                     <ScrollView>
                     <View style={{justifyContent: 'center', padding:5 }}>
                     <View style={{ flexDirection: 'row', justifyContent: 'center',marginTop:widthPercentageToDP(3)}}>
                         <TouchableOpacity onPress={() => navigation.navigate('HoroscopeAries')}>
-                            <Image source={Ariesbttn} style={{width :widthPercentageToDP('23'), height :heightPercentageToDP('16'), resizeMode:'contain', marginRight:10}}/>
+                            <Image source={Ariesc} style={{width :widthPercentageToDP('23'), height :heightPercentageToDP('16'), resizeMode:'contain', marginRight:"10%"}}/>
                         </TouchableOpacity>
                         <TouchableOpacity onPress={() => navigation.navigate('HoroscopeTaurus')}>
-                            <Image source={Taurusbttn} style={{width :widthPercentageToDP('23'), height :heightPercentageToDP('16'), resizeMode:'contain'}}/>
+                            <Image source={Taurusc} style={{width :widthPercentageToDP('23'), height :heightPercentageToDP('16'), resizeMode:'contain',marginRight:"6%"}}/>
                         </TouchableOpacity>
                         <TouchableOpacity onPress={() => navigation.navigate('HoroscopeGemini')}>
-                            <Image source={Geminibttn} style={{width :widthPercentageToDP('23'), height :heightPercentageToDP('16'), resizeMode:'contain', marginLeft:10}}/>
+                            <Image source={Geminic} style={{width :widthPercentageToDP('23'), height :heightPercentageToDP('16'), resizeMode:'contain', marginLeft:10}}/>
                         </TouchableOpacity>
                     </View>
                     <View style={{ flexDirection: 'row', justifyContent: 'center', padding:"4%" }}>
                         <TouchableOpacity onPress={() => navigation.navigate('HoroscopeCancer')}>
-                            <Image source={Cancerbttn} style={{width :widthPercentageToDP('23'), height :heightPercentageToDP('16'), resizeMode:'contain', marginRight:10}}/>
+                            <Image source={Cancerc} style={{width :widthPercentageToDP('23'), height :heightPercentageToDP('16'), resizeMode:'contain',  marginRight:"10%"}}/>
                         </TouchableOpacity>
                         <TouchableOpacity onPress={() => navigation.navigate('HoroscopeLeo')}>
-                            <Image source={Leobttn} style={{width :widthPercentageToDP('23'), height :heightPercentageToDP('16'), resizeMode:'contain'}}/>
+                            <Image source={Leoc} style={{width :widthPercentageToDP('23'), height :heightPercentageToDP('16'), resizeMode:'contain',marginRight:"6%"}}/>
                         </TouchableOpacity>
                         <TouchableOpacity onPress={() => navigation.navigate('HoroscopeVirgo')}>
-                            <Image source={Virgobttn} style={{width :widthPercentageToDP('23'), height :heightPercentageToDP('16'), resizeMode:'contain', marginLeft:10}}/>
+                            <Image source={Virgoc} style={{width :widthPercentageToDP('23'), height :heightPercentageToDP('16'), resizeMode:'contain', marginLeft:10}}/>
                         </TouchableOpacity>
                     </View>
                     <View style={{ flexDirection: 'row', justifyContent: 'center',  padding:"2%"}}>
                         <TouchableOpacity onPress={() => navigation.navigate('HoroscopeLibra')}>
-                            <Image source={Librabttn} style={{width :widthPercentageToDP('23'), height :heightPercentageToDP('16'), resizeMode:'contain', marginRight:10}}/>
+                            <Image source={Librac} style={{width :widthPercentageToDP('23'), height :heightPercentageToDP('16'), resizeMode:'contain',  marginRight:"10%"}}/>
                         </TouchableOpacity>
                         <TouchableOpacity onPress={() => navigation.navigate('HoroscopeScorpio')}>
-                            <Image source={Scorpiobttn} style={{width :widthPercentageToDP('23'), height :heightPercentageToDP('16'), resizeMode:'contain'}}/>
+                            <Image source={Scorpioc} style={{width :widthPercentageToDP('23'), height :heightPercentageToDP('16'), resizeMode:'contain',marginRight:"6%"}}/>
                         </TouchableOpacity>
                         <TouchableOpacity onPress={() => navigation.navigate('HoroscopeSagittarius')}>
-                            <Image source={Sagittariusbttn} style={{width :widthPercentageToDP('23'), height :heightPercentageToDP('16'), resizeMode:'contain',marginLeft:10}}/>
+                            <Image source={Sagittariusc} style={{width :widthPercentageToDP('23'), height :heightPercentageToDP('16'), resizeMode:'contain',marginLeft:10}}/>
                         </TouchableOpacity>
                     </View>
                     <View style={{ flexDirection: 'row', justifyContent: 'center', padding:"2%" }}>
                         <TouchableOpacity onPress={() => navigation.navigate('HoroscopeCapricorn')}>
-                            <Image source={Capribttn} style={{width :widthPercentageToDP('23'), height :heightPercentageToDP('16'), resizeMode:'contain', marginRight:10}}/>
+                            <Image source={Capric} style={{width :widthPercentageToDP('23'), height :heightPercentageToDP('16'), resizeMode:'contain',  marginRight:"10%"}}/>
                         </TouchableOpacity>
                         <TouchableOpacity onPress={() => navigation.navigate('HoroscopeAquarius')}>
-                            <Image source={Aquariusbttn} style={{width :widthPercentageToDP('23'), height :heightPercentageToDP('16'), resizeMode:'contain'}}/>
+                            <Image source={Aquariusc} style={{width :widthPercentageToDP('23'), height :heightPercentageToDP('16'), resizeMode:'contain',marginRight:"6%"}}/>
                         </TouchableOpacity>
                         <TouchableOpacity onPress={() => navigation.navigate('HoroscopePisces')}>
-                            <Image source={Piscesbttn} style={{width :widthPercentageToDP('23'), height :heightPercentageToDP('16'), resizeMode:'contain', marginLeft:10}}/>
+                            <Image source={Piscesc} style={{width :widthPercentageToDP('23'), height :heightPercentageToDP('16'), resizeMode:'contain', marginLeft:10}}/>
                         </TouchableOpacity>
                     </View>
                     </View>
@@ -105,4 +105,4 @@ function HoroscopeMain({}) {
 
     );
 }
-export default HoroscopeMain
+export default CompatibilityAries

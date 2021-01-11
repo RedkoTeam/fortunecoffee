@@ -62,9 +62,9 @@ function Psychic() {
                         <ScrollView >
                             <View style={{ marginTop:heightPercentageToDP('8'), alignItems: 'center', justifyContent: 'center'}}>
                                 <Image source={psychicTitle} style={{marginBottom: heightPercentageToDP('1')}}/>
-                                <TouchableOpacity onPress={() => navigation.navigate('LunaChat')}>
+                                {/*<TouchableOpacity onPress={() => navigation.navigate('LunaChat')}>
                                     <Image source={asklunabtn} style={{resizeMode:'contain',height: heightPercentageToDP(12), width:widthPercentageToDP(87), borderRadius:15}} />
-                                </TouchableOpacity>
+                                </TouchableOpacity>*/}
                                 <TouchableOpacity onPress={() => navigation.navigate('SomeoneFortune1')}>
                                     <Image source={someonebtn} style={{resizeMode:'contain', marginTop:heightPercentageToDP(2), marginBottom:heightPercentageToDP(2)
                                         , height: heightPercentageToDP(12), width:widthPercentageToDP(87), borderRadius:15}}  />

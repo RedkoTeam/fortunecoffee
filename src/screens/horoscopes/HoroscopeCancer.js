@@ -380,7 +380,7 @@ function HoroscopeCancer({}) {
             <View style={{flex: 1,flexDirection: 'row', width: '100%', padding: 25, zIndex: 10}}>
             <TouchableOpacity onPress={()=>navigation.navigate('HoroscopeMain')} style={{alignSelf:'flex-start', top: heightPercentageToDP('3'), left: widthPercentageToDP('3')}}>
                     <Image source={backButton}/>
-                </TouchableOpacity>
+                </TouchableOpacity>a
                 </View>
             <ScrollView directionalLockEnabled={true} automaticallyAdjustContentInsets={true}>
                 <View style={{  alignItems: 'center', marginTop:60 }}>
