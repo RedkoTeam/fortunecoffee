@@ -11,7 +11,7 @@ import sub4 from "../../assets/FortuneCoffeePNGassets/Subscription/subscription4
 import sub3 from "../../assets/FortuneCoffeePNGassets/Subscription/subscription3.png";
 import NavBar from "../navbars/NavBar";
 import React from "react";
-import {widthPercentageToDP,heightPercentageToDP,} from '../../util/scaler'
+import {widthPercentageToDP,heightPercentageToDP} from '../../util/scaler'
 
 function SubscriptionScreen() {
     const navigation = useNavigation();

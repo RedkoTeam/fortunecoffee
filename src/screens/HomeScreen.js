@@ -146,8 +146,7 @@ function HomeScreen({ navigation }) {
       <Modal isVisible={isModalVisible}>
         <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center',  alignSelf: 'center',}}>
               {/* IMAGE */}
-            <Image source={crystalBackground} style={{ height: heightPercentageToDP('58'), width: widthPercentageToDP('86'),
-              resizeMode: 'stretch', borderRadius:36}} />
+            <Image source={crystalBackground} style={{height: heightPercentageToDP('48'), width: widthPercentageToDP('86')}} />
             {/* X */}
             <TouchableOpacity style={{position: 'absolute', zIndex: 20, top: heightPercentageToDP(25), right: '5%'}} onPress={()=>{
                   toggleModal();

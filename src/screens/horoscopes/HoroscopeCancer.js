@@ -377,10 +377,13 @@ function HoroscopeCancer({}) {
     return (
         <View style={styles.mainContainer}> 
             <ImageBackground source={bgstars} style={styles.bgfull}>
-            <View style={{flex: 1,flexDirection: 'row', width: '100%', padding: 25, zIndex: 10}}>
-            <TouchableOpacity onPress={()=>navigation.navigate('HoroscopeMain')} style={{alignSelf:'flex-start', top: heightPercentageToDP('3'), left: widthPercentageToDP('3')}}>
-                    <Image source={backButton}/>
-                </TouchableOpacity>a
+            <View style={{flexDirection: 'row', width: '100%', justifyContent: 'space-between', padding: 10, marginTop: 5 }}>
+                    <TouchableOpacity onPress={()=>navigation.navigate('HoroscopeMain')} style={{
+                                left:widthPercentageToDP(0),
+                                top:heightPercentageToDP(3)
+                            }}>
+                                    <Image source={backButton} />
+                    </TouchableOpacity>
                 </View>
             <ScrollView directionalLockEnabled={true} automaticallyAdjustContentInsets={true}>
                 <View style={{  alignItems: 'center', marginTop:60 }}>
@@ -389,27 +392,27 @@ function HoroscopeCancer({}) {
                         <View style={{ flexDirection: 'column', justifyContent: 'space-evenly' , marginRight:12 }}>
 
                             <Image source={number} style={{ marginTop: 10 }} />
-                            <Text style={{fontSize:actuatedNormalize(13), color:'white', marginTop:5,marginLeft:3}}> {randNumber}  </Text>
+                            <Text style={{fontSize:actuatedNormalize (12), color:'white', marginTop:5,marginLeft:3}}> {randNumber}  </Text>
 
                             <Image source={letter} style={{ marginTop: 10 }} />
-                            <Text style={{fontSize:actuatedNormalize(13), color:'white', marginTop:5,marginLeft:3}}> {randLetter}  </Text>
+                            <Text style={{fontSize:actuatedNormalize (12), color:'white', marginTop:5,marginLeft:3}}> {randLetter}  </Text>
 
                             <Image source={appre} style={{ marginTop: 10 }} />
-                            <Text style={{fontSize:actuatedNormalize(13), color:'white', marginTop:5,marginLeft:3}}> {randThanks}  </Text>
+                            <Text style={{fontSize:actuatedNormalize (12), color:'white', marginTop:5,marginLeft:3}}> {randThanks}  </Text>
 
                         </View>
                         <Image source={CancerCard} style={{ justifyContent: 'space-evenly'}} />
 
                         <View style={{  flexDirection: 'column', justifyContent: 'space-evenly'}}>
                             <Image source={love} style={{ marginTop: 10}} />
-                            <Text style={{fontSize:actuatedNormalize(13), color:'white', marginTop:5, marginLeft:3}}> {randWord2}  </Text>
+                            <Text style={{fontSize:actuatedNormalize (12), color:'white', marginTop:5, marginLeft:3}}> {randWord2}  </Text>
 
 
                             <Image source={career} style={{ marginTop: 10}} />
-                            <Text style={{fontSize:actuatedNormalize(13), color:'white', marginTop:5, marginLeft:3}}> {randWord3}  </Text>
+                            <Text style={{fontSize:actuatedNormalize (12), color:'white', marginTop:5, marginLeft:3}}> {randWord3}  </Text>
 
                             <Image source={luck} style={{ marginTop: 0 }} />
-                            <Text style={{fontSize:actuatedNormalize(13), color:'white', marginTop:5, marginLeft:3}}> {randWord4}  </Text>
+                            <Text style={{fontSize:actuatedNormalize (12), color:'white', marginTop:5, marginLeft:3}}> {randWord4}  </Text>
 
 
                         </View>
@@ -422,7 +425,7 @@ function HoroscopeCancer({}) {
                         <Image source={hottxt} style={{ alignItems: 'center', marginTop: 30 }} />
                         <View style={styles.readingTableContainer2}>
                             <ScrollView>
-                                <Text style={{fontSize:actuatedNormalize(13), color:'white'}}> {randHoroscope}  </Text>
+                                <Text style={{fontSize:actuatedNormalize (12), color:'white'}}> {randHoroscope}  </Text>
                             </ScrollView>
 
                         </View>
@@ -431,7 +434,7 @@ function HoroscopeCancer({}) {
                         <Image source={advicetxt} style={{ alignItems: 'center', marginTop:30}} />
                         <View style={styles.readingTableContainer2}>
                             <ScrollView style={{marginBottom:"30%"}} >
-                                <Text style={{fontSize:actuatedNormalize(13), color:'white'}}> {randAdvice}  </Text>
+                                <Text style={{fontSize:actuatedNormalize (12), color:'white'}}> {randAdvice}  </Text>
 
 
                             </ScrollView>

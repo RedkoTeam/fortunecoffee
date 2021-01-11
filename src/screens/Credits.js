@@ -20,13 +20,16 @@ function Credits() {
     return (
         <ScrollView>
         <ImageBackground source={Creditsbg} style={styles.bgfull}>
-                <View style={{ flexDirection: 'row',  width: widthPercentageToDP('100%'), justifyContent: 'space-between', marginBottom:"80%" }}>
-                    <View style={{position:'absolute', top:0, flexDirection:'row', width:'100%', margin:10}}>
-                        <TouchableOpacity onPress={()=>{navigation.navigate('ProfileLoggedIn')}}>
-                            <Image source={backButton} style={styles.backButtonStyle}/>
-                        </TouchableOpacity>
-                    </View>
+      
+                <View style={{flexDirection: 'row', width: '100%', justifyContent: 'space-between', padding: 10, marginTop: 5 }}>
+                    <TouchableOpacity onPress={()=>navigation.navigate('HoroscopeMain')} style={{
+                                left:widthPercentageToDP(0),
+                                top:heightPercentageToDP(3)
+                            }}>
+                                    <Image source={backButton} />
+                    </TouchableOpacity>
                 </View>
+             
                 <View style={{flexDirection:'row', marginTop: 550}} >
                     <Image source={iconsmadeby} style={{marginRight:10}}/>
                     <TouchableOpacity style = {{marginRight: 5}} onPress={()=>{Linking.openURL('https://www.flaticon.com/authors/freepik')}}>
