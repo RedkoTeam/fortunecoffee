@@ -1,4 +1,4 @@
-package com.redko.fortune_coffee;
+package com.redko.fortunecoffee;
 
 import android.os.Bundle;
 

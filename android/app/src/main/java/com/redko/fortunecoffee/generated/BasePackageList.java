@@ -1,4 +1,4 @@
-package com.redko.fortune_coffee.generated;
+package com.redko.fortunecoffee.generated;
 
 import java.util.Arrays;
 import java.util.List;
