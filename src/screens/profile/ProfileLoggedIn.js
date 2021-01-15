@@ -7,7 +7,7 @@ import {Image, ImageBackground, Text, View, ScrollView} from "react-native";
 import {TouchableOpacity} from 'react-native';
 import profilebg from "../../../assets/FortuneCoffeePNGassets/Profile/Profile.png";
 import styles from "../../styles/styles";
-import Shopbtn from "../../../assets/FortuneCoffeePNGassets/Profile/shopbtn.png";
+import btn from "../../../assets/FortuneCoffeePNGassets/Profile/shopbtn.png";
 import gtcr from "../../../assets/FortuneCoffeePNGassets/gtcr.png";
 import Logoutbtn from "../../../assets/FortuneCoffeePNGassets/Profile/BtnPrimary.png";
 import UserNametxt from "../../../assets/FortuneCoffeePNGassets/Profile/Name.png";
@@ -117,9 +117,7 @@ function ProfileLoggedIn({route}) {
                     <TouchableOpacity onPress={() => navigation.navigate('SubscriptionScreen')}>
                     <Image source={gtcr} />
                   </TouchableOpacity>
-                    <TouchableOpacity onPress={() => navigation.navigate('Shop')}>
-                        <Image source={Shopbtn} />
-                    </TouchableOpacity>
+      
 
                     
                 </View>
