@@ -81,3 +81,5 @@ buck-out/
 web-build/
 
 # @end expo-cli
+
+/ios/gc_keys.json
