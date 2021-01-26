@@ -10,6 +10,7 @@ import someonetxt from "../../assets/FortuneCoffeePNGassets/Psychic/someonetxt.p
 import NavBar_psyc from "../navbars/NavBar";
 import {someoneArray} from "../arrays/someoneArray";
 import {widthPercentageToDP,heightPercentageToDP,} from '../../util/scaler';
+import { actuatedNormalize } from '../../util/fontScaler';
 
 function SomeoneFortune() {
     const navigation = useNavigation();
@@ -23,16 +24,16 @@ function SomeoneFortune() {
         <View style={styles.mainContainer}>
             <ImageBackground source={bgstars} style={{flex:1, resizeMode:'cover'}}>
                 <TouchableOpacity onPress={()=>navigation.navigate('Psychic')} style={{alignSelf:'flex-start', top: heightPercentageToDP('5'), left: widthPercentageToDP('5')}}>
-                    <Image source={backButton}/>
+                <Image source={backButton} style={{width :widthPercentageToDP('13'), height :heightPercentageToDP('6'), resizeMode:'contain'}} />
                 </TouchableOpacity>
                 <View style={{marginTop: heightPercentageToDP('10'), marginBottom: heightPercentageToDP('5'), alignSelf:'center', alignItems:'center'}}>
                     <Image source={magicglobetxt} />
                     <Image source={linehors} style={{marginTop: heightPercentageToDP(5), marginBottom: heightPercentageToDP(5)}} />
                     <Image source={someonetxt}  />
                 </View>
-                <View style={styles.readingTableContainer}>
+                <View style={styles.readingTableContainer1}>
                     <ScrollView>
-                        <Text style={{fontSize:18, color:'#F1F1F1', marginTop:heightPercentageToDP(5)}}> {randomFortuneS}  </Text>
+                        <Text style={{fontSize:actuatedNormalize(14), color:'#F1F1F1', marginTop:heightPercentageToDP(5)}}> {randomFortuneS}  </Text>
                         {!buttonClicked ? (
                             <Button
                                 onPress={() => {

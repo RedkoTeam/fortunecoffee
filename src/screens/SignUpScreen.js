@@ -24,7 +24,10 @@ import SignUpValidationSchema from "../../util/validators/SignUpValidationSchema
 import signUpButton from "../../assets/FortuneCoffeePNGassets/Sign/signUpButton.png";
 import haveAcctText from "../../assets/FortuneCoffeePNGassets/Sign/haveAcctText.png";
 import loginText from "../../assets/FortuneCoffeePNGassets/Sign/loginText.png";
-import {widthPercentageToDP,heightPercentageToDP} from '../../util/scaler'
+import {widthPercentageToDP,heightPercentageToDP} from '../../util/scaler';
+
+
+
 
 // Async Storage
 import SaveItemInStorage from '../../util/SaveItemInStorage'
@@ -88,7 +91,7 @@ function SignUpScreen({ navigation }) {
                 <Overlay isVisible={visible} onBackdropPress={toggleOverlay} >
                     {/* PLEASE CHANGE ME TO WHATEVER YOU GUYS WANT */}
                     <TouchableOpacity onPress={() => console.log("Understood")} style={{alignItems: 'center'}}>
-                        <Text style={{color: 'red', fontSize: actuatedNormalize (15)}} >ERROR</Text>
+                        <Text style={{color: 'red', fontSize: actuatedNormalize (13)}} >ERROR</Text>
                         <Text >{currentError}</Text>
                         <Button title={'Understood'} onPress={toggleOverlay} style={styles.button}/>
                     </TouchableOpacity>
@@ -104,7 +107,7 @@ function SignUpScreen({ navigation }) {
             <KeyboardAvoidingView style={styles.virtualContainer} behavior='padding'>
                 <ImageBackground source={signBackground} style={styles.virtualOne}>
                     <TouchableOpacity onPress={() => navigation.navigate('Home')} style={styles.backButtonStyle2}>
-                        <Image source={backButton}/>
+                    <Image source={backButton} style={{width :widthPercentageToDP('13'), height :heightPercentageToDP('6'), resizeMode:'contain'}} />
                     </TouchableOpacity>
                     <Image source={signTitle} style={{marginTop:'20%'}}/>
                     <Image source={signUpBelowTitle} style={{marginBottom:12, marginTop:12}} />
@@ -165,7 +168,7 @@ function SignUpScreen({ navigation }) {
                                 <Text style={{ fontSize: actuatedNormalize (11), color: 'red', paddingTop: 5 }}>{errors.confirmPassword}</Text>
                                 }
                                 <TouchableOpacity style={{paddingTop: 8}} disabled={!isValid} onPress={handleSubmit}>
-                                    <Image source={signUpButton} style={{resizeMode: 'stretch',width: widthPercentageToDP('70'), height:heightPercentageToDP('7')}}  />
+                                    <Image source={signUpButton} style={{resizeMode: 'contain',width: widthPercentageToDP('70'), height:heightPercentageToDP('7')}}  />
                                 </TouchableOpacity>
                             </>
                         )}

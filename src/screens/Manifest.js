@@ -28,12 +28,12 @@ function Manifest() {
                 <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-between', padding: heightPercentageToDP(6.5), marginTop:30 }}>
                     <View style={{position:'absolute', flexDirection:'row', width:heightPercentageToDP(6.5), margin:5}}>
                     <TouchableOpacity onPress={()=>navigation.navigate('Psychic')} style={{alignSelf:'flex-start', top: heightPercentageToDP('1'), left: widthPercentageToDP('3')}}>
-                    <Image source={backButton}/>
+                    <Image source={backButton} style={{width :widthPercentageToDP('12'), height :heightPercentageToDP('6'), resizeMode:'contain'}} />
                 </TouchableOpacity>
                     </View>
                 </View>
                 <View style={{ flex: 1,flexDirection: 'column', justifyContent: 'space-between', alignItems: 'center'}}>
-                <View style={{flex: 1, marginTop:110, flexDirection: 'column', padding: 10, alignItems: 'center'}}>
+                <View style={{flex: 1, marginTop:'30%', flexDirection: 'column', padding: 10, alignItems: 'center'}}>
                     <TextInput style={styles.savedFortuneTextBox0}
                                    onChangeText={wish1 => setWish1(wish1)}
                                    value={wish1}
@@ -63,7 +63,7 @@ function Manifest() {
                                    autoCapitalize='none'
                         />
                     <TouchableOpacity onPress={()=>{navigation.navigate('SendingUni2')}}>
-                        <Image source={sendtouni}  style={{ alignItems: 'center', }} />
+                        <Image source={sendtouni}  style={{ alignItems: 'center',width: widthPercentageToDP(70), height: heightPercentageToDP(6), resizeMode:'contain'}} />
                     </TouchableOpacity>
                     </View>
                 </View>

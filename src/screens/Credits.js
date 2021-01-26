@@ -22,15 +22,15 @@ function Credits() {
         <ImageBackground source={Creditsbg} style={styles.bgfull}>
       
                 <View style={{flexDirection: 'row', width: '100%', justifyContent: 'space-between', padding: 10, marginTop: 5 }}>
-                    <TouchableOpacity onPress={()=>navigation.navigate('HoroscopeMain')} style={{
-                                left:widthPercentageToDP(0),
+                    <TouchableOpacity onPress={()=>navigation.navigate('ProfileLoggedIn')} style={{
+                                left:widthPercentageToDP(2),
                                 top:heightPercentageToDP(3)
                             }}>
-                                    <Image source={backButton} />
+                                    <Image source={backButton} style={{width :widthPercentageToDP('13'), height :heightPercentageToDP('6'), resizeMode:'contain'}} />
                     </TouchableOpacity>
                 </View>
              
-                <View style={{flexDirection:'row', marginTop: 550}} >
+                <View style={{flexDirection:'row', marginTop: 550, top:'90%'}} >
                     <Image source={iconsmadeby} style={{marginRight:10}}/>
                     <TouchableOpacity style = {{marginRight: 5}} onPress={()=>{Linking.openURL('https://www.flaticon.com/authors/freepik')}}>
                         <Image source={Freepik} />
@@ -42,7 +42,7 @@ function Credits() {
            
 
             </View>
-            <View style={{marginBottom:"10%"}}>
+            <View style={{marginBottom:"110%"}}>
 
             </View>
 

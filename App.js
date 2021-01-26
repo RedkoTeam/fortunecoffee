@@ -68,14 +68,16 @@ import CompatibilityVirgo from './src/screens/horoscopes/CompatibilityVirgo';
 import CompatibilitySagi from './src/screens/horoscopes/CompatibilitySagi';
 import CompatibilityLibra from './src/screens/horoscopes/CompatibilityLibra';
 import CompatibilityScorpio from './src/screens/horoscopes/CompatibilityScorpio';
+import Crystals from './src/screens/Crystals';
+
 
 // ONLY STORE NAVIGATION HERE
 
 function App() {
-  const forFade = ({ current }) => ({ cardStyle: { opacity: current.progress }});
+  const forFade = ({ current }) => ({ cardStyle: { opacity: current.progress } });
 
   // Put Error fallback here
-  
+
   return (
     <NavigationContainer>
       <Stack.Navigator
@@ -88,11 +90,11 @@ function App() {
         <Stack.Screen name="Favorites" component={FavoritesScreen} />
         <Stack.Screen name="Shop" component={ShopScreen} />
         <Stack.Screen name="Virtual" component={VirtualCoffeeReadingScreen} />
-        <Stack.Screen name="VirtualOne" component={VirtualOne} options={{ cardStyleInterpolator:forFade}} />
-        <Stack.Screen name="VirtualTwo" component={VirtualTwo} options={{ cardStyleInterpolator:forFade}}/>
-        <Stack.Screen name="VirtualThree" component={VirtualThree} options={{ cardStyleInterpolator:forFade}}/>
-        <Stack.Screen name="VirtualFour" component={VirtualFour} options={{ cardStyleInterpolator:forFade}}/>
-        <Stack.Screen name="VirtualFive" component={VirtualFive} options={{ cardStyleInterpolator:forFade}}/>
+        <Stack.Screen name="VirtualOne" component={VirtualOne} options={{ cardStyleInterpolator: forFade }} />
+        <Stack.Screen name="VirtualTwo" component={VirtualTwo} options={{ cardStyleInterpolator: forFade }} />
+        <Stack.Screen name="VirtualThree" component={VirtualThree} options={{ cardStyleInterpolator: forFade }} />
+        <Stack.Screen name="VirtualFour" component={VirtualFour} options={{ cardStyleInterpolator: forFade }} />
+        <Stack.Screen name="VirtualFive" component={VirtualFive} options={{ cardStyleInterpolator: forFade }} />
         <Stack.Screen name="VirtualLoading" component={VirtualLoadingScreen} />
         <Stack.Screen name="Payment" component={Payment} />
         <Stack.Screen name="PhotoReading" component={PhotoReadingScreen} />
@@ -144,6 +146,7 @@ function App() {
         <Stack.Screen name="SomeoneFortune" component={SomeoneFortune} />
         <Stack.Screen name="SomeoneFortune1" component={SomeoneFortune1} />
         <Stack.Screen name="Gems" component={Gems} />
+        <Stack.Screen name="Crystals" component={Crystals} />
       </Stack.Navigator>
     </NavigationContainer>
   );

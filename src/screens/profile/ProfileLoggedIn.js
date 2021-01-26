@@ -23,12 +23,14 @@ import SignInButton from "../../../assets/FortuneCoffeePNGassets/HomePage/SignIn
 import manageSubs from "../../../assets/FortuneCoffeePNGassets/Profile/managesubs.png";
 import appcredsbtn from "../../../assets/FortuneCoffeePNGassets/Profile/appcredits.png";
 import cardz from "../../../assets/FortuneCoffeePNGassets/Profile/cardz.png";
+import cards from "../../../assets/FortuneCoffeePNGassets/Profile/cards.png";
 import { Dimensions } from 'react-native';
 import {widthPercentageToDP,heightPercentageToDP,} from '../../../util/scaler'
 import LogOutUser from '../../../util/LogOutUser';
 import GetItemInStorage from "../../../util/GetItemInStorage";
 import SaveItemInStorage from '../../../util/SaveItemInStorage'
 import Gems from '../Gems';
+import { actuatedNormalize } from '../../../util/fontScaler';
 
 
 
@@ -112,49 +114,53 @@ function ProfileLoggedIn({route}) {
                         await LogOutUser();
                         navigation.navigate('Home')
                     }}>
-                        <Image source={Logoutbtn} />
+                        <Image source={Logoutbtn}  style={{resizeMode: 'contain',width: widthPercentageToDP(18),height: heightPercentageToDP(5)}}  />
                     </TouchableOpacity>
                     <TouchableOpacity onPress={() => navigation.navigate('SubscriptionScreen')}>
-                    <Image source={gtcr} />
+                    <Image source={gtcr} style={{resizeMode: 'contain',width: widthPercentageToDP(15),height: heightPercentageToDP(8)}} />
                   </TouchableOpacity>
       
 
                     
                 </View>
-                <TouchableOpacity>
-                    <Image source={cardz} style={{marginTop:"0%", marginLeft:"60%"}}/>
-                    <Text style={{marginTop:"0%",  marginLeft:"60%",fontSize:24,color:'#FFFFFF'}}>{fortune} | {cardCount}</Text >  
-                    {/* ADD HERE THE CARD COUNT */}
+
+                <View style={{flex: 1, flexDirection:'column', alignItems: 'center', width: widthPercentageToDP('100'), height: heightPercentageToDP('160')}}>
+                    <ScrollView>
+                    <TouchableOpacity>
+                <View style={{flex: 0, flexDirection: 'row'}}>
+                    <Image source={cards} style={{marginTop:"0%", marginLeft: '20%',resizeMode: 'contain',width: widthPercentageToDP(18),height: heightPercentageToDP(18)}}/>
+                    <Text style={{marginTop: '18%', fontSize:actuatedNormalize(18),color:'#FFFFFF'}}>{cardCount}</Text > 
+                    <Image source={cardz} style={{marginTop:"0%", marginLeft: '20%',resizeMode: 'contain',width: widthPercentageToDP(18),height: heightPercentageToDP(18)}}/>
+                    <Text style={{marginTop: '18%', fontSize:actuatedNormalize(18),color:'#FFFFFF'}}>{fortune}</Text >   
+                    </View>
                 </TouchableOpacity>
 
-                <View style={{flex: 1, flexDirection:'column', alignItems: 'center', width: widthPercentageToDP('100'), height: heightPercentageToDP('100')}}>
-                    <ScrollView>
 
-                    <Image source={UserNametxt} style={{marginTop:"10%", marginRight: '56%'}}/>
-                    <Text style={{marginTop:20, marginRight:"50%",marginBottom:20, fontSize:15,color:'#FFFFFF'}}>{name} </Text >  
-                    <Image source={proline} />
+                    <Image source={UserNametxt} style={{marginTop:"10%", marginRight: '56%',resizeMode: 'contain',width: widthPercentageToDP(10),height: heightPercentageToDP(5)}}/>
+                    <Text style={{marginTop:10, marginRight:"50%",marginBottom:10, fontSize:actuatedNormalize(13),color:'#FFFFFF'}}>{name} </Text >  
+                    <Image source={proline} style={{resizeMode: 'contain',width: widthPercentageToDP(75),height: heightPercentageToDP(1)}} />
 
-                    <Image source={DOB} style={{marginTop:30,marginRight:"50%"}}/>
-                    <Text style={{marginTop:20, marginRight:"50%",marginBottom:20, fontSize:15,color:'#FFFFFF'}}>{month}/{day}/{year}</Text>
+                    <Image source={DOB} style={{marginTop:30,marginRight:"50%",resizeMode: 'contain',width: widthPercentageToDP(22),height: heightPercentageToDP(5)}}/>
+                    <Text style={{marginTop:20, marginRight:"50%",marginBottom:20, fontSize:actuatedNormalize(13),color:'#FFFFFF'}}>{month}/{day}/{year}</Text>
 
-                    <Image source={proline} />
-                    <Image source={Gen} style={{marginTop:30,marginRight:"50%"}}/>
-                    <Text style={{marginTop:20, marginRight:"50%",marginBottom:20, fontSize:15,color:'#FFFFFF'}}>{gender} </Text>
+                    <Image source={proline}  style={{resizeMode: 'contain',width: widthPercentageToDP(75),height: heightPercentageToDP(1)}}  />
+                    <Image source={Gen} style={{marginTop:30,marginRight:"50%",resizeMode: 'contain',width: widthPercentageToDP(14),height: heightPercentageToDP(5)}}/>
+                    <Text style={{marginTop:20, marginRight:"50%",marginBottom:20, fontSize:actuatedNormalize(13),color:'#FFFFFF'}}>{gender} </Text>
 
-                    <Image source={proline} />
-                    <Image source={Rel} style={{marginTop:30,marginRight:"50%"}}/>
-                    <Text style={{marginTop:20, marginRight:"50%",marginBottom:20, fontSize:15,color:'#FFFFFF'}}>{rStatus} </Text>
+                    <Image source={proline}  style={{resizeMode: 'contain',width: widthPercentageToDP(75),height: heightPercentageToDP(1)}} />
+                    <Image source={Rel} style={{marginTop:30,marginRight:"50%",resizeMode: 'contain',width: widthPercentageToDP(33),height: heightPercentageToDP(5)}}/>
+                    <Text style={{marginTop:20, marginRight:"50%",marginBottom:20, fontSize:actuatedNormalize(13),color:'#FFFFFF'}}>{rStatus} </Text>
 
-                    <Image source={proline} />
-                    <Image source={Emp} style={{marginTop:30,marginRight:"50%"}}/>
-                    <Text style={{marginTop:20, marginRight:"50%",marginBottom:20, fontSize:15,color:'#FFFFFF'}}> {employment} </Text>
+                    <Image source={proline}  style={{resizeMode: 'contain',width: widthPercentageToDP(75),height: heightPercentageToDP(1)}}  />
+                    <Image source={Emp} style={{marginTop:30,marginRight:"50%",resizeMode: 'contain',width: widthPercentageToDP(26),height: heightPercentageToDP(5)}}/>
+                    <Text style={{marginTop:20, marginRight:"50%",marginBottom:20, fontSize:actuatedNormalize(13),color:'#FFFFFF'}}> {employment} </Text>
 
-                    <Image source={proline} />
+                    <Image source={proline}  style={{resizeMode: 'contain',width: widthPercentageToDP(75),height: heightPercentageToDP(1)}} />
 
 
-                    <TouchableOpacity>
+                   {/*} <TouchableOpacity>
                     <Image source={manageSubs} style={{marginTop:30,marginBottom:30}}/>
-                    </TouchableOpacity>
+                    </TouchableOpacity> */}
                     </ScrollView>
 
                 </View>
@@ -166,34 +172,37 @@ function ProfileLoggedIn({route}) {
 
     ): (
         <>
-        <View style={{flex: 1}}>
+        <View style={{flex: 1, justifyContent: 'space-evenly'}}>
                 <ImageBackground source={profilebgnotlogged} style={styles.bgfull1}>
                     {isLoggedIn ? (
                             <View>
                                 <TouchableOpacity onPress={ () => { LogOutUser();}}>
-                                    <Image source={Logoutbtn} />
+                                    <Image source={Logoutbtn}  style={{resizeMode: 'contain',width: widthPercentageToDP(18),height: heightPercentageToDP(5)}}  />
                                 </TouchableOpacity>
                             </View>
                         ) :
                         <View style={{   flex: 0.03, flexDirection: 'row', width: '100%', justifyContent: 'space-between', padding: 25, marginTop: 18}}>
                         <TouchableOpacity onPress={() => navigation.navigate('SignUp')}>
-                            <Image source={SignUpButton} />
+                        <Image source={SignUpButton} style={{resizeMode: 'contain',width: widthPercentageToDP(30),height: heightPercentageToDP(7)}}/>
                         </TouchableOpacity>
                         <TouchableOpacity onPress={() => navigation.navigate('SubscriptionScreen')}>
-                    <Image source={gtcr} />
+                        <Image source={gtcr} style={{resizeMode: 'contain',width: widthPercentageToDP(15),height: heightPercentageToDP(8)}} />
                   </TouchableOpacity>
                         
                         </View>
 
                     }
-                    <Image source={cardz} style={{marginTop:"10%", marginLeft: '10%'}}/>
-                    <Text style={{marginTop:"0%", marginLeft: '-5%', fontSize:24,color:'#FFFFFF'}}>{fortune} | {cardCount}</Text >  
-
+                    <View style={{flex: 0, flexDirection: 'row'}}>
+                    <Image source={cards} style={{marginTop:"10%", marginLeft: '10%',resizeMode: 'contain',width: widthPercentageToDP(18),height: heightPercentageToDP(18)}}/>
+                    <Text style={{marginTop: '28%', fontSize:actuatedNormalize(18),color:'#FFFFFF'}}>{cardCount}</Text > 
+                    <Image source={cardz} style={{marginTop:"10%", marginLeft: '20%',resizeMode: 'contain',width: widthPercentageToDP(18),height: heightPercentageToDP(18)}}/>
+                    <Text style={{marginTop: '28%', fontSize:actuatedNormalize(18),color:'#FFFFFF'}}>{fortune}</Text >   
+                    </View>
                     {/* ADD HERE THE CARD COUNT */}
 
                     <View style={{flex: 1, justifyContent: 'center', top: heightPercentageToDP(10)}}>
                         <TouchableOpacity onPress={() => navigation.navigate('Credits')} >
-                            <Image source={appcredsbtn} />
+                            <Image source={appcredsbtn} style={{resizeMode: 'contain',width: widthPercentageToDP('25'), height:heightPercentageToDP('7')}}/>
                         </TouchableOpacity>
                     </View>
                 </ImageBackground>

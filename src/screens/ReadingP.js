@@ -26,12 +26,12 @@ function ReadingP({}){
     return (
         <View style={styles.virtualContainer}>
             <ImageBackground source={readingBackground} style={styles.virtualOne}>
-                <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-between', padding: 25, marginTop: 18}}>
+            <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-between', padding: 25, marginTop: 18}}>
                     <TouchableOpacity onPress={() => navigation.navigate('Home')} >
-                        <Image source={backButton} />
+                    <Image source={backButton} style={{width :widthPercentageToDP('13'), height :heightPercentageToDP('6'), resizeMode:'contain'}} />
                     </TouchableOpacity>
                     <TouchableOpacity onPress={() => navigation.navigate('ProfileLoggedIn')}>
-                        <Image source={userImg} />
+                        <Image source={userImg} style={{width :widthPercentageToDP('15'), height :heightPercentageToDP('6'), resizeMode:'contain'}}/>
                     </TouchableOpacity>
                 </View>
                 <View style={styles.flexInRowsCoffee}>

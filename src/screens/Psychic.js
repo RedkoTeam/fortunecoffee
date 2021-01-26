@@ -44,16 +44,16 @@ function Psychic() {
                              <TouchableOpacity onPress={() => {}}>
                             </TouchableOpacity>
                             <TouchableOpacity onPress={() => navigation.navigate('SubscriptionScreen')}>
-                                <Image source={gtcr} />
+                            <Image source={gtcr} style={{resizeMode: 'contain',width: widthPercentageToDP(15),height: heightPercentageToDP(8)}} />
                             </TouchableOpacity>
                         </View>
                         ) :
                         <View style={{flexDirection: 'row', width: '100%', justifyContent: 'space-between', padding: 25, marginTop: 18 }}>
                             <TouchableOpacity onPress={() => navigation.navigate('SignUp')}>
-                                <Image source={SignUpButton} />
+                            <Image source={SignUpButton} style={{resizeMode: 'contain',width: widthPercentageToDP(30),height: heightPercentageToDP(7)}}/>
                             </TouchableOpacity>
                             <TouchableOpacity onPress={() => navigation.navigate('SubscriptionScreen')}>
-                                <Image source={gtcr} />
+                            <Image source={gtcr} style={{resizeMode: 'contain',width: widthPercentageToDP(15),height: heightPercentageToDP(8)}} />
                             </TouchableOpacity>
                         </View>
                     }

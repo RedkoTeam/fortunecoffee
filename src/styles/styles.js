@@ -111,6 +111,7 @@ const styles = StyleSheet.create({
     },
     textBox: {
         margin: 15,
+        fontSize:15,
         height: "7%",
         width: '87%',
         borderWidth: 1,
@@ -231,6 +232,15 @@ const styles = StyleSheet.create({
         alignItems:'center',
         padding: 15,
         marginBottom:200
+    },
+
+    readingTableContainer1: {
+        flex: 1,
+        width:'95%',
+        alignSelf:'center',
+        alignItems:'center',
+        padding: 15,
+        height:100
     },
 
     readingTableContainer2: {

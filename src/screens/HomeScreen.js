@@ -36,8 +36,7 @@ import {widthPercentageToDP,heightPercentageToDP} from '../../util/scaler';
 import Onboarding from "./Onboarding";
 import db from '../../util/firestore/firestore';
 import { assignWith } from "lodash";
-import backButton from "../../assets/FortuneCoffeePNGassets/reading/backButton.png";
-import gemsbg from "../../assets/FortuneCoffeePNGassets/Subscription/Gemsbg.png";
+
 
 
 function HomeScreen({ navigation }) {
@@ -144,25 +143,27 @@ function HomeScreen({ navigation }) {
     ) : <>
       {/* What to show iff the user is over the max setting.*/}
       <Modal isVisible={isModalVisible}>
-        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center',  alignSelf: 'center',}}>
-              {/* IMAGE */}
-            <Image source={crystalBackground} style={{height: heightPercentageToDP('48'), width: widthPercentageToDP('86')}} />
-            {/* X */}
+      <View style={{flex:1, alignItems: 'center',justifyContent: 'center', alignSelf:'center'}}>
+              {/* IMAGE BACKGROUND CARDS*/}
+              <Image source={submodfo} style={{resizeMode:'contain', height: heightPercentageToDP('58'), width: widthPercentageToDP('86'), borderRadius:36}} />
+              {/* X BUTTON */}
             <TouchableOpacity style={{position: 'absolute', zIndex: 20, top: heightPercentageToDP(25), right: '5%'}} onPress={()=>{
                   toggleModal();
               }}>
-                <Image source={xButton} style={{width: widthPercentageToDP(3), height: heightPercentageToDP(3)  }} />
+                <Image source={xButton} style={{width: widthPercentageToDP(2), height: heightPercentageToDP(3),marginLeft:heightPercentageToDP(-9),marginTop:heightPercentageToDP(-5)}} />
             </TouchableOpacity>
               {/* GET CRYTSTALS */}
-            <TouchableOpacity style={{  zIndex: 20, position:'absolute', top: heightPercentageToDP(58)}} onPress={() => {
-              console.log("Going to subscription screen, saving previous values");
+              <TouchableOpacity style={{  resizeMode:'contain', zIndex: 20, position:'absolute', top: heightPercentageToDP(50)}} onPress={() => {
+                console.log("Going to subscription screen, saving previous values");
               //SetPreviousData();
                 toggleModal();
                 navigation.navigate('SubscriptionScreen');
 
             }} >
-              <Image source={getCrystals} style={{marginBottom: 20, resizeMode:'contain'}}/>
-            </TouchableOpacity>
+<Image source={getCrystals} style={{width :widthPercentageToDP(60), height: heightPercentageToDP(20),resizeMode:'contain'}}/>
+            </TouchableOpacity> 
+
+            {/*edit*/}
         </View>
       </Modal>
     </>;
@@ -210,43 +211,43 @@ function HomeScreen({ navigation }) {
             
             <View style={{flex:1, alignItems: 'center',justifyContent: 'center', alignSelf:'center'}}>
               {/* IMAGE BACKGROUND */}
-              <Image source={submodfo} style={{height: heightPercentageToDP('48'), width: widthPercentageToDP('86'), resizeMode: 'stretch', borderRadius:36}} />
+              <Image source={submodfo} style={{resizeMode:'contain', height: heightPercentageToDP('58'), width: widthPercentageToDP('86'), borderRadius:36}} />
               {/* X BUTTON */}
               <TouchableOpacity style={{
                 position: 'absolute', zIndex: 20, 
-                top: heightPercentageToDP(25), right: 25
+                top: heightPercentageToDP(25), right: "5%"
               }} onPress={()=>{
                 toggleFortuneModal();
               }}>
-                <Image source={xButton} style={{width :widthPercentageToDP(3), height: heightPercentageToDP(3)}} />
+                <Image source={xButton} style={{resizeMode:'contain',width :widthPercentageToDP(6), height: heightPercentageToDP(5)}} />
               </TouchableOpacity>
 
               {/* GET CRYSTALS BUTTON */}
-              <TouchableOpacity style={{  zIndex: 20, position:'absolute', top: heightPercentageToDP(58)}} onPress={() => {
+              <TouchableOpacity style={{  resizeMode:'contain', zIndex: 20, position:'absolute', top: heightPercentageToDP(50)}} onPress={() => {
                 console.log("Going to subscription screen, saving previous values");
                 toggleFortuneModal();
                  navigation.navigate('SubscriptionScreen');
                 //SetPreviousData();
             }} >
-              <Image source={getCrystals} style={{marginBottom: 20}}/>
+              <Image source={getCrystals} style={{width :widthPercentageToDP(60), height: heightPercentageToDP(20),resizeMode:'contain'}}/>
             </TouchableOpacity>
             </View>
           </Modal>
           {/*<Button title="Reset Crystals" onPress={ () => { console.log("Async Storage Cleared"); AsyncStorage.clear();}}></Button> */}
-          <View style={{ flexDirection: 'row', justifyContent: 'space-evenly' }}>
+          <View style={{ flexDirection: 'row', justifyContent: 'space-evenly',marginTop:'5%' }}>
             <TouchableOpacity 
             onPress={() => {
               CheckFortuneCountCoffeeReading()
             }}>
               {/* virtual Coffee Reading */}
-              <Image source={VirtualCoffee} style={{resizeMode: 'stretch', marginRight:35}}   />
+              <Image source={VirtualCoffee} style={{resizeMode: 'contain', marginRight:35,width: widthPercentageToDP(30),height: heightPercentageToDP(20)}}   />
             </TouchableOpacity>
             {/* Take a photo for reading */}
             <TouchableOpacity 
             onPress={() => {
               CheckFortuneCountPhoto()
             }}>
-              <Image source={TakePhoto}  style={{resizeMode: 'stretch'}}  />
+              <Image source={TakePhoto}  style={{resizeMode: 'contain',width: widthPercentageToDP(30),height: heightPercentageToDP(20)}}  />
             </TouchableOpacity>
             
           </View>
@@ -267,26 +268,26 @@ function HomeScreen({ navigation }) {
                     await LogOutUser();
                     setIsLoggedIn(false);
                   }}>
-                    <Image source={Logoutbtn} />
+                    <Image source={Logoutbtn} style={{resizeMode: 'contain',width: widthPercentageToDP(18),height: heightPercentageToDP(5)}} />
                   </TouchableOpacity>
                   <TouchableOpacity onPress={() => navigation.navigate('SubscriptionScreen')}>
-                    <Image source={gtcr} />
+                    <Image source={gtcr} style={{resizeMode: 'contain',width: widthPercentageToDP(15),height: heightPercentageToDP(8)}} />
                   </TouchableOpacity>
                 </View>
                 ) :
                 <View style={{  flex: 0.03, flexDirection: 'row', width: '100%', justifyContent: 'space-between', padding: 25, marginTop: 18 }}>
                   <TouchableOpacity onPress={() => navigation.navigate('SignUp')}>
-                    <Image source={SignUpButton} />
+                    <Image source={SignUpButton} style={{resizeMode: 'contain',width: widthPercentageToDP(30),height: heightPercentageToDP(7)}}/>
                   </TouchableOpacity>
                   <TouchableOpacity onPress={() => navigation.navigate('SubscriptionScreen')}>
-                    <Image source={gtcr} />
+                    <Image source={gtcr} style={{resizeMode: 'contain',width: widthPercentageToDP(15),height: heightPercentageToDP(8)}}/>
                   </TouchableOpacity>
                 </View>
             }
             <View style={{ flex: 1, alignItems: 'center' }}>
               {/* <Button title="Clear Async" onPress={ () => { console.log("Async Storage Cleared"); AsyncStorage.clear();}}></Button>
           <Button title="Sign out" onPress={ () => { console.log("User Sign Out"); firebase.auth().signOut()}}></Button> */}
-              <Image source={LargeTitleApp} style={{resizeMode: 'stretch', width: widthPercentageToDP('80'), height: heightPercentageToDP('7.5')}}/>
+              <Image source={LargeTitleApp} style={{ marginTop:'5%',width: widthPercentageToDP('80'), height: heightPercentageToDP('7.5')}}/>
               {RenderTheFortuneButtons()}
 
               {/* <Button title="credits" onPress={() => navigation.navigate('Credits')} /> */}

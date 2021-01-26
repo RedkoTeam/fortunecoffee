@@ -71,13 +71,14 @@ function FavoritesScreen() {
     return (
         <View style ={{backgroundColor:'#070631', flex: 1,alignItems: 'center',}}>
             <ImageBackground source={ galaxy } style={{flex: 1, width: widthPercentageToDP(100)}} >
-                <Image source={savedFortunesTitle} style={{ alignSelf:'center',  top: heightPercentageToDP(10)}} />
+                <Image source={savedFortunesTitle} style={{ alignSelf:'center',  top: heightPercentageToDP(10),resizeMode: 'contain',width: widthPercentageToDP(45),height: heightPercentageToDP(6)}} />
                 <View style={{flex: 1,flexDirection: 'row', width: '100%', padding: 10, zIndex: 10}}>
-                <TouchableOpacity onPress={()=>navigation.navigate('Home')} style={{alignSelf:'flex-start', top: heightPercentageToDP('3'), left: widthPercentageToDP('3')}}>
-                        <Image source={backButton}/>
+                <TouchableOpacity onPress={()=>navigation.navigate('Home')} style={{alignSelf:'flex-start', top: heightPercentageToDP('2'), left: widthPercentageToDP('2')}}>
+                <Image source={backButton} style={{width :widthPercentageToDP('13'), height :heightPercentageToDP('6'), resizeMode:'contain'}} />
                     </TouchableOpacity>
                     <TouchableOpacity onPress={() => navigation.navigate('SubscriptionScreen')}>
-<Image source={gtcr} style={{marginLeft:"70%", marginTop:"5%"}} />
+
+<Image source={gtcr} style={{resizeMode: 'contain',width: widthPercentageToDP(15),height: heightPercentageToDP(8),padding:10, marginLeft:"76%" }} />
 </TouchableOpacity>
                 
                 </View>
@@ -88,7 +89,7 @@ function FavoritesScreen() {
                         return(
                             <View  key={index} style={{padding:30, flex: 1 }}>    
                                 {/* This is the container for THE FORTUNES */}
-                                <ImageBackground source={fortuneBox} imageStyle={{resizeMode:'stretch'}} style={{flex: 1, width: widthPercentageToDP(87), height: heightPercentageToDP(60), }}>
+                                <ImageBackground source={fortuneBox} imageStyle={{resizeMode:'stretch'}} style={{flex: 1, width: widthPercentageToDP(87), height: heightPercentageToDP(70), }}>
                                     <Text style={{color:'white', fontWeight:'bold', fontSize: actuatedNormalize(15), alignSelf: 'center', top: heightPercentageToDP(4),}}>{item.date}</Text>
                                     <View style={{flexDirection:'column', alignItems:'center', justifyContent:'center', padding:12}}>
                                         <TouchableOpacity onPress={() => {
@@ -110,14 +111,16 @@ function FavoritesScreen() {
     
                                             // setReset(true);
                                         }}>
-                                            <Image source={XButton} style={{left: widthPercentageToDP(35), top: heightPercentageToDP(-2)}}/>
+                                            <Image source={XButton} style={{left: widthPercentageToDP(35), top: heightPercentageToDP(-2),width :widthPercentageToDP('5'), height :heightPercentageToDP('6'), resizeMode:'contain',}}/>
                                         </TouchableOpacity>
                                     </View>    
                                     
                                         {/* TODO : PLEASE FIX THE Text size, you can either scale up the image backgorund or scale down the text */}
-                                        <View style={{ top:heightPercentageToDP(4), width:'73%', alignSelf: 'center'}}>
-                                            <Text adjustsFontSizeToFit={true} style={{ fontSize:actuatedNormalize(13)}}>{item.fortune}</Text>
+                                        <ScrollView>
+                                        <View style={{ top:heightPercentageToDP(3), width:'77%', alignSelf: 'center'}}>
+                                            <Text adjustsFontSizeToFit={true} style={{ fontSize:actuatedNormalize(12)}}>{item.fortune}</Text>
                                         </View>
+                                        </ScrollView>
                                 </ImageBackground>
                         </View>
                         )

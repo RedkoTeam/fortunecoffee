@@ -384,59 +384,60 @@ function HoroscopeCapricorn({}) {
                                 left:widthPercentageToDP(0),
                                 top:heightPercentageToDP(3)
                             }}>
-                                    <Image source={backButton} />
+                                    <Image source={backButton} style={{width :widthPercentageToDP('13'), height :heightPercentageToDP('6'), resizeMode:'contain'}} />
                     </TouchableOpacity>
                 </View>
-            <ScrollView directionalLockEnabled={true} automaticallyAdjustContentInsets={true}>
-                <View style={{  alignItems: 'center', marginTop:60 }}>
+            <ScrollView directionalLockEnabled={true} automaticallyAdjustContentInsets={true} >
+            
+                <View style={{ flex: 1, alignItems: 'center', marginTop:30 }}>
 
                     <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-evenly' }}>
-                        <View style={{ flexDirection: 'column', justifyContent: 'space-evenly' , marginRight:12 }}>
+                        <View style={{ flexDirection: 'column', justifyContent: 'space-evenly' , marginRight:12}}>
 
-                            <Image source={number} style={{ marginTop: 10 }} />
-                            <Text style={{fontSize:actuatedNormalize (12), color:'white', marginTop:5,marginLeft:3}}> {randNumber}  </Text>
+                            <Image source={number} style={{ width :widthPercentageToDP('15'), height :heightPercentageToDP('2'), resizeMode:'contain',marginTop: 10 }} />
+                            <Text style={{fontSize: actuatedNormalize (12), color:'white', marginTop:5,marginLeft:3}}> {randNumber}  </Text>
 
-                            <Image source={letter} style={{ marginTop: 10 }} />
-                            <Text style={{fontSize:actuatedNormalize (12), color:'white', marginTop:5,marginLeft:3}}> {randLetter}  </Text>
+                            <Image source={letter} style={{ width :widthPercentageToDP('12'), height :heightPercentageToDP('2'), resizeMode:'contain',marginTop: 10 }} />
+                            <Text style={{fontSize: actuatedNormalize (12), color:'white', marginTop:5,marginLeft:3}}> {randLetter}  </Text>
 
-                            <Image source={appre} style={{ marginTop: 10 }} />
-                            <Text style={{fontSize:actuatedNormalize (12), color:'white', marginTop:5,marginLeft:3}}> {randThanks}  </Text>
+                            <Image source={appre} style={{ width :widthPercentageToDP('20'), height :heightPercentageToDP('2'), resizeMode:'contain',marginTop: 10 }} />
+                            <Text style={{fontSize: actuatedNormalize (12), color:'white', marginTop:5,marginLeft:3}}> {randThanks}  </Text>
 
                         </View>
-                        <Image source={CapricornCard} style={{ justifyContent: 'space-evenly'}} />
+                        <Image source={CapricornCard} style={{ width :widthPercentageToDP('30'), height :heightPercentageToDP('30'), resizeMode:'contain',justifyContent: 'space-evenly',left:"-5%"}} />
 
                         <View style={{  flexDirection: 'column', justifyContent: 'space-evenly'}}>
-                            <Image source={love} style={{ marginTop: 10}} />
-                            <Text style={{fontSize:actuatedNormalize (12), color:'white', marginTop:5, marginLeft:3}}> {randWord2}  </Text>
+                            <Image source={love} style={{width :widthPercentageToDP('10'), height :heightPercentageToDP('2'), resizeMode:'contain', marginTop: 10}} />
+                            <Text style={{fontSize: actuatedNormalize (12), color:'white', marginTop:5, marginLeft:3}}> {randWord2}  </Text>
+ 
 
+                            <Image source={career} style={{width :widthPercentageToDP('14'), height :heightPercentageToDP('2'), resizeMode:'contain',marginTop: 10}} />
+                            <Text style={{fontSize: actuatedNormalize (12), color:'white', marginTop:5, marginLeft:3}}> {randWord3}  </Text>
 
-                            <Image source={career} style={{ marginTop: 10}} />
-                            <Text style={{fontSize:actuatedNormalize (12), color:'white', marginTop:5, marginLeft:3}}> {randWord3}  </Text>
-
-                            <Image source={luck} style={{ marginTop: 0 }} />
-                            <Text style={{fontSize:actuatedNormalize (12), color:'white', marginTop:5, marginLeft:3}}> {randWord4}  </Text>
+                            <Image source={luck} style={{ width :widthPercentageToDP('9'), height :heightPercentageToDP('2'), resizeMode:'contain',marginTop: 0 }} />
+                            <Text style={{fontSize: actuatedNormalize (12), color:'white', marginTop:5, marginLeft:3}}> {randWord4}  </Text>
 
 
                         </View>
                     </View>
 
-                    <Image source={CapricornTxt} style={{ alignItems: 'center', marginTop: 18 }} />
+                    <Image source={CapricornTxt} style={{ alignItems: 'center', marginTop: 18, width :widthPercentageToDP('28'), height :heightPercentageToDP('3'), resizeMode:'contain' }} />
 
                     <Image source={linehors} style={{  marginTop: 25 }} />
                     <View style={{  alignItems: 'center' }}>
-                        <Image source={hottxt} style={{ alignItems: 'center', marginTop: 30 }} />
+                        <Image source={hottxt} style={{ alignItems: 'center', marginTop: 30,  width :widthPercentageToDP('50'), height :heightPercentageToDP('5'), resizeMode:'contain' }} />
                         <View style={styles.readingTableContainer2}>
                             <ScrollView>
-                                <Text style={{fontSize:actuatedNormalize (12), color:'white'}}> {randHoroscope}  </Text>
+                                <Text style={{fontSize:actuatedNormalize(13), color:'white'}}> {randHoroscope}  </Text>
                             </ScrollView>
 
                         </View>
 
 
-                        <Image source={advicetxt} style={{ alignItems: 'center', marginTop:30}} />
+                        <Image source={advicetxt} style={{ alignItems: 'center', marginTop:30,  width :widthPercentageToDP('18'), height :heightPercentageToDP('3'), resizeMode:'contain'}} />
                         <View style={styles.readingTableContainer2}>
                             <ScrollView style={{marginBottom:"30%"}} >
-                                <Text style={{fontSize:actuatedNormalize (12), color:'white'}}> {randAdvice}  </Text>
+                                <Text style={{fontSize:actuatedNormalize(13), color:'white'}}> {randAdvice}  </Text>
 
 
                             </ScrollView>

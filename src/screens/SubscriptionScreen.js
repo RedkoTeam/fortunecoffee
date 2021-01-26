@@ -24,10 +24,10 @@ function SubscriptionScreen() {
                                 left:widthPercentageToDP(0),
                                 top:heightPercentageToDP(2)
                             }}>
-                                    <Image source={backButton} />
+                                    <Image source={backButton} style={{width :widthPercentageToDP('13'), height :heightPercentageToDP('6'), resizeMode:'contain'}} />
                     </TouchableOpacity>
                 </View>
-                    <Image source={subscriptionDescription} style={{width: widthPercentageToDP(70), height: heightPercentageToDP(25), marginTop: heightPercentageToDP(-8), resizeMode:'contain'}}/>
+                    <Image source={subscriptionDescription} style={{width: widthPercentageToDP(70), height: heightPercentageToDP(25), marginTop: heightPercentageToDP(2), resizeMode:'contain'}}/>
                     <ScrollView>
                     <View style={{ flex: 1, flexDirection: 'column',alignItems: 'center', }}>
 
@@ -35,7 +35,7 @@ function SubscriptionScreen() {
                             <TouchableOpacity onPress={ () => navigation.navigate('Payment', {
                                 subscription: 'Amethyst'
                             })}>
-                                <Image source={sub1} style={{ width: widthPercentageToDP(70), height: heightPercentageToDP(12.3), resizeMode:'contain',marginTop: heightPercentageToDP(2)}}/>
+                                <Image source={sub1} style={{ width: widthPercentageToDP(70), height: heightPercentageToDP(12), resizeMode:'contain',marginTop: heightPercentageToDP(2),right:-6}}/>
                             </TouchableOpacity>
 
 
@@ -55,7 +55,7 @@ function SubscriptionScreen() {
                             <TouchableOpacity onPress={() => navigation.navigate('Payment', {
                                 subscription: 'Sapphire'
                             })}>
-                                <Image source={sub4} style={{width: widthPercentageToDP(70), height: heightPercentageToDP(12.3), resizeMode:'contain', right: 3,marginTop: 1}}/>
+                                <Image source={sub4} style={{width: widthPercentageToDP(70), height: heightPercentageToDP(10.5), resizeMode:'contain', right: 3,marginTop: 1}}/>
                             </TouchableOpacity>
                         </View>
                         </ScrollView>

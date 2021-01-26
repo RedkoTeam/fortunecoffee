@@ -4,6 +4,9 @@ import ViewPager from "@react-native-community/viewpager";
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import styles from "../styles/styles";
 import sendingbg from "../../assets/FortuneCoffeePNGassets/Psychic/manifest/Phone.gif";
+import sendingbg2 from "../../assets/FortuneCoffeePNGassets/Psychic/manifest/Phone2.gif";
+import sendingbg3 from "../../assets/FortuneCoffeePNGassets/Psychic/manifest/Phone3.gif";
+import sendingbg4 from "../../assets/FortuneCoffeePNGassets/Psychic/manifest/Phone4.gif";
 import backButton from "../../assets/FortuneCoffeePNGassets/reading/backButton.png";
 import Nextbtn from "../../assets/FortuneCoffeePNGassets/Psychic/manifest/Next.png";
 import React, {useRef,useState} from "react";
@@ -54,25 +57,25 @@ function SendingUni2(){
     return (
         <ViewPager style={styles.virtualContainer} initialPage={0} ref={pagerRef}>
             <View key="1">
-                <ImageBackground source={sendingbg} style={styles.bgfull}>
+                <ImageBackground source={sendingbg2} style={styles.bgfull}>
                 <TouchableOpacity onPress={() => handlePageChange(1)}>
-                    <Image source={Nextbtn} style={{marginTop:heightPercentageToDP(67),marginRight:widthPercentageToDP(0)}} />
+                    <Image source={Nextbtn} style={{marginTop:heightPercentageToDP(67),marginRight:widthPercentageToDP(0), width :widthPercentageToDP(18), height :heightPercentageToDP('8'), resizeMode:'contain'}} />
                 </TouchableOpacity>
                 </ImageBackground>
             </View>
             <View key="2">
-                <ImageBackground source={sendingbg} style={styles.bgfull}>
+                <ImageBackground source={sendingbg3} style={styles.bgfull}>
                     <TouchableOpacity onPress={() =>  handlePageChange(2)} >
-                    <Image source={Nextbtn} style={{marginTop:heightPercentageToDP(67),marginRight:widthPercentageToDP(0)}}/>
+                    <Image source={Nextbtn} style={{marginTop:heightPercentageToDP(67),marginRight:widthPercentageToDP(0), width :widthPercentageToDP(18), height :heightPercentageToDP('8'), resizeMode:'contain'}}/>
                     </TouchableOpacity>
                 </ImageBackground>
             </View>
             <View key="3">
-            <ImageBackground source={sendingbg} style={styles.bgfull}>
+            <ImageBackground source={sendingbg4} style={styles.bgfull}>
                 <TouchableOpacity onPress={async () => {
                     handlePageChange(3);
                     }}>
-                <Image source={Nextbtn} style={{marginTop:heightPercentageToDP(67),marginRight:widthPercentageToDP(0)}}/>
+                <Image source={Nextbtn} style={{marginTop:heightPercentageToDP(67),marginRight:widthPercentageToDP(0), width :widthPercentageToDP(18), height :heightPercentageToDP('8'), resizeMode:'contain'}}/>
                 </TouchableOpacity>
             </ImageBackground>
             </View>

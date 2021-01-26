@@ -9,6 +9,8 @@ import styles from "../../styles/styles";
 import backButton from "../../../assets/FortuneCoffeePNGassets/reading/backButton.png";
 import continueImage from "../../../assets/FortuneCoffeePNGassets/Continue.png";
 import skipImage from "../../../assets/FortuneCoffeePNGassets/Skip.png";
+import { actuatedNormalize } from '../../../util/fontScaler';
+import {widthPercentageToDP,heightPercentageToDP,} from '../../../util/scaler';
 
 function ProfileDetails({route}) {
     const navigation = useNavigation();
@@ -40,7 +42,7 @@ function ProfileDetails({route}) {
         <ImageBackground source={bgstars} style={styles.bgfull}>
             <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
   
-                <Text style={{ color: '#FFFFFF', fontSize: 18, textAlign: 'left', alignSelf: 'stretch', marginLeft: 20}}>Name</Text>
+                <Text style={{ color: '#FFFFFF', fontSize: actuatedNormalize(12), textAlign: 'left', alignSelf: 'stretch', marginLeft: '0%'}}>Name</Text>
                 <View style={{flexDirection: 'row',width:'90%', height: '7%'}}>
                     <TextInput style={styles.savedFortuneTextBox0}
                                label="Name"
@@ -49,7 +51,7 @@ function ProfileDetails({route}) {
                                onChangeText={name => setName(name)}
                     />
                 </View>
-                <Text style={{ color: '#FFFFFF', fontSize: 18, marginTop: 20, textAlign: 'left', alignSelf: 'stretch', marginLeft: 20}}>Relationship Status</Text>
+                <Text style={{ color: '#FFFFFF', fontSize: actuatedNormalize(12), marginTop: 20, textAlign: 'left', alignSelf: 'stretch', marginLeft: '0%'}}>Relationship Status</Text>
                 <View style={{flexDirection: 'row',width:'90%', height: '7%'}}>
                     <TextInput style={styles.savedFortuneTextBox0}
                                label="Relationship Status"
@@ -58,7 +60,7 @@ function ProfileDetails({route}) {
                                onChangeText={rStatus => setRStatus(rStatus)}
                     />
                 </View>
-                <Text style={{ color: '#FFFFFF', fontSize: 18, marginTop: 20, textAlign: 'left', alignSelf: 'stretch', marginLeft: 20}}>Employment Status</Text>
+                <Text style={{ color: '#FFFFFF', fontSize: actuatedNormalize(12), marginTop: 20, textAlign: 'left', alignSelf: 'stretch', marginLeft: '0%'}}>Employment Status</Text>
                 <View style={{flexDirection: 'row',width:'90%', height: '7%'}}>
                     <TextInput style={styles.savedFortuneTextBox0}
                                label="EmploymentStatus"
@@ -68,7 +70,7 @@ function ProfileDetails({route}) {
 
                     />
                 </View>
-                <Text style={{ color: '#FFFFFF', fontSize: 18, marginTop: 20, textAlign: 'left', alignSelf: 'stretch', marginLeft: 20}}>Gender</Text>
+                <Text style={{ color: '#FFFFFF', fontSize: actuatedNormalize(12), marginTop: 20, textAlign: 'left', alignSelf: 'stretch', marginLeft: '0%'}}>Gender</Text>
                 <View style={{flexDirection: 'row',width:'90%', height: '7%'}}>
                     <TextInput style={styles.savedFortuneTextBox0}
                                label="Gender"
@@ -77,8 +79,8 @@ function ProfileDetails({route}) {
                                onChangeText={gender => setGender(gender)}
                     />
                 </View>
-                <Text style={{ color: '#FFFFFF', fontSize: 18, marginTop: 20, textAlign: 'left', alignSelf: 'stretch', marginLeft: 20}}>Birthday</Text>
-                <View style={{flexDirection: 'row',width:'90%', height: '7%'}}>
+                <Text style={{ color: '#FFFFFF', fontSize: actuatedNormalize(12),marginTop: 20, textAlign: 'left', alignSelf: 'stretch', marginLeft: '0%'}}>Birthday</Text>
+                <View style={{flexDirection: 'row',width:'80%', height: '7%'}}>
                     <TextInput style={styles.savedFortuneTextBox2}
                                label="Month"
                                placeholder="      00"
@@ -100,12 +102,12 @@ function ProfileDetails({route}) {
                 </View>
                 <Text></Text>
                 <TouchableOpacity onPress={() => profileUpload()}>
-                    <Image source={continueImage} />
+                    <Image source={continueImage} style={{ marginTop:'5%',width :widthPercentageToDP('65'), height :heightPercentageToDP('5'), resizeMode:'contain'}} />
                 </TouchableOpacity>
                 <Text></Text>
                 <Text></Text>
                 <TouchableOpacity onPress={() => profileUpload()}>
-                    <Image source={skipImage} />
+                    <Image source={skipImage} style={{ width :widthPercentageToDP('65'), height :heightPercentageToDP('5'), resizeMode:'contain'}} />
                 </TouchableOpacity>
             </View>
         </ImageBackground>

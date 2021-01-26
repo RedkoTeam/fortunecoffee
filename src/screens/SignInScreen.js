@@ -121,7 +121,7 @@ function SignInScreen() {
             <KeyboardAvoidingView style={styles.virtualContainer} behavior='padding'>
                 <ImageBackground source={signBackground} style={styles.virtualOne}>
                     <TouchableOpacity onPress={() => navigation.navigate('Home')} style={styles.backButtonStyle2}>
-                        <Image source={backButton}/>
+                    <Image source={backButton} style={{width :widthPercentageToDP('13'), height :heightPercentageToDP('6'), resizeMode:'contain'}} />
                     </TouchableOpacity>
                     <Image source={signTitle}  style={{marginTop:'20%', marginBottom:40}}/>
                     <View style={{marginTop:8, marginBottom:20}}>
@@ -172,7 +172,7 @@ function SignInScreen() {
                                 <Text style={{ fontSize: 13, color: 'red' }}>{errors.password}</Text>
                                 }
                                 <TouchableOpacity style={{paddingTop: 8}} disabled={!isValid} onPress={handleSubmit}>
-                                    <Image source={loginButton} style={{resizeMode: 'stretch',width: widthPercentageToDP('70'), height:heightPercentageToDP('7')}} />
+                                    <Image source={loginButton} style={{resizeMode: 'contain',width: widthPercentageToDP('70'), height:heightPercentageToDP('7')}} />
                                 </TouchableOpacity>
                             </>
                         )}

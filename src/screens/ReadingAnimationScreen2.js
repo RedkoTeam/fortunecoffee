@@ -38,12 +38,13 @@ function ReadingAnimationScreen2({navigation}){
     return(
         <View style={styles.mainContainer}>
             <ImageBackground source={ readingAnimationBackground } style={ styles.readingAnimationBackground2 }>
-                <Image source={ readingPhoto } style={styles.readingCoffeeImage} />
+                <Image source={ readingPhoto } style={{height:heightPercentageToDP(110),width:widthPercentageToDP(120),resizeMode:'contain'}} />
                 <Animated.View>
                     <Animated.Image style={ {
-                        bottom:450,
-                        width: 200,
-                        height: 200,
+                        bottom:'250%',
+                        width: widthPercentageToDP(60),
+                        height: heightPercentageToDP(20),
+                        resizeMode:'contain',
                         transform: [ { rotate: RotateData } ]
                     } }
                                     source={cameraP} 

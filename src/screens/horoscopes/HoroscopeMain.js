@@ -41,10 +41,11 @@ function HoroscopeMain({}) {
         <View style={{flexDirection: 'row', width: '100%', justifyContent: 'space-between', padding: 25, marginTop: 10, marginLeft:'140%', }}>
       
         <TouchableOpacity onPress={() => navigation.navigate('SubscriptionScreen')}>
-<Image source={gtcr} style={{marginRight: "50%"}}/>
+
+<Image source={gtcr} style={{resizeMode: 'contain',width: widthPercentageToDP(15),height: heightPercentageToDP(8)}} />
 </TouchableOpacity>
     </View>
-                    <Image source={Horoscopetxt} style={{marginTop:widthPercentageToDP(2)}} />
+                    <Image source={Horoscopetxt} style={{marginTop:widthPercentageToDP(2),width :widthPercentageToDP('35'), height :heightPercentageToDP('6'), resizeMode:'contain',}} />
                   {/*  <TouchableOpacity onPress={() => navigation.navigate('Compatibility')}> 
                     <Image source={hslide} style={{marginTop:widthPercentageToDP(2),marginTop: "4%"}} />
                     </TouchableOpacity>*/}

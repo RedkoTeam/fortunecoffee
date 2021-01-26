@@ -12,6 +12,7 @@ import magicbtn from "../../assets/FortuneCoffeePNGassets/Psychic/magicbtn.png";
 import NavBar_psyc from "../navbars/NavBar";
 import MagicGlobeValidationSchema from "../../util/validators/MagicGlobeValidationSchema";
 import {widthPercentageToDP,heightPercentageToDP,} from '../../util/scaler';
+import { actuatedNormalize } from '../../util/fontScaler';
 
 function SomeoneFortune1() {
     const navigation = useNavigation();
@@ -25,7 +26,7 @@ function SomeoneFortune1() {
         <View style={styles.mainContainer}>
             <ImageBackground source={bgstars} style={{flex:1, resizeMode:'cover'}}>
                 <TouchableOpacity onPress={()=>navigation.navigate('Psychic')} style={{alignSelf:'flex-start', top: heightPercentageToDP('5'), left: widthPercentageToDP('5')}}>
-                    <Image source={backButton}/>
+                <Image source={backButton} style={{width :widthPercentageToDP('13'), height :heightPercentageToDP('6'), resizeMode:'contain'}} />
                 </TouchableOpacity>
                 <View style={{marginTop: heightPercentageToDP('10'), marginBottom: heightPercentageToDP('5'), alignSelf:'center', alignItems:'center'}}>
                     <Image source={magicglobetxt} />
@@ -42,21 +43,21 @@ function SomeoneFortune1() {
                 >
                     { ({ handleChange, errors, isValid, handleSubmit }) => (
                             <View style={{width:'100%', alignContent:'center', alignItems:'center'}}>
-                                <Text style={{ color: '#FFFFFF', fontSize: 17, textAlign: 'left', alignSelf: 'stretch', marginLeft: 20, marginTop:20}}>Name</Text>
+                                <Text style={{ color: '#FFFFFF', fontSize: actuatedNormalize(13), textAlign: 'left', alignSelf: 'stretch', marginLeft: '10%', marginTop:20,marginBottom:10}}>Name</Text>
                                 <TextInput style={styles.savedFortuneTextBox0}
                                     placeholder="    Enter The Name of The Person"
                                     placeholderTextColor='#DCDCDC'
                                     onChangeText={handleChange('name')}
                                 />
                                 { errors.name &&  <Text style={{fontSize:13, color:'red', marginTop:3}}>{errors.name}</Text> }
-                                <Text style={{ color: '#FFFFFF', fontSize: 17, textAlign: 'left', alignSelf: 'stretch', marginLeft: 20, marginTop:20}}>Birthday</Text>
+                                <Text style={{ color: '#FFFFFF', fontSize: actuatedNormalize(13), textAlign: 'left', alignSelf: 'stretch', marginLeft: '10%', marginTop:20,marginBottom:10}}>Birthday</Text>
                                 <TextInput style={styles.savedFortuneTextBox0}
                                     placeholder="    Enter The Birthday of The Person"
                                     placeholderTextColor='#DCDCDC'
                                     autoCapitalize='none'
                                 /> 
                                 <TouchableOpacity style={{ alignItems: 'center', marginTop: 28 }} disabled={!isValid} onPress={handleSubmit}>
-                                    <Image source={magicbtn} />
+                                    <Image source={magicbtn} style={{width: widthPercentageToDP(70), height: heightPercentageToDP(6), resizeMode:'contain'}}/>
                                 </TouchableOpacity>           
                             </View>
                         )

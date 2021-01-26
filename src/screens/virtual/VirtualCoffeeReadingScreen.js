@@ -8,6 +8,7 @@ import useAVirtualCoffee from "../../../assets/useAVirtualCoffee.png";
 import virtualImage from "../../../assets/virtualImage.png";
 import submitPhoto from "../../../assets/submitPhoto.png";
 import photoGallery from "../../../assets/photoGallery.png";
+import {widthPercentageToDP,heightPercentageToDP} from '../../../util/scaler';
 
 
 
@@ -42,21 +43,21 @@ function VirtualCoffeeReadingScreen() {
         <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: '#070631' }}>
             <View style={{ flexDirection: 'row', position: 'absolute', top: 0, width: '100%', justifyContent: 'space-between', padding: 25, marginTop: 18}}>
                 <TouchableOpacity onPress={() => navigation.navigate('Home')} style={{alignContent: 'left'}} >
-                    <Image source={backButton}/>
+                <Image source={backButton} style={{width :widthPercentageToDP('13'), height :heightPercentageToDP('6'), resizeMode:'contain'}} />
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => navigation.navigate('VirtualOne')} style={{alignContent: 'right', marginTop: 10}}>
-                    <Image source={useAVirtualCoffee}/>
+                    <Image source={useAVirtualCoffee} style={{width :widthPercentageToDP('37'), height :heightPercentageToDP('5'), resizeMode:'contain'}} />
                 </TouchableOpacity>
             </View>
-            {image && <Image source={{uri: image}} style={{marginTop:20, height: '30%', width: '60%', borderWidth:5, borderColor: '#FFF'}} />}
-            <Image source={virtualImage} style={{marginTop:10}}/>
+            {image && <Image source={{uri: image}} style={{marginTop:'30%', height: '30%', width: '60%', borderWidth:5, borderColor: '#FFF'}} />}
+            <Image source={virtualImage} style={{marginTop:'10%', width :widthPercentageToDP(67), height :heightPercentageToDP(15), resizeMode:'contain'}}/>
             {image && <View>
                 <TouchableOpacity onPress={() => navigation.navigate('ReadingAnimationScreen2')}>
-                    <Image source={submitPhoto} style={{marginTop:30}} />
+                    <Image source={submitPhoto} style={{marginTop:'10%', width :widthPercentageToDP('37'), height :heightPercentageToDP('5'), resizeMode:'contain'}} />
                 </TouchableOpacity>
             </View>}
             <TouchableOpacity onPress={pickImage}>
-                <Image source={photoGallery} style={{marginTop:30}} />
+                <Image source={photoGallery} style={{marginTop:'5%', width :widthPercentageToDP('37'), height :heightPercentageToDP('5'), resizeMode:'contain'}} />
             </TouchableOpacity>
         </View>
     )
