@@ -1,0 +1,36 @@
+{
+  "expo": {
+    "name": "FortuneCoffee",
+    "slug": "Fortune-Coffee",
+    "version": "1.0.28",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "splash": {
+      "image": "./assets/10.png",
+      "resizeMode": "cover",
+      "backgroundColor": "#ffffff"
+},
+    "updates": {
+      "fallbackToCacheTimeout": 0
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.redko.fortunecoffee",
+      "loadJSInBackgroundExperimental":true,
+      "config":{
+        "usesNonExemptEncryption": false
+      }
+    },
+    "android": {
+      "package": "com.redko.fortunecoffee",
+      "googleServicesFile": "./google-services.json",
+      "versionCode": 1
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    }
+  }
+}
