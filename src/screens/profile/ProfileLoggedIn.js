@@ -109,7 +109,7 @@ function ProfileLoggedIn({route}) {
         <View style={{flex: 1, alignItems: 'center'}}>
 
 <ImageBackground source={profilebg} style={{width: widthPercentageToDP('100'), height: heightPercentageToDP('100')}}>
-    <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-between', padding: 25, marginTop: 18 }}>
+<View style={{flexDirection: 'row', width: '100%', justifyContent: 'space-between', padding: 25, marginTop: 18 }}>
 
         <TouchableOpacity onPress={ async () => {
             await LogOutUser();
@@ -188,18 +188,17 @@ function ProfileLoggedIn({route}) {
                 </TouchableOpacity>
             </View>
         ) :
-        <View style={{   flex: 0.03, flexDirection: 'row', width: '100%', justifyContent: 'space-between', padding: 25, marginTop: 18}}>
+        <View style={{flexDirection: 'row', width: '100%', justifyContent: 'space-between', padding: 25, marginTop: 18 }}>
         <TouchableOpacity onPress={() => navigation.navigate('SignUp')}>
         <Image source={SignUpButton} style={{resizeMode: 'contain',width: widthPercentageToDP(30),height: heightPercentageToDP(7)}}/>
         </TouchableOpacity>
         <TouchableOpacity onPress={() => navigation.navigate('SubscriptionScreen')}>
         <Image source={gtcr} style={{resizeMode: 'contain',width: widthPercentageToDP(15),height: heightPercentageToDP(8)}} />
-  </TouchableOpacity>
-        
-        </View>
+        </TouchableOpacity>
+    </View>
 
     }
-    <View style={{marginTop:"10%"}}>
+    <View style={{marginTop:"0%"}}>
      <TouchableOpacity onPress={() => navigation.navigate('Favorites')}>  
     <Image source={fave} style={{marginTop:"-1%",marginBottom:"-10%",marginLeft:'0%', resizeMode: 'contain',width: widthPercentageToDP(110),height: heightPercentageToDP(20)}}/>
       </TouchableOpacity>

@@ -356,7 +356,7 @@ function HomeScreen({ navigation }) {
             </TouchableOpacity>
             </View>
           </Modal>
-            <Button title="Reset Crystals" onPress={ () => { console.log("Async Storage Cleared"); AsyncStorage.clear();}}></Button>
+          {/* <Button title="Reset Crystals" onPress={ () => { console.log("Async Storage Cleared"); AsyncStorage.clear();}}></Button>*/}
           <View style={{ flexDirection: 'row', justifyContent: 'space-evenly',marginTop:'5%' }}>
             <TouchableOpacity 
             onPress={() => {
@@ -386,7 +386,7 @@ function HomeScreen({ navigation }) {
       </Modal>
       <ImageBackground source={bgstars} style={styles.bgfull}>
           {isLoggedIn ? (
-              <View style={{ flex: 0.03, flexDirection: 'row', width: '100%', justifyContent: 'space-between', padding: 25, marginTop: heightPercentageToDP('3') }}>
+                <View style={{flexDirection: 'row', width: '100%', justifyContent: 'space-between', padding: 25, marginTop: 5,marginBottom:'-15%'}}>
                 <TouchableOpacity onPress={ async () => {
                   await LogOutUser();
                   setIsLoggedIn(false);
@@ -398,15 +398,20 @@ function HomeScreen({ navigation }) {
                 </TouchableOpacity>
               </View>
               ) :
-              <View style={{  flex: 0.03, flexDirection: 'row', width: '100%', justifyContent: 'space-between', padding: 25, marginTop: 18 }}>
-                <TouchableOpacity onPress={() => navigation.navigate('SignUp')}>
-                  <Image source={SignUpButton} style={{resizeMode: 'contain',width: widthPercentageToDP(30),height: heightPercentageToDP(7)}}/>
-                </TouchableOpacity>
-                <TouchableOpacity onPress={() => navigation.navigate('SubscriptionScreen')}>
-                  <Image source={gtcr} style={{resizeMode: 'contain',width: widthPercentageToDP(15),height: heightPercentageToDP(8)}}/>
-                </TouchableOpacity>
-              </View>
+              <View style={{flexDirection: 'row', width: '100%', justifyContent: 'space-between', padding: 25, marginTop: 5,marginBottom:'-15%' }}>
+              <TouchableOpacity onPress={() => navigation.navigate('SignUp')}>
+              <Image source={SignUpButton} style={{resizeMode: 'contain',width: widthPercentageToDP(30),height: heightPercentageToDP(7)}}/>
+              </TouchableOpacity>
+              <TouchableOpacity onPress={() => navigation.navigate('SubscriptionScreen')}>
+              <Image source={gtcr} style={{resizeMode: 'contain',width: widthPercentageToDP(15),height: heightPercentageToDP(8)}} />
+              </TouchableOpacity>
+          </View>
           }
+
+
+
+
+          
           <View style={{ flex: 1, alignItems: 'center' }}>
             {/* <Button title="Clear Async" onPress={ () => { console.log("Async Storage Cleared"); AsyncStorage.clear();}}></Button>
         <Button title="Sign out" onPress={ () => { console.log("User Sign Out"); firebase.auth().signOut()}}></Button> */}
