@@ -8,10 +8,11 @@ import useAVirtualCoffee from "../../../assets/useAVirtualCoffee.png";
 import virtualImage from "../../../assets/virtualImage.png";
 import submitPhoto from "../../../assets/submitPhoto.png";
 import photoGallery from "../../../assets/photoGallery.png";
+import {widthPercentageToDP,heightPercentageToDP} from '../../../util/scaler';
 
 
 
-function VirtualCoffeeReadingScreen() {
+function VirtualCoffeeReadingScreen({route}) {
     const [image, setImage] = useState(null);
     // useEffect(() => {
     //   async () => {
@@ -23,6 +24,8 @@ function VirtualCoffeeReadingScreen() {
     //     }
     //   }
     // });
+    const type = route.params.type;
+    console.log(type)
 
     const pickImage = async () => {
         let result = await ImagePicker.launchImageLibraryAsync({
@@ -37,26 +40,62 @@ function VirtualCoffeeReadingScreen() {
         }
     };
 
+    const RenderCorrectButton = () =>{
+
+        switch(type){
+            case 'photo':{
+                return (<>
+                    <TouchableOpacity onPress={() => navigation.navigate('ReadingAnimationScreen2',{type:'photo'})}>
+                        <Image source={submitPhoto} style={{marginTop:'10%', width :widthPercentageToDP('37'), height :heightPercentageToDP('5'), resizeMode:'contain'}} />
+                    </TouchableOpacity>
+                </>)
+            }
+            case 'palm':{
+                return (<>
+                    <TouchableOpacity onPress={() => navigation.navigate('ReadingAnimationScreen2',{type:'palm'})}>
+                        <Image source={submitPhoto} style={{marginTop:'10%', width :widthPercentageToDP('37'), height :heightPercentageToDP('5'), resizeMode:'contain'}} />
+                    </TouchableOpacity>
+                </>)
+            }
+            case 'face':{
+                return (<>
+                    <TouchableOpacity onPress={() => navigation.navigate('ReadingAnimationScreen2',{type:'face'})}>
+                        <Image source={submitPhoto} style={{marginTop:'10%', width :widthPercentageToDP('37'), height :heightPercentageToDP('5'), resizeMode:'contain'}} />
+                    </TouchableOpacity>
+                </>)
+            }
+            case 'coffee':{
+                return (<>
+                    <TouchableOpacity onPress={() => navigation.navigate('ReadingAnimationScreen2',{type:'coffee'})}>
+                        <Image source={submitPhoto} style={{marginTop:'10%', width :widthPercentageToDP('37'), height :heightPercentageToDP('5'), resizeMode:'contain'}} />
+                    </TouchableOpacity>
+                </>)
+            }
+            default:{
+                break;
+            }
+        }
+
+    }
+
     const navigation = useNavigation();
     return (
         <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: '#070631' }}>
             <View style={{ flexDirection: 'row', position: 'absolute', top: 0, width: '100%', justifyContent: 'space-between', padding: 25, marginTop: 18}}>
-                <TouchableOpacity onPress={() => navigation.navigate('Home')} style={{alignContent: 'left'}} >
-                    <Image source={backButton}/>
+                <TouchableOpacity onPress={() => navigation.navigate('Home')} >
+                <Image source={backButton} style={{width :widthPercentageToDP('13'), height :heightPercentageToDP('6'), resizeMode:'contain'}} />
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => navigation.navigate('VirtualOne')} style={{alignContent: 'right', marginTop: 10}}>
-                    <Image source={useAVirtualCoffee}/>
+                <TouchableOpacity onPress={() => navigation.navigate('VirtualOne')} style={{ marginTop: 10}}>
+                    <Image source={useAVirtualCoffee} style={{width :widthPercentageToDP('37'), height :heightPercentageToDP('5'), resizeMode:'contain'}} />
                 </TouchableOpacity>
             </View>
-            {image && <Image source={{uri: image}} style={{marginTop:20, height: '30%', width: '60%', borderWidth:5, borderColor: '#FFF'}} />}
-            <Image source={virtualImage} style={{marginTop:10}}/>
+            {image && <Image source={{uri: image}} style={{marginTop:'30%', height: '30%', width: '60%', borderWidth:5, borderColor: '#FFF'}} />}
+            <Image source={virtualImage} style={{marginTop:'10%', width :widthPercentageToDP(67), height :heightPercentageToDP(15), resizeMode:'contain'}}/>
             {image && <View>
-                <TouchableOpacity onPress={() => navigation.navigate('ReadingAnimationScreen2')}>
-                    <Image source={submitPhoto} style={{marginTop:30}} />
-                </TouchableOpacity>
+                {RenderCorrectButton()}
             </View>}
             <TouchableOpacity onPress={pickImage}>
-                <Image source={photoGallery} style={{marginTop:30}} />
+                <Image source={photoGallery} style={{marginTop:'5%', width :widthPercentageToDP('37'), height :heightPercentageToDP('5'), resizeMode:'contain'}} />
             </TouchableOpacity>
         </View>
     )

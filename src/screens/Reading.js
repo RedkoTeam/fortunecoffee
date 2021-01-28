@@ -28,10 +28,10 @@ function Reading({}){
             <ImageBackground source={readingBackground} style={styles.virtualOne}>
                 <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-between', padding: 25, marginTop: 18}}>
                     <TouchableOpacity onPress={() => navigation.navigate('Home')} >
-                        <Image source={backButton} />
+                    <Image source={backButton} style={{width :widthPercentageToDP('13'), height :heightPercentageToDP('6'), resizeMode:'contain'}} />
                     </TouchableOpacity>
                     <TouchableOpacity onPress={() => navigation.navigate('ProfileLoggedIn')}>
-                        <Image source={userImg} />
+                        <Image source={userImg} style={{width :widthPercentageToDP('15'), height :heightPercentageToDP('6'), resizeMode:'contain'}}/>
                     </TouchableOpacity>
                 </View>
                 <View style={styles.flexInRowsCoffee}>
@@ -48,25 +48,29 @@ function Reading({}){
                             }
                         })
                     }}>
-                        <Image source={saveButton} />
+                        <Image source={saveButton} style={{marginBottom:20, width :widthPercentageToDP('15'), height :heightPercentageToDP('10'), resizeMode:'contain'}} />
                     </TouchableOpacity>
                     <View >
-                        <Image source={coffeeImg} style={{ marginTop: heightPercentageToDP("0%") ,marginBottom: 20 ,justifyContent:'center', marginRight:'25%'}} />
+                        <Image source={coffeeImg} style={{ width :widthPercentageToDP('35'), height :heightPercentageToDP('20'), resizeMode:'contain',marginTop: heightPercentageToDP("5%") ,marginBottom: 20 ,justifyContent:'center', marginRight:'20%'}} />
                     </View>
                 </View>
                 <View style={styles.readingTableContainer}>
-                    <Image source={yourFortune} style={{marginBottom:20}} />
+                    <Image source={yourFortune} style={{marginTop:'22%',marginBottom:20,width :widthPercentageToDP('35'), height :heightPercentageToDP('3'), resizeMode:'contain'}} />
                     <View style={{height: 240}} >
                     <ScrollView style={{marginTop:widthPercentageToDP(0)}} >
                         <Text style={{fontSize: actuatedNormalize(14), color:'white'}}> {randomFortune}  </Text>
 
                         {!buttonClicked ? (
                             <Button
+                            
                                 onPress={() => {
                                     setRandomFortune(getRandomFortune)
                                     setButtonClicked(true)
                                 }}
-                                title='Fortune Ready Click To View!'
+        
+          
+                                title='Fortune Ready Click To View!' color="white" 
+                               
                             >
                             </Button>
                         ) : null}

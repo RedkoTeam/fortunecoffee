@@ -8,7 +8,7 @@ import backButton from "../../assets/FortuneCoffeePNGassets/reading/backButton.p
 import userImg from "../../assets/FortuneCoffeePNGassets/reading/user.png";
 import LoginChecker from "../../util/validators/LoginChecker";
 import saveButton from "../../assets/FortuneCoffeePNGassets/reading/saveButton.png";
-import coffeeImg from "../../assets/FortuneCoffeePNGassets/reading/coffee.png";
+import photoImg from "../../assets/FortuneCoffeePNGassets/reading/coffee.png";
 import yourFortune from "../../assets/FortuneCoffeePNGassets/reading/yourFortune.png";
 import NavBar from "../navbars/NavBar";
 import {fortunesArrayP} from "../arrays/fortunesArrayP";
@@ -26,12 +26,12 @@ function ReadingP({}){
     return (
         <View style={styles.virtualContainer}>
             <ImageBackground source={readingBackground} style={styles.virtualOne}>
-                <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-between', padding: 25, marginTop: 18}}>
+            <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-between', padding: 25, marginTop: 18}}>
                     <TouchableOpacity onPress={() => navigation.navigate('Home')} >
-                        <Image source={backButton} />
+                    <Image source={backButton} style={{width :widthPercentageToDP('13'), height :heightPercentageToDP('6'), resizeMode:'contain'}} />
                     </TouchableOpacity>
                     <TouchableOpacity onPress={() => navigation.navigate('ProfileLoggedIn')}>
-                        <Image source={userImg} />
+                        <Image source={userImg} style={{width :widthPercentageToDP('15'), height :heightPercentageToDP('6'), resizeMode:'contain'}}/>
                     </TouchableOpacity>
                 </View>
                 <View style={styles.flexInRowsCoffee}>
@@ -51,7 +51,7 @@ function ReadingP({}){
                         <Image source={saveButton} />
                     </TouchableOpacity>
                     <View >
-                        <Image source={coffeeImg} style={{ marginTop: 30, marginBottom: 20, justifyContent:'center', marginRight:'25%'}} />
+                        <Image source={photoImg} style={{ marginTop: 30, marginBottom: 20, justifyContent:'center', marginRight:'25%'}} />
                     </View>
                 </View>
                 <View style={styles.readingTableContainer}>

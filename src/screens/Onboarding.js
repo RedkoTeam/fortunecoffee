@@ -33,7 +33,7 @@ function Onboarding({}){
             </View>
             <View key="2">
                 <ImageBackground source={OnboardingBg1} style={styles.virtualOne2}>
-                    <View style={{justifyContent:'flex-end',  paddingTop: '45%',  paddingLeft: widthPercentageToDP(26)}}>
+                    <View style={{justifyContent:'flex-end',  paddingTop: '45%',  paddingLeft: widthPercentageToDP(3),marginTop: widthPercentageToDP(75)}}>
                         <TouchableOpacity onPress={() => handlePageChange(2)} >
                             <Image source={Next} style={{width:widthPercentageToDP(17),height:widthPercentageToDP(6)}}/>
                         </TouchableOpacity>
@@ -61,7 +61,7 @@ function Onboarding({}){
             <View key="5">
                 <ImageBackground source={OnboardingBg4} style={styles.virtualOne2}>
                     <View style={{justifyContent:'flex-end',paddingTop:widthPercentageToDP("80%")  }}>
-                        <TouchableOpacity onPress={() => navigation.navigate('Home')} >
+                        <TouchableOpacity onPress={() => navigation.navigate('HomeH')} >
                             <Image source={getStarted} style={{width:widthPercentageToDP(60),height:widthPercentageToDP(8)}}/>
                         </TouchableOpacity>
                     </View>

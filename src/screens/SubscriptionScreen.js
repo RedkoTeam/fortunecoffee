@@ -11,6 +11,7 @@ import sub4 from "../../assets/FortuneCoffeePNGassets/Subscription/subscription4
 import sub3 from "../../assets/FortuneCoffeePNGassets/Subscription/subscription3.png";
 import NavBar from "../navbars/NavBar";
 import React from "react";
+import PaymentSuccessful from '../../assets/FortuneCoffeePNGassets/Subscription/PaymentSuccess.png'
 import {widthPercentageToDP,heightPercentageToDP} from '../../util/scaler'
 
 function SubscriptionScreen() {
@@ -27,7 +28,7 @@ function SubscriptionScreen() {
                                     <Image source={backButton} />
                     </TouchableOpacity>
                 </View>
-                    <Image source={subscriptionDescription} style={{width: widthPercentageToDP(70), height: heightPercentageToDP(25), marginTop: heightPercentageToDP(-8), resizeMode:'contain'}}/>
+                    <Image source={subscriptionDescription} style={{width: widthPercentageToDP(70), height: heightPercentageToDP(25), marginTop: heightPercentageToDP(-4), resizeMode:'contain'}}/>
                     <ScrollView>
                     <View style={{ flex: 1, flexDirection: 'column',alignItems: 'center', }}>
 

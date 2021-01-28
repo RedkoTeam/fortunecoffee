@@ -68,6 +68,12 @@ import CompatibilityVirgo from './src/screens/horoscopes/CompatibilityVirgo';
 import CompatibilitySagi from './src/screens/horoscopes/CompatibilitySagi';
 import CompatibilityLibra from './src/screens/horoscopes/CompatibilityLibra';
 import CompatibilityScorpio from './src/screens/horoscopes/CompatibilityScorpio';
+import Crystals from './src/screens/Crystals';
+import ReadingFace from './src/screens/ReadingFace';
+import ReadingCof from './src/screens/ReadingCof';
+import ReadingPalm from './src/screens/ReadingPalm';
+import HomeH from './src/screens/HomeH';
+import Home1 from './src/screens/Home1';
 
 // ONLY STORE NAVIGATION HERE
 
@@ -84,6 +90,8 @@ function App() {
         }}
       >
         <Stack.Screen name="Home" component={HomeScreen} />
+        <Stack.Screen name="HomeH" component={HomeH} />
+        <Stack.Screen name="Home1" component={Home1} />
         <Stack.Screen name="ReadingP" component={ReadingP} />
         <Stack.Screen name="Favorites" component={FavoritesScreen} />
         <Stack.Screen name="Shop" component={ShopScreen} />
@@ -144,6 +152,10 @@ function App() {
         <Stack.Screen name="SomeoneFortune" component={SomeoneFortune} />
         <Stack.Screen name="SomeoneFortune1" component={SomeoneFortune1} />
         <Stack.Screen name="Gems" component={Gems} />
+          <Stack.Screen name="Crystals" component={Crystals} />
+          <Stack.Screen name="ReadingPalm" component={ReadingPalm}/>
+          <Stack.Screen name="ReadingFace" component={ReadingFace}/>
+          <Stack.Screen name="ReadingCof" component={ReadingCof}/>
       </Stack.Navigator>
     </NavigationContainer>
   );

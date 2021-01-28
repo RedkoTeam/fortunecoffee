@@ -121,9 +121,9 @@ function SignInScreen() {
             <KeyboardAvoidingView style={styles.virtualContainer} behavior='padding'>
                 <ImageBackground source={signBackground} style={styles.virtualOne}>
                     <TouchableOpacity onPress={() => navigation.navigate('Home')} style={styles.backButtonStyle2}>
-                        <Image source={backButton}/>
+                    <Image source={backButton} style={{width :widthPercentageToDP('13'), height :heightPercentageToDP('6'), resizeMode:'contain'}} />
                     </TouchableOpacity>
-                    <Image source={signTitle}  style={{marginTop:'20%', marginBottom:40}}/>
+                    <Image source={signTitle} style={{marginTop:'20%', width :widthPercentageToDP('60'), height :heightPercentageToDP('6'), resizeMode:'contain'}}/>
                     <View style={{marginTop:8, marginBottom:20}}>
                         {/* <TouchableOpacity onPress={() => console.log('google pressed')} style={{marginBottom:20}}>
             <Image source={googleTitle} />
@@ -132,7 +132,7 @@ function SignInScreen() {
             <Image source={facebookTitle} />
           </TouchableOpacity>*/}
                     </View>
-                    <Image source={signEmailText} style={{marginBottom:8}}/>
+                    
                     <Formik
                         validationSchema={LoginValidationSchema}
                         initialValues={{ email: '', password: ''}}
@@ -172,17 +172,17 @@ function SignInScreen() {
                                 <Text style={{ fontSize: 13, color: 'red' }}>{errors.password}</Text>
                                 }
                                 <TouchableOpacity style={{paddingTop: 8}} disabled={!isValid} onPress={handleSubmit}>
-                                    <Image source={loginButton} style={{resizeMode: 'stretch',width: widthPercentageToDP('70'), height:heightPercentageToDP('7')}} />
+                                    <Image source={loginButton} style={{resizeMode: 'contain',width: widthPercentageToDP('70'), height:heightPercentageToDP('7')}} />
                                 </TouchableOpacity>
                             </>
                         )}
                     </Formik>
                    
-                    <Image source={forgotPasswordText} style={{marginTop:20}}/>
+                    
                     <View style={{flexDirection:'row', marginTop:12}}>
-                        <Image source={createNewText} style={{marginRight:4}}/>
+                        
                         <TouchableOpacity onPress={()=>navigation.navigate('SignUp')}>
-                            <Image source={accoutText}/>
+                            <Image source={accoutText} style={{marginTop:"7%",marginRight:"2%", width :widthPercentageToDP('37'), height :heightPercentageToDP('2'), resizeMode:'contain'}}/>
                         </TouchableOpacity>
                     </View>
                 </ImageBackground>

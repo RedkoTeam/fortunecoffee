@@ -18,7 +18,7 @@ function Gems() {
                 <View style={{ flex: 0.7, flexDirection: 'row', width: '100%', justifyContent: 'space-between', padding: 25, marginBottom:"50%" }}>
                     <View style={{position:'absolute', top:0, flexDirection:'row', width:'100%', margin:10}}>
                         <TouchableOpacity onPress={()=>{navigation.navigate('Home')}}>
-                            <Image source={backButton} style={styles.backButtonStyle}/>
+                        <Image source={backButton} style={{width :widthPercentageToDP('13'), height :heightPercentageToDP('6'), resizeMode:'contain'}} />
                         </TouchableOpacity>
                     </View>
                 </View>

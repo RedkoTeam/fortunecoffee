@@ -8,10 +8,14 @@ import styles from "../styles/styles";
 import galaxy from "../../assets/FortuneCoffeePNGassets/shopPage/galaxy.png";
 import savedFortunesTitle from "../../assets/FortuneCoffeePNGassets/savedFortunes/savedFortuneTitle.png";
 import fortuneBox from "../../assets/FortuneCoffeePNGassets/savedFortunes/Box.png";
-import NavBar_fav from "../navbars/NavBar_Favorites";
+import NavBar from "../navbars/NavBar";
 import XButton from '../../assets/FortuneCoffeePNGassets/bi_x.png'
 import gtcr from "../../assets/FortuneCoffeePNGassets/gtcr.png";
 import { actuatedNormalize } from '../../util/fontScaler';
+import fave from "../../assets/FortuneCoffeePNGassets/Profile/favobar.png";
+import NavBar_pro from "../navbars/NavBar_Profile";
+
+
 
 // FIRESTORE
 import db from '../../util/firestore/firestore'
@@ -71,24 +75,27 @@ function FavoritesScreen() {
     return (
         <View style ={{backgroundColor:'#070631', flex: 1,alignItems: 'center',}}>
             <ImageBackground source={ galaxy } style={{flex: 1, width: widthPercentageToDP(100)}} >
-                <Image source={savedFortunesTitle} style={{ alignSelf:'center',  top: heightPercentageToDP(10)}} />
-                <View style={{flex: 1,flexDirection: 'row', width: '100%', padding: 10, zIndex: 10}}>
-                <TouchableOpacity onPress={()=>navigation.navigate('Home')} style={{alignSelf:'flex-start', top: heightPercentageToDP('3'), left: widthPercentageToDP('3')}}>
-                        <Image source={backButton}/>
+                <Image source={savedFortunesTitle} style={{ alignSelf:'center', top: heightPercentageToDP(10),resizeMode: 'contain', width: widthPercentageToDP(45), height: heightPercentageToDP(6)}} />
+                <View style={{flex: 1,flexDirection: 'row', width: '100%', padding: 10}}>
+               
+                <View style={{flex: 1, flexDirection: 'row'}}>
+                <View style={{marginTop:"5%"}}>
+                <TouchableOpacity onPress={() => navigation.navigate('ProfileLoggedIn')}>
+                    <Image source={fave} style={{marginTop:"5%",marginLeft:'-2%', resizeMode: 'contain',width: widthPercentageToDP(100),height: heightPercentageToDP(18)}}/>
                     </TouchableOpacity>
-                    <TouchableOpacity onPress={() => navigation.navigate('SubscriptionScreen')}>
-<Image source={gtcr} style={{marginLeft:"70%", marginTop:"5%"}} />
-</TouchableOpacity>
+                    </View>
+                    </View>
+
                 
                 </View>
-                <ScrollView style={{ marginTop: heightPercentageToDP(10)}}
+                <ScrollView style={{ marginTop: heightPercentageToDP(20)}}
                     contentContainerStyle={{marginTop: heightPercentageToDP(0), justifyContent: 'center', alignItems: 'center',}}
                 >
                     {favoritesData.map((item, index) =>{
                         return(
                             <View  key={index} style={{padding:30, flex: 1 }}>    
                                 {/* This is the container for THE FORTUNES */}
-                                <ImageBackground source={fortuneBox} imageStyle={{resizeMode:'stretch'}} style={{flex: 1, width: widthPercentageToDP(87), height: heightPercentageToDP(60), }}>
+                                <ImageBackground source={fortuneBox} imageStyle={{resizeMode:'stretch'}} style={{flex: 1, width: widthPercentageToDP(87), height: heightPercentageToDP(70), }}>
                                     <Text style={{color:'white', fontWeight:'bold', fontSize: actuatedNormalize(15), alignSelf: 'center', top: heightPercentageToDP(4),}}>{item.date}</Text>
                                     <View style={{flexDirection:'column', alignItems:'center', justifyContent:'center', padding:12}}>
                                         <TouchableOpacity onPress={() => {
@@ -110,21 +117,24 @@ function FavoritesScreen() {
     
                                             // setReset(true);
                                         }}>
-                                            <Image source={XButton} style={{left: widthPercentageToDP(35), top: heightPercentageToDP(-2)}}/>
+                                            <Image source={XButton} style={{left: widthPercentageToDP(35), top: heightPercentageToDP(-2),width :widthPercentageToDP('5'), height :heightPercentageToDP('6'), resizeMode:'contain',}}/>
                                         </TouchableOpacity>
                                     </View>    
                                     
                                         {/* TODO : PLEASE FIX THE Text size, you can either scale up the image backgorund or scale down the text */}
-                                        <View style={{ top:heightPercentageToDP(4), width:'73%', alignSelf: 'center'}}>
-                                            <Text adjustsFontSizeToFit={true} style={{ fontSize:actuatedNormalize(13)}}>{item.fortune}</Text>
+                                        <ScrollView>
+                                        <View style={{ top:heightPercentageToDP(3), width:'77%', alignSelf: 'center'}}>
+                                            <Text adjustsFontSizeToFit={true} style={{ fontSize:actuatedNormalize(12)}}>{item.fortune}</Text>
                                         </View>
+                                        </ScrollView>
                                 </ImageBackground>
                         </View>
                         )
                     })}
                 </ScrollView>
+              
             </ImageBackground>
-            <NavBar_fav/>
+            <NavBar_pro/>
         </View>
     )
 }
