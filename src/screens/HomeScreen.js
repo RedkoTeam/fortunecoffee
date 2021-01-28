@@ -125,11 +125,7 @@ function HomeScreen({ navigation }) {
   }
 
   const Render_CardModule = () =>{
-
-    // TODO, give the real estamate time.
-    // Result Returns, an object, i sent back the calculatorions. 
-
-    // Just needs to show the time in 00:00 format. It's back in seconds. 
+    // Just needs to show the time in 00:00 format. It's back in seconds.
     return userCanViewCard ? (
         <>
           {/* Show module if user can view*/}
@@ -150,8 +146,8 @@ function HomeScreen({ navigation }) {
             </Modal>
         </>
     ) : <>
-      {/* What to show iff the user is over the max setting.*/}
-      <Modal isVisible={isModalVisible}>
+     {/* What to show iff the user is over the max setting.*/}
+     <Modal isVisible={isModalVisible}>
       <View style={{flex:1, alignItems: 'center',justifyContent: 'center', alignSelf:'center'}}>
               {/* IMAGE BACKGROUND CARDS*/}
               <Image source={submodfo} style={{resizeMode:'contain', height: heightPercentageToDP('58'), width: widthPercentageToDP('86'), borderRadius:36}} />
@@ -199,251 +195,239 @@ function HomeScreen({ navigation }) {
 
   }
 
-
   const CheckFortuneCountPhoto = () =>{
     // navigation.navigate('VirtualOne')
-    FortuneCardCounter().then((result)=>{
-      console.log("THe user can go to next screen : ", result)
-      if(result.userCanView){
-        // Continue to photo navigation page.
-        navigation.navigate('Virtual')
-      }else{
-        // dont navigate
-        console.log("User, maxed out the time, not navigating")
-        toggleFortuneModal();
-      }
-    });
-
+      setShowFourButtons(true);
   }
 
   const RenderFourButtons = () =>{
-    console.log("Rendering the four buttons")
-    return showFourButtons ? (<>
-            <Modal isVisible={showFourButtons} >
-                <TouchableOpacity style={{flex: 1}} onPress={() =>{setShowFourButtons(false)}}>
-                    <View style={{flex: 1, alignContent: 'center', flexDirection:'row'}}>
-                        <View style={{flex: 1, alignContent: 'center', flexDirection:'column'}}>
-                            <TouchableOpacity style={{ zIndex: 20, top: heightPercentageToDP(25), alignSelf:'center'}} onPress={()=>{
-                                setShowFourButtons(false);
-                                FortuneCheckUserAndMoveToNextScreen("Palm")
-                            }} >
-                                <Image source={palmReading} style={{width :widthPercentageToDP(35), height: heightPercentageToDP(20),resizeMode:'contain'}}/>
-                            </TouchableOpacity>
+      console.log("Rendering the four buttons")
+      return showFourButtons ? (<>
+              <Modal isVisible={showFourButtons} >
+                  <TouchableOpacity style={{flex: 1}} onPress={() =>{setShowFourButtons(false)}}>
+                      <View style={{flex: 1, alignContent: 'center', flexDirection:'row'}}>
+                          <View style={{flex: 1, alignContent: 'center', flexDirection:'column'}}>
+                              <TouchableOpacity style={{ zIndex: 20, top: heightPercentageToDP(25), alignSelf:'center'}} onPress={()=>{
+                                  setShowFourButtons(false);
+                                  FortuneCheckUserAndMoveToNextScreen("Palm")
+                              }} >
+                                  <Image source={palmReading} style={{width :widthPercentageToDP(35), height: heightPercentageToDP(20),resizeMode:'contain'}}/>
+                              </TouchableOpacity>
 
-                            <TouchableOpacity style={{ zIndex: 20, top: heightPercentageToDP(25),alignSelf:'center'}} onPress={()=>{
-                                setShowFourButtons(false);
-                                FortuneCheckUserAndMoveToNextScreen("Photo")
+                              <TouchableOpacity style={{ zIndex: 20, top: heightPercentageToDP(25),alignSelf:'center'}} onPress={()=>{
+                                  setShowFourButtons(false);
+                                  FortuneCheckUserAndMoveToNextScreen("Photo")
 
-                            }} >
-                                <Image source={photoReading} style={{width :widthPercentageToDP(35), height: heightPercentageToDP(20),resizeMode:'contain'}}/>
-                            </TouchableOpacity>
+                              }} >
+                                  <Image source={photoReading} style={{width :widthPercentageToDP(35), height: heightPercentageToDP(20),resizeMode:'contain'}}/>
+                              </TouchableOpacity>
 
-                        </View>
+                          </View>
 
-                        <View style={{flex: 1, alignContent: 'center', flexDirection:'column'}}>
-                            <TouchableOpacity style={{ zIndex: 20, top: heightPercentageToDP(25),alignSelf:'center'}} onPress={()=>{
-                                setShowFourButtons(false);
-                                FortuneCheckUserAndMoveToNextScreen("Face")
+                          <View style={{flex: 1, alignContent: 'center', flexDirection:'column'}}>
+                              <TouchableOpacity style={{ zIndex: 20, top: heightPercentageToDP(25),alignSelf:'center'}} onPress={()=>{
+                                  setShowFourButtons(false);
+                                  FortuneCheckUserAndMoveToNextScreen("Face")
 
-                            }} >
-                                <Image source={faceReading} style={{width :widthPercentageToDP(35), height: heightPercentageToDP(20),resizeMode:'contain'}}/>
-                            </TouchableOpacity>
+                              }} >
+                                  <Image source={faceReading} style={{width :widthPercentageToDP(35), height: heightPercentageToDP(20),resizeMode:'contain'}}/>
+                              </TouchableOpacity>
 
-                            <TouchableOpacity style={{ zIndex: 20, top: heightPercentageToDP(25),alignSelf:'center'}} onPress={()=>{
-                                setShowFourButtons(false);
-                                FortuneCheckUserAndMoveToNextScreen("Coffee")
+                              <TouchableOpacity style={{ zIndex: 20, top: heightPercentageToDP(25),alignSelf:'center'}} onPress={()=>{
+                                  setShowFourButtons(false);
+                                  FortuneCheckUserAndMoveToNextScreen("Coffee")
 
-                            }} >
-                                <Image source={coffeeReading} style={{width :widthPercentageToDP(35), height: heightPercentageToDP(20),resizeMode:'contain'}}/>
-                            </TouchableOpacity>
+                              }} >
+                                  <Image source={coffeeReading} style={{width :widthPercentageToDP(35), height: heightPercentageToDP(20),resizeMode:'contain'}}/>
+                              </TouchableOpacity>
 
-                        </View>
-                    </View>
-                </TouchableOpacity>
-            </Modal>
-    </>):(<></>)
-}
-
-
-const FortuneCheckUserAndMoveToNextScreen = (screen) =>{
-  switch (screen){
-      case "Coffee":{
-          FortuneCardCounter().then((result)=>{
-              console.log("THe user can go to next screen : ", result)
-              //Show modal here.
-              if(result.userCanView){
-                  // Continue to photo navigation page.
-                  navigation.navigate('Virtual',{
-                      type: 'coffee'
-                  })
-              }else{
-                  // dont navigate
-                  console.log("User, maxed out the time, not navigating")
-                  toggleFortuneModal();
-              }
-          });
-          break;
-      }
-      case "Palm":{
-          FortuneCardCounter().then((result)=>{
-              console.log("THe user can go to next screen : ", result)
-              //Show modal here.
-              if(result.userCanView){
-                  // Continue to photo navigation page.
-                  navigation.navigate('Virtual',{
-                      type: 'palm'
-                  })
-              }else{
-                  // dont navigate
-                  console.log("User, maxed out the time, not navigating")
-                  toggleFortuneModal();
-              }
-          });
-          break;
-      }
-      case "Face":{
-          FortuneCardCounter().then((result)=>{
-              console.log("THe user can go to next screen : ", result)
-              //Show modal here.
-              if(result.userCanView){
-                  // Continue to photo navigation page.
-                  navigation.navigate('Virtual',{
-                      type: 'face'
-                  })
-              }else{
-                  // dont navigate
-                  console.log("User, maxed out the time, not navigating")
-                  toggleFortuneModal();
-              }
-          });
-          break;
-      }
-      case "Photo":{
-          FortuneCardCounter().then((result)=>{
-              console.log("THe user can go to next screen : ", result)
-              //Show modal here.
-              if(result.userCanView){
-                  // Continue to photo navigation page.
-                  navigation.navigate('Virtual',{
-                      type: 'photo'
-                  })
-              }else{
-                  // dont navigate
-                  console.log("User, maxed out the time, not navigating")
-                  toggleFortuneModal();
-              }
-          });
-          break;
-      }
-      default:{
-          break;
-      }
+                          </View>
+                      </View>
+                  </TouchableOpacity>
+              </Modal>
+      </>):(<></>)
   }
 
-}
+  const FortuneCheckUserAndMoveToNextScreen = (screen) =>{
+      switch (screen){
+          case "Coffee":{
+              FortuneCardCounter().then((result)=>{
+                  console.log("THe user can go to next screen : ", result)
+                  //Show modal here.
+                  if(result.userCanView){
+                      // Continue to photo navigation page.
+                      navigation.navigate('Virtual',{
+                          type: 'coffee'
+                      })
+                  }else{
+                      // dont navigate
+                      console.log("User, maxed out the time, not navigating")
+                      toggleFortuneModal();
+                  }
+              });
+              break;
+          }
+          case "Palm":{
+              FortuneCardCounter().then((result)=>{
+                  console.log("THe user can go to next screen : ", result)
+                  //Show modal here.
+                  if(result.userCanView){
+                      // Continue to photo navigation page.
+                      navigation.navigate('Virtual',{
+                          type: 'palm'
+                      })
+                  }else{
+                      // dont navigate
+                      console.log("User, maxed out the time, not navigating")
+                      toggleFortuneModal();
+                  }
+              });
+              break;
+          }
+          case "Face":{
+              FortuneCardCounter().then((result)=>{
+                  console.log("THe user can go to next screen : ", result)
+                  //Show modal here.
+                  if(result.userCanView){
+                      // Continue to photo navigation page.
+                      navigation.navigate('Virtual',{
+                          type: 'face'
+                      })
+                  }else{
+                      // dont navigate
+                      console.log("User, maxed out the time, not navigating")
+                      toggleFortuneModal();
+                  }
+              });
+              break;
+          }
+          case "Photo":{
+              FortuneCardCounter().then((result)=>{
+                  console.log("THe user can go to next screen : ", result)
+                  //Show modal here.
+                  if(result.userCanView){
+                      // Continue to photo navigation page.
+                      navigation.navigate('Virtual',{
+                          type: 'photo'
+                      })
+                  }else{
+                      // dont navigate
+                      console.log("User, maxed out the time, not navigating")
+                      toggleFortuneModal();
+                  }
+              });
+              break;
+          }
+          default:{
+              break;
+          }
+      }
 
-const RenderTheFortuneButtons = () =>{
-  return (
-      <>
-          {RenderFourButtons()}
-          <Modal isVisible={isFortuneModalVisible}>
-          <View style={{flex:1, alignItems: 'center',justifyContent: 'center', alignSelf:'center'}}>
-            {/* IMAGE BACKGROUND */}
-            <Image source={submodfo} style={{resizeMode:'contain', height: heightPercentageToDP('58'), width: widthPercentageToDP('86'), borderRadius:36}} />
-            {/* X BUTTON */}
-            <TouchableOpacity style={{
-              position: 'absolute', zIndex: 20, 
-              top: heightPercentageToDP(25), right: "5%"
-            }} onPress={()=>{
-              toggleFortuneModal();
-            }}>
-              <Image source={xButton} style={{resizeMode:'contain',width :widthPercentageToDP(6), height: heightPercentageToDP(3),marginTop:'2%'}} />
-            </TouchableOpacity>
+  }
 
-            {/* GET CRYSTALS BUTTON */}
-            <TouchableOpacity style={{  resizeMode:'contain', zIndex: 20, position:'absolute', top: heightPercentageToDP(50)}} onPress={() => {
-              console.log("Going to subscription screen, saving previous values");
-              toggleFortuneModal();
-               navigation.navigate('SubscriptionScreen');
-              //SetPreviousData();
-          }} >
-            <Image source={getCrystals} style={{width :widthPercentageToDP(60), height: heightPercentageToDP(20),resizeMode:'contain'}}/>
-          </TouchableOpacity>
-          </View>
-        </Modal>
-          <Button title="Reset Crystals" onPress={ () => { console.log("Async Storage Cleared"); AsyncStorage.clear();}}></Button>
-        <View style={{ flexDirection: 'row', justifyContent: 'space-evenly',marginTop:'5%' }}>
-          <TouchableOpacity 
-          onPress={() => {
-            CheckFortuneCountCoffeeReading()
-          }}>
-            {/* virtual Coffee Reading */}
-            <Image source={VirtualCoffee} style={{resizeMode: 'contain', marginRight:35,width: widthPercentageToDP(30),height: heightPercentageToDP(20)}}   />
-          </TouchableOpacity>
-          {/* Take a photo for reading */}
-          <TouchableOpacity 
-          onPress={() => {
-            CheckFortuneCountPhoto()
-          }}>
-            <Image source={TakePhoto}  style={{resizeMode: 'contain',width: widthPercentageToDP(30),height: heightPercentageToDP(20)}}  />
-          </TouchableOpacity>
-          
-        </View>
-      </>
-  )
-}
+  
 
-
-return (
-  <View style={{flex: 1}}>
-    <Modal isVisible={isModalVisible} style={{}}>
-          {Render_CardModule()}
-    </Modal>
-    <ImageBackground source={bgstars} style={styles.bgfull}>
-        {isLoggedIn ? (
-            <View style={{ flex: 0.03, flexDirection: 'row', width: '100%', justifyContent: 'space-between', padding: 25, marginTop: heightPercentageToDP('3') }}>
-              <TouchableOpacity onPress={ async () => {
-                await LogOutUser();
-                setIsLoggedIn(false);
+  const RenderTheFortuneButtons = () =>{
+    return (
+        <>
+            {RenderFourButtons()}
+            <Modal isVisible={isFortuneModalVisible}>
+            <View style={{flex:1, alignItems: 'center',justifyContent: 'center', alignSelf:'center'}}>
+              {/* IMAGE BACKGROUND */}
+              <Image source={submodfo} style={{resizeMode:'contain', height: heightPercentageToDP('58'), width: widthPercentageToDP('86'), borderRadius:36}} />
+              {/* X BUTTON */}
+              <TouchableOpacity style={{
+                position: 'absolute', zIndex: 20, 
+                top: heightPercentageToDP(25), right: "5%"
+              }} onPress={()=>{
+                toggleFortuneModal();
               }}>
-                <Image source={Logoutbtn} style={{resizeMode: 'contain',width: widthPercentageToDP(18),height: heightPercentageToDP(5)}} />
+                <Image source={xButton} style={{resizeMode:'contain',width :widthPercentageToDP(6), height: heightPercentageToDP(3),marginTop:'2%'}} />
               </TouchableOpacity>
-              <TouchableOpacity onPress={() => navigation.navigate('SubscriptionScreen')}>
-                <Image source={gtcr} style={{resizeMode: 'contain',width: widthPercentageToDP(15),height: heightPercentageToDP(8)}} />
-              </TouchableOpacity>
-            </View>
-            ) :
-            <View style={{  flex: 0.03, flexDirection: 'row', width: '100%', justifyContent: 'space-between', padding: 25, marginTop: 18 }}>
-              <TouchableOpacity onPress={() => navigation.navigate('SignUp')}>
-                <Image source={SignUpButton} style={{resizeMode: 'contain',width: widthPercentageToDP(30),height: heightPercentageToDP(7)}}/>
-              </TouchableOpacity>
-              <TouchableOpacity onPress={() => navigation.navigate('SubscriptionScreen')}>
-                <Image source={gtcr} style={{resizeMode: 'contain',width: widthPercentageToDP(15),height: heightPercentageToDP(8)}}/>
-              </TouchableOpacity>
-            </View>
-        }
-        <View style={{ flex: 1, alignItems: 'center' }}>
-          {/* <Button title="Clear Async" onPress={ () => { console.log("Async Storage Cleared"); AsyncStorage.clear();}}></Button>
-      <Button title="Sign out" onPress={ () => { console.log("User Sign Out"); firebase.auth().signOut()}}></Button> */}
-          <Image source={LargeTitleApp} style={{ marginTop:'5%',width: widthPercentageToDP('80'), height: heightPercentageToDP('8.5'), resizeMode:'contain'}}/>
-          {RenderTheFortuneButtons()}
 
-          {/* <Button title="credits" onPress={() => navigation.navigate('Credits')} /> */}
-          <Image source={PickCard} style={{ marginTop:widthPercentageToDP(15), margin: 8 }} />
-          {/* Pick a card  */}
-          <TouchableOpacity onPress={toggleModal2} style={styles.cards}>
-            <Image source={Cards} style={{resizeMode: 'contain', width: widthPercentageToDP(95),height: heightPercentageToDP(35)}}/>
-          </TouchableOpacity>
-         
-        </View>
-        
-        <NavBar_fav/>
+              {/* GET CRYSTALS BUTTON */}
+              <TouchableOpacity style={{  resizeMode:'contain', zIndex: 20, position:'absolute', top: heightPercentageToDP(50)}} onPress={() => {
+                console.log("Going to subscription screen, saving previous values");
+                toggleFortuneModal();
+                 navigation.navigate('SubscriptionScreen');
+                //SetPreviousData();
+            }} >
+              <Image source={getCrystals} style={{width :widthPercentageToDP(60), height: heightPercentageToDP(20),resizeMode:'contain'}}/>
+            </TouchableOpacity>
+            </View>
+          </Modal>
+            <Button title="Reset Crystals" onPress={ () => { console.log("Async Storage Cleared"); AsyncStorage.clear();}}></Button>
+          <View style={{ flexDirection: 'row', justifyContent: 'space-evenly',marginTop:'5%' }}>
+            <TouchableOpacity 
+            onPress={() => {
+              CheckFortuneCountCoffeeReading()
+            }}>
+              {/* virtual Coffee Reading */}
+              <Image source={VirtualCoffee} style={{resizeMode: 'contain', marginRight:35,width: widthPercentageToDP(30),height: heightPercentageToDP(20)}}   />
+            </TouchableOpacity>
+            {/* Take a photo for reading */}
+            <TouchableOpacity 
+            onPress={() => {
+              CheckFortuneCountPhoto()
+            }}>
+              <Image source={TakePhoto}  style={{resizeMode: 'contain',width: widthPercentageToDP(30),height: heightPercentageToDP(20)}}  />
+            </TouchableOpacity>
+            
+          </View>
+        </>
+    )
+  }
 
-    </ImageBackground>
-  </View>
+
+  return (
+    <View style={{flex: 1}}>
+      <Modal isVisible={isModalVisible} style={{}}>
+            {Render_CardModule()}
+      </Modal>
+      <ImageBackground source={bgstars} style={styles.bgfull}>
+          {isLoggedIn ? (
+              <View style={{ flex: 0.03, flexDirection: 'row', width: '100%', justifyContent: 'space-between', padding: 25, marginTop: heightPercentageToDP('3') }}>
+                <TouchableOpacity onPress={ async () => {
+                  await LogOutUser();
+                  setIsLoggedIn(false);
+                }}>
+                  <Image source={Logoutbtn} style={{resizeMode: 'contain',width: widthPercentageToDP(18),height: heightPercentageToDP(5)}} />
+                </TouchableOpacity>
+                <TouchableOpacity onPress={() => navigation.navigate('SubscriptionScreen')}>
+                  <Image source={gtcr} style={{resizeMode: 'contain',width: widthPercentageToDP(15),height: heightPercentageToDP(8)}} />
+                </TouchableOpacity>
+              </View>
+              ) :
+              <View style={{  flex: 0.03, flexDirection: 'row', width: '100%', justifyContent: 'space-between', padding: 25, marginTop: 18 }}>
+                <TouchableOpacity onPress={() => navigation.navigate('SignUp')}>
+                  <Image source={SignUpButton} style={{resizeMode: 'contain',width: widthPercentageToDP(30),height: heightPercentageToDP(7)}}/>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={() => navigation.navigate('SubscriptionScreen')}>
+                  <Image source={gtcr} style={{resizeMode: 'contain',width: widthPercentageToDP(15),height: heightPercentageToDP(8)}}/>
+                </TouchableOpacity>
+              </View>
+          }
+          <View style={{ flex: 1, alignItems: 'center' }}>
+            {/* <Button title="Clear Async" onPress={ () => { console.log("Async Storage Cleared"); AsyncStorage.clear();}}></Button>
+        <Button title="Sign out" onPress={ () => { console.log("User Sign Out"); firebase.auth().signOut()}}></Button> */}
+            <Image source={LargeTitleApp} style={{ marginTop:'5%',width: widthPercentageToDP('80'), height: heightPercentageToDP('8.5'), resizeMode:'contain'}}/>
+            {RenderTheFortuneButtons()}
+
+            {/* <Button title="credits" onPress={() => navigation.navigate('Credits')} /> */}
+            <Image source={PickCard} style={{ marginTop:widthPercentageToDP(15), margin: 8 }} />
+            {/* Pick a card  */}
+            <TouchableOpacity onPress={toggleModal2} style={styles.cards}>
+              <Image source={Cards} style={{resizeMode: 'contain', width: widthPercentageToDP(95),height: heightPercentageToDP(35)}}/>
+            </TouchableOpacity>
+           
+          </View>
+          
+          <NavBar_fav/>
+
+      </ImageBackground>
+    </View>
 );
 }
-
 
 
 export default HomeScreen
