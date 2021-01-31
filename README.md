@@ -95,11 +95,11 @@ signingConfigs {
     }
 ```
 
-5. Then cd into android folder, and create the key pairs using java. THIS IS VERY IMPORTANT!!
+5. Then cd into android folder, and create the key pairs using ``/android/pepk.jar``. THIS IS VERY IMPORTANT!!
    They keys must match from our end.
     ``This will be on google, when generateing A new app, Choose to do our own app handler and follow the steps``
    
-6. Follow the steps
+6. Follow the steps on google console
 7. Upload.
 
 
