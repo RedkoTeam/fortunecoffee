@@ -73,11 +73,34 @@ Just upload this when prompted
 
 1. First create the keystore file. Change 
    `` keytool -genkeypair -v -keystore YOURKEYNAME.keystore -alias YOURKEYALIAS -keyalg RSA -keysize 2048 -validity 10000``
-2. Then cd into android folder, and create the key pairs using java
+2. Move the generated keystore file into ``/android/app``
+   
+3. Go into ``/android/app/build.gradle``
+   
+4.  Change build.gradle 
+``` 
+signingConfigs {
+         release {
+              storeFile file('fortunecoffee.keystore') <-- Change to file name of keystore
+              storePassword 'fortunecoffee' <-- Change to the password you set
+              keyAlias 'fortunecoffee' <-- Change to the alias you sent when you first ran the keystore generatation
+              keyPassword 'fortunecoffee' <-- Password
+        }
+    }
+    buildTypes {
+        release {
+            ... <-- Add everything from before
+            signingConfig signingConfigs.release <-- Specficaly add this line, remove the debug if its there
+        }
+    }
+```
+
+5. Then cd into android folder, and create the key pairs using java. THIS IS VERY IMPORTANT!!
+   They keys must match from our end.
     ``This will be on google, when generateing A new app, Choose to do our own app handler and follow the steps``
    
-3. Follow the steps
-4. Upload.
+6. Follow the steps
+7. Upload.
 
 
 ## Android Common Build Errors
