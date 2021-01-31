@@ -104,10 +104,12 @@ signingConfigs {
 
 
 ## Android Common Build Errors
-### React Native Camera Errors
+
+
+### @React Native Camera Errors
 
 Under android/app/build.gradle
-
+```
 android {
     ...
     defaultConfig {
@@ -115,7 +117,7 @@ android {
         missingDimensionStrategy 'react-native-camera', 'general' <-- insert this line
     }
 }
-
+```
 
 ### Server
 
