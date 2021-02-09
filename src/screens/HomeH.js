@@ -14,29 +14,12 @@ import styles from "../styles/styles";
 import signb from "../../assets/FortuneCoffeePNGassets/Psychic/sign-b.png"
 import readyb from "../../assets/FortuneCoffeePNGassets/Psychic/ready-b.png"
 import tellb from "../../assets/FortuneCoffeePNGassets/Psychic/tell-b.png"
-import forc from "../../assets/FortuneCoffeePNGassets/Psychic/for-c.png"
-import readc from "../../assets/FortuneCoffeePNGassets/Psychic/read-c.png"
-import facec from "../../assets/FortuneCoffeePNGassets/Psychic/face-c.png"
-import palmc from "../../assets/FortuneCoffeePNGassets/Psychic/palm-c.png"
-import photoc from "../../assets/FortuneCoffeePNGassets/Psychic/photo-c.png"
-import photooc from "../../assets/FortuneCoffeePNGassets/Psychic/photoo-c.png"
-import virc from "../../assets/FortuneCoffeePNGassets/Psychic/vir-c.png"
+
 import bgstars from "../../assets/FortuneCoffeePNGassets/HomePage/bgLune.png";
 import chatbub from "../../assets/FortuneCoffeePNGassets/Psychic/chatbubble.png";
-import gtcr from "../../assets/FortuneCoffeePNGassets/gtcr.png";
 import NavBar from "../navbars/NavBar";
-import * as firebase from "firebase";
-import SaveItemInStorage from "../../util/SaveItemInStorage";
-import GetItemInStorage from '../../util/GetItemInStorage'
-import LogOutUser from "../../util/LogOutUser";
-import { Dimensions } from 'react-native';
 import {widthPercentageToDP,heightPercentageToDP} from '../../util/scaler';
-import Onboarding from "./Onboarding";
-import db from '../../util/firestore/firestore';
-import { assignWith } from "lodash";
-import backButton from "../../assets/FortuneCoffeePNGassets/reading/backButton.png";
-import gemsbg from "../../assets/FortuneCoffeePNGassets/Subscription/Gemsbg.png";
-import {Overlay} from "react-native-elements";
+
 
 import FourButtonBackground from '../../assets/FortuneCoffeePNGassets/photoreadingbuttons/bgmenu.png';
 import coffeeReading from '../../assets/FortuneCoffeePNGassets/photoreadingbuttons/cofr.png';
