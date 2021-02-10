@@ -20,19 +20,27 @@ Description:
 
 0.1. Run react-native run-android first, if it works then you  can export. 
 
+#### Newer gradlews, we can just run the gradlew commands and it will do all of this. You may try that first. cd into android.
+   1. `./gradlew clean`
+   2. `./gradlew assembleRelease`
+
 
 1. Generate the Index File ``react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res/ ``
 
-2. Go into android folder, ``cd android``
+// This step is nessassary or you will get errors, we must remove it because gradlew will automatically copy the files themselves.
+2. `rm -rf ./android/app/src/main/res/drawable-*` + `rm -rf ./android/app/src/main/res/raw` `
+
+3. Go into android folder, ``cd android``
 
 
- !!!! IMPORTANT, you need the keys from google drive to get it.
+4. IMPORTANT, you need the keys from google drive to get it.
     // https://drive.google.com/file/d/1avJ6oeOsNJWfSSlyAt_K0fVgIYsRq4Sr/view?usp=sharing
     copy and paste to your android. This is the keystore passwords etc. Without this it will not work
     These do no get pushed to the repo, therefore you download and get it yourself
-3. Build using gradlew ``./gradlew assembleRelease``
 
-4. You can find the generated APK at android/app/build/outputs/apk/app-release.apk.
+5. Build using gradlew ``./gradlew assembleRelease``
+
+6. You can find the generated APK at android/app/build/outputs/apk/app-release.apk.
 
 
 ## Google Play Signing & Uploading
@@ -76,6 +84,10 @@ signingConfigs {
 
 
 ## Android Common Build Errors
+
+1. Android resource linking failed
+    `./gradlew clean`
+    `./gradlew assembleRelease`
 
 
 ### @React Native Camera Errors

@@ -140,6 +140,10 @@ android {
         missingDimensionStrategy 'react-native-camera', 'general'
 
     }
+    dexOptions {
+     incremental true
+     javaMaxHeapSize "4g"
+    }
     splits {
         abi {
             reset()
