@@ -29,7 +29,7 @@ Description:
 1. Generate the Index File ``react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res/ ``
 
 // This step is nessassary or you will get errors, we must remove it because gradlew will automatically copy the files themselves.
-2. `rm -rf ./android/app/src/main/res/drawable-*` + `rm -rf ./android/app/src/main/res/raw` `
+2. `rm -rf ./android/app/src/main/res/drawable-*` + `rm -rf ./android/app/src/main/res/raw` ` There should be mipmap inside the res folder. These are the icons.
 
 3. Go into android folder, ``cd android``
 
