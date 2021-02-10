@@ -4,44 +4,9 @@ Description:
 
 ## Software Dependencies
 
-
-
-
-## How to Start App
-
-### iOS
-In the root directory
-
-Install dependencies: ``npm install``
-In the ios directory
-
-Install Pods: ``gem install cocoapods``
-Install Pods: ``pod install``
-Install xcpretty: ``gem install xcpretty``
-Launch: ```open Sample.xcworkspace```
-
-## ARCHIVING IN XCODE
-
-### FREQUENT ERRORS
- if you need certificates, go to developer and download the certificates onto your computer. Then rebuild.
-
-// Create the bundle first. Run this command to export the assets out and bundle it
-1.``react-native bundle --entry-file index.js --platform ios --dev false --bundle-output ios/main.jsbundle --assets-dest ios``
-!! While this is running. Dont do anything. It may look frozen but its not. Let it finish.  ~~~~~
-
-
-** Change version number in plist file.
-
-2.Open Workspace, Edit the scheme from Xcode like this:
--Product -> Scheme -> Edit Scheme -> Change build Configuration to Release
-
-
-4. Change the build to a real device or a simulator
-
-5. Go to Product -> Archive
-
-6. Once it's done building, Distribute App to store, Done
-
+#### IMPORANTANT
+1. Do not modify anything inside the android folder, unless you are just copy and pasteing the the downloaded keys
+2. If it doesnt work, check your gradle version to make sure its compatiable. React native should just automatically do it already, therefore this issue is rare.
 
 ### Android
 
@@ -50,15 +15,22 @@ Launch: ```open Sample.xcworkspace```
 3. To run from command line try: ``react-native run-android``
 
 
-## To Build Android
+# Do not modify any android files, gradles are set in place already. There is no need to make furthur modifications. If it doesnt work. Check the steps
+## To Build Android ~ THIS IS SIGNED APK
 
+0.1. Run react-native run-android first, if it works then you  can export. 
 
 
 1. Generate the Index File ``react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res/ ``
 
 2. Go into android folder, ``cd android``
 
-3. Build using gradlew ``gradlew assembleRelease``
+
+ !!!! IMPORTANT, you need the keys from google drive to get it.
+    // https://drive.google.com/file/d/1avJ6oeOsNJWfSSlyAt_K0fVgIYsRq4Sr/view?usp=sharing
+    copy and paste to your android. This is the keystore passwords etc. Without this it will not work
+    These do no get pushed to the repo, therefore you download and get it yourself
+3. Build using gradlew ``./gradlew assembleRelease``
 
 4. You can find the generated APK at android/app/build/outputs/apk/app-release.apk.
 
@@ -118,16 +90,6 @@ android {
     }
 }
 ```
-
-### Server
-
-There is a server that the app hits for data. The data is only stored in memory, but it should produce a more realistic environment.
-
-In the server directory
-
-Install nvm and node-4.2.3
-Install dependencies: npm install
-Run it: npm start
 
 ## Notes - Things to add/debug
 - 
