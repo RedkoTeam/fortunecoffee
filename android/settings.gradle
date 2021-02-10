@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 rootProject.name = 'FortuneCoffee'
-=======
-rootProject.name = 'Lunaris'
->>>>>>> 847a05027d2096ec0daf767dbc91b59529e030bb
 
 apply from: '../node_modules/react-native-unimodules/gradle.groovy'
 includeUnimodulesProjects()

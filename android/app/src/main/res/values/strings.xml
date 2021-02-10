@@ -1,8 +1,4 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <resources>
-<<<<<<< HEAD
   <string name="app_name">FortuneCoffee</string>
-=======
-  <string name="app_name">Lunaris</string>
->>>>>>> 847a05027d2096ec0daf767dbc91b59529e030bb
 </resources>
