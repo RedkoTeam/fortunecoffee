@@ -35,7 +35,7 @@ function Onboarding({}){
                 <ImageBackground source={OnboardingBg1} style={styles.virtualOne2}>
                     <View style={{justifyContent:'flex-end',  paddingTop: '45%',  paddingLeft: widthPercentageToDP(3),marginTop: widthPercentageToDP(75)}}>
                         <TouchableOpacity onPress={() => handlePageChange(2)} >
-                            <Image source={Next} style={{resizeMode:'contain',width:widthPercentageToDP(20),height:widthPercentageToDP(8)}}/>
+                            <Image source={Next} style={{width:widthPercentageToDP(17),height:widthPercentageToDP(6)}}/>
                         </TouchableOpacity>
                     </View>
                 </ImageBackground>
@@ -44,25 +44,25 @@ function Onboarding({}){
                 <ImageBackground source={OnboardingBg2} style={styles.virtualOne2}>
                     <View style={{justifyContent:'flex-end',  paddingBottom: '80%',paddingLeft: widthPercentageToDP(5) }}>
                         <TouchableOpacity onPress={() =>  handlePageChange(3)} >
-                            <Image source={Next} style={{resizeMode:'contain',width:widthPercentageToDP(20),height:widthPercentageToDP(8)}}/>
+                            <Image source={Next} style={{width:widthPercentageToDP(17),height:widthPercentageToDP(6)}}/>
                         </TouchableOpacity>
                     </View>
                 </ImageBackground>
             </View>
             <View key="4">
                 <ImageBackground source={OnboardingBg3} style={styles.virtualOne2}>
-                    <View style={{justifyContent:'flex-end', paddingTop:widthPercentageToDP("40%")}}>
+                    <View style={{justifyContent:'flex-end', paddingTop:widthPercentageToDP("70%")}}>
                         <TouchableOpacity onPress={() =>  handlePageChange(4)} >
-                            <Image source={getStarted} style={{resizeMode:'contain',width:widthPercentageToDP(60),height:widthPercentageToDP(12)}}/>
+                            <Image source={getStarted} style={{width:widthPercentageToDP(60),height:widthPercentageToDP(8)}}/>
                         </TouchableOpacity>
                     </View>
                 </ImageBackground>
             </View>
             <View key="5">
                 <ImageBackground source={OnboardingBg4} style={styles.virtualOne2}>
-                    <View style={{justifyContent:'flex-end',paddingTop:widthPercentageToDP("30%")  }}>
+                    <View style={{justifyContent:'flex-end',paddingTop:widthPercentageToDP("80%")  }}>
                         <TouchableOpacity onPress={() => navigation.navigate('HomeH')} >
-                            <Image source={getStarted} style={{resizeMode:'contain', width:widthPercentageToDP(60),height:widthPercentageToDP(10)}}/>
+                            <Image source={getStarted} style={{width:widthPercentageToDP(60),height:widthPercentageToDP(8)}}/>
                         </TouchableOpacity>
                     </View>
                 </ImageBackground>
