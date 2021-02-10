@@ -136,13 +136,8 @@ android {
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
-        versionName "2.0.0"
+        versionName "1.0.28"
         missingDimensionStrategy 'react-native-camera', 'general'
-
-    }
-    dexOptions {
-     incremental true
-     javaMaxHeapSize "4g"
     }
     splits {
         abi {
@@ -159,12 +154,13 @@ android {
             keyAlias 'androiddebugkey'
             keyPassword 'android'
         }
-        release {
-            storeFile file('fortunecoffee.keystore')
-            storePassword 'fortunecoffee'
-            keyAlias 'fortunecoffee'
-            keyPassword 'fortunecoffee'
-    }
+         release {
+              storeFile file('fortunecoffee.keystore')
+              storePassword 'fortunecoffee'
+              keyAlias 'fortunecoffee'
+              keyPassword 'fortunecoffee'
+        }
+
     }
     buildTypes {
         debug {

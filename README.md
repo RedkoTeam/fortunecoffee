@@ -23,6 +23,7 @@ Description:
 #### Newer gradlews, we can just run the gradlew commands and it will do all of this. You may try that first. cd into android.
    1. `./gradlew clean`
    2. `./gradlew assembleRelease`
+   3. If this doesnt work. Then go ahead and do the bottom code. Hopefully it does
 ####
 
 1. Generate the Index File ``react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res/ ``
